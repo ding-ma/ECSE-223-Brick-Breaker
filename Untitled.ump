@@ -72,10 +72,11 @@ class Block
   position.association Block__Game 30,0 9,90;
 }
 
-class BallProperties
+class BallProperties 
 {
   position 445 295 207 56;
   position.association BallProperties__Level 0,13 109,38;
+  Trial
 }
 
 class ArrangemenBlock
