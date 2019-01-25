@@ -14,21 +14,21 @@ class Game
 {
   Name;
     HallOfFame;
-  Int Size;
+  Integer Size;
   1 -- * Level;
 }
 
 class BoardSize
 {
-  Int Size;
+  Integer Size;
   * -- 1 Game;
 }
 
 class Block
 {
   Color Color;
-  Int Worth;
-  Int Size;
+  Integer Worth;
+  Integer Size;
   1 -- * Game;
 }
 
@@ -36,19 +36,19 @@ class Ball
 {
   Color Color;
   Float Speed;
-  Int Size;
+  Integer Size;
   1 -- * Game;
 }
 
 class Level
 {
-  Int Level;
+  Integer Level;
 }
 
 class ArrangemenBlock
 {
   Float Position;
-  Int Number;
+  Integer Number;
   Boolean Randomizer;
   * -- 1 Level;
 }
