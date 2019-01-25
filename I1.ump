@@ -6,7 +6,7 @@ class User
 class Admin
 {
   password;
-* -- * User;
+isA User;
   1 -- * Game;
 }
 
@@ -15,13 +15,14 @@ class Game
   name;
     hallOfFame;
   Int size;
-  1 -- 0..99 Level;
+  1 <@>- 0..99 Level;
 }
+
 
 class BoardSize
 {
   Int size;
-  1 -- 1 Game;
+  1 -<@> 1 Game;
 }
 
 class Block
@@ -29,7 +30,7 @@ class Block
   Color color;
   Int worth;
   Int size;
-  * -- 1 Game;
+  1 -<@> 1 Game;
 }
 
 class Ball
@@ -37,7 +38,7 @@ class Ball
   Color color;
   Float speed;
   Int size;
-  1 -- * Game;
+  1 -<@> 1 Game;
 }
 
 class Level
@@ -55,61 +56,14 @@ class ArrangemenBlock
 
 class BallVelocitty
 {
-  Float speedIncreaseFactor;
+     
+Float speedIncreaseFactor;
   1 -- 1 Level;
 }
 
-//$?[End_of_model]$?
-
-class BoardSize
+class Player
 {
-  position.association BoardSize__Game 30,0 25,90;
-  position 137 354 109 56;
+  password;
+  isA  User;
 }
 
-class Block
-{
-  position.association Block__Game 30,0 9,90;
-}
-
-class BallVelocitty
-{
-  position 445 295 109 56;
-  position.association BallVelocitty__Level 0,13 109,38;
-}
-
-class ArrangemenBlock
-{
-  position 431 82 167 90;
-}
-
-class Level
-{
-  position 244 226 109 56;
-}
-
-class User
-{
-  position 50 30 109 45;
-}
-
-class Admin
-{
-  position 50 130 109 45;
-}
-
-class Game
-{
-  position 50 230 109 45;
-  position.association Game__Level 151,3 0,10;
-}
-
-class Block
-{
-  position 50 430 109 45;
-}
-
-class Ball
-{
-  position 250 30 109 45;
-}
