@@ -1,0 +1,115 @@
+class User
+{
+  UserName;
+  }
+
+class Admin
+{
+  Password;
+1 -- * User;
+  * -- 1 Game;
+}
+
+class Game
+{
+  Name;
+    HallOfFame;
+  Int Size;
+  1 -- * Level;
+}
+
+class BoardSize
+{
+  Int Size;
+  * -- 1 Game;
+}
+
+class Block
+{
+  Color Color;
+  Int Worth;
+  Int Size;
+  1 -- * Game;
+}
+
+class Ball
+{
+  Color Color;
+  Float Speed;
+  Int Size;
+  1 -- * Game;
+}
+
+class Level
+{
+  Int Level;
+}
+
+class ArrangemenBlock
+{
+  Float Position;
+  Int Number;
+  Boolean Randomizer;
+  * -- 1 Level;
+}
+
+class BallProperties
+{
+  Float SpeedIncreaseFactor;
+  1 -- 1 Level;
+}
+
+//$?[End_of_model]$?
+
+class BoardSize
+{
+  position.association BoardSize__Game 30,0 25,90;
+  position 137 354 109 56;
+}
+
+class Block
+{
+  position.association Block__Game 30,0 9,90;
+}
+
+class BallProperties
+{
+  position 445 295 207 56;
+  position.association BallProperties__Level 0,13 109,38;
+}
+
+class ArrangemenBlock
+{
+  position 431 82 167 90;
+}
+
+class Level
+{
+  position 244 226 109 56;
+}
+
+class User
+{
+  position 50 30 109 45;
+}
+
+class Admin
+{
+  position 50 130 109 45;
+}
+
+class Game
+{
+  position 50 230 109 45;
+  position.association Game__Level 151,3 0,10;
+}
+
+class Block
+{
+  position 50 430 109 45;
+}
+
+class Ball
+{
+  position 250 30 109 45;
+}
