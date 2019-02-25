@@ -1,6 +1,12 @@
 package ca.mcgill.ecse223.block.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import ca.mcgill.ecse.btms.application.BtmsApplication;
+import ca.mcgill.ecse.btms.controller.TOBusVehicle;
+import ca.mcgill.ecse.btms.model.BusVehicle;
+import ca.mcgill.ecse.btms.model.Driver;
 
 public class Block223Controller {
 
@@ -62,15 +68,33 @@ public class Block223Controller {
 	// Query methods
 	// ****************************
 	public static List<TOGame> getDesignableGames() {
+		ArrayList<TOGame> games = new ArrayList<TOGame>();
+		for (Game game : Block223Application.getBlock223().getGames()) {
+			//NOT sure about the numberOfBlocks() method. 
+			TOGame toGame = new TOGame(game.getName(), game.numberOfLevels(), game.numberOfBlocks(), 
+					game.getBall().getMinBallSpeedX(),game.getBall().getMinBallSpeedY(), game.getBall().getBallSpeedIncreaseFactor(),
+					game.getPaddle().getMaxPaddleLength(), game.getPaddle().getMinPaddleLength());
+			games.add(toGame);
+		}
+		return games;
 	}
+
 
 	public static TOGame getCurrentDesignableGame() {
 	}
 
 	public static List<TOBlock> getBlocksOfCurrentDesignableGame() {
 	}
-
+	//George
 	public static TOBlock getBlockOfCurrentDesignableGame(int id) throws InvalidInputException {
+		TOBlock gotBlock = null;
+		for (Block block: Block223Application.getBlock223().getGame().getBlocks()) {
+			if (block.getId() == id) {
+				gotBlock = block;
+				break;
+			}
+		}
+		return gotBlock;
 	}
 
 	public List<TOGridCell> getBlocksAtLevelOfCurrentDesignableGame(int level) throws InvalidInputException {
