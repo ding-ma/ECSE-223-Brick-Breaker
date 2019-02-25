@@ -69,9 +69,9 @@ public class Block223Controller {
 	// ****************************
 	public static List<TOGame> getDesignableGames() {
 		ArrayList<TOGame> games = new ArrayList<TOGame>();
-		for (Game game : Block223Application.get().getVehicles()) {
-			TOBusVehicle toBusVehicle = new TOBusVehicle(bus.getLicencePlate());
-			buses.add(toBusVehicle);
+		for (Game game : Block223Application.get().getGames()) {
+			TOGame toGame = new TOGame(bus.getLicencePlate());
+			games.add(toGame);
 		}
 		return games;
 	}
