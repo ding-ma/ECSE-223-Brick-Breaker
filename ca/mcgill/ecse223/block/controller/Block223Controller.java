@@ -69,7 +69,7 @@ public class Block223Controller {
 	// ****************************
 	public static List<TOGame> getDesignableGames() {
 		ArrayList<TOGame> games = new ArrayList<TOGame>();
-		for (Game game : Block223Application.get().getGames()) {
+		for (Game game : Block223Application.getBlock223().getGames()) {
 			//NOT sure about the numberOfBlocks() method. 
 			TOGame toGame = new TOGame(game.getName(), game.numberOfLevels(), game.numberOfBlocks(), 
 					game.getBall().getMinBallSpeedX(),game.getBall().getMinBallSpeedY(), game.getBall().getBallSpeedIncreaseFactor(),
@@ -88,7 +88,7 @@ public class Block223Controller {
 	//George
 	public static TOBlock getBlockOfCurrentDesignableGame(int id) throws InvalidInputException {
 		TOBlock gotBlock = null;
-		for (Block block: Block223Application.getGame().getBlocks()) {
+		for (Block block: Block223Application.getBlock223().getGame().getBlocks()) {
 			if (block.getId() == id) {
 				gotBlock = block;
 				break;
