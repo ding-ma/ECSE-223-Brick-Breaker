@@ -15,6 +15,7 @@ public class Block223Controller {
 	}
 
 	public static void deleteGame(String name) throws InvalidInputException {
+		//TODO
 	}
 
 	public static void selectGame(String name) throws InvalidInputException {
@@ -22,6 +23,7 @@ public class Block223Controller {
 
 	public static void updateGame(String name, int nrLevels, int nrBlocksPerLevel, int minBallSpeedX, int minBallSpeedY,
 			Double ballSpeedIncreaseFactor, int maxPaddleLength, int minPaddleLength) throws InvalidInputException {
+		//TODO
 	}
 
 	public static void addBlock(int red, int green, int blue, int points) throws InvalidInputException {
@@ -78,5 +80,7 @@ public class Block223Controller {
 
 	public static TOUserMode getUserMode() {
 	}
-
-}
+	public static TOGame getGameByName(String name) {
+		
+	}
+} 	
