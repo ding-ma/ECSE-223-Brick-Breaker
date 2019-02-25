@@ -70,11 +70,15 @@ public class Block223Controller {
 	public static List<TOGame> getDesignableGames() {
 		ArrayList<TOGame> games = new ArrayList<TOGame>();
 		for (Game game : Block223Application.get().getGames()) {
-			TOGame toGame = new TOGame(bus.getLicencePlate());
+			//NOT sure about the numberOfBlocks() method. 
+			TOGame toGame = new TOGame(game.getName(), game.numberOfLevels(), game.numberOfBlocks(), 
+					game.getBall().getMinBallSpeedX(),game.getBall().getMinBallSpeedY(), game.getBall().getBallSpeedIncreaseFactor(),
+					game.getPaddle().getMaxPaddleLength(), game.getPaddle().getMinPaddleLength());
 			games.add(toGame);
 		}
 		return games;
 	}
+
 
 	public static TOGame getCurrentDesignableGame() {
 	}
