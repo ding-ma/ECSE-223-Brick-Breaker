@@ -21,7 +21,18 @@ public class Block223Controller {
 	}
 
 	public static void deleteGame(String name) throws InvalidInputException {
-		//TODO
+		Game game = getGameByName(name);
+		if (game != null) {
+			game.deleteGame();
+			try {
+				//BtmsPersistence.save(BtmsApplication.getBtms());
+				//TODO: Save with persistence
+			}
+			catch (RuntimeException e) {
+				throw new InvalidInputException(e.getMessage());
+			}
+		}
+
 	}
 
 	public static void selectGame(String name) throws InvalidInputException {
@@ -104,7 +115,15 @@ public class Block223Controller {
 
 	public static TOUserMode getUserMode() {
 	}
-	public static TOGame getGameByName(String name) {
-		
+
+	public static Game getGameByName(String name) {
+		Game foundGame = null;
+		for (Game game : Block223Application.getBlock223().getGames()) {
+			if (game.getName() == name) {
+				foundGame = game;
+				break;
+			}
+		}
+		return foundGame;
 	}
 } 	
