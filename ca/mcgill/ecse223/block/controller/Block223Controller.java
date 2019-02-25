@@ -1,6 +1,12 @@
 package ca.mcgill.ecse223.block.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import ca.mcgill.ecse.btms.application.BtmsApplication;
+import ca.mcgill.ecse.btms.controller.TOBusVehicle;
+import ca.mcgill.ecse.btms.model.BusVehicle;
+import ca.mcgill.ecse.btms.model.Driver;
 
 public class Block223Controller {
 
@@ -62,6 +68,12 @@ public class Block223Controller {
 	// Query methods
 	// ****************************
 	public static List<TOGame> getDesignableGames() {
+		ArrayList<TOGame> games = new ArrayList<TOGame>();
+		for (Game game : Block223Application.get().getVehicles()) {
+			TOBusVehicle toBusVehicle = new TOBusVehicle(bus.getLicencePlate());
+			buses.add(toBusVehicle);
+		}
+		return games;
 	}
 
 	public static TOGame getCurrentDesignableGame() {
@@ -69,8 +81,16 @@ public class Block223Controller {
 
 	public static List<TOBlock> getBlocksOfCurrentDesignableGame() {
 	}
-
+	//George
 	public static TOBlock getBlockOfCurrentDesignableGame(int id) throws InvalidInputException {
+		TOBlock gotBlock = null;
+		for (Block block: Block223Application.getGame().getBlocks()) {
+			if (block.getId() == id) {
+				gotBlock = block;
+				break;
+			}
+		}
+		return gotBlock;
 	}
 
 	public List<TOGridCell> getBlocksAtLevelOfCurrentDesignableGame(int level) throws InvalidInputException {
