@@ -56,31 +56,31 @@ public class Block223Controller {
         }
 
     }
-
+    //George (Ding this is yours) 
     public static void deleteBlock(int id) throws InvalidInputException {
+    Block block = Block223Application.getCurrentGame().findBlock(id);
+    if (block!=null ) {
+    	block.delete();
+    } 
     }
     
     //George
     public static void updateBlock(int id, int red, int green, int blue, int points) throws InvalidInputException {
-    	for (Block block: Block223Application.getCurrentGame().getBlocks()) {
-			if (block.getId() == id) {
-				break;
-			}
-			block.setRed (red);
-			block.setGreen(green);
-			block.setBlue(blue);
-			block.setPoints(points);
-    }
+    	Block block = Block223Application.getCurrentGame().findBlock(id);
+    	block.setBlue(red);
+    	block.setBlue(green);
+    	block.setBlue(blue);
+    	block.setPoints(points);
     }
     //George
     public static void positionBlock(int id, int level, int gridHorizontalPosition, int gridVerticalPosition)
             throws InvalidInputException {
-    	for (Block block: Block223Application.getCurrentGame().getBlocks()) {
-			if (block.getId() == id) {
-				break;
-			}
+    	Block aBlock = Block223Application.getCurrentGame().findBlock(id);
+    	Level aLevel =  Block223Application.getCurrentGame().getLevel(level-1);
+		BlockAssignment blockAssignment = new BlockAssignment(gridHorizontalPosition, gridVerticalPosition, aLevel,
+					aBlock, Block223Application.getCurrentGame());
     	}
-    }
+   
 
     public static void moveBlock(int level, int oldGridHorizontalPosition, int oldGridVerticalPosition,
                                  int newGridHorizontalPosition, int newGridVerticalPosition) throws InvalidInputException {
@@ -106,6 +106,7 @@ public class Block223Controller {
     // ****************************
     // Query methods
     // ****************************
+    //George
     public static List<TOGame> getDesignableGames() {
         ArrayList<TOGame> games = new ArrayList<TOGame>();
         for (Game game : Block223Application.getBlock223().getGames()) {
@@ -141,12 +142,10 @@ public class Block223Controller {
 				blockAssignment.getBlock().getId(), blockAssignment.getBlock().getRed(), blockAssignment.getBlock().getGreen(),
 				blockAssignment.getBlock().getBlue(), blockAssignment.getBlock().getPoints()) ;
 		gridCells.add(toGridCell);
-		
-	}	
-return gridCells;	
-    
     }
+    return gridCells;   
+    }
+    
     public static TOUserMode getUserMode() {
     }
-
-}
+   
