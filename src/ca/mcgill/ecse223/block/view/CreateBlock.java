@@ -1,4 +1,4 @@
-package ca.mcgill.ecse223.block.view.;
+package ca.mcgill.ecse223.block.view;
 
 import com.sun.javaws.exceptions.ExitException;
 
