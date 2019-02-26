@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import ca.mcgill.ecse223.block.controller.*;
 
 public class CreateBlock extends JFrame {
     public CreateBlock(){
@@ -29,21 +30,18 @@ public class CreateBlock extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String SRed = RedValue.getText();
-                int Red = Integer.parseInt(SRed);
+                int red = Integer.parseInt(SRed);
 
                 String SBlue = BlueValue.getText();
-                int Blue = Integer.parseInt(SBlue);
+                int blue = Integer.parseInt(SBlue);
 
                 String SGreen = GreenValue.getText();
-                int Green = Integer.parseInt(SGreen);
+                int green = Integer.parseInt(SGreen);
 
                 String SPoints = PointValue.getText();
-                int Points = Integer.parseInt(SPoints);
+                int points = Integer.parseInt(SPoints);
 
-                System.out.println("Blue = " + Blue);
-                System.out.println("Red = " + Red);
-                System.out.println("Green = " + Green);
-                System.out.println("Points = " + Points);
+                Block223Controller.addBlock(red, blue, green, points);
             }
         });
         frame.add(CreateButton);
