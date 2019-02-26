@@ -42,7 +42,7 @@ public class Block223Controller {
     }
 
     public static void addBlock(int red, int green, int blue, int points) throws InvalidInputException {
-        Game game = Block223Application.getCurrentGame();
+
         String error = "";
 
         if (red <0){
@@ -71,24 +71,28 @@ public class Block223Controller {
         }
 //admin exception
         throw new InvalidInputException(error);
+        Game game = Block223Application.getCurrentGame();
         try{
             Block block = game.addBlock( red,  green,  blue,  points);
-            for (int i=0; i<game.numberOfBlockAssignments(); i++){
-                game.addBlock(i+1);
 
-            }
+            block.setRed(red);
+            block.setGreen(green);
+            block.setBlue(blue);
+            block.setPoints(points);
+
             Block223Persistence.save(game);
         }
         catch (RuntimeException e){
             error = e.getMessage();
-            if (error.equals("Cannot create due to duplicate number")) {
-                error = "A route with this number already exists. Please use a different number.";
+            if (error.equals("Cannot create block with same ID")) {
+                error = "A ";
             }
             throw new InvalidInputException(error);
         }
     }
 
     public static void deleteBlock(int id) throws InvalidInputException {
+
         if (block !=null) {
             block.delete();
             try {
