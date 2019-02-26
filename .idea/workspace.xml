@@ -1,38 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="69a08ff0-a785-44b2-95da-bf2352921255" name="Default Changelist" comment="Working on add block GUI">
-      <change afterPath="$PROJECT_DIR$/IT3.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ecse223-group-project-p-5.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/.classpath" afterDir="false" />
+    <list default="true" id="69a08ff0-a785-44b2-95da-bf2352921255" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.project" beforeDir="false" afterPath="$PROJECT_DIR$/.project" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Block223 v2.ump" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Block223TransferObjects.ump" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ca/mcgill/ecse223/block/application/Block223Application.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ca/mcgill/ecse223/block/controller/Block223Controller.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ca/mcgill/ecse223/block/controller/TOBlock.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ca/mcgill/ecse223/block/controller/TOGame.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ca/mcgill/ecse223/block/controller/TOGridCell.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ca/mcgill/ecse223/block/controller/TOUserMode.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ca/mcgill/ecse223/block/model/Admin.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ca/mcgill/ecse223/block/model/Ball.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ca/mcgill/ecse223/block/model/Block.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ca/mcgill/ecse223/block/model/Block223.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ca/mcgill/ecse223/block/model/BlockAssignment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ca/mcgill/ecse223/block/model/Game.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ca/mcgill/ecse223/block/model/Level.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ca/mcgill/ecse223/block/model/Paddle.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ca/mcgill/ecse223/block/model/Player.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ca/mcgill/ecse223/block/model/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ca/mcgill/ecse223/block/model/UserRole.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ca/mcgill/ecse223/block/persistence/BtmsPersistence.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ca/mcgill/ecse223/block/persistence/PersistenceObjectStream.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ca/mcgill/ecse223/block/view/CreateBlock.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ca/mcgill/ecse223/block/view/DeleteBlock.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ca/mcgill/ecse223/block/view/MasterUI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/CreateBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/CreateBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/MasterUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/MasterUI.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -159,7 +129,38 @@
     </findStrings>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Ding Ma &lt;43629633+ding-ma@users.noreply.github.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <favorite-branches>
+      <branch-storage>
+        <map>
+          <entry type="REMOTE">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="origin/Ding" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </favorite-branches>
+    <excluded-from-favorite>
+      <branch-storage>
+        <map>
+          <entry type="REMOTE">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="origin/master" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </excluded-from-favorite>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -253,7 +254,7 @@
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH" value="266" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551156783534" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551157168575" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -307,12 +308,20 @@
       <workItem from="1551138498951" duration="4705000" />
       <workItem from="1551147841862" duration="44000" />
       <workItem from="1551155335478" duration="564000" />
-      <workItem from="1551156458446" duration="221000" />
+      <workItem from="1551156458446" duration="537000" />
     </task>
+    <task id="LOCAL-00001" summary="testing git out">
+      <created>1551156832971</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1551156832971</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18541000" />
+    <option name="totallyTimeSpent" value="18857000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
@@ -325,6 +334,7 @@
       <window_info id="UI Designer" order="4" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" sideWeight="0.50174826" side_tool="true" weight="0.23724696" />
+      <window_info anchor="bottom" id="GitHub Pull Requests" weight="0.3290461" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32867134" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -336,7 +346,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Terminal" order="10" />
-      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" weight="0.32867134" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" weight="0.3279743" />
       <window_info anchor="bottom" id="Messages" order="12" weight="0.3279743" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -354,7 +364,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Working on add block GUI" />
-    <option name="LAST_COMMIT_MESSAGE" value="Working on add block GUI" />
+    <MESSAGE value="testing git out" />
+    <option name="LAST_COMMIT_MESSAGE" value="testing git out" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
