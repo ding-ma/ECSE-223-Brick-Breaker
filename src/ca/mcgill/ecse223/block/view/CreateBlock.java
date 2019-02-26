@@ -10,7 +10,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class CreateBlock extends JFrame {
-
+//cant have main over here
     public static void main(String[] args) {
         MasterUI ui = new MasterUI();
 
