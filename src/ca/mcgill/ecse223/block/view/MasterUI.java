@@ -6,7 +6,9 @@ public class MasterUI {
     public MasterUI(){
 
     }
-
     Font font = new Font("Arial", Font.BOLD, 15);
+    DeleteBlock DB = new DeleteBlock();
+    CreateBlock CB = new CreateBlock();
+
 }
 
