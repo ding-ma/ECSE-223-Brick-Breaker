@@ -134,6 +134,13 @@ public class Block223Controller {
         return blocks;
         
     }
+	//George
+	public static TOBlock getBlockOfCurrentDesignableGame(int id) throws InvalidInputException {
+	Block block = Block223Application.getCurrentGame().findBlock(id);
+	TOBlock toBlock = new TOBlock(id, block.getRed(), block.getGreen(), block.getBlue(), block.getPoints());
+	return toBlock;
+	}
+	
     //George
     public List<TOGridCell> getBlocksAtLevelOfCurrentDesignableGame(int level) throws InvalidInputException {
     ArrayList <TOGridCell>  gridCells = new ArrayList<TOGridCell>();
