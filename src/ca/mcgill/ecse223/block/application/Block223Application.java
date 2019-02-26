@@ -22,11 +22,15 @@ public class Block223Application {
 			block223 = new Block223();
 		}
  		return block223;
-	}
+	//George	
+	public static void setCurrentGame (Game aGame) {
+		game = aGame;
+		}
+	
 	//George
 	public static Game getCurrentGame() {
 		if (game == null) {
-			game = new Game(null, 0, null, null, null, block223);
+			return null;
 		}
  		return game;
 		
