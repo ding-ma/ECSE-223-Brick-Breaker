@@ -39,6 +39,20 @@ class Game {
    1 <@>- * BlockAssignment blockAssignments;
    1 <@>- 1 Ball ball;
    1 <@>- 1 Paddle paddle;
+   
+   //George 
+   public Block findBlock(int id){
+   List<Block> blocks = this.getBlocks();
+   for(Block block : blocks){
+   int blockId = block.getId();
+   if(id == blockId){
+   return block;
+   }
+   }
+   return null;
+   }
+   //end
+   
 }
 
 class Block {

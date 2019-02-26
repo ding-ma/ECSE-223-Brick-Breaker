@@ -1,12 +1,10 @@
-package ca.mcgill.ecse223.block.controller.;
+package ca.mcgill.ecse223.block.controller;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ca.mcgill.ecse.btms.application.BtmsApplication;
-import ca.mcgill.ecse.btms.controller.TOBusVehicle;
-import ca.mcgill.ecse.btms.model.BusVehicle;
-import ca.mcgill.ecse.btms.model.Driver;
+import ca.mcgill.ecse223.block.application.*;
+import ca.mcgill.ecse223.block.model.*;
 
 public class Block223Controller {
 
@@ -21,18 +19,6 @@ public class Block223Controller {
     }
 
     public static void deleteGame(String name) throws InvalidInputException {
-        Game game = getGameByName(name);
-        if (game != null) {
-            game.deleteGame();
-            try {
-                //BtmsPersistence.save(BtmsApplication.getBtms());
-                //TODO: Save with persistence
-            }
-            catch (RuntimeException e) {
-                throw new InvalidInputException(e.getMessage());
-            }
-        }
-
     }
 
     public static void selectGame(String name) throws InvalidInputException {
@@ -68,26 +54,32 @@ public class Block223Controller {
         if (points>1000){
             error="value of points have to be smaller or equal to 1000";
         }
-//admin exception
+
     }
 
     public static void deleteBlock(int id) throws InvalidInputException {
-        Block block = Block223Controller.deleteBlock(id);
-        if (block !=null) {
-            block.deleteBlock();
-            try {
-                Block223Persistence.save(Block223Application.getBlock223());
-            } catch (RuntimeException e) {
-                throw new InvalidInputException(e.getMessage());
-            }
-        }
     }
-
+    
+    //George
     public static void updateBlock(int id, int red, int green, int blue, int points) throws InvalidInputException {
+    	for (Block block: Block223Application.getCurrentGame().getBlocks()) {
+			if (block.getId() == id) {
+				break;
+			}
+			block.setRed (red);
+			block.setGreen(green);
+			block.setBlue(blue);
+			block.setPoints(points);
     }
-
+    }
+    //George
     public static void positionBlock(int id, int level, int gridHorizontalPosition, int gridVerticalPosition)
             throws InvalidInputException {
+    	for (Block block: Block223Application.getCurrentGame().getBlocks()) {
+			if (block.getId() == id) {
+				break;
+			}
+    	}
     }
 
     public static void moveBlock(int level, int oldGridHorizontalPosition, int oldGridVerticalPosition,
@@ -128,23 +120,32 @@ public class Block223Controller {
 
 
     public static TOGame getCurrentDesignableGame() {
+    	
     }
-
-    public static List<TOBlock> getBlocksOfCurrentDesignableGame() {
-    }
+    
     //George
     public static List<TOBlock> getBlocksOfCurrentDesignableGame() {
         ArrayList <TOBlock> blocks= new ArrayList<TOBlock>();
-        for (Block block: Block223Application.getBlock223().getCurrentGame().getBlocks()) {
+        for (Block block: Block223Application.getCurrentGame().getBlocks()) {
             TOBlock toBlock =  new TOBlock( block.getId(), block.getRed(), block.getBlue(), block.getGreen(), block.getPoints());
-            TOBlock.add(toBlock);
+            blocks.add(toBlock);
         }
         return blocks;
+        
     }
-
+    //George
     public List<TOGridCell> getBlocksAtLevelOfCurrentDesignableGame(int level) throws InvalidInputException {
+    ArrayList <TOGridCell>  gridCells = new ArrayList<TOGridCell>();
+    for (BlockAssignment blockAssignment : Block223Application.getCurrentGame().getLevel(level-1).getBlockAssignments()) {
+		TOGridCell toGridCell = new TOGridCell (blockAssignment.getGridHorizontalPosition(), blockAssignment.getGridVerticalPosition(),
+				blockAssignment.getBlock().getId(), blockAssignment.getBlock().getRed(), blockAssignment.getBlock().getGreen(),
+				blockAssignment.getBlock().getBlue(), blockAssignment.getBlock().getPoints()) ;
+		gridCells.add(toGridCell);
+		
+	}	
+return gridCells;	
+    
     }
-
     public static TOUserMode getUserMode() {
     }
 
