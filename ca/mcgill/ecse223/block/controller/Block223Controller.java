@@ -21,21 +21,29 @@ public class Block223Controller {
 	}
 
 	public static void deleteGame(String name) throws InvalidInputException {
-		Game game = getGameByName(name);
-		if (game != null) {
-			game.deleteGame();
-			try {
-				//BtmsPersistence.save(BtmsApplication.getBtms());
-				//TODO: Save with persistence
+		String message = "";
+		Game game = findGame(name);
+
+		//UserRole role = getCurrentUserRole()
+		//if(role == admin && game.getAdmin == user) {
+			if (game != null) {
+				Block223Application block223 = getBlock223();
+				game.deleteGame();
+				//try {
+					//BtmsPersistence.save(BtmsApplication.getBtms());
+					//TODO: Save with persistence
+				//}
+				//catch (RuntimeException e) {
+				//	throw new InvalidInputException(e.getMessage());
+				//}
 			}
-			catch (RuntimeException e) {
-				throw new InvalidInputException(e.getMessage());
-			}
-		}
+		//else 
 
 	}
 
 	public static void selectGame(String name) throws InvalidInputException {
+		Game game = findGame(name);
+		//setCurrentGame(game);
 	}
 
 	public static void updateGame(String name, int nrLevels, int nrBlocksPerLevel, int minBallSpeedX, int minBallSpeedY,
@@ -116,7 +124,7 @@ public class Block223Controller {
 	public static TOUserMode getUserMode() {
 	}
 
-	public static Game getGameByName(String name) {
+	public static TOGame findGame() {
 		Game foundGame = null;
 		for (Game game : Block223Application.getBlock223().getGames()) {
 			if (game.getName() == name) {
