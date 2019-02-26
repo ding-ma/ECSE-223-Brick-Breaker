@@ -3,10 +3,9 @@ package ca.mcgill.ecse223.block.controller.;
 import java.util.ArrayList;
 import java.util.List;
 
-import ca.mcgill.ecse.btms.application.BtmsApplication;
-import ca.mcgill.ecse.btms.controller.TOBusVehicle;
-import ca.mcgill.ecse.btms.model.BusVehicle;
-import ca.mcgill.ecse.btms.model.Driver;
+import ca.mcgill.ecse223.block.application.*;
+import ca.mcgill.ecse223.block.model.*;
+import ca.mcgill.ecse223.block.persistence.*;
 
 public class Block223Controller {
 
@@ -21,9 +20,9 @@ public class Block223Controller {
     }
 
     public static void deleteGame(String name) throws InvalidInputException {
-        Game game = getGameByName(name);
+        Game game = getName(name);
         if (game != null) {
-            game.deleteGame();
+            game.delete();
             try {
                 //BtmsPersistence.save(BtmsApplication.getBtms());
                 //TODO: Save with persistence
@@ -43,7 +42,9 @@ public class Block223Controller {
     }
 
     public static void addBlock(int red, int green, int blue, int points) throws InvalidInputException {
+        Game game = Block223Application.getCurrentGame();
         String error = "";
+
         if (red <0){
             error = "value of red has to be greater or equal than 0";
         }
@@ -69,12 +70,27 @@ public class Block223Controller {
             error="value of points have to be smaller or equal to 1000";
         }
 //admin exception
+        throw new InvalidInputException(error);
+        try{
+            Block block = game.addBlock( red,  green,  blue,  points);
+            for (int i=0; i<game.numberOfBlockAssignments(); i++){
+                game.addBlock(i+1);
+
+            }
+            Block223Persistence.save(game);
+        }
+        catch (RuntimeException e){
+            error = e.getMessage();
+            if (error.equals("Cannot create due to duplicate number")) {
+                error = "A route with this number already exists. Please use a different number.";
+            }
+            throw new InvalidInputException(error);
+        }
     }
 
     public static void deleteBlock(int id) throws InvalidInputException {
-        Block block = Block223Controller.deleteBlock(id);
         if (block !=null) {
-            block.deleteBlock();
+            block.delete();
             try {
                 Block223Persistence.save(Block223Application.getBlock223());
             } catch (RuntimeException e) {
@@ -128,6 +144,10 @@ public class Block223Controller {
 
 
     public static TOGame getCurrentDesignableGame() {
+        Game currentGame = Block223Application.getCurrentGame();
+        TOGame toGame = new TOGame(game.getName(), game.getLevels().size(), game.getNrBlocksPerLevel(), game.getBall.getminBallSpeedX(), game.getBall().getminballBallSpeedY(),
+                game.getBall().getBallSpeedIncreaseFactor(), game.getPaddle().getMaxPaddleLength(),game.getPaddle().getMinPaddleLength());
+        return CurrentGame;
     }
 
     public static List<TOBlock> getBlocksOfCurrentDesignableGame() {
@@ -143,9 +163,13 @@ public class Block223Controller {
     }
 
     public List<TOGridCell> getBlocksAtLevelOfCurrentDesignableGame(int level) throws InvalidInputException {
+
     }
 
     public static TOUserMode getUserMode() {
+
     }
+
+
 
 }
