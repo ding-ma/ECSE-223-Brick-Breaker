@@ -21,7 +21,9 @@ public class Block223Application {
 		if (block223 == null) {
 			block223 = new Block223();
 		}
- 		return block223;
+		 return block223;
+	}
+	
 	//George	
 	public static void setCurrentGame (Game aGame) {
 		game = aGame;

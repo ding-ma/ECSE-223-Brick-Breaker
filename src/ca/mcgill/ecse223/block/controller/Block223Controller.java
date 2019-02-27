@@ -19,6 +19,12 @@ public class Block223Controller {
     }
 
     public static void deleteGame(String name) throws InvalidInputException {
+        Game game = findGame(name);
+
+        if (game != null) {
+            Block223 block223 = getBlock223();
+            game.deleteGame();
+        }
     }
 
     public static void selectGame(String name) throws InvalidInputException {
@@ -155,4 +161,15 @@ public class Block223Controller {
     
     public static TOUserMode getUserMode() {
     }
-   
+
+    public static Game findGame(String name) {
+        Game foundGame = null;
+        for (Game game : Block223Application.getBlock223().getGames()) {
+            if (game.getName() == name) {
+                foundGame = game;
+                break;
+            }
+        }
+        return foundGame;
+    }
+}
