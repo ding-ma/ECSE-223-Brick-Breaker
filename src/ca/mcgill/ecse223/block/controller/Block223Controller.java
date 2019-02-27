@@ -1,4 +1,4 @@
-package ca.mcgill.ecse223.block.controller.;
+package ca.mcgill.ecse223.block.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import ca.mcgill.ecse223.block.model.*;
 import ca.mcgill.ecse223.block.persistence.*;
 
 public class Block223Controller {
-
+    private static Game game;
     // ****************************
     // Modifier methods
     // ****************************
@@ -20,7 +20,7 @@ public class Block223Controller {
     }
 
     public static void deleteGame(String name) throws InvalidInputException {
-        Game game = getName(name);
+        Game game = game.getName();
         if (game != null) {
             game.delete();
             try {
@@ -69,7 +69,11 @@ public class Block223Controller {
         if (points>1000){
             error="value of points have to be smaller or equal to 1000";
         }
-//admin exception
+        /* check for admin
+        if (getUserMode() != admin){
+            error="You must be an admin to create a block";
+        }
+        */
         throw new InvalidInputException(error);
         Game game = Block223Application.getCurrentGame();
         try{
@@ -80,7 +84,7 @@ public class Block223Controller {
             block.setBlue(blue);
             block.setPoints(points);
 
-            Block223Persistence.save(game);
+            Block223Persistence.save(block);
         }
         catch (RuntimeException e){
             error = e.getMessage();
@@ -92,9 +96,9 @@ public class Block223Controller {
     }
 
     public static void deleteBlock(int id) throws InvalidInputException {
-
-        if (block !=null) {
-            block.delete();
+        Game game = game.findBlock(id);
+        if (game !=null) {
+            game.delete();
             try {
                 Block223Persistence.save(Block223Application.getBlock223());
             } catch (RuntimeException e) {
@@ -146,7 +150,7 @@ public class Block223Controller {
         return games;
     }
 
-
+    //Ding
     public static TOGame getCurrentDesignableGame() {
         Game currentGame = Block223Application.getCurrentGame();
         TOGame toGame = new TOGame(game.getName(), game.getLevels().size(), game.getNrBlocksPerLevel(), game.getBall.getminBallSpeedX(), game.getBall().getminballBallSpeedY(),
@@ -154,8 +158,6 @@ public class Block223Controller {
         return CurrentGame;
     }
 
-    public static List<TOBlock> getBlocksOfCurrentDesignableGame() {
-    }
     //George
     public static List<TOBlock> getBlocksOfCurrentDesignableGame() {
         ArrayList <TOBlock> blocks= new ArrayList<TOBlock>();
@@ -166,14 +168,30 @@ public class Block223Controller {
         return blocks;
     }
 
+    //George
     public List<TOGridCell> getBlocksAtLevelOfCurrentDesignableGame(int level) throws InvalidInputException {
-
+        ArrayList <TOGridCell>  gridCells = new ArrayList<TOGridCell>();
+        for (BlockAssignment blockAssignment : Block223Application.getCurrentGame().getLevel(level-1).getBlockAssignments()) {
+            TOGridCell toGridCell = new TOGridCell (blockAssignment.getGridHorizontalPosition(), blockAssignment.getGridVerticalPosition(),
+                    blockAssignment.getBlock().getId(), blockAssignment.getBlock().getRed(), blockAssignment.getBlock().getGreen(),
+                    blockAssignment.getBlock().getBlue(), blockAssignment.getBlock().getPoints()) ;
+            gridCells.add(toGridCell);
+        }
+        return gridCells;
     }
 
     public static TOUserMode getUserMode() {
+        Block223Application user = Block223Application.getCurrentUserRole();
+        if (user == null) {
+            TOUserMode toUserMode = new TOUserMode();
+        }
+        if (user == player){
+            TOUserMode toUserMode = new TOUserMode();
+        }
+        if (user == admin){
+            TOUserMode toUserMode = new TOUserMode();
+        }
 
+        return user;
     }
-
-
-
 }

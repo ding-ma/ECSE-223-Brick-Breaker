@@ -22,7 +22,7 @@ public class DeleteBlock extends  JFrame{
     private JComboBox list = new JComboBox();
     private static Block223Controller allblock;
 
-    public void DeleteComponents() {
+    public void BlockDeletion() {
 
 
 

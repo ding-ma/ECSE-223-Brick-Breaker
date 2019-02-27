@@ -11,7 +11,6 @@ public class Block223Application {
 	private static Block223Persistence persistence;
 
 	public static void main(String[] args) {
-		// start UI
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				new Blockpage().setVisible(true);
@@ -25,7 +24,12 @@ public class Block223Application {
 		}
 		return block223;
 	}
-
+	//Ding
+	public static Game resetBlock223() {
+		game = Block223Persistence.load();
+		return game;
+	}
+	//Ding
 	public static Game getCurrentGame() {
 		if (game == null) {
 			throw new IllegalAccessException("This game does not exist");
@@ -34,8 +38,4 @@ public class Block223Application {
 
 	}
 
-	public static BReset resetBlock223() {
-		persistence.load();
-		return 
-	}
 }
