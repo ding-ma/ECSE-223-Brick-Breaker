@@ -10,20 +10,6 @@ import ca.mcgill.ecse223.block.controller.*;
 
 public class CreateBlock extends JFrame {
     public CreateBlock(){
-/*
-bjqwdhqwidwq
-dwqd
-qwd
-wq
-d
-wqd
-qw
-dwq
-d
-wqd
-qw
-d
- */
     }
     private JTextField RedValue = new JTextField();
     private JTextField GreenValue = new JTextField();
