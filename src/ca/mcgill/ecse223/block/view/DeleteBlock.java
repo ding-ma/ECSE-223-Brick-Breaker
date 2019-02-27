@@ -33,6 +33,7 @@ public class DeleteBlock extends  JFrame{
             public void actionPerformed(ActionEvent e){
                 list.getSelectedItem();
                 blockselected.setText(""+list.getSelectedItem());
+                //get the actual block to be deleted
             }
         });
         Box.add(list);

@@ -43,62 +43,27 @@ public class Block223Controller {
 
     public static void addBlock(int red, int green, int blue, int points) throws InvalidInputException {
 
-        String error = "";
-
-        if (red <0){
-            error = "value of red has to be greater or equal than 0";
-        }
-        if (green<0){
-            error = "value of green has to be greater or equal than 0";
-        }
-        if (blue<0){
-            error = "value of blue has to be greater or equal than 0";
-        }
-        if (red >255){
-            error ="value of red has to be smaller or equal to 255";
-        }
-        if (green >255){
-            error ="value of green has to be smaller or equal to 255";
-        }
-        if (blue >255){
-            error ="value of blue has to be smaller or equal to 255";
-        }
-        if (points<0){
-            error = "value of points have to be greater or equal to 0";
-        }
-        if (points>1000){
-            error="value of points have to be smaller or equal to 1000";
-        }
-        /* check for admin
-        if (getUserMode() != admin){
-            error="You must be an admin to create a block";
-        }
-        */
-        throw new InvalidInputException(error);
         Game game = Block223Application.getCurrentGame();
-        try{
-            Block block = game.addBlock( red,  green,  blue,  points);
 
-            block.setRed(red);
-            block.setGreen(green);
-            block.setBlue(blue);
-            block.setPoints(points);
+        Block block = new Block(red, green, blue, points, game);
 
-            Block223Persistence.save(block);
-        }
-        catch (RuntimeException e){
-            error = e.getMessage();
-            if (error.equals("Cannot create block with same ID")) {
-                error = "A ";
-            }
-            throw new InvalidInputException(error);
-        }
+        block.setRed(red);
+        block.setGreen(green);
+        block.setBlue(blue);
+        block.setPoints(points);
+
+       // Block223Persistence.save(block);
+        //TODO add persistence
+        //try catch??
     }
 
+
+
     public static void deleteBlock(int id) throws InvalidInputException {
-        Game game = game.findBlock(id);
-        if (game !=null) {
-            game.delete();
+        Block block = Block223Application.getCurrentGame().findBlock(id);
+        if (block !=null) {
+            block.delete();
+            //TODO save in persistence???
             try {
                 Block223Persistence.save(Block223Application.getBlock223());
             } catch (RuntimeException e) {
@@ -181,17 +146,17 @@ public class Block223Controller {
     }
 
     public static TOUserMode getUserMode() {
-        Block223Application user = Block223Application.getCurrentUserRole();
-        if (user == null) {
+        Block223Application userRole = Block223Application.getCurrentUserRole();
+        if (userRole == null) {
+            TOUserMode toUserMode = new TOUserMode(Block223.);
+        }
+        if (userRole == player){
             TOUserMode toUserMode = new TOUserMode();
         }
-        if (user == player){
-            TOUserMode toUserMode = new TOUserMode();
-        }
-        if (user == admin){
+        if (userRole == admin){
             TOUserMode toUserMode = new TOUserMode();
         }
 
-        return user;
+        return userRole;
     }
 }

@@ -41,7 +41,7 @@ public class CreateBlock extends JFrame {
                 String SPoints = PointValue.getText();
                 int points = Integer.parseInt(SPoints);
 
-                Block223Controller.addBlock(red, blue, green, points);
+                Block223Controller.addBlock(red, green,blue, points);
             }
         });
         frame.add(CreateButton);
