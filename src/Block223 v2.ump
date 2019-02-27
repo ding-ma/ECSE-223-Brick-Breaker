@@ -27,7 +27,7 @@ class Player {
 class Game {
    const Integer MIN_NR_LEVELS = 1;
    const Integer MAX_NR_LEVELS = 99; // this is somewhat redundant because the max multiplicity is enforced by Umple
-   const Integer PLAY_AREA_SIDE = 400; // play area is now constant
+   const Integer PLAY_AREA_SIDE = 390 ; // play area is now constant
    const Integer WALL_PADDING = 10;
    const Integer COLUMNS_PADDING = 5;
    const Integer ROW_PADDING = 2;
@@ -66,6 +66,29 @@ class Block {
    Integer green;
    Integer blue;
    Integer points;
+   
+   //George
+   
+   before constructor, setRed{
+   if(aRed <MIN_COLOR || aRed > MAX_COLOR){
+   throw new RuntimeException ("Red must be between 0 and 255.");
+   }
+}
+	before constructor, setGreen{
+   if(aGreen <MIN_COLOR || aGreen > MAX_COLOR){
+   throw new RuntimeException ("Green must be between 0 and 255.");
+   }
+}
+	before constructor, setBlue{
+   if(aBlue <MIN_COLOR || aBlue > MAX_COLOR){
+   throw new RuntimeException ("Blue must be between 0 and 255.");
+   }
+}
+	before constructor, setPoints{
+   if(aPoints <MIN_POINTS || aPoints > MAX_POINTS){
+   throw new RuntimeException ("Points must be between 1 and 10000.");
+   }
+}
 }
 
 // random attribute not needed anymore
