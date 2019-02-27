@@ -11,13 +11,16 @@ public class Block223Controller {
     // ****************************
     // Modifier methods
     // ****************************
+	
+	//Yanick
     public static void createGame(String name) throws InvalidInputException {
     }
-
+    //Yanick
     public static void setGameDetails(int nrLevels, int nrBlocksPerLevel, int minBallSpeedX, int minBallSpeedY,
                                       Double ballSpeedIncreaseFactor, int maxPaddleLength, int minPaddleLength) throws InvalidInputException {
     }
-
+    //done 
+    //TODO exception
     public static void deleteGame(String name) throws InvalidInputException {
         Game game = findGame(name);
 
@@ -26,43 +29,24 @@ public class Block223Controller {
             game.deleteGame();
         }
     }
-
+    
+    //Anne-Julie
     public static void selectGame(String name) throws InvalidInputException {
     }
-
+    //Anne-Julie
     public static void updateGame(String name, int nrLevels, int nrBlocksPerLevel, int minBallSpeedX, int minBallSpeedY,
                                   Double ballSpeedIncreaseFactor, int maxPaddleLength, int minPaddleLength) throws InvalidInputException {
     }
-
+    //done
+    //TODO exception
     public static void addBlock(int red, int green, int blue, int points) throws InvalidInputException {
-        String error = "";
-        if (red <0){
-            error = "value of red has to be greater or equal than 0";
-        }
-        if (green<0){
-            error = "value of green has to be greater or equal than 0";
-        }
-        if (blue<0){
-            error = "value of blue has to be greater or equal than 0";
-        }
-        if (red >255){
-            error ="value of red has to be smaller or equal to 255";
-        }
-        if (green >255){
-            error ="value of green has to be smaller or equal to 255";
-        }
-        if (blue >255){
-            error ="value of blue has to be smaller or equal to 255";
-        }
-        if (points<0){
-            error = "value of points have to be greater or equal to 0";
-        }
-        if (points>1000){
-            error="value of points have to be smaller or equal to 1000";
-        }
-
+    	
+    	Game game = Block223Application.getCurrentGame();
+            Block block = new Block( red, green,  blue,  points, game);
     }
-    //George (Ding this is yours) 
+    //done
+    //TODO exception
+    //Question about the persistence 
     public static void deleteBlock(int id) throws InvalidInputException {
     Block block = Block223Application.getCurrentGame().findBlock(id);
     if (block!=null ) {
@@ -71,14 +55,29 @@ public class Block223Controller {
     }
     
     //George
+    //TODO exception
     public static void updateBlock(int id, int red, int green, int blue, int points) throws InvalidInputException {
+    	String error = "";
     	Block block = Block223Application.getCurrentGame().findBlock(id);
-    	block.setBlue(red);
-    	block.setBlue(green);
-    	block.setBlue(blue);
-    	block.setPoints(points);
+    	if (block == null) {
+			error = "A block with this id does not exist. ";
+		}
+    		   for(Block ablock : Block223Application.getCurrentGame().getBlocks()){
+    		   if(red == ablock.getRed()&& green == ablock.getGreen() && blue == ablock.getBlue()){
+    			error = "A block with this the same color already exists. ";
+    		    break;
+    		   }
+     		   else {
+     		    	block.setBlue(red);
+     		    	block.setBlue(green);
+     		    	block.setBlue(blue);
+     		    	block.setPoints(points);
+    		   }
+   
+    }
     }
     //George
+    //TODO exception.
     public static void positionBlock(int id, int level, int gridHorizontalPosition, int gridVerticalPosition)
             throws InvalidInputException {
     	Block aBlock = Block223Application.getCurrentGame().findBlock(id);
@@ -87,25 +86,25 @@ public class Block223Controller {
 					aBlock, Block223Application.getCurrentGame());
     	}
    
-
+    //Mert
     public static void moveBlock(int level, int oldGridHorizontalPosition, int oldGridVerticalPosition,
                                  int newGridHorizontalPosition, int newGridVerticalPosition) throws InvalidInputException {
     }
-
+    //Mert
     public static void removeBlock(int level, int gridHorizontalPosition, int gridVerticalPosition)
             throws InvalidInputException {
     }
-
+    //Mairead
     public static void saveGame() throws InvalidInputException {
     }
-
+    //Mairead
     public static void register(String username, String playerPassword, String adminPassword)
             throws InvalidInputException {
     }
-
+    //Mairead
     public static void login(String username, String password) throws InvalidInputException {
     }
-
+    //Mairead
     public static void logout() {
     }
 
@@ -127,7 +126,11 @@ public class Block223Controller {
 
 
     public static TOGame getCurrentDesignableGame() {
-    	
+    	Game game = Block223Application.getCurrentGame();
+        TOGame toGame = new TOGame(game.getName(), game.getLevels().size(), game.getNrBlocksPerLevel(),
+        		game.getBall().getMinBallSpeedX(), game.getBall().getMinBallSpeedY(),
+                game.getBall().getBallSpeedIncreaseFactor(), game.getPaddle().getMaxPaddleLength(),game.getPaddle().getMinPaddleLength());
+        return toGame;	
     }
     
     //George
@@ -137,16 +140,14 @@ public class Block223Controller {
             TOBlock toBlock =  new TOBlock( block.getId(), block.getRed(), block.getBlue(), block.getGreen(), block.getPoints());
             blocks.add(toBlock);
         }
-        return blocks;
-        
+        return blocks;   
     }
-	//George
+    //George
 	public static TOBlock getBlockOfCurrentDesignableGame(int id) throws InvalidInputException {
-	Block block = Block223Application.getCurrentGame().findBlock(id);
-	TOBlock toBlock = new TOBlock(id, block.getRed(), block.getGreen(), block.getBlue(), block.getPoints());
-	return toBlock;
-	}
-	
+		Block block = Block223Application.getCurrentGame().findBlock(id);
+		TOBlock toBlock = new TOBlock(id, block.getRed(), block.getGreen(), block.getBlue(), block.getPoints());
+		return toBlock;
+		}
     //George
     public List<TOGridCell> getBlocksAtLevelOfCurrentDesignableGame(int level) throws InvalidInputException {
     ArrayList <TOGridCell>  gridCells = new ArrayList<TOGridCell>();
@@ -159,8 +160,11 @@ public class Block223Controller {
     return gridCells;   
     }
     
+    //Mairead
     public static TOUserMode getUserMode() {
+    	
     }
+
 
     public static Game findGame(String name) {
         Game foundGame = null;
@@ -172,4 +176,5 @@ public class Block223Controller {
         }
         return foundGame;
     }
+
 }
