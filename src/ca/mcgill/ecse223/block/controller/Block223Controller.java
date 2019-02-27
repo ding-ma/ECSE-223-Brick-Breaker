@@ -52,9 +52,13 @@ public class Block223Controller {
         block.setBlue(blue);
         block.setPoints(points);
 
-       // Block223Persistence.save(block);
-        //TODO add persistence
-        //try catch??
+        try{
+            //Block223Persistence.save(block);
+            //TODO add persistence
+        }
+        catch (RuntimeException e){
+            throw new InvalidInputException(e.getMessage());
+        }
     }
 
 
@@ -117,10 +121,10 @@ public class Block223Controller {
 
     //Ding
     public static TOGame getCurrentDesignableGame() {
-        Game currentGame = Block223Application.getCurrentGame();
-        TOGame toGame = new TOGame(game.getName(), game.getLevels().size(), game.getNrBlocksPerLevel(), game.getBall.getminBallSpeedX(), game.getBall().getminballBallSpeedY(),
+        Game game = Block223Application.getCurrentGame();
+        TOGame toGame = new TOGame(game.getName(), game.getLevels().size(), game.getNrBlocksPerLevel(), game.getBall().getMinBallSpeedX(), game.getBall().getMinBallSpeedY(),
                 game.getBall().getBallSpeedIncreaseFactor(), game.getPaddle().getMaxPaddleLength(),game.getPaddle().getMinPaddleLength());
-        return CurrentGame;
+        return toGame;
     }
 
     //George
