@@ -23,7 +23,7 @@ public class Game
   /**
    * play area is now constant
    */
-  public static final int PLAY_AREA_SIDE = 400;
+  public static final int PLAY_AREA_SIDE = 390;
   public static final int WALL_PADDING = 10;
   public static final int COLUMNS_PADDING = 5;
   public static final int ROW_PADDING = 2;
@@ -605,7 +605,8 @@ public class Game
   /**
    * George
    */
-  // line 46 "../../../../../../../../ump/tmp209037/model.ump"
+
+  // line 45 "../../../../../Block223 v2.ump"
    public Block findBlock(int id){
     List<Block> blocks = this.getBlocks();
    for(Block block : blocks){

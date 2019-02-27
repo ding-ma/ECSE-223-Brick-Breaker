@@ -4,8 +4,9 @@
 package ca.mcgill.ecse223.block.model;
 import java.util.*;
 
-// line 59 "../../../../../../../../ump/tmp209037/model.ump"
-// line 133 "../../../../../../../../ump/tmp209037/model.ump"
+
+// line 58 "../../../../../Block223 v2.ump"
+
 public class Block
 {
 
@@ -43,6 +44,26 @@ public class Block
 
   public Block(int aRed, int aGreen, int aBlue, int aPoints, Game aGame)
   {
+    // line 73 "../../../../../Block223 v2.ump"
+    if(aRed <MIN_COLOR || aRed > MAX_COLOR){
+       throw new RuntimeException ("Red must be between 0 and 255.");
+       }
+    // END OF UMPLE BEFORE INJECTION
+    // line 78 "../../../../../Block223 v2.ump"
+    if(aGreen <MIN_COLOR || aGreen > MAX_COLOR){
+       throw new RuntimeException ("Green must be between 0 and 255.");
+       }
+    // END OF UMPLE BEFORE INJECTION
+    // line 83 "../../../../../Block223 v2.ump"
+    if(aBlue <MIN_COLOR || aBlue > MAX_COLOR){
+       throw new RuntimeException ("Blue must be between 0 and 255.");
+       }
+    // END OF UMPLE BEFORE INJECTION
+    // line 88 "../../../../../Block223 v2.ump"
+    if(aPoints <MIN_POINTS || aPoints > MAX_POINTS){
+       throw new RuntimeException ("Points must be between 1 and 10000.");
+       }
+    // END OF UMPLE BEFORE INJECTION
     red = aRed;
     green = aGreen;
     blue = aBlue;
@@ -63,6 +84,11 @@ public class Block
   public boolean setRed(int aRed)
   {
     boolean wasSet = false;
+    // line 73 "../../../../../Block223 v2.ump"
+    if(aRed <MIN_COLOR || aRed > MAX_COLOR){
+       throw new RuntimeException ("Red must be between 0 and 255.");
+       }
+    // END OF UMPLE BEFORE INJECTION
     red = aRed;
     wasSet = true;
     return wasSet;
@@ -71,6 +97,11 @@ public class Block
   public boolean setGreen(int aGreen)
   {
     boolean wasSet = false;
+    // line 78 "../../../../../Block223 v2.ump"
+    if(aGreen <MIN_COLOR || aGreen > MAX_COLOR){
+       throw new RuntimeException ("Green must be between 0 and 255.");
+       }
+    // END OF UMPLE BEFORE INJECTION
     green = aGreen;
     wasSet = true;
     return wasSet;
@@ -79,6 +110,11 @@ public class Block
   public boolean setBlue(int aBlue)
   {
     boolean wasSet = false;
+    // line 83 "../../../../../Block223 v2.ump"
+    if(aBlue <MIN_COLOR || aBlue > MAX_COLOR){
+       throw new RuntimeException ("Blue must be between 0 and 255.");
+       }
+    // END OF UMPLE BEFORE INJECTION
     blue = aBlue;
     wasSet = true;
     return wasSet;
@@ -87,6 +123,11 @@ public class Block
   public boolean setPoints(int aPoints)
   {
     boolean wasSet = false;
+    // line 88 "../../../../../Block223 v2.ump"
+    if(aPoints <MIN_POINTS || aPoints > MAX_POINTS){
+       throw new RuntimeException ("Points must be between 1 and 10000.");
+       }
+    // END OF UMPLE BEFORE INJECTION
     points = aPoints;
     wasSet = true;
     return wasSet;
