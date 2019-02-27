@@ -17,6 +17,7 @@ public class Block223Application {
             }
         });
 	}
+
 	//Done
 	public static Block223 getBlock223() {
 		if (block223 == null) {
@@ -35,7 +36,7 @@ public class Block223Application {
 	//TODO: Return an error when the game is null.
 	public static Game getCurrentGame() {
 		if (game == null) {
-			game = new Game(null, 0, null, null, null, block223);
+			return null;
 		}
  		return game;
 		

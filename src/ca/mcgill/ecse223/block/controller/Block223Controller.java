@@ -11,27 +11,36 @@ public class Block223Controller {
     // ****************************
     // Modifier methods
     // ****************************
+	
+	//Yanick
     public static void createGame(String name) throws InvalidInputException {
     }
-
+    //Yanick
     public static void setGameDetails(int nrLevels, int nrBlocksPerLevel, int minBallSpeedX, int minBallSpeedY,
                                       Double ballSpeedIncreaseFactor, int maxPaddleLength, int minPaddleLength) throws InvalidInputException {
     }
-
+    //done 
+    //TODO exception
     public static void deleteGame(String name) throws InvalidInputException {
     }
-
+    
+    //Anne-Julie
     public static void selectGame(String name) throws InvalidInputException {
     }
-
+    //Anne-Julie
     public static void updateGame(String name, int nrLevels, int nrBlocksPerLevel, int minBallSpeedX, int minBallSpeedY,
                                   Double ballSpeedIncreaseFactor, int maxPaddleLength, int minPaddleLength) throws InvalidInputException {
     }
-
+    //done
+    //TODO exception
     public static void addBlock(int red, int green, int blue, int points) throws InvalidInputException {
+    	
+    	Game game = Block223Application.getCurrentGame();
+            Block block = new Block( red, green,  blue,  points, game);
     }
-    
-    //George (Ding this is yours) 
+    //done
+    //TODO exception
+    //Question about the persistence 
     public static void deleteBlock(int id) throws InvalidInputException {
     Block block = Block223Application.getCurrentGame().findBlock(id);
     if (block!=null ) {
@@ -40,6 +49,7 @@ public class Block223Controller {
     }
     
     //George
+    //TODO exception
     public static void updateBlock(int id, int red, int green, int blue, int points) throws InvalidInputException {
     	String error = "";
     	Block block = Block223Application.getCurrentGame().findBlock(id);
@@ -61,6 +71,7 @@ public class Block223Controller {
     }
     }
     //George
+    //TODO exception.
     public static void positionBlock(int id, int level, int gridHorizontalPosition, int gridVerticalPosition)
             throws InvalidInputException {
     	Block aBlock = Block223Application.getCurrentGame().findBlock(id);
@@ -69,25 +80,25 @@ public class Block223Controller {
 					aBlock, Block223Application.getCurrentGame());
     	}
    
-
+    //Mert
     public static void moveBlock(int level, int oldGridHorizontalPosition, int oldGridVerticalPosition,
                                  int newGridHorizontalPosition, int newGridVerticalPosition) throws InvalidInputException {
     }
-
+    //Mert
     public static void removeBlock(int level, int gridHorizontalPosition, int gridVerticalPosition)
             throws InvalidInputException {
     }
-
+    //Mairead
     public static void saveGame() throws InvalidInputException {
     }
-
+    //Mairead
     public static void register(String username, String playerPassword, String adminPassword)
             throws InvalidInputException {
     }
-
+    //Mairead
     public static void login(String username, String password) throws InvalidInputException {
     }
-
+    //Mairead
     public static void logout() {
     }
 
@@ -143,6 +154,7 @@ public class Block223Controller {
     return gridCells;   
     }
     
+    //Mairead
     public static TOUserMode getUserMode() {
     	
     }
