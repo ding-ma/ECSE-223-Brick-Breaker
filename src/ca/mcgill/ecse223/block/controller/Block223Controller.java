@@ -23,16 +23,13 @@ public class Block223Controller {
     //done 
     //TODO exception
     public static void deleteGame(String name) throws InvalidInputException {
-        Game game = game.getName();
+
+        Game game = findGame(name);
+
         if (game != null) {
-            game.delete();
-            try {
-                //BtmsPersistence.save(BtmsApplication.getBtms());
-                //TODO: Save with persistence
-            }
-            catch (RuntimeException e) {
-                throw new InvalidInputException(e.getMessage());
-            }
+            Block223 block223 = getBlock223();
+            game.deleteGame();
+        }
     }
     
     //Anne-Julie

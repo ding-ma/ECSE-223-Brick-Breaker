@@ -4,6 +4,19 @@ class Block223 {
    1 <@>- * User users;
    1 <@>- * UserRole roles;
    1 <@>- * Game games;
+
+   //Anne-Julie 
+   public Block findGame(String name){
+   List<Game> games = this.getgames();
+   for(Game game : games){
+   String gameNAme = game.getName();
+   if(name == gameName){
+   return game;
+   }
+   }
+   return null;
+   }
+   //end
 }
 
 class User {
