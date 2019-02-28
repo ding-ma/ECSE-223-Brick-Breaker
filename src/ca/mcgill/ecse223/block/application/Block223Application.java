@@ -16,7 +16,8 @@ public class Block223Application {
 		// start UI
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MasterUI().setVisible(true);
+                Login login = new Login();
+                login.login();
             }
         });
 	}
