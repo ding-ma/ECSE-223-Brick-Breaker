@@ -4,8 +4,8 @@
 package ca.mcgill.ecse223.block.model;
 import java.util.*;
 
-// line 10 "../../../../../../../../ump/tmp209037/model.ump"
-// line 103 "../../../../../../../../ump/tmp209037/model.ump"
+// line 10 "../../../../../../../../ump/tmp275904/model.ump"
+// line 126 "../../../../../../../../ump/tmp275904/model.ump"
 public class User
 {
 

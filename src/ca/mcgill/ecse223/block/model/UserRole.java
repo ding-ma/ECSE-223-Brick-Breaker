@@ -3,8 +3,8 @@
 
 package ca.mcgill.ecse223.block.model;
 
-// line 15 "../../../../../../../../ump/tmp209037/model.ump"
-// line 108 "../../../../../../../../ump/tmp209037/model.ump"
+// line 15 "../../../../../../../../ump/tmp275904/model.ump"
+// line 131 "../../../../../../../../ump/tmp275904/model.ump"
 public abstract class UserRole
 {
 
