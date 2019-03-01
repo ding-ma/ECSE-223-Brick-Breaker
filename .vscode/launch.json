@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Block223Application",
+            "request": "launch",
+            "mainClass": "Block223Application",
+            "projectName": "ecse223-group-project-p-5"
+        }
+    ]
+}

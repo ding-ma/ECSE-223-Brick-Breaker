@@ -34,6 +34,25 @@ public class Block223Controller {
     
     //Anne-Julie
     public static void selectGame(String name) throws InvalidInputException {
+        String error = "";
+
+        if(getCurrentUserRole().toString() != "admin") {
+            error = "Admin privileges are required to select a game.";
+            throw new InvalidInputException(error);
+        }
+
+        Game game = Game.findGame(name);
+
+        if(game.getAdmin().toString() != getCurrentUser().toString()) {
+            error = "Only the admin who reated the game can select the game.";
+            throw new InvalidInputException(error);
+        }
+
+        if(game == null) {
+            error = "A game with name " + name+ " does not exist.";
+        }
+        
+        setCurrentGame(game);
     }
     //Anne-Julie
     public static void updateGame(String name, int nrLevels, int nrBlocksPerLevel, int minBallSpeedX, int minBallSpeedY,
@@ -179,7 +198,7 @@ public class Block223Controller {
 		return toBlock;
 		}
     //George
-    public List<TOGridCell> getBlocksAtLevelOfCurrentDesignableGame(int level) throws InvalidInputException {
+    public static List<TOGridCell> getBlocksAtLevelOfCurrentDesignableGame(int level) throws InvalidInputException {
     ArrayList <TOGridCell>  gridCells = new ArrayList<TOGridCell>();
     for (BlockAssignment blockAssignment : Block223Application.getCurrentGame().getLevel(level-1).getBlockAssignments()) {
 		TOGridCell toGridCell = new TOGridCell (blockAssignment.getGridHorizontalPosition(), blockAssignment.getGridVerticalPosition(),
