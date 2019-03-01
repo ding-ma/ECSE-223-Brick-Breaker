@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.Base64;
 
 public class BlockScreen {
-    public void BlockSettings(){
+    public void BlockScreen(){
         JFrame frame = new JFrame();
         JLabel label = new JLabel();
         JButton BAdd = new JButton();
