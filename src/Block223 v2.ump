@@ -6,10 +6,10 @@ class Block223 {
    1 <@>- * Game games;
 
    //Anne-Julie 
-   public Block findGame(String name){
-   List<Game> games = this.getgames();
+   public Game findGame(String name){
+   List<Game> games = this.getGames();
    for(Game game : games){
-   String gameNAme = game.getName();
+   String gameName = game.getName();
    if(name == gameName){
    return game;
    }

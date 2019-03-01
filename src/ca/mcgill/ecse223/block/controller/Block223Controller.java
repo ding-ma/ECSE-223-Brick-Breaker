@@ -25,17 +25,21 @@ public class Block223Controller {
     //TODO exception
     public static void deleteGame(String name) throws InvalidInputException {
 
+
         Game game = Block223Application.getBlock223().findGame(name);
 
         if (game != null) {
             Block223 block223 = Block223Application.getBlock223();
+
             game.delete();
         }
+        
     }
     
     //Anne-Julie
     public static void selectGame(String name) throws InvalidInputException {
         String error = "";
+
 
         if(Block223Application.getCurrentUserRole().toString() != "admin") {
             error = "Admin privileges are required to select a game.";
@@ -58,7 +62,44 @@ public class Block223Controller {
     //Anne-Julie
     public static void updateGame(String name, int nrLevels, int nrBlocksPerLevel, int minBallSpeedX, int minBallSpeedY,
                                   Double ballSpeedIncreaseFactor, int maxPaddleLength, int minPaddleLength) throws InvalidInputException {
+
+    String error = "";
+    
+    String role = Block223Application.getCurrentUserRole().toString();
+    if(role != "admin") {
+        error = "Admin privileges are required to select a game.";
+        throw new InvalidInputException(error);
     }
+    Game game = Block223Application.getCurrentGame();
+    if(game == null) {
+        error = "A game must be selected to define game settings.";
+        throw new InvalidInputException(error);
+    }
+    /*if(game.getAdmin().toString() != block223.getUser(1).toString()) {  //TODO what is the index
+            error = "Only the admin who created the game can edit the game settings.";
+            throw new InvalidInputException(error);
+        }*/
+
+    String currentName = game.getName();
+
+    if(name != currentName) {
+        
+        if(!game.setName(name)) {
+            error = "The name of a game must be unique.";
+            throw new InvalidInputException(error);
+        }
+
+        else if(name == null | name.equals("")) { //TODO what does the catch/rethrow mean
+            error = "The name of a game must be specified.";
+            throw new InvalidInputException(error);
+        }
+        game.setName(name);
+    }
+
+    //TODO how does it know which game to update
+    setGameDetails(nrLevels, nrBlocksPerLevel, minBallSpeedX, 
+                        minBallSpeedY, ballSpeedIncreaseFactor, maxPaddleLength, minPaddleLength);
+                                }
     //done
     //TODO exception
     public static void addBlock(int red, int green, int blue, int points) throws InvalidInputException {
@@ -266,6 +307,7 @@ public class Block223Controller {
         if(userRole == null) {
 
             to.setMode(Mode.None);
+
         }
         else if(userRole instanceof Player) {
 
@@ -274,6 +316,7 @@ public class Block223Controller {
         else if(userRole instanceof Admin) {
             to.setMode(Mode.Design);
         }
+
 
         return to;
     }

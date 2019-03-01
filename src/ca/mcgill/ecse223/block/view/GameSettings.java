@@ -21,7 +21,7 @@ public class GameSettings {
             @Override
             public void actionPerformed(ActionEvent e) {
                 BlockScreen BS = new BlockScreen();
-                BS.BlockSettings();
+                BS.BlockScreen();
             }
         });
         frame.add(Bblock);
