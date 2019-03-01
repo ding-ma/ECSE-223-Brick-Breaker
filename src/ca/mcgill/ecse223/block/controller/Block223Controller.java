@@ -103,18 +103,38 @@ public class Block223Controller {
     //done
     //TODO exception
     public static void addBlock(int red, int green, int blue, int points) throws InvalidInputException {
+
+        String error = "";
+
+        if(red<0||blue<0||green<0){
+            error += "Color needs to be greater than 0";
+        }
+        if (points<0){
+            error += "points need to be greater than 0";
+        }
+        if (points>1000){
+            error += "points need to be smaller than 0";
+        }
+
+        if (error.length()>0)
+            throw new InvalidInputException(error.trim());
+
         Game game = Block223Application.getCurrentGame();
 
-        Block block = new Block(red, green, blue, points, game);
+        try{
+            Block block = new Block(red, green, blue, points, game);
+            block.setRed(red);
+            block.setGreen(green);
+            block.setBlue(blue);
+            block.setPoints(points);
+            Block223Persistence.save(Block223Application.getBlock223());
 
-        block.setRed(red);
-        block.setGreen(green);
-        block.setBlue(blue);
-        block.setPoints(points);
+        }
+        catch (RuntimeException e){
+            error = e.getMessage();
+            throw new InvalidInputException(error);
+        }
 
-       // Block223Persistence.save(block);
-        //TODO add persistence
-        //try catch??
     }
 
 
@@ -128,6 +148,7 @@ public class Block223Controller {
                 Block223Persistence.save(Block223Application.getBlock223());
             } catch (RuntimeException e) {
                 throw new InvalidInputException(e.getMessage());
+
             }
         }
     	

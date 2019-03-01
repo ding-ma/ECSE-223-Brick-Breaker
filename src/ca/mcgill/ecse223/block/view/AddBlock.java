@@ -41,9 +41,12 @@ public class AddBlock {
                 System.out.println("blue = " + blue);
                 System.out.println("red = " + red);
 
-                Block223Controller block223Controller = new Block223Controller();
-                block223Controller.addBlock(red,green,blue,points);
-
+                try {
+                    Block223Controller.addBlock(red, green, blue, points);
+                }
+                catch (InvalidInputException a){
+                    a.printStackTrace();
+                }
             }
         });
         frame.add(CreateButton);
