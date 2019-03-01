@@ -45,7 +45,7 @@ public class DeleteBlock {
                 public void actionPerformed(ActionEvent e) {
                     System.out.println(list.getSelectedItem());
                     Block223Controller block223Controller = new Block223Controller();
-                    block223Controller.deleteBlock(id);
+                    block223Controller.getCurrentDesignableGame().delete();
 
                     RefreshData refreshData = new RefreshData();
                     refreshData.RefreshData();
