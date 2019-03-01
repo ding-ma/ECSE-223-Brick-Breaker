@@ -32,6 +32,25 @@ public class Block223Controller {
     
     //Anne-Julie
     public static void selectGame(String name) throws InvalidInputException {
+        String error = "";
+
+        if(getCurrentUserRole().toString() != "admin") {
+            error = "Admin privileges are required to select a game.";
+            throw new InvalidInputException(error);
+        }
+
+        Game game = Game.findGame(name);
+
+        if(game.getAdmin().toString() != getCurrentUser().toString()) {
+            error = "Only the admin who reated the game can select the game.";
+            throw new InvalidInputException(error);
+        }
+
+        if(game == null) {
+            error = "A game with name " + name+ " does not exist.";
+        }
+        
+        setCurrentGame(game);
     }
     //Anne-Julie
     public static void updateGame(String name, int nrLevels, int nrBlocksPerLevel, int minBallSpeedX, int minBallSpeedY,
@@ -123,7 +142,6 @@ public class Block223Controller {
         }
         return games;
     }
-
 
     public static TOGame getCurrentDesignableGame() {
     	Game game = Block223Application.getCurrentGame();
