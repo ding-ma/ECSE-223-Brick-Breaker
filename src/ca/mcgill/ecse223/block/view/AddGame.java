@@ -12,6 +12,9 @@ public class AddGame {
         label.setBounds(0,0,400,50);
         frame.add(label);
 
+
+
+
         frame.setSize(300,400);
         frame.setLayout(null);
         frame.setVisible(true);

@@ -43,6 +43,9 @@ public class AddBlock {
 
                 try {
                     Block223Controller.addBlock(red, green, blue, points);
+                    BlockScreen blockScreen = new BlockScreen();
+                  //  blockScreen.RefreshBlockScreen();
+
                 }
                 catch (InvalidInputException a){
                     a.printStackTrace();

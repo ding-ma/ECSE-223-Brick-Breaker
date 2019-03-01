@@ -47,9 +47,7 @@ public class DeleteBlock {
                     Block223Controller block223Controller = new Block223Controller();
                     block223Controller.getCurrentDesignableGame().delete();
 
-                    RefreshData refreshData = new RefreshData();
-                    refreshData.RefreshData();
-
+                    //TODO ADD REFRESH
                 }
             });
             blockselected.setEditable(false);
