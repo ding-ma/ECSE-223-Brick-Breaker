@@ -6,6 +6,7 @@ import java.util.List;
 import ca.mcgill.ecse223.block.application.*;
 import ca.mcgill.ecse223.block.model.*;
 import ca.mcgill.ecse223.block.persistence.*;
+import ca.mcgill.ecse223.block.controller.TOUserMode.Mode;
 
 public class Block223Controller {
     private static Game game;
@@ -34,6 +35,25 @@ public class Block223Controller {
     
     //Anne-Julie
     public static void selectGame(String name) throws InvalidInputException {
+        String error = "";
+
+        if(getCurrentUserRole().toString() != "admin") {
+            error = "Admin privileges are required to select a game.";
+            throw new InvalidInputException(error);
+        }
+
+        Game game = Game.findGame(name);
+
+        if(game.getAdmin().toString() != getCurrentUser().toString()) {
+            error = "Only the admin who reated the game can select the game.";
+            throw new InvalidInputException(error);
+        }
+
+        if(game == null) {
+            error = "A game with name " + name+ " does not exist.";
+        }
+
+        setCurrentGame(game);
     }
     //Anne-Julie
     public static void updateGame(String name, int nrLevels, int nrBlocksPerLevel, int minBallSpeedX, int minBallSpeedY,
@@ -125,18 +145,70 @@ public class Block223Controller {
     }
     //Mairead
     public static void saveGame() throws InvalidInputException {
+        Block223 block223 = Block223Application.getBlock223();
+        Block223Persistence.save(block223);
     }
+
     //Mairead
     public static void register(String username, String playerPassword, String adminPassword)
             throws InvalidInputException {
+        Block223 block223 = Block223Application.getBlock223();
+
+        String error = "";
+        UserRole oldRole = Block223Application.getCurrentUserRole();
+
+        if(oldRole != null) {
+            error = "Cannot register while a user is logged in";
+        }
+
+        try {
+            Player player = new Player(playerPassword, block223);
+            User user = new User(username, block223, player);
+            if((adminPassword!=null)&&(adminPassword!="")) {
+                Admin admin = new Admin(adminPassword, block223);
+                //UserRole role = new UserRole(adminPassword, block223);
+                user.addRole(admin);
+            }
+            Block223Persistence.save(block223);
+        }
+        catch(RuntimeException e) {
+            throw new InvalidInputException(e.getMessage());
+        }
     }
     //Mairead
     public static void login(String username, String password) throws InvalidInputException {
+        String error = "";
+        UserRole oldRole = Block223Application.getCurrentUserRole();
+
+        if(oldRole != null) {
+            error = "Cannot register while a user is logged in";
+        }
+
+
+        Block223Application.resetBlock223();
+
+        User user = User.getWithUsername(username);
+        if(user == null) {
+            error = "Username and password do not match";
+        }
+
+        ///List<UserRole> roles = user.getRoles();
+
+        UserRole role = User.findPassword(password, user);
+
+
+        Block223Application.setCurrentUserRole(role);
+
+        if(role == null) {
+            error = "player password needs to be specified";
+        }
+
     }
     //Mairead
     public static void logout() {
+        Block223Application.setCurrentUserRole(null);
+        return;
     }
-
     // ****************************
     // Query methods
     // ****************************
@@ -191,19 +263,24 @@ public class Block223Controller {
     }
     
     //Mairead
-    public static TOUserMode getUserMode() {
-        Block223Application userRole = Block223Application.getCurrentUserRole();
-        if (userRole == null) {
-            TOUserMode toUserMode = new TOUserMode(Block223.);
+    public static TOUserMode getUserMode() { //put in refresh data class
+        UserRole userRole = Block223Application.getCurrentUserRole();
+        Mode i;
+        TOUserMode to = new TOUserMode(Mode.None);
+
+        if(userRole == null) {
+
+            to.setMode(Mode.None);
         }
-        if (userRole == player){
-            TOUserMode toUserMode = new TOUserMode();
+        else if(userRole instanceof Player) {
+
+            to.setMode(Mode.Play);
         }
-        if (userRole == admin){
-            TOUserMode toUserMode = new TOUserMode();
+        else if(userRole instanceof Admin) {
+            to.setMode(Mode.Design);
         }
 
-        return userRole;
+        return to;
     }
 }
 

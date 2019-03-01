@@ -4,8 +4,8 @@
 package ca.mcgill.ecse223.block.model;
 import java.util.*;
 
-// line 10 "../../../../../../../../ump/tmp275904/model.ump"
-// line 126 "../../../../../../../../ump/tmp275904/model.ump"
+// line 24 "../../../../../../../../ump/tmp404732/model.ump"
+// line 154 "../../../../../../../../ump/tmp404732/model.ump"
 public class User
 {
 
@@ -244,6 +244,23 @@ public class User
     {
       placeholderBlock223.removeUser(this);
     }
+  }
+
+
+  /**
+   * Mairead
+   */
+  // line 30 "../../../../../../../../ump/tmp404732/model.ump"
+   public static  UserRole findPassword(String password, User user){
+    List<UserRole> roles = user.getRoles();
+	for(UserRole role : roles) {
+    String rolePassword = role.getPassword();
+    if(password == rolePassword){
+    	return role;
+    	}
+    
+   }
+	return null;
   }
 
 

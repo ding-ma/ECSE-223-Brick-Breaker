@@ -4,8 +4,8 @@
 package ca.mcgill.ecse223.block.model;
 import java.util.*;
 
-// line 28 "../../../../../../../../ump/tmp275904/model.ump"
-// line 146 "../../../../../../../../ump/tmp275904/model.ump"
+// line 56 "../../../../../../../../ump/tmp404732/model.ump"
+// line 174 "../../../../../../../../ump/tmp404732/model.ump"
 public class Game
 {
 
@@ -605,7 +605,7 @@ public class Game
   /**
    * George
    */
-  // line 46 "../../../../../../../../ump/tmp275904/model.ump"
+  // line 74 "../../../../../../../../ump/tmp404732/model.ump"
    public Block findBlock(int id){
     List<Block> blocks = this.getBlocks();
    for(Block block : blocks){

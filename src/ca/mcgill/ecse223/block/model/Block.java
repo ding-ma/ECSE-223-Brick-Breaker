@@ -4,8 +4,8 @@
 package ca.mcgill.ecse223.block.model;
 import java.util.*;
 
-// line 59 "../../../../../../../../ump/tmp275904/model.ump"
-// line 156 "../../../../../../../../ump/tmp275904/model.ump"
+// line 87 "../../../../../../../../ump/tmp404732/model.ump"
+// line 179 "../../../../../../../../ump/tmp404732/model.ump"
 public class Block
 {
 
@@ -43,22 +43,22 @@ public class Block
 
   public Block(int aRed, int aGreen, int aBlue, int aPoints, Game aGame)
   {
-    // line 74 "../../../../../../../../ump/tmp275904/model.ump"
+    // line 102 "../../../../../../../../ump/tmp404732/model.ump"
     if(aRed <MIN_COLOR || aRed > MAX_COLOR){
        throw new RuntimeException ("Red must be between 0 and 255.");
        }
     // END OF UMPLE BEFORE INJECTION
-    // line 79 "../../../../../../../../ump/tmp275904/model.ump"
+    // line 107 "../../../../../../../../ump/tmp404732/model.ump"
     if(aGreen <MIN_COLOR || aGreen > MAX_COLOR){
        throw new RuntimeException ("Green must be between 0 and 255.");
        }
     // END OF UMPLE BEFORE INJECTION
-    // line 84 "../../../../../../../../ump/tmp275904/model.ump"
+    // line 112 "../../../../../../../../ump/tmp404732/model.ump"
     if(aBlue <MIN_COLOR || aBlue > MAX_COLOR){
        throw new RuntimeException ("Blue must be between 0 and 255.");
        }
     // END OF UMPLE BEFORE INJECTION
-    // line 89 "../../../../../../../../ump/tmp275904/model.ump"
+    // line 117 "../../../../../../../../ump/tmp404732/model.ump"
     if(aPoints <MIN_POINTS || aPoints > MAX_POINTS){
        throw new RuntimeException ("Points must be between 1 and 10000.");
        }
@@ -83,7 +83,7 @@ public class Block
   public boolean setRed(int aRed)
   {
     boolean wasSet = false;
-    // line 74 "../../../../../../../../ump/tmp275904/model.ump"
+    // line 102 "../../../../../../../../ump/tmp404732/model.ump"
     if(aRed <MIN_COLOR || aRed > MAX_COLOR){
        throw new RuntimeException ("Red must be between 0 and 255.");
        }
@@ -96,7 +96,7 @@ public class Block
   public boolean setGreen(int aGreen)
   {
     boolean wasSet = false;
-    // line 79 "../../../../../../../../ump/tmp275904/model.ump"
+    // line 107 "../../../../../../../../ump/tmp404732/model.ump"
     if(aGreen <MIN_COLOR || aGreen > MAX_COLOR){
        throw new RuntimeException ("Green must be between 0 and 255.");
        }
@@ -109,7 +109,7 @@ public class Block
   public boolean setBlue(int aBlue)
   {
     boolean wasSet = false;
-    // line 84 "../../../../../../../../ump/tmp275904/model.ump"
+    // line 112 "../../../../../../../../ump/tmp404732/model.ump"
     if(aBlue <MIN_COLOR || aBlue > MAX_COLOR){
        throw new RuntimeException ("Blue must be between 0 and 255.");
        }
@@ -122,7 +122,7 @@ public class Block
   public boolean setPoints(int aPoints)
   {
     boolean wasSet = false;
-    // line 89 "../../../../../../../../ump/tmp275904/model.ump"
+    // line 117 "../../../../../../../../ump/tmp404732/model.ump"
     if(aPoints <MIN_POINTS || aPoints > MAX_POINTS){
        throw new RuntimeException ("Points must be between 1 and 10000.");
        }
