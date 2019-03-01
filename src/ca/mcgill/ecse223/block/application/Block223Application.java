@@ -1,19 +1,23 @@
 package ca.mcgill.ecse223.block.application;
 
 import ca.mcgill.ecse223.block.model.*;
+import ca.mcgill.ecse223.block.persistence.*;
 import ca.mcgill.ecse223.block.view.*;
+
 
 public class Block223Application {
 	
 	private static Block223 block223;
 	private static Game game;
 	private static UserRole userRole;
+
 	
 	public static void main(String[] args) {
 		// start UI
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MasterUI().setVisible(true);
+                Login login = new Login();
+                login.login();
             }
         });
 	}
@@ -25,6 +29,7 @@ public class Block223Application {
 		}
  		return block223;
 	}
+
 	//TODO resetBlock223().
 	public static void resetBlock223() {
 		
@@ -51,6 +56,7 @@ public class Block223Application {
 			return null;
 		}
 		return userRole;
+
 		
 	}
 	

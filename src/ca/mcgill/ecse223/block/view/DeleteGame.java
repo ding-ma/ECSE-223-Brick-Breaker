@@ -1,5 +1,6 @@
 package ca.mcgill.ecse223.block.view;
 
+<<<<<<< HEAD
 import ca.mcgill.ecse223.block.controller.Controller;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
 
@@ -61,4 +62,21 @@ public class DeleteGame extends JFrame {
                 }
             }
         }
+=======
+import javax.swing.*;
+
+public class DeleteGame {
+    public void DeleteGame(){
+        JFrame frame = new JFrame();
+        JLabel label = new JLabel();
+        //TODO Anne-Julie
+        label.setText("Delete Game");
+        label.setBounds(0,0,400,50);
+        frame.add(label);
+
+        frame.setSize(300,400);
+        frame.setLayout(null);
+        frame.setVisible(true);
+    }
+>>>>>>> 987c3e7edc813c5f0178ced66af16391a48fbe86
 }

@@ -1,5 +1,5 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
+/*This code was generated using the UMPLE 1.29.1.4431.02510d71d modeling language!*/
 
 package ca.mcgill.ecse223.block.model;
 import java.util.*;
@@ -8,7 +8,8 @@ import java.util.*;
  * random attribute not needed anymore
  * Each level is filled up with random blocks just before playing the level to reach the nrBlocksPerLevel defined in Game
  */
-// line 96 "../../../../../Block223 v2.ump"
+// line 97 "../../../../../../../../ump/tmp275904/model.ump"
+// line 161 "../../../../../../../../ump/tmp275904/model.ump"
 public class Level
 {
 
