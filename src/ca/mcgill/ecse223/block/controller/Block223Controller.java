@@ -3,22 +3,61 @@ package ca.mcgill.ecse223.block.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.w3c.dom.UserDataHandler;
+
 import ca.mcgill.ecse223.block.application.*;
 import ca.mcgill.ecse223.block.model.*;
 import ca.mcgill.ecse223.block.persistence.*;
 
 public class Block223Controller {
     private static Game game;
+    private Block223 block223;
     // ****************************
     // Modifier methods
     // ****************************
 	
-	//Yanick
-    public static void createGame(String name) throws InvalidInputException {
+	//Yannick
+    public static void createGame(String aName) throws InvalidInputException {
+        String errorMessage;
+        String name = aName;
+
+        Block223 block223 = Block223Application.getBlock223();
+
+        try{
+            findGame(name, block223);
+        } catch(RuntimeException e){
+            System.out.println("The name of a game must be unique");
+        }
+        
+        if(name == null){
+            errorMessage = "The name of the game must be specified";
+            return; 
+        }
+        
+        Block223 aBlock223 = Block223Application.getBlock223();
+        UserRole userRole = Block223Application.getCurrentUserRole();
+
+        if(userRole == null) {
+            System.out.println("userRole not set");
+            return;
+        }
+       
+        //TODO add to list of games
+        
+
     }
-    //Yanick
-    public static void setGameDetails(int nrLevels, int nrBlocksPerLevel, int minBallSpeedX, int minBallSpeedY,
-                                      Double ballSpeedIncreaseFactor, int maxPaddleLength, int minPaddleLength) throws InvalidInputException {
+
+    private static void findGame(String name, Block223 block223) {
+        for (Game game : block223.getGames()) {
+            if (game.getName() == name) {
+                System.out.println("The name of a game must be unique");
+                return;
+            }
+        }
+    }
+    //Yannick
+    public static void setGameDetails(int nrLevels, int nrBlocksPerLevel, int minBallSpeedX, int minBallSpeedY, Double ballSpeedIncreaseFactor, int maxPaddleLength, int minPaddleLength) throws InvalidInputException {
+
     }
     //done 
     //TODO exception
