@@ -1,4 +1,5 @@
 package ca.mcgill.ecse223.block.view;
+import ca.mcgill.ecse223.block.controller.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -40,7 +41,9 @@ public class AddBlock {
                 System.out.println("blue = " + blue);
                 System.out.println("red = " + red);
 
-                //Main.addBlock(red, blue, green, points);
+                Block223Controller block223Controller = new Block223Controller();
+                block223Controller.addBlock(red,green,blue,points);
+
             }
         });
         frame.add(CreateButton);

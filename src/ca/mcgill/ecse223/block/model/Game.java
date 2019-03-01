@@ -4,7 +4,10 @@
 package ca.mcgill.ecse223.block.model;
 import java.util.*;
 
-// line 40 "../../../../../Block223 v2.ump"
+
+// line 56 "../../../../../../../../ump/tmp404732/model.ump"
+// line 174 "../../../../../../../../ump/tmp404732/model.ump"
+
 public class Game
 {
 
@@ -604,7 +607,9 @@ public class Game
   /**
    * George
    */
-  // line 58 "../../../../../Block223 v2.ump"
+
+  // line 74 "../../../../../../../../ump/tmp404732/model.ump"
+
    public Block findBlock(int id){
     List<Block> blocks = this.getBlocks();
    for(Block block : blocks){

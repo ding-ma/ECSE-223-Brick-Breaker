@@ -8,7 +8,10 @@ import java.util.*;
  * random attribute not needed anymore
  * Each level is filled up with random blocks just before playing the level to reach the nrBlocksPerLevel defined in Game
  */
-// line 109 "../../../../../Block223 v2.ump"
+
+// line 125 "../../../../../../../../ump/tmp404732/model.ump"
+// line 184 "../../../../../../../../ump/tmp404732/model.ump"
+
 public class Level
 {
 

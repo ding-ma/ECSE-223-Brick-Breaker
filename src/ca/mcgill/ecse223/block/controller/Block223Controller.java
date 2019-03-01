@@ -6,6 +6,7 @@ import java.util.List;
 import ca.mcgill.ecse223.block.application.*;
 import ca.mcgill.ecse223.block.model.*;
 import ca.mcgill.ecse223.block.persistence.*;
+import ca.mcgill.ecse223.block.controller.TOUserMode.Mode;
 
 public class Block223Controller {
     private static Game game;
@@ -23,17 +24,13 @@ public class Block223Controller {
     //done 
     //TODO exception
     public static void deleteGame(String name) throws InvalidInputException {
-        String error = "";
-        
-        if(Block223Application.getCurrentUserRole().toString() != "admin") {
-            error = "Admin privileges are required to delete a game.";
-            throw new InvalidInputException(error);
-        }
-        
-        Block223 block223 = Block223Application.getBlock223();
-        Game game = block223.findGame(name);
+
+
+        Game game = Block223Application.getBlock223().findGame(name);
 
         if (game != null) {
+            Block223 block223 = Block223Application.getBlock223();
+
             game.delete();
         }
         
@@ -42,26 +39,24 @@ public class Block223Controller {
     //Anne-Julie
     public static void selectGame(String name) throws InvalidInputException {
         String error = "";
-        Block223 block223 = Block223Application.getBlock223();
-        String role = Block223Application.getCurrentUserRole().toString();
-        
-        
-        if(role != "admin") {
+
+
+        if(Block223Application.getCurrentUserRole().toString() != "admin") {
             error = "Admin privileges are required to select a game.";
             throw new InvalidInputException(error);
         }
-        Game game = block223.findGame(name);
-        
-        /*if(game.getAdmin().toString() != block223.getUser(1).toString()) {  //TODO what is the index
-            error = "Only the admin who created the game can select the game.";
+
+        Game game = Block223Application.getBlock223().findGame(name);
+
+        if(game.getAdmin().toString() != Block223Application.getCurrentUserRole().toString()) {
+            error = "Only the admin who reated the game can select the game.";
             throw new InvalidInputException(error);
-        }*/
+        }
 
         if(game == null) {
             error = "A game with name " + name+ " does not exist.";
-            throw new InvalidInputException(error);
         }
-        
+
         Block223Application.setCurrentGame(game);
     }
     //Anne-Julie
@@ -136,18 +131,13 @@ public class Block223Controller {
             }
         }
     	
-    	Game game = Block223Application.getCurrentGame();
-            Block block = new Block( red, green,  blue,  points, game);
+//    	Game game = Block223Application.getCurrentGame();
+//            Block block = new Block( red, green,  blue,  points, game);
     }
     //done
     //TODO exception
     //Question about the persistence 
-    public static void deleteBlock(int id) throws InvalidInputException {
-    Block block = Block223Application.getCurrentGame().findBlock(id);
-    if (block!=null ) {
-    	block.delete();
-    } 
-    }
+
     
     //George
     //TODO exception
@@ -191,18 +181,70 @@ public class Block223Controller {
     }
     //Mairead
     public static void saveGame() throws InvalidInputException {
+        Block223 block223 = Block223Application.getBlock223();
+        Block223Persistence.save(block223);
     }
+
     //Mairead
     public static void register(String username, String playerPassword, String adminPassword)
             throws InvalidInputException {
+        Block223 block223 = Block223Application.getBlock223();
+
+        String error = "";
+        UserRole oldRole = Block223Application.getCurrentUserRole();
+
+        if(oldRole != null) {
+            error = "Cannot register while a user is logged in";
+        }
+
+        try {
+            Player player = new Player(playerPassword, block223);
+            User user = new User(username, block223, player);
+            if((adminPassword!=null)&&(adminPassword!="")) {
+                Admin admin = new Admin(adminPassword, block223);
+                //UserRole role = new UserRole(adminPassword, block223);
+                user.addRole(admin);
+            }
+            Block223Persistence.save(block223);
+        }
+        catch(RuntimeException e) {
+            throw new InvalidInputException(e.getMessage());
+        }
     }
     //Mairead
     public static void login(String username, String password) throws InvalidInputException {
+        String error = "";
+        UserRole oldRole = Block223Application.getCurrentUserRole();
+
+        if(oldRole != null) {
+            error = "Cannot register while a user is logged in";
+        }
+
+
+        Block223Application.resetBlock223();
+
+        User user = User.getWithUsername(username);
+        if(user == null) {
+            error = "Username and password do not match";
+        }
+
+        ///List<UserRole> roles = user.getRoles();
+
+        UserRole role = User.findPassword(password, user);
+
+
+        Block223Application.setCurrentUserRole(role);
+
+        if(role == null) {
+            error = "player password needs to be specified";
+        }
+
     }
     //Mairead
     public static void logout() {
+        Block223Application.setCurrentUserRole(null);
+        return;
     }
-
     // ****************************
     // Query methods
     // ****************************
@@ -257,37 +299,26 @@ public class Block223Controller {
     }
     
     //Mairead
-    /*public static TOUserMode getUserMode() {
-        Block223Application userRole = Block223Application.getCurrentUserRole();
-        if (userRole == null) {
-            TOUserMode toUserMode = new TOUserMode(Block223);
-        }
-        if (userRole == player){
-            TOUserMode toUserMode = new TOUserMode();
-        }
-        if (userRole == admin){
-            TOUserMode toUserMode = new TOUserMode();
-        }
-
-        return userRole;
-    }*/
-
-    public static TOUserMode getUserMode() {
+    public static TOUserMode getUserMode() { //put in refresh data class
         UserRole userRole = Block223Application.getCurrentUserRole();
-        TOUserMode toUserMode;
-        if (userRole == null) {
-            toUserMode = new TOUserMode(TOUserMode.Mode.None);
-            return toUserMode;
+        Mode i;
+        TOUserMode to = new TOUserMode(Mode.None);
+
+        if(userRole == null) {
+
+            to.setMode(Mode.None);
+
         }
-        else if (userRole instanceof Player){
-            toUserMode = new TOUserMode(TOUserMode.Mode.Play);
-            return toUserMode;
+        else if(userRole instanceof Player) {
+
+            to.setMode(Mode.Play);
         }
-        else if (userRole instanceof Admin){
-            toUserMode = new TOUserMode(TOUserMode.Mode.Design);
-            return toUserMode;
+        else if(userRole instanceof Admin) {
+            to.setMode(Mode.Design);
         }
-        return null;
+
+
+        return to;
     }
 }
 
