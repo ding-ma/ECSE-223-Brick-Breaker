@@ -90,8 +90,8 @@ public class Block223Controller {
             }
         }
     	
-    	Game game = Block223Application.getCurrentGame();
-            Block block = new Block( red, green,  blue,  points, game);
+//    	Game game = Block223Application.getCurrentGame();
+//            Block block = new Block( red, green,  blue,  points, game);
     }
     //done
     //TODO exception
