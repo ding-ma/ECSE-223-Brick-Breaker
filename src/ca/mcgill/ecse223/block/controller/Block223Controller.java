@@ -25,11 +25,11 @@ public class Block223Controller {
     //TODO exception
     public static void deleteGame(String name) throws InvalidInputException {
 
-        Game game = findGame(name);
+        Game game = Block223Application.getBlock223().findGame(name);
 
         if (game != null) {
-            Block223 block223 = getBlock223();
-            game.deleteGame();
+            Block223 block223 = Block223Application.getBlock223();
+            game.delete();
         }
     }
     
@@ -37,14 +37,14 @@ public class Block223Controller {
     public static void selectGame(String name) throws InvalidInputException {
         String error = "";
 
-        if(getCurrentUserRole().toString() != "admin") {
+        if(Block223Application.getCurrentUserRole().toString() != "admin") {
             error = "Admin privileges are required to select a game.";
             throw new InvalidInputException(error);
         }
 
-        Game game = Game.findGame(name);
+        Game game = Block223Application.getBlock223().findGame(name);
 
-        if(game.getAdmin().toString() != getCurrentUser().toString()) {
+        if(game.getAdmin().toString() != Block223Application.getCurrentUserRole().toString()) {
             error = "Only the admin who reated the game can select the game.";
             throw new InvalidInputException(error);
         }
@@ -53,7 +53,7 @@ public class Block223Controller {
             error = "A game with name " + name+ " does not exist.";
         }
 
-        setCurrentGame(game);
+        Block223Application.setCurrentGame(game);
     }
     //Anne-Julie
     public static void updateGame(String name, int nrLevels, int nrBlocksPerLevel, int minBallSpeedX, int minBallSpeedY,
@@ -96,12 +96,7 @@ public class Block223Controller {
     //done
     //TODO exception
     //Question about the persistence 
-    public static void deleteBlock(int id) throws InvalidInputException {
-    Block block = Block223Application.getCurrentGame().findBlock(id);
-    if (block!=null ) {
-    	block.delete();
-    } 
-    }
+
     
     //George
     //TODO exception
