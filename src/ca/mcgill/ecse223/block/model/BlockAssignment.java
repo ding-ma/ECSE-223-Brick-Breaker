@@ -1,10 +1,10 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.29.1.4431.02510d71d modeling language!*/
+/*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
 package ca.mcgill.ecse223.block.model;
 
-
-// line 99 "../../../../../Block223 v2.ump"
+// line 128 "../../../../../../../../ump/tmp404732/model.ump"
+// line 189 "../../../../../../../../ump/tmp404732/model.ump"
 
 public class BlockAssignment
 {

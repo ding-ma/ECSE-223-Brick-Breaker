@@ -1,17 +1,20 @@
 package ca.mcgill.ecse223.block.view;
+import ca.mcgill.ecse223.block.controller.*;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import ca.mcgill.ecse223.block.controller.*;
 
+<<<<<<< HEAD:src/ca/mcgill/ecse223/block/view/CreateBlock.java
 public class CreateBlock extends JFrame {
     public CreateBlock(){
 //adasda
     }
+=======
+public class AddBlock {
+>>>>>>> 35786d9d672d3a6943c79164da6900bb0b3d1a4c:src/ca/mcgill/ecse223/block/view/AddBlock.java
     private JTextField RedValue = new JTextField();
     private JTextField GreenValue = new JTextField();
     private JTextField BlueValue = new JTextField();
@@ -19,10 +22,9 @@ public class CreateBlock extends JFrame {
     private JButton CreateButton = new JButton();
     private JFrame frame = new JFrame();
 
-    public void BlockCreation (){
+    public void AddBlock() {
 
-
-        CreateButton.setBounds(250,600,200,50);
+        CreateButton.setBounds(250, 600, 200, 50);
         CreateButton.setText("Create Block");
         //  CreateButton.setFont(main.font);
 
@@ -41,12 +43,19 @@ public class CreateBlock extends JFrame {
                 String SPoints = PointValue.getText();
                 int points = Integer.parseInt(SPoints);
 
-                Block223Controller.addBlock(red, green,blue, points);
+                System.out.println("points = " + points);
+                System.out.println("green = " + green);
+                System.out.println("blue = " + blue);
+                System.out.println("red = " + red);
+
+                Block223Controller block223Controller = new Block223Controller();
+                block223Controller.addBlock(red,green,blue,points);
+
             }
         });
         frame.add(CreateButton);
 
-        RedValue.setBounds(250,100,200,50);
+        RedValue.setBounds(250, 100, 200, 50);
         RedValue.setText("Enter Red Value");
         //    RedValue.setFont(ui.font);
         RedValue.addMouseListener(new MouseAdapter() {
@@ -57,7 +66,7 @@ public class CreateBlock extends JFrame {
         });
         frame.add(RedValue);
 
-        GreenValue.setBounds(250,200,200,50);
+        GreenValue.setBounds(250, 200, 200, 50);
         GreenValue.setText("Enter Green Value");
         //  GreenValue.setFont(ui.font);
         GreenValue.addMouseListener(new MouseAdapter() {
@@ -68,7 +77,7 @@ public class CreateBlock extends JFrame {
         });
         frame.add(GreenValue);
 
-        BlueValue.setBounds(250,300,200,50);
+        BlueValue.setBounds(250, 300, 200, 50);
         BlueValue.setText("Enter Blue Value");
         //     BlueValue.setFont(ui.font);
         BlueValue.addMouseListener(new MouseAdapter() {
@@ -79,7 +88,7 @@ public class CreateBlock extends JFrame {
         });
         frame.add(BlueValue);
 
-        PointValue.setBounds(250,400,200,50);
+        PointValue.setBounds(250, 400, 200, 50);
         PointValue.setText("Enter Points Value");
         //    PointValue.setFont(ui.font);
         PointValue.addMouseListener(new MouseAdapter() {
@@ -90,7 +99,7 @@ public class CreateBlock extends JFrame {
         });
         frame.add(PointValue);
 
-        frame.setSize(1000,800);
+        frame.setSize(1000, 800);
         frame.setLayout(null);
         frame.setVisible(true);
     }

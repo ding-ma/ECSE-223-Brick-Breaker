@@ -6,7 +6,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class PersistenceObjectStream {
-
     private static String filename = "output.txt";
 
     public static void serialize(Object object) {

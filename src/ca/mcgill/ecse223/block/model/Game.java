@@ -1,11 +1,13 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.29.1.4431.02510d71d modeling language!*/
+/*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
 package ca.mcgill.ecse223.block.model;
 import java.util.*;
 
-// line 28 "../../../../../../../../ump/tmp209037/model.ump"
-// line 123 "../../../../../../../../ump/tmp209037/model.ump"
+
+// line 56 "../../../../../../../../ump/tmp404732/model.ump"
+// line 174 "../../../../../../../../ump/tmp404732/model.ump"
+
 public class Game
 {
 
@@ -606,7 +608,8 @@ public class Game
    * George
    */
 
-  // line 45 "../../../../../Block223 v2.ump"
+  // line 74 "../../../../../../../../ump/tmp404732/model.ump"
+
    public Block findBlock(int id){
     List<Block> blocks = this.getBlocks();
    for(Block block : blocks){

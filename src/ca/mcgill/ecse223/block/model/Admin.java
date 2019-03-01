@@ -1,11 +1,13 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.29.1.4431.02510d71d modeling language!*/
+/*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
 package ca.mcgill.ecse223.block.model;
 import java.util.*;
 
-// line 20 "../../../../../../../../ump/tmp209037/model.ump"
-// line 113 "../../../../../../../../ump/tmp209037/model.ump"
+
+// line 48 "../../../../../../../../ump/tmp404732/model.ump"
+// line 164 "../../../../../../../../ump/tmp404732/model.ump"
+
 public class Admin extends UserRole
 {
 
