@@ -1,11 +1,10 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.29.1.4431.02510d71d modeling language!*/
+/*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
 package ca.mcgill.ecse223.block.model;
 import java.util.*;
 
-// line 10 "../../../../../../../../ump/tmp275904/model.ump"
-// line 126 "../../../../../../../../ump/tmp275904/model.ump"
+// line 22 "../../../../../Block223 v2.ump"
 public class User
 {
 

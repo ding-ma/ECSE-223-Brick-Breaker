@@ -1,11 +1,10 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.29.1.4431.02510d71d modeling language!*/
+/*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
 package ca.mcgill.ecse223.block.model;
 import java.util.*;
 
-// line 4 "../../../../../../../../ump/tmp275904/model.ump"
-// line 121 "../../../../../../../../ump/tmp275904/model.ump"
+// line 3 "../../../../../Block223 v2.ump"
 public class Block223
 {
 
@@ -359,6 +358,22 @@ public class Block223
       games.remove(aGame);
     }
     
+  }
+
+
+  /**
+   * Anne-Julie
+   */
+  // line 10 "../../../../../Block223 v2.ump"
+   public Game findGame(String name){
+    List<Game> games = this.getGames();
+   for(Game game : games){
+   String gameName = game.getName();
+   if(name == gameName){
+   return game;
+   }
+   }
+   return null;
   }
 
 }

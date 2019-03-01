@@ -172,10 +172,7 @@ public class Block223Controller {
         return games;
     }
 
-<<<<<<< HEAD
-=======
     //Ding
->>>>>>> 987c3e7edc813c5f0178ced66af16391a48fbe86
     public static TOGame getCurrentDesignableGame() {
 
     	Game game = Block223Application.getCurrentGame();
