@@ -40,7 +40,7 @@ public class GameScreen {
             @Override
             public void actionPerformed(ActionEvent e) {
                 DeleteGame deleteGame = new DeleteGame();
-                deleteGame.DeleteGame();
+                deleteGame.DeleteGame("game1");
             }
         });
         FGameScreem.add(BDelete);
