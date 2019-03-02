@@ -85,9 +85,17 @@ public class Block223Controller {
         List<Level> levels = game.getLevels();
         int size = levels.size();
 
-        if(nrLevels < size){
-            for()
+        while(nrLevels > size){
+            game.addLevel(); 
+            size = levels.size();
         }
+
+        while(nrLevels < size){
+            Level level = game.getLevel(size-1);
+            level.delete();
+            size = levels.size();
+        }
+
     }
     //done 
     //TODO exception
