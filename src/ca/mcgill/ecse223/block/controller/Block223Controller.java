@@ -8,7 +8,6 @@ import org.w3c.dom.UserDataHandler;
 import ca.mcgill.ecse223.block.application.*;
 import ca.mcgill.ecse223.block.model.*;
 import ca.mcgill.ecse223.block.persistence.*;
-import ca.mcgill.ecse223.block.controller.TOUserMode.Mode;
 
 public class Block223Controller {
     private static Game game;
@@ -19,43 +18,49 @@ public class Block223Controller {
 	
 	//Yannick
     public static void createGame(String aName) throws InvalidInputException {
-        String errorMessage;
         String name = aName;
+        String error;
 
         Block223 block223 = Block223Application.getBlock223();
 
         try{
-            findGame(name, block223);
+            checkGameNameIsUnique(name, block223);
         } catch(RuntimeException e){
-            System.out.println("The name of a game must be unique");
+            error = "The name of a game must be unique";
+            throw new InvalidInputException(error);
         }
-        
+                
         if(name == null){
-            errorMessage = "The name of the game must be specified";
-            return; 
+            error = "The name of the game must be specified";
+            throw new InvalidInputException(error); 
         }
-        
-        Block223 aBlock223 = Block223Application.getBlock223();
-        UserRole userRole = Block223Application.getCurrentUserRole();
 
-        if(userRole == null) {
-            System.out.println("userRole not set");
-            return;
+        UserRole userRole = Block223Application.getCurrentUserRole();
+        if(userRole instanceof Player || userRole == null){
+            error = "Admin in privileges are required to create a game.";
+            throw new InvalidInputException(error);
         }
-       
+        String adminPassword = userRole.getPassword();
+
+        Admin admin = new Admin(adminPassword, block223); 
+        
+        Game game = new Game(name, 1, admin, 1, 1, 1, 10, 10, block223);
+
         //TODO add to list of games
         
 
     }
 
-    private static void findGame(String name, Block223 block223) {
+    public static Game checkGameNameIsUnique(String name, Block223 block223) {
         for (Game game : block223.getGames()) {
             if (game.getName() == name) {
                 System.out.println("The name of a game must be unique");
-                return;
+                return game;
             }
         }
+        return null;
     }
+
     //Yannick
     public static void setGameDetails(int nrLevels, int nrBlocksPerLevel, int minBallSpeedX, int minBallSpeedY, Double ballSpeedIncreaseFactor, int maxPaddleLength, int minPaddleLength) throws InvalidInputException {
 
@@ -64,81 +69,21 @@ public class Block223Controller {
     //TODO exception
     public static void deleteGame(String name) throws InvalidInputException {
 
-
-        Game game = Block223Application.getBlock223().findGame(name);
+        Game game = findGame(name);
 
         if (game != null) {
-            Block223 block223 = Block223Application.getBlock223();
-
-            game.delete();
+            Block223 block223 = getBlock223();
+            game.deleteGame();
         }
-        
     }
     
     //Anne-Julie
     public static void selectGame(String name) throws InvalidInputException {
-        String error = "";
-
-
-        if(Block223Application.getCurrentUserRole().toString() != "admin") {
-            error = "Admin privileges are required to select a game.";
-            throw new InvalidInputException(error);
-        }
-
-        Game game = Block223Application.getBlock223().findGame(name);
-
-        if(game.getAdmin().toString() != Block223Application.getCurrentUserRole().toString()) {
-            error = "Only the admin who reated the game can select the game.";
-            throw new InvalidInputException(error);
-        }
-
-        if(game == null) {
-            error = "A game with name " + name+ " does not exist.";
-        }
-
-        Block223Application.setCurrentGame(game);
     }
     //Anne-Julie
     public static void updateGame(String name, int nrLevels, int nrBlocksPerLevel, int minBallSpeedX, int minBallSpeedY,
                                   Double ballSpeedIncreaseFactor, int maxPaddleLength, int minPaddleLength) throws InvalidInputException {
-
-    String error = "";
-    
-    String role = Block223Application.getCurrentUserRole().toString();
-    if(role != "admin") {
-        error = "Admin privileges are required to select a game.";
-        throw new InvalidInputException(error);
     }
-    Game game = Block223Application.getCurrentGame();
-    if(game == null) {
-        error = "A game must be selected to define game settings.";
-        throw new InvalidInputException(error);
-    }
-    /*if(game.getAdmin().toString() != block223.getUser(1).toString()) {  //TODO what is the index
-            error = "Only the admin who created the game can edit the game settings.";
-            throw new InvalidInputException(error);
-        }*/
-
-    String currentName = game.getName();
-
-    if(name != currentName) {
-        
-        if(!game.setName(name)) {
-            error = "The name of a game must be unique.";
-            throw new InvalidInputException(error);
-        }
-
-        else if(name == null | name.equals("")) { //TODO what does the catch/rethrow mean
-            error = "The name of a game must be specified.";
-            throw new InvalidInputException(error);
-        }
-        game.setName(name);
-    }
-
-    //TODO how does it know which game to update
-    setGameDetails(nrLevels, nrBlocksPerLevel, minBallSpeedX, 
-                        minBallSpeedY, ballSpeedIncreaseFactor, maxPaddleLength, minPaddleLength);
-                                }
     //done
     //TODO exception
     public static void addBlock(int red, int green, int blue, int points) throws InvalidInputException {
@@ -170,13 +115,18 @@ public class Block223Controller {
             }
         }
     	
-//    	Game game = Block223Application.getCurrentGame();
-//            Block block = new Block( red, green,  blue,  points, game);
+    	Game game = Block223Application.getCurrentGame();
+            Block block = new Block( red, green,  blue,  points, game);
     }
     //done
     //TODO exception
     //Question about the persistence 
-
+    public static void deleteBlock(int id) throws InvalidInputException {
+    Block block = Block223Application.getCurrentGame().findBlock(id);
+    if (block!=null ) {
+    	block.delete();
+    } 
+    }
     
     //George
     //TODO exception
@@ -220,70 +170,18 @@ public class Block223Controller {
     }
     //Mairead
     public static void saveGame() throws InvalidInputException {
-        Block223 block223 = Block223Application.getBlock223();
-        Block223Persistence.save(block223);
     }
-
     //Mairead
     public static void register(String username, String playerPassword, String adminPassword)
             throws InvalidInputException {
-        Block223 block223 = Block223Application.getBlock223();
-
-        String error = "";
-        UserRole oldRole = Block223Application.getCurrentUserRole();
-
-        if(oldRole != null) {
-            error = "Cannot register while a user is logged in";
-        }
-
-        try {
-            Player player = new Player(playerPassword, block223);
-            User user = new User(username, block223, player);
-            if((adminPassword!=null)&&(adminPassword!="")) {
-                Admin admin = new Admin(adminPassword, block223);
-                //UserRole role = new UserRole(adminPassword, block223);
-                user.addRole(admin);
-            }
-            Block223Persistence.save(block223);
-        }
-        catch(RuntimeException e) {
-            throw new InvalidInputException(e.getMessage());
-        }
     }
     //Mairead
     public static void login(String username, String password) throws InvalidInputException {
-        String error = "";
-        UserRole oldRole = Block223Application.getCurrentUserRole();
-
-        if(oldRole != null) {
-            error = "Cannot register while a user is logged in";
-        }
-
-
-        Block223Application.resetBlock223();
-
-        User user = User.getWithUsername(username);
-        if(user == null) {
-            error = "Username and password do not match";
-        }
-
-        ///List<UserRole> roles = user.getRoles();
-
-        UserRole role = User.findPassword(password, user);
-
-
-        Block223Application.setCurrentUserRole(role);
-
-        if(role == null) {
-            error = "player password needs to be specified";
-        }
-
     }
     //Mairead
     public static void logout() {
-        Block223Application.setCurrentUserRole(null);
-        return;
     }
+
     // ****************************
     // Query methods
     // ****************************
@@ -326,7 +224,7 @@ public class Block223Controller {
 		return toBlock;
 		}
     //George
-    public static List<TOGridCell> getBlocksAtLevelOfCurrentDesignableGame(int level) throws InvalidInputException {
+    public List<TOGridCell> getBlocksAtLevelOfCurrentDesignableGame(int level) throws InvalidInputException {
     ArrayList <TOGridCell>  gridCells = new ArrayList<TOGridCell>();
     for (BlockAssignment blockAssignment : Block223Application.getCurrentGame().getLevel(level-1).getBlockAssignments()) {
 		TOGridCell toGridCell = new TOGridCell (blockAssignment.getGridHorizontalPosition(), blockAssignment.getGridVerticalPosition(),
@@ -338,26 +236,19 @@ public class Block223Controller {
     }
     
     //Mairead
-    public static TOUserMode getUserMode() { //put in refresh data class
-        UserRole userRole = Block223Application.getCurrentUserRole();
-        Mode i;
-        TOUserMode to = new TOUserMode(Mode.None);
-
-        if(userRole == null) {
-
-            to.setMode(Mode.None);
-
+    public static TOUserMode getUserMode() {
+        Block223Application userRole = Block223Application.getCurrentUserRole();
+        if (userRole == null) {
+            TOUserMode toUserMode = new TOUserMode(Block223.);
         }
-        else if(userRole instanceof Player) {
-
-            to.setMode(Mode.Play);
+        if (userRole == player){
+            TOUserMode toUserMode = new TOUserMode();
         }
-        else if(userRole instanceof Admin) {
-            to.setMode(Mode.Design);
+        if (userRole == admin){
+            TOUserMode toUserMode = new TOUserMode();
         }
 
-
-        return to;
+        return userRole;
     }
 }
 
