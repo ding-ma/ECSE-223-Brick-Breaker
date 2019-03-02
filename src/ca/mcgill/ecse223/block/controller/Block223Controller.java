@@ -37,9 +37,10 @@ public class Block223Controller {
 
         UserRole userRole = Block223Application.getCurrentUserRole();
         if(userRole instanceof Player || userRole == null){
-            error = "Admin in privileges are required to create a game.";
+            error = "Admin privileges are required to create a game.";
             throw new InvalidInputException(error);
         }
+
         String adminPassword = userRole.getPassword();
 
         Admin admin = new Admin(adminPassword, block223); 
@@ -65,10 +66,28 @@ public class Block223Controller {
 
     //Yannick
     public static void setGameDetails(int nrLevels, int nrBlocksPerLevel, int minBallSpeedX, int minBallSpeedY, Double ballSpeedIncreaseFactor, int maxPaddleLength, int minPaddleLength) throws InvalidInputException {
+
         Game game = Block223Application.getCurrentGame();
 
-        game.setNrLevels(nrLevels);
         game.setNrBlocksPerLevel(nrBlocksPerLevel);
+
+        Ball ball = game.getBall();
+
+        ball.setMinBallSpeedX(minBallSpeedX);
+        ball.setMinBallSpeedY(minBallSpeedX);
+        ball.setBallSpeedIncreaseFactor(ballSpeedIncreaseFactor);
+
+        Paddle paddle = game.getPaddle();
+
+        paddle.setMaxPaddleLength(maxPaddleLength);
+        paddle.setMinPaddleLength(minPaddleLength);
+
+        List<Level> levels = game.getLevels();
+        int size = levels.size();
+
+        if(nrLevels < size){
+            for()
+        }
     }
     //done 
     //TODO exception
