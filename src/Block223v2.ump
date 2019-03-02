@@ -68,7 +68,7 @@ class Game {
    //Yannick
 
    before constructor, setNrBlocksPerLevel{
-      if(nrBlocksPerLevel <= 0){
+      if(aNrBlocksPerLevel <= 0){
          throw new RuntimeException("The  number  of  blocks  per  level  must be greater than zero");
       }
    }
@@ -133,19 +133,19 @@ class Ball {
 
    //Yannick
    before constructor, setMinBallSpeedX{
-      if(minBallSpeedX <= 0){
+      if(aMinBallSpeedX <= 0){
          throw new RuntimeException ("The  minimum  speed  of  the  ball  must be greater than zero.");
       }
    }
 
    before constructor, setMinBallSpeedY{
-      if(minBallSpeedY <= 0){
+      if(aMinBallSpeedY <= 0){
          throw new RuntimeException ("The  minimum  speed  of  the  ball  must be greater than zero.");
       }
    }
 
    before constructor, setBallSpeedIncreaseFactor{
-      if(ballSpeedIncreaseFactor <= 0){
+      if(aBallSpeedIncreaseFactor <= 0){
          throw new RuntimeException ("The speed increase factor of the ball must be greater than zero.");
       }
    }
@@ -159,13 +159,13 @@ class Paddle {
 
    //Yannick
    before constructor, setMaxPaddleLength{
-      if(maxPaddleLength <= 0 || maxPaddleLength > 400){
+      if(aMaxPaddleLength <= 0 || maxPaddleLength > 400){
          throw new RuntimeException ("The maximum length of the paddle must be greater than zero and less than or equal to 400.");
       }
    }
 
    before constructor, setMinPaddleLength{
-      if(minPaddleLength <= 0){
+      if(aMinPaddleLength <= 0){
          throw new RuntimeException ("The minimum length of the paddle must be greater than zero.");
       }
    }
