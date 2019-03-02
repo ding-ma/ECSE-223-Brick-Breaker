@@ -49,9 +49,8 @@ public class Block223Controller {
 
         Block223Application.setCurrentGame(game);
 
-        //TODO add to list of games
+        block223.addGame(name, game.getNrBlocksPerLevel(), game.getAdmin(), game.getBall(), game.getPaddle());
         
-
     }
 
     public static Game checkGameNameIsUnique(String name, Block223 block223) {
