@@ -64,6 +64,15 @@ class Game {
    }
    return null;
    }
+
+   //Yannick
+
+   before constructor, setNrBlocksPerLevel{
+      if(aNrBlocksPerLevel <= 0){
+         throw new RuntimeException("The  number  of  blocks  per  level  must be greater than zero");
+      }
+   }
+
    //end
    
 }
@@ -83,10 +92,10 @@ class Block {
    //George
    
    before constructor, setRed{
-   if(aRed <MIN_COLOR || aRed > MAX_COLOR){
-   throw new RuntimeException ("Red must be between 0 and 255.");
+      if(aRed <MIN_COLOR || aRed > MAX_COLOR){
+         throw new RuntimeException ("Red must be between 0 and 255.");
+      }
    }
-}
 	before constructor, setGreen{
    if(aGreen <MIN_COLOR || aGreen > MAX_COLOR){
    throw new RuntimeException ("Green must be between 0 and 255.");
@@ -121,6 +130,25 @@ class Ball {
    Integer minBallSpeedX;
    Integer minBallSpeedY;
    Double ballSpeedIncreaseFactor;
+
+   //Yannick
+   before constructor, setMinBallSpeedX{
+      if(aMinBallSpeedX <= 0){
+         throw new RuntimeException ("The  minimum  speed  of  the  ball  must be greater than zero.");
+      }
+   }
+
+   before constructor, setMinBallSpeedY{
+      if(aMinBallSpeedY <= 0){
+         throw new RuntimeException ("The  minimum  speed  of  the  ball  must be greater than zero.");
+      }
+   }
+
+   before constructor, setBallSpeedIncreaseFactor{
+      if(aBallSpeedIncreaseFactor <= 0){
+         throw new RuntimeException ("The speed increase factor of the ball must be greater than zero.");
+      }
+   }
 }
 
 class Paddle {
@@ -128,4 +156,18 @@ class Paddle {
    const Integer VERTICAL_DISTANCE = 30;
    Integer maxPaddleLength;
    Integer minPaddleLength;
+
+   //Yannick
+   before constructor, setMaxPaddleLength{
+      if(aMaxPaddleLength <= 0 || maxPaddleLength > 400){
+         throw new RuntimeException ("The maximum length of the paddle must be greater than zero and less than or equal to 400.");
+      }
+   }
+
+   before constructor, setMinPaddleLength{
+      if(aMinPaddleLength <= 0){
+         throw new RuntimeException ("The minimum length of the paddle must be greater than zero.");
+      }
+   }
+
 }
