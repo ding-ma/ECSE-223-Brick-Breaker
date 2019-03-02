@@ -46,6 +46,8 @@ public class Block223Controller {
         
         Game game = new Game(name, 1, admin, 1, 1, 1, 10, 10, block223);
 
+        Block223Application.setCurrentGame(game);
+
         //TODO add to list of games
         
 
@@ -63,7 +65,10 @@ public class Block223Controller {
 
     //Yannick
     public static void setGameDetails(int nrLevels, int nrBlocksPerLevel, int minBallSpeedX, int minBallSpeedY, Double ballSpeedIncreaseFactor, int maxPaddleLength, int minPaddleLength) throws InvalidInputException {
+        Game game = Block223Application.getCurrentGame();
 
+        game.setNrLevels(nrLevels);
+        game.setNrBlocksPerLevel(nrBlocksPerLevel);
     }
     //done 
     //TODO exception
