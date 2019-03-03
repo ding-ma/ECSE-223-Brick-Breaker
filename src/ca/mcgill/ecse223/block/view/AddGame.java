@@ -16,7 +16,7 @@ public class AddGame {
         frame.add(label);
 
         try{
-            Block223Controller.createGame("user");
+            Block223Controller.createGame("name");
             Block223Controller.setGameDetails(20,20,20,
                     20,1,20,20);
         }

@@ -23,46 +23,49 @@ public class Block223Controller {
 
         Block223 block223 = Block223Application.getBlock223();
 
-        try{
-            checkGameNameIsUnique(name, block223);
-        } catch(RuntimeException e){
+        try {
+            block223.findGame(aName);
+        } catch (RuntimeException e) {
             error = "The name of a game must be unique";
             throw new InvalidInputException(error);
         }
 
-        if(name == null){
+        if (name == null) {
             error = "The name of the game must be specified";
             throw new InvalidInputException(error);
         }
 
         UserRole userRole = Block223Application.getCurrentUserRole();
-        if(userRole instanceof Player || userRole == null){
+        if (userRole instanceof Player || userRole == null) {
             error = "Admin privileges are required to create a game.";
             throw new InvalidInputException(error);
         }
 
-
+        Block223Controller.createGame("nameG");
         String adminPassword = userRole.getPassword();
         Admin admin = new Admin(adminPassword, block223);
-        Game game = new Game(name, 10, admin, 1, 1,
-                1, 10, 10, block223);
-        Block223Application.setCurrentGame(game);
+        Ball ball = new Ball(10, 5, 2, game);
+        Paddle paddle = new Paddle(4, 4, game);
+        Game game = new Game("nameG", 10, admin, ball, paddle, block223);
 
+
+        Block223Application.setCurrentGame(game);
         block223.addGame(name, game.getNrBlocksPerLevel(), game.getAdmin(), game.getBall(), game.getPaddle());
 
 
     }
 
 
-    public static Game checkGameNameIsUnique(String name, Block223 block223) {
-        for (Game game : block223.getGames()) {
-            if (game.getName() == name) {
-                System.out.println("The name of a game must be unique");
-                return game;
-            }
-        }
-        return null;
-    }
+//
+//    public static Game checkGameNameIsUnique(String name, Block223 block223) {
+//        for (Game game : block223.findGame(name)) {
+//            if (game.getName() == name) {
+//                System.out.println("The name of a game must be unique");
+//                break;
+//            }
+//        }
+//        return null;
+//    }
 
 
     //Yanick
@@ -87,13 +90,13 @@ public class Block223Controller {
         List<Level> levels = game.getLevels();
         int size = levels.size();
 
-        while(nrLevels > size){
+        while (nrLevels > size) {
             game.addLevel();
             size = levels.size();
         }
 
-        while(nrLevels < size){
-            Level level = game.getLevel(size-1);
+        while (nrLevels < size) {
+            Level level = game.getLevel(size - 1);
             level.delete();
             size = levels.size();
         }
@@ -185,16 +188,16 @@ public class Block223Controller {
     public static void addBlock(int red, int green, int blue, int points) throws InvalidInputException {
         String error = " ";
 
-        if (red < 0 || red>255) {
+        if (red < 0 || red > 255) {
             error += "Red must be between 0 and 255.";
         }
-        if (green < 0 || green>255) {
+        if (green < 0 || green > 255) {
             error += "Green must be between 0 and 255.";
         }
-        if (blue < 0 || blue>255) {
+        if (blue < 0 || blue > 255) {
             error += "Blue must be between 0 and 255.";
         }
-        if (points < 0|| points>1000) {
+        if (points < 0 || points > 1000) {
             error += "Points need to be between 0 and 1000";
         }
 
@@ -336,7 +339,7 @@ public class Block223Controller {
             error = "Username and password do not match";
         }
         ///List<UserRole> roles = user.getRoles();
-        UserRole role = User.findPassword(password , user);
+        UserRole role = User.findPassword(password, user);
         Block223Application.setCurrentUserRole(role);
         if (role == null) {
             error = "player password needs to be specified";
