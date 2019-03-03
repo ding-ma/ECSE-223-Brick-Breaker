@@ -96,6 +96,10 @@ public class Block223 implements Serializable {
         List<Game> newGames = Collections.unmodifiableList(games);
         return newGames;
     }
+    public List<Game> getCurrentGameList() {
+
+        return games;
+    }
 
     public int numberOfGames() {
         int number = games.size();
@@ -350,7 +354,7 @@ public class Block223 implements Serializable {
 
     // line 11 "../../../../../../../../ump/tmp404732/model.ump"
     public Game findGame(String name) {
-        List<Game> games = this.getGames();
+        List<Game> games = this.getCurrentGameList();
         for (Game game : games) {
             String gameName = game.getName();
             if (name == gameName) {

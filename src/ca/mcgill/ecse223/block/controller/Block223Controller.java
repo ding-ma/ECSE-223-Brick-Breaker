@@ -41,7 +41,9 @@ public class Block223Controller {
             throw new InvalidInputException(error);
         }
 
-        Block223Controller.createGame("nameG");
+
+        //Block223Controller.createGame("nameG");
+//TESTS
         String adminPassword = userRole.getPassword();
         Admin admin = new Admin(adminPassword, block223);
         Ball ball = new Ball(10, 5, 2, game);
@@ -51,8 +53,6 @@ public class Block223Controller {
 
         Block223Application.setCurrentGame(game);
         block223.addGame(name, game.getNrBlocksPerLevel(), game.getAdmin(), game.getBall(), game.getPaddle());
-
-
     }
 
 

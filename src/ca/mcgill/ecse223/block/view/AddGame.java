@@ -2,8 +2,10 @@ package ca.mcgill.ecse223.block.view;
 
 import ca.mcgill.ecse223.block.controller.*;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
+import ca.mcgill.ecse223.block.model.Game;
 
 import javax.swing.*;
+import java.util.ArrayList;
 
 public class AddGame {
     public  void AddGame(){
@@ -16,7 +18,9 @@ public class AddGame {
         frame.add(label);
 
         try{
+
             Block223Controller.createGame("name");
+
             Block223Controller.setGameDetails(20,20,20,
                     20,1,20,20);
         }
