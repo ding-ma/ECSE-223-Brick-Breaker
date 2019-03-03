@@ -19,36 +19,36 @@ public class Block223Controller {
     public static void createGame(String aName) throws InvalidInputException {
 
         String name = aName;
-        String error;
+        String error ="";
 
         Block223 block223 = Block223Application.getBlock223();
 
         try {
             block223.findGame(aName);
         } catch (RuntimeException e) {
-            error = "The name of a game must be unique";
+            error += "The name of a game must be unique";
             throw new InvalidInputException(error);
         }
 
         if (name == null) {
-            error = "The name of the game must be specified";
+            error += "The name of the game must be specified";
             throw new InvalidInputException(error);
         }
 
         UserRole userRole = Block223Application.getCurrentUserRole();
         if (userRole instanceof Player || userRole == null) {
-            error = "Admin privileges are required to create a game.";
+            error += "Admin privileges are required to create a game.";
             throw new InvalidInputException(error);
         }
 
 
-        //Block223Controller.createGame("nameG");
-//TESTS
         String adminPassword = userRole.getPassword();
+
         Admin admin = new Admin(adminPassword, block223);
-        Ball ball = new Ball(10, 5, 2, game);
-        Paddle paddle = new Paddle(4, 4, game);
-        Game game = new Game("nameG", 10, admin, ball, paddle, block223);
+
+        Game game = new Game(name, 1, admin, 1, 1, 1, 10, 10, block223);
+
+        Block223Application.setCurrentGame(game);
 
 
         Block223Application.setCurrentGame(game);
@@ -83,7 +83,6 @@ public class Block223Controller {
         ball.setBallSpeedIncreaseFactor(ballSpeedIncreaseFactor);
 
         Paddle paddle = game.getPaddle();
-
         paddle.setMaxPaddleLength(maxPaddleLength);
         paddle.setMinPaddleLength(minPaddleLength);
 
@@ -179,8 +178,8 @@ public class Block223Controller {
         }
 
         //TODO how does it know which game to update
-        setGameDetails(nrLevels, nrBlocksPerLevel, minBallSpeedX,
-                minBallSpeedY, ballSpeedIncreaseFactor, maxPaddleLength, minPaddleLength);
+ //       setGameDetails(nrLevels, nrBlocksPerLevel, minBallSpeedX,
+ //               minBallSpeedY, ballSpeedIncreaseFactor, maxPaddleLength, minPaddleLength);
     }
 
     //done

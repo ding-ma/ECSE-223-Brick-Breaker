@@ -16,11 +16,9 @@ public class AddGame {
         label.setText("Define Game Settings");
         label.setBounds(0,0,400,50);
         frame.add(label);
-
         try{
 
-            Block223Controller.createGame("name");
-
+            Block223Controller.createGame("abc1");
             Block223Controller.setGameDetails(20,20,20,
                     20,1,20,20);
         }
