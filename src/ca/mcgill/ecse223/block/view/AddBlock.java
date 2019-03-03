@@ -36,15 +36,13 @@ public class AddBlock {
                 String SPoints = PointValue.getText();
                 int points = Integer.parseInt(SPoints);
 
-                System.out.println("points = " + points);
-                System.out.println("green = " + green);
-                System.out.println("blue = " + blue);
-                System.out.println("red = " + red);
+//                System.out.println("points = " + points);
+//                System.out.println("green = " + green);
+//                System.out.println("blue = " + blue);
+//                System.out.println("red = " + red);
 
                 try {
                     Block223Controller.addBlock(red, green, blue, points);
-                    BlockScreen blockScreen = new BlockScreen();
-                  //  blockScreen.RefreshBlockScreen();
 
                 }
                 catch (InvalidInputException a){

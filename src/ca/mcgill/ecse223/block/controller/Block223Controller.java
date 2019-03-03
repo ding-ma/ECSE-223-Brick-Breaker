@@ -17,31 +17,27 @@ public class Block223Controller {
 
     //Yanick
     public static void createGame(String aName) throws InvalidInputException {
-
         String name = aName;
-        String error ="";
+        String error;
 
         Block223 block223 = Block223Application.getBlock223();
 
-        try {
-            block223.findGame(aName);
-        } catch (RuntimeException e) {
-            error += "The name of a game must be unique";
+
+        error = checkGameNameIsUnique(name, block223);
+        if (error != null) {
             throw new InvalidInputException(error);
         }
 
-        if (name == null) {
-            error += "The name of the game must be specified";
+        if(name == null){
+            error = "The name of the game must be specified";
             throw new InvalidInputException(error);
         }
 
         UserRole userRole = Block223Application.getCurrentUserRole();
-        if (userRole instanceof Player || userRole == null) {
-            error += "Admin privileges are required to create a game.";
+        if(userRole instanceof Player || userRole == null){
+            error = "Admin in privileges are required to create a game.";
             throw new InvalidInputException(error);
         }
-
-
         String adminPassword = userRole.getPassword();
 
         Admin admin = new Admin(adminPassword, block223);
@@ -49,28 +45,20 @@ public class Block223Controller {
         Game game = new Game(name, 1, admin, 1, 1, 1, 10, 10, block223);
 
         Block223Application.setCurrentGame(game);
-
-
-        Block223Application.setCurrentGame(game);
-        block223.addGame(name, game.getNrBlocksPerLevel(), game.getAdmin(), game.getBall(), game.getPaddle());
     }
 
+    public static String checkGameNameIsUnique(String name, Block223 block223) {
+        for (Game game : block223.getGames()) {
+            if (game.getName().equals(name)) {
+                String error = "The name of a game must be unique";
+                return error;
+            }
+        }
+        return null;
+    }
 
-//
-//    public static Game checkGameNameIsUnique(String name, Block223 block223) {
-//        for (Game game : block223.findGame(name)) {
-//            if (game.getName() == name) {
-//                System.out.println("The name of a game must be unique");
-//                break;
-//            }
-//        }
-//        return null;
-//    }
-
-
-    //Yanick
-
-    public static void setGameDetails(int nrLevels, int nrBlocksPerLevel, int minBallSpeedX, int minBallSpeedY, double ballSpeedIncreaseFactor, int maxPaddleLength, int minPaddleLength) throws InvalidInputException {
+    //Yannick
+    public static void setGameDetails(int nrLevels, int nrBlocksPerLevel, int minBallSpeedX, int minBallSpeedY, Double ballSpeedIncreaseFactor, int maxPaddleLength, int minPaddleLength) throws InvalidInputException {
 
         Game game = Block223Application.getCurrentGame();
 
@@ -83,19 +71,20 @@ public class Block223Controller {
         ball.setBallSpeedIncreaseFactor(ballSpeedIncreaseFactor);
 
         Paddle paddle = game.getPaddle();
+
         paddle.setMaxPaddleLength(maxPaddleLength);
         paddle.setMinPaddleLength(minPaddleLength);
 
         List<Level> levels = game.getLevels();
         int size = levels.size();
 
-        while (nrLevels > size) {
+        while(nrLevels > size){
             game.addLevel();
             size = levels.size();
         }
 
-        while (nrLevels < size) {
-            Level level = game.getLevel(size - 1);
+        while(nrLevels < size){
+            Level level = game.getLevel(size-1);
             level.delete();
             size = levels.size();
         }
@@ -178,13 +167,14 @@ public class Block223Controller {
         }
 
         //TODO how does it know which game to update
- //       setGameDetails(nrLevels, nrBlocksPerLevel, minBallSpeedX,
- //               minBallSpeedY, ballSpeedIncreaseFactor, maxPaddleLength, minPaddleLength);
+        //       setGameDetails(nrLevels, nrBlocksPerLevel, minBallSpeedX,
+        //               minBallSpeedY, ballSpeedIncreaseFactor, maxPaddleLength, minPaddleLength);
     }
 
     //done
     //TODO exception
     public static void addBlock(int red, int green, int blue, int points) throws InvalidInputException {
+        Game game = Block223Application.getCurrentGame();
         String error = " ";
 
         if (red < 0 || red > 255) {
@@ -209,7 +199,6 @@ public class Block223Controller {
         if (error.length() > 0)
             throw new InvalidInputException(error.trim());
 
-        Game game = Block223Application.getCurrentGame();
 
         try {
             Block block = new Block(red, green, blue, points, game);

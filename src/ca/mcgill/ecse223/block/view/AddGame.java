@@ -2,7 +2,7 @@ package ca.mcgill.ecse223.block.view;
 
 import ca.mcgill.ecse223.block.controller.*;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
-import ca.mcgill.ecse223.block.model.Game;
+import ca.mcgill.ecse223.block.model.*;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ public class AddGame {
 
             Block223Controller.createGame("abc1");
             Block223Controller.setGameDetails(20,20,20,
-                    20,1,20,20);
+                    20,1.0,20,20);
         }
         catch (InvalidInputException a){
             a.printStackTrace();
