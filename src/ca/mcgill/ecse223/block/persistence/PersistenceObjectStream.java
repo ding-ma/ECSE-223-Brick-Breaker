@@ -13,7 +13,7 @@ public class PersistenceObjectStream {
         try {
             fileOut = new FileOutputStream(filename);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(object);
+            out.writeObject(object); //fix
             out.close();
             fileOut.close();
         } catch (Exception e) {

@@ -15,7 +15,7 @@ public class GameSettings {
         label.setBounds(0,0,300,50);
         frame.add(label);
 
-        Bblock.setText("Block Settings");
+        Bblock.setText("Blocks");
         Bblock.setBounds(30,50,100,50);
         Bblock.addActionListener(new ActionListener() {
             @Override
@@ -26,13 +26,13 @@ public class GameSettings {
         });
         frame.add(Bblock);
 
-        BUpdateGame.setText("Add Game");
+        BUpdateGame.setText("Update Game");
         BUpdateGame.setBounds(30,150,100,50);
         BUpdateGame.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AddGame addGame= new AddGame();
-                addGame.AddGame();
+                UpdateGame updateGame = new UpdateGame();
+                updateGame.UpdateGame();
             }
         });
         frame.add(BUpdateGame);
