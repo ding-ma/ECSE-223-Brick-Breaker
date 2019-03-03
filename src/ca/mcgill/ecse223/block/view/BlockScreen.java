@@ -23,18 +23,25 @@ public class BlockScreen {
         blockList = new JComboBox<String>();
         availableBlocks = new HashMap<>();
 
+        String names[] = {"game name"};
+        String data[] = {"blocks,blocks2"};
 
-       // String names[] = {"block name", "number of blocks"};
-
-
+        JTable table = new JTable();
+        JScrollPane scrollPane = new JScrollPane();
 
         //TODO add column header name
         //TODO show all blocks
         //TODO add action listeners to columns
         //TODO change column content to appropriate
 
-        label.setText("Block Screen");
-        label.setBounds(0, 0, 200, 50);
+
+
+        table.setBounds(0, 170, 900, 600);
+        frame.add(scrollPane);
+        frame.add(table);
+
+        label.setText("Welcome to the Block Interface");
+        label.setBounds(10, 5, 200, 50);
         frame.add(label);
 
         BAdd.setText("Create a Block");

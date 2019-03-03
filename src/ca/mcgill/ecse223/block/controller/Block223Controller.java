@@ -10,18 +10,96 @@ import ca.mcgill.ecse223.block.controller.TOUserMode.Mode;
 
 public class Block223Controller {
     private static Game game;
+
     // ****************************
     // Modifier methods
     // ****************************
 
     //Yanick
-    public static void createGame(String name) throws InvalidInputException {
+    public static void createGame(String aName) throws InvalidInputException {
+
+        String name = aName;
+        String error;
+
+        Block223 block223 = Block223Application.getBlock223();
+
+        try{
+            checkGameNameIsUnique(name, block223);
+        } catch(RuntimeException e){
+            error = "The name of a game must be unique";
+            throw new InvalidInputException(error);
+        }
+
+        if(name == null){
+            error = "The name of the game must be specified";
+            throw new InvalidInputException(error);
+        }
+
+        UserRole userRole = Block223Application.getCurrentUserRole();
+        if(userRole instanceof Player || userRole == null){
+            error = "Admin privileges are required to create a game.";
+            throw new InvalidInputException(error);
+        }
+
+
+        String adminPassword = userRole.getPassword();
+        Admin admin = new Admin(adminPassword, block223);
+        Game game = new Game(name, 10, admin, 1, 1,
+                1, 10, 10, block223);
+        Block223Application.setCurrentGame(game);
+
+        block223.addGame(name, game.getNrBlocksPerLevel(), game.getAdmin(), game.getBall(), game.getPaddle());
+
+
     }
 
-    //Yanick
-    public static void setGameDetails(int nrLevels, int nrBlocksPerLevel, int minBallSpeedX, int minBallSpeedY,
-                                      Double ballSpeedIncreaseFactor, int maxPaddleLength, int minPaddleLength) throws InvalidInputException {
+
+    public static Game checkGameNameIsUnique(String name, Block223 block223) {
+        for (Game game : block223.getGames()) {
+            if (game.getName() == name) {
+                System.out.println("The name of a game must be unique");
+                return game;
+            }
+        }
+        return null;
     }
+
+
+    //Yanick
+
+    public static void setGameDetails(int nrLevels, int nrBlocksPerLevel, int minBallSpeedX, int minBallSpeedY, double ballSpeedIncreaseFactor, int maxPaddleLength, int minPaddleLength) throws InvalidInputException {
+
+        Game game = Block223Application.getCurrentGame();
+
+        game.setNrBlocksPerLevel(nrBlocksPerLevel);
+
+        Ball ball = game.getBall();
+
+        ball.setMinBallSpeedX(minBallSpeedX);
+        ball.setMinBallSpeedY(minBallSpeedX);
+        ball.setBallSpeedIncreaseFactor(ballSpeedIncreaseFactor);
+
+        Paddle paddle = game.getPaddle();
+
+        paddle.setMaxPaddleLength(maxPaddleLength);
+        paddle.setMinPaddleLength(minPaddleLength);
+
+        List<Level> levels = game.getLevels();
+        int size = levels.size();
+
+        while(nrLevels > size){
+            game.addLevel();
+            size = levels.size();
+        }
+
+        while(nrLevels < size){
+            Level level = game.getLevel(size-1);
+            level.delete();
+            size = levels.size();
+        }
+
+    }
+
 
     //done
     //TODO exception
@@ -226,7 +304,7 @@ public class Block223Controller {
         UserRole oldRole = Block223Application.getCurrentUserRole();
 
         if (oldRole != null) {
-            error = "Cannot register while a user is logged in";
+            error += "Cannot register while a user is logged in";
         }
 
         try {
@@ -251,26 +329,18 @@ public class Block223Controller {
         if (oldRole != null) {
             error = "Cannot register while a user is logged in";
         }
-
-
         Block223Application.resetBlock223();
 
         User user = User.getWithUsername(username);
         if (user == null) {
             error = "Username and password do not match";
         }
-
         ///List<UserRole> roles = user.getRoles();
-
-        UserRole role = User.findPassword(password, user);
-
-
+        UserRole role = User.findPassword(password , user);
         Block223Application.setCurrentUserRole(role);
-
         if (role == null) {
             error = "player password needs to be specified";
         }
-
     }
 
     //Mairead

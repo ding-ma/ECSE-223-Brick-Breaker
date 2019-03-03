@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/Login.java" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="69a08ff0-a785-44b2-95da-bf2352921255" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/application/Block223Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/application/Block223Application.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/controller/Block223Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/controller/Block223Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Admin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Block223.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Block223.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/persistence/PersistenceObjectStream.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/persistence/PersistenceObjectStream.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/AddBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/AddBlock.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/AddGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/AddGame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/BlockScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/BlockScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/BlockSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/BlockSettings.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/DeleteBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/DeleteBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/GameScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/GameScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/GameSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/GameSettings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/LevelScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/LevelScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/RefreshData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/Login.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -40,11 +46,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/controller/Block223Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="164">
-              <caret line="122" column="54" selection-start-line="122" selection-start-column="47" selection-end-line="122" selection-end-column="54" />
+            <state relative-caret-position="109">
+              <caret line="320" selection-start-line="320" selection-end-line="320" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -53,23 +59,32 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Block.java">
+        <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/src.zip!/java/lang/ClassLoader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="3" column="31" selection-start-line="3" selection-start-column="26" selection-end-line="3" selection-end-column="31" />
+            <state relative-caret-position="98">
+              <caret line="507" selection-start-line="507" selection-end-line="507" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/User.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="134">
+              <caret line="11" column="41" selection-start-line="11" selection-start-column="41" selection-end-line="11" selection-end-column="41" />
               <folding>
-                <element signature="e#3927#3928#0" expanded="true" />
-                <element signature="e#3947#3948#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#470#484#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/AddBlock.java">
+        <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/Login.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="249">
-              <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
+            <state relative-caret-position="133">
+              <caret line="24" column="44" lean-forward="true" selection-start-line="23" selection-start-column="21" selection-end-line="24" selection-end-column="44" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -78,19 +93,43 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/AddGame.java">
+        <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/persistence/Block223Persistence.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" selection-start-line="15" selection-end-line="15" />
+            <state relative-caret-position="136">
+              <caret line="8" selection-start-line="8" selection-end-line="8" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/persistence/PersistenceObjectStream.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="143">
+              <caret line="22" selection-start-line="22" selection-end-line="22" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Admin.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="10" column="59" selection-start-line="10" selection-start-column="59" selection-end-line="10" selection-end-column="59" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/application/Block223Application.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-187">
-              <caret line="27" column="35" selection-start-line="27" selection-start-column="27" selection-end-line="27" selection-end-column="35" />
+            <state relative-caret-position="255">
+              <caret line="15" column="19" lean-forward="true" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -99,22 +138,24 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/BlockScreen.java">
+        <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Player.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1295">
-              <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+            <state relative-caret-position="237">
+              <caret line="14" column="28" lean-forward="true" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#0#703#0" expanded="true" />
+                <element signature="e#536#537#0" expanded="true" />
+                <element signature="e#573#574#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/GameScreen.java">
+        <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Block223.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="422">
-              <caret line="121" lean-forward="true" selection-start-line="121" selection-end-line="121" />
+            <state relative-caret-position="119">
+              <caret line="8" column="59" lean-forward="true" selection-start-line="8" selection-start-column="59" selection-end-line="8" selection-end-column="59" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -214,35 +255,38 @@
         <option value="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Block.java" />
         <option value="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/MasterUI.java" />
         <option value="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/CreateBlock.java" />
-        <option value="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/BlockSettings.java" />
         <option value="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/DeleteGame.java" />
-        <option value="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/Login.java" />
         <option value="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/MoveBlock.java" />
         <option value="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/PositionBlock.java" />
         <option value="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/RemoveBlock.java" />
         <option value="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/UpdateBlock.java" />
         <option value="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/UpdateGame.java" />
-        <option value="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/persistence/Block223Persistence.java" />
-        <option value="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/persistence/PersistenceObjectStream.java" />
         <option value="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/RefreshData.java" />
-        <option value="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/DeleteBlock.java" />
         <option value="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/LevelScreen.java" />
         <option value="$PROJECT_DIR$/src/Block223 v2.ump" />
-        <option value="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/GameSettings.java" />
-        <option value="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/application/Block223Application.java" />
-        <option value="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/BlockScreen.java" />
-        <option value="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/AddBlock.java" />
-        <option value="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/controller/Block223Controller.java" />
         <option value="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/GameScreen.java" />
+        <option value="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/GameSettings.java" />
+        <option value="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/AddBlock.java" />
+        <option value="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/DeleteBlock.java" />
+        <option value="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/BlockSettings.java" />
+        <option value="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/BlockScreen.java" />
+        <option value="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/application/Block223Application.java" />
         <option value="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/AddGame.java" />
+        <option value="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/Login.java" />
+        <option value="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/controller/Block223Controller.java" />
+        <option value="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/persistence/PersistenceObjectStream.java" />
+        <option value="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Block223.java" />
+        <option value="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Player.java" />
+        <option value="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Admin.java" />
+        <option value="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/User.java" />
+        <option value="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/persistence/Block223Persistence.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-12" />
-    <option name="y" value="-12" />
-    <option name="width" value="2904" />
-    <option name="height" value="1599" />
+    <option name="x" value="-11" />
+    <option name="width" value="980" />
+    <option name="height" value="1044" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -251,7 +295,6 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -309,13 +352,14 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH" value="266" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551481675396" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551579578706" />
     <property name="last_opened_file_path" value="$USER_HOME$/OneDrive - McGill University/Winter 2019/ECSE 223/Tutorials/T6/BTMSversion4 (Solution)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -400,6 +444,9 @@
       <workItem from="1551462222642" duration="3511000" />
       <workItem from="1551467016191" duration="5896000" />
       <workItem from="1551473981441" duration="7460000" />
+      <workItem from="1551482283251" duration="1194000" />
+      <workItem from="1551552637231" duration="268000" />
+      <workItem from="1551553641335" duration="8768000" />
     </task>
     <task id="LOCAL-00001" summary="testing git out">
       <created>1551156832971</created>
@@ -580,7 +627,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="74985000" />
+    <option name="totallyTimeSpent" value="85215000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -595,7 +642,7 @@
     <frame x="-7" y="-7" width="1295" height="704" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49825174" visible="true" weight="0.23238866" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49825174" visible="true" weight="0.2639676" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -604,8 +651,8 @@
       <window_info id="Favorites" order="6" sideWeight="0.50174826" side_tool="true" weight="0.23724696" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32867134" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.23076923" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49878544" visible="true" weight="0.21503496" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3444056" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49959514" weight="0.34265736" />
@@ -613,7 +660,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49959514" weight="0.30769232" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.32867134" />
-      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50040483" side_tool="true" weight="0.32692307" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50121456" side_tool="true" weight="0.23076923" />
       <window_info anchor="bottom" id="Messages" order="12" weight="0.32517484" />
       <window_info anchor="bottom" id="GitHub Pull Requests" order="13" weight="0.3290461" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -712,16 +759,6 @@
     <entry file="file://$PROJECT_DIR$/.classpath">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Ball.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="6" column="23" lean-forward="true" selection-start-line="6" selection-start-column="23" selection-end-line="6" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#3069#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/Block223P.java" />
     <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/Block223P.form" />
     <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/Block223Page.form" />
@@ -742,13 +779,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/CreateBlock.form" />
-    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Admin.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/MasterUI.java" />
     <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/controller/TOBlock.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -775,60 +805,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/DeleteGame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/PositionBlock.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="37" selection-start-column="37" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/persistence/PersistenceObjectStream.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="24" column="40" selection-start-line="24" selection-start-column="40" selection-end-line="24" selection-end-column="40" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4420">
-          <caret line="261" column="16" selection-start-line="261" selection-start-column="16" selection-end-line="261" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Block223TransferObjects.ump">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/UpdateGame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="33" selection-start-line="6" selection-start-column="33" selection-end-line="6" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/UpdateBlock.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="37" selection-start-column="37" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Block223.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1060">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Level.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -844,13 +822,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/RemoveBlock.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Game.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="8772">
@@ -858,72 +829,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/RefreshData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/DeleteBlock.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="52" column="22" selection-start-line="52" selection-start-column="22" selection-end-line="52" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/controller/InvalidInputException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" selection-start-line="5" selection-end-line="5" />
-          <folding>
-            <element signature="e#228#229#0" expanded="true" />
-            <element signature="e#263#264#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/Login.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="13" column="30" selection-start-line="13" selection-start-column="30" selection-end-line="13" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/persistence/Block223Persistence.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="45" selection-start-line="7" selection-start-column="37" selection-end-line="7" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Block223 v2.ump">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="86" column="62" lean-forward="true" selection-start-line="86" selection-start-column="32" selection-end-line="86" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/GameSettings.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="34" column="40" selection-start-line="34" selection-start-column="40" selection-end-line="34" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/BlockSettings.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/RefreshData.java" />
     <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/LevelScreen.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="422">
@@ -942,17 +848,70 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/src.zip!/javax/swing/plaf/basic/BasicButtonListener.java">
+    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/controller/InvalidInputException.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-45">
-          <caret line="251" selection-start-line="251" selection-end-line="251" />
+        <state relative-caret-position="170">
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
+          <folding>
+            <element signature="e#228#229#0" expanded="true" />
+            <element signature="e#263#264#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/RemoveBlock.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="2" selection-start-line="8" selection-start-column="2" selection-end-line="8" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/PositionBlock.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="2" selection-start-line="8" selection-start-column="2" selection-end-line="8" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/UpdateGame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="2" selection-start-line="8" selection-start-column="2" selection-end-line="8" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/UpdateBlock.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="2" selection-start-line="8" selection-start-column="2" selection-end-line="8" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Ball.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1424">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/DeleteGame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Block223 v2.ump">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-320">
+          <caret line="86" column="62" lean-forward="true" selection-start-line="86" selection-start-column="32" selection-end-line="86" selection-end-column="62" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Block.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="3" column="31" selection-start-line="3" selection-start-column="26" selection-end-line="3" selection-end-column="31" />
+        <state relative-caret-position="-3111">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
           <folding>
             <element signature="e#3927#3928#0" expanded="true" />
             <element signature="e#3947#3948#0" expanded="true" />
@@ -960,20 +919,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/application/Block223Application.java">
+    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/GameSettings.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-187">
-          <caret line="27" column="35" selection-start-line="27" selection-start-column="27" selection-end-line="27" selection-end-column="35" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/BlockScreen.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1295">
-          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+        <state relative-caret-position="323">
+          <caret line="19" column="35" selection-start-line="19" selection-start-column="35" selection-end-line="19" selection-end-column="35" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -982,25 +931,136 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/GameScreen.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="422">
-          <caret line="121" lean-forward="true" selection-start-line="121" selection-end-line="121" />
+        <state relative-caret-position="165">
+          <caret line="17" column="42" lean-forward="true" selection-start-line="17" selection-start-column="42" selection-end-line="17" selection-end-column="42" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/AddGame.java">
+    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/DeleteBlock.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="867">
+          <caret line="51" selection-start-line="51" selection-end-line="51" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/BlockScreen.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
+          <caret line="32" column="30" lean-forward="true" selection-start-line="32" selection-start-column="30" selection-end-line="32" selection-end-column="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/AddBlock.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
+        <state relative-caret-position="401">
+          <caret line="49" column="16" selection-start-line="49" selection-start-column="16" selection-end-line="51" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/BlockSettings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="14" column="35" selection-start-line="14" selection-start-column="35" selection-end-line="14" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/AddGame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="36" lean-forward="true" selection-start-line="10" selection-start-column="36" selection-end-line="10" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/src.zip!/javax/swing/plaf/basic/BasicButtonListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="251" selection-start-line="251" selection-end-line="251" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/jre/lib/rt.jar!/sun/misc/Launcher.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="106">
+          <caret line="174" selection-start-line="174" selection-end-line="174" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/src.zip!/java/lang/ClassLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="98">
+          <caret line="507" selection-start-line="507" selection-end-line="507" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/src.zip!/java/lang/Object.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="33">
+          <caret line="36" column="13" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Block223.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="8" column="59" lean-forward="true" selection-start-line="8" selection-start-column="59" selection-end-line="8" selection-end-column="59" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="237">
+          <caret line="14" column="28" lean-forward="true" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#703#0" expanded="true" />
+            <element signature="e#536#537#0" expanded="true" />
+            <element signature="e#573#574#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Admin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="10" column="59" selection-start-line="10" selection-start-column="59" selection-end-line="10" selection-end-column="59" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="11" column="41" selection-start-line="11" selection-start-column="41" selection-end-line="11" selection-end-column="41" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#470#484#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/persistence/PersistenceObjectStream.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="143">
+          <caret line="22" selection-start-line="22" selection-end-line="22" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1009,8 +1069,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/controller/Block223Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="122" column="54" selection-start-line="122" selection-start-column="47" selection-end-line="122" selection-end-column="54" />
+        <state relative-caret-position="109">
+          <caret line="320" selection-start-line="320" selection-end-line="320" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/Login.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="24" column="44" lean-forward="true" selection-start-line="23" selection-start-column="21" selection-end-line="24" selection-end-column="44" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/persistence/Block223Persistence.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/application/Block223Application.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="19" lean-forward="true" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

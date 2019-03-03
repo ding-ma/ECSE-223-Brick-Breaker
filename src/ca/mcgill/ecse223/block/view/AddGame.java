@@ -1,5 +1,8 @@
 package ca.mcgill.ecse223.block.view;
 
+import ca.mcgill.ecse223.block.controller.*;
+import ca.mcgill.ecse223.block.controller.InvalidInputException;
+
 import javax.swing.*;
 
 public class AddGame {
@@ -12,7 +15,14 @@ public class AddGame {
         label.setBounds(0,0,400,50);
         frame.add(label);
 
-
+        try{
+            Block223Controller.createGame("user");
+            Block223Controller.setGameDetails(20,20,20,
+                    20,1,20,20);
+        }
+        catch (InvalidInputException a){
+            a.printStackTrace();
+        }
 
 
         frame.setSize(300,400);

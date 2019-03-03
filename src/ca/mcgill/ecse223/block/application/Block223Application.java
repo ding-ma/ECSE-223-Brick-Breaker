@@ -16,10 +16,10 @@ public class Block223Application {
 		// start UI
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-//                Login login = new Login();
-//                login.login();
+                Login login = new Login();
+                login.login();
                 BlockScreen blockScreen = new BlockScreen();
-                blockScreen.BlockScreen();
+              //  blockScreen.BlockScreen();
             }
         });
 	}

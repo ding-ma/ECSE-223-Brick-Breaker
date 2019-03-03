@@ -3,12 +3,13 @@
 
 package ca.mcgill.ecse223.block.model;
 import java.util.*;
+import java.io.Serializable;
 
 
 // line 4 "../../../../../../../../ump/tmp404732/model.ump"
 // line 149 "../../../../../../../../ump/tmp404732/model.ump"
 
-public class Block223
+public class Block223 implements Serializable
 {
 
   //------------------------

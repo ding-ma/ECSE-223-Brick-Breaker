@@ -11,12 +11,12 @@ public class BlockSettings {
         JButton BUpdate = new JButton();
         JButton BLevel = new JButton();
 
-        label.setText("Update Block Screen");
-        label.setBounds(0,0,400,50);
+        label.setText("Block Settings");
+        label.setBounds(10,5,400,50);
         frame.add(label);
 
         BUpdate.setText("Update Block Settings");
-        BUpdate.setBounds(20,20,100,50);
+        BUpdate.setBounds(100,50,200,50);
         BUpdate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -27,7 +27,7 @@ public class BlockSettings {
         frame.add(BUpdate);
 
         BLevel.setText("Block Level Settings");
-        BLevel.setBounds(200,20,100,50);
+        BLevel.setBounds(100,125,200,50);
         BLevel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -37,7 +37,7 @@ public class BlockSettings {
         });
         frame.add(BLevel);
 
-        frame.setSize(400,300);
+        frame.setSize(400,250);
         frame.setLayout(null);
         frame.setVisible(true);
     }

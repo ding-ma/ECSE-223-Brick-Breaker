@@ -17,7 +17,7 @@ public class AddBlock {
 
     public void AddBlock() {
 
-        CreateButton.setBounds(250, 600, 200, 50);
+        CreateButton.setBounds(150, 400, 200, 50);
         CreateButton.setText("Create Block");
         //  CreateButton.setFont(main.font);
 
@@ -54,7 +54,7 @@ public class AddBlock {
         });
         frame.add(CreateButton);
 
-        RedValue.setBounds(250, 100, 200, 50);
+        RedValue.setBounds(150, 50, 200, 50);
         RedValue.setText("Enter Red Value");
         //    RedValue.setFont(ui.font);
         RedValue.addMouseListener(new MouseAdapter() {
@@ -65,7 +65,7 @@ public class AddBlock {
         });
         frame.add(RedValue);
 
-        GreenValue.setBounds(250, 200, 200, 50);
+        GreenValue.setBounds(150, 125, 200, 50);
         GreenValue.setText("Enter Green Value");
         //  GreenValue.setFont(ui.font);
         GreenValue.addMouseListener(new MouseAdapter() {
@@ -76,7 +76,7 @@ public class AddBlock {
         });
         frame.add(GreenValue);
 
-        BlueValue.setBounds(250, 300, 200, 50);
+        BlueValue.setBounds(150, 200, 200, 50);
         BlueValue.setText("Enter Blue Value");
         //     BlueValue.setFont(ui.font);
         BlueValue.addMouseListener(new MouseAdapter() {
@@ -87,7 +87,7 @@ public class AddBlock {
         });
         frame.add(BlueValue);
 
-        PointValue.setBounds(250, 400, 200, 50);
+        PointValue.setBounds(150, 275, 200, 50);
         PointValue.setText("Enter Points Value");
         //    PointValue.setFont(ui.font);
         PointValue.addMouseListener(new MouseAdapter() {
@@ -98,7 +98,7 @@ public class AddBlock {
         });
         frame.add(PointValue);
 
-        frame.setSize(1000, 800);
+        frame.setSize(500, 600);
         frame.setLayout(null);
         frame.setVisible(true);
     }
