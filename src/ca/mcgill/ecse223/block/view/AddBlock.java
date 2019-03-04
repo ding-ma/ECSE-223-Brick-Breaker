@@ -2,12 +2,18 @@ package ca.mcgill.ecse223.block.view;
 import ca.mcgill.ecse223.block.controller.*;
 
 import javax.swing.*;
+
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class AddBlock {
+	
+	private String error = null;
+	private JLabel errorMessage;
+	
     private JTextField RedValue = new JTextField();
     private JTextField GreenValue = new JTextField();
     private JTextField BlueValue = new JTextField();
@@ -17,6 +23,13 @@ public class AddBlock {
 
     public void AddBlock() {
 
+    		
+    	errorMessage = new JLabel();
+    	errorMessage = new JLabel();
+		errorMessage.setForeground(Color.RED);
+		errorMessage.setBounds(400, 400, 200, 200);
+    	
+    	
         CreateButton.setBounds(250, 600, 200, 50);
         CreateButton.setText("Create Block");
         //  CreateButton.setFont(main.font);
@@ -41,10 +54,19 @@ public class AddBlock {
                 System.out.println("blue = " + blue);
                 System.out.println("red = " + red);
 
-                Block223Controller block223Controller = new Block223Controller();
-                block223Controller.addBlock(red,green,blue,points);
+                try {
+                    Block223Controller.addBlock(red, green, blue, points);
+                    BlockScreen blockScreen = new BlockScreen();
+                   blockScreen.refreshData();
 
+                }
+                catch (InvalidInputException a){
+                  error =  a.getMessage();
+                }   
+                refreshData();
             }
+            
+            
         });
         frame.add(CreateButton);
 
@@ -91,9 +113,15 @@ public class AddBlock {
             }
         });
         frame.add(PointValue);
+        frame.add(errorMessage);
 
         frame.setSize(1000, 800);
         frame.setLayout(null);
         frame.setVisible(true);
     }
+	private void refreshData() {
+		// error
+		errorMessage.setText(error);
+
+	}
 }

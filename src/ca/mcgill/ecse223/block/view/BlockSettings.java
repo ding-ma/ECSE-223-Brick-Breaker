@@ -1,43 +1,55 @@
 package ca.mcgill.ecse223.block.view;
 
 import javax.swing.*;
+
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class BlockSettings {
+	
+	private JLabel label;
+	private JButton settingsButton;
+	private JButton levelButton;
+	
     public void BlockSettings(){
         JFrame frame = new JFrame();
-        JLabel label = new JLabel();
-        JButton BUpdate = new JButton();
-        JButton BLevel = new JButton();
+        label = new JLabel();
+        settingsButton = new JButton();
+        levelButton = new JButton();
 
-        label.setText("Update Block Screen");
-        label.setBounds(0,0,400,50);
-        frame.add(label);
+        label.setText("Blocks/Levels Screen");
+        label.setBounds(80,0,400,50);
+       
 
-        BUpdate.setText("Update Block Settings");
-        BUpdate.setBounds(20,20,100,50);
-        BUpdate.addActionListener(new ActionListener() {
+        settingsButton.setText("Block Settings");
+        settingsButton.setBounds(50,50,200,50);
+        settingsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
               UpdateBlock updateBlock = new UpdateBlock();
               updateBlock.UpdateBlock();
+              frame.dispose();
             }
         });
-        frame.add(BUpdate);
+        
 
-        BLevel.setText("Block Level Settings");
-        BLevel.setBounds(200,20,100,50);
-        BLevel.addActionListener(new ActionListener() {
+        levelButton.setText("Level Settings");
+        levelButton.setBounds(50,100, 200, 50);
+        levelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 LevelScreen levelScreen = new LevelScreen();
                 levelScreen.LevelScreen();
+                frame.dispose();
             }
         });
-        frame.add(BLevel);
-
-        frame.setSize(400,300);
+        frame.add(settingsButton);
+        frame.add(levelButton);
+        frame.add(label);
+        
+        frame.getContentPane().setBackground(Color.PINK);
+        frame.setSize(300,300);
         frame.setLayout(null);
         frame.setVisible(true);
     }
