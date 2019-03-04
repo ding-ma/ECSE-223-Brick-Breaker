@@ -1,5 +1,6 @@
 package ca.mcgill.ecse223.block.controller;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import ca.mcgill.ecse223.block.application.*;
 import ca.mcgill.ecse223.block.model.*;
 import ca.mcgill.ecse223.block.persistence.*;
 
-public class Block223Controller {
+public class Block223Controller implements Serializable {
     private static Game game;
     private Block223 block223;
     // ****************************
@@ -23,13 +24,12 @@ public class Block223Controller {
 
         Block223 block223 = Block223Application.getBlock223();
 
-        try{
-            checkGameNameIsUnique(name, block223);
-        } catch(RuntimeException e){
-            error = "The name of a game must be unique";
+
+        error = checkGameNameIsUnique(name, block223);
+        if (error != null) {
             throw new InvalidInputException(error);
         }
-                
+
         if(name == null){
             error = "The name of the game must be specified";
             throw new InvalidInputException(error); 
@@ -37,29 +37,24 @@ public class Block223Controller {
 
         UserRole userRole = Block223Application.getCurrentUserRole();
         if(userRole instanceof Player || userRole == null){
-            error = "Admin privileges are required to create a game.";
+            error = "Admin in privileges are required to create a game.";
             throw new InvalidInputException(error);
         }
-
         String adminPassword = userRole.getPassword();
 
-        Admin admin = new Admin(adminPassword, block223); 
-        
-        Game game = new Game(name, 1, admin, 1, 1, 1, 10, 10, block223);
+        Admin admin = new Admin(adminPassword, block223);
 
-        Game game = new Game(aName, aNrBlocksPerLevel, aAdmin, aMinBallSpeedXForBall, aMinBallSpeedYForBall, aBallSpeedIncreaseFactorForBall, aMaxPaddleLengthForPaddle, aMinPaddleLengthForPaddle, aBlock223)
+        Game game = new Game(name, 1, admin, 1, 1,
+                1, 10, 10, block223);
 
         Block223Application.setCurrentGame(game);
-
-        block223.addGame(name, game.getNrBlocksPerLevel(), game.getAdmin(), game.getBall(), game.getPaddle());
-        
     }
 
-    public static Game checkGameNameIsUnique(String name, Block223 block223) {
+    public static String checkGameNameIsUnique(String name, Block223 block223) {
         for (Game game : block223.getGames()) {
-            if (game.getName() == name) {
-                System.out.println("The name of a game must be unique");
-                return game;
+            if (game.getName().equals(name)) {
+                String error = "The name of a game must be unique";
+                return error;
             }
         }
         return null;
@@ -87,7 +82,7 @@ public class Block223Controller {
         int size = levels.size();
 
         while(nrLevels > size){
-            game.addLevel(); 
+            game.addLevel();
             size = levels.size();
         }
 
@@ -116,13 +111,84 @@ public class Block223Controller {
     //Anne-Julie
     public static void updateGame(String name, int nrLevels, int nrBlocksPerLevel, int minBallSpeedX, int minBallSpeedY,
                                   Double ballSpeedIncreaseFactor, int maxPaddleLength, int minPaddleLength) throws InvalidInputException {
+
+        String error = "";
+
+        String role = Block223Application.getCurrentUserRole().toString();
+        if (role != "admin") {
+            error = "Admin privileges are required to select a game.";
+            throw new InvalidInputException(error);
+        }
+        Game game = Block223Application.getCurrentGame();
+        if (game == null) {
+            error = "A game must be selected to define game settings.";
+            throw new InvalidInputException(error);
+        }
+    /*if(game.getAdmin().toString() != block223.getUser(1).toString()) {  //TODO what is the index
+            error = "Only the admin who created the game can edit the game settings.";
+            throw new InvalidInputException(error);
+        }*/
+
+        String currentName = game.getName();
+
+        if (name != currentName) {
+
+            if (!game.setName(name)) {
+                error = "The name of a game must be unique.";
+                throw new InvalidInputException(error);
+            } else if (name == null | name.equals("")) { //TODO what does the catch/rethrow mean
+                error = "The name of a game must be specified.";
+                throw new InvalidInputException(error);
+            }
+            game.setName(name);
+        }
+
+        //TODO how does it know which game to update
+        //       setGameDetails(nrLevels, nrBlocksPerLevel, minBallSpeedX,
+        //               minBallSpeedY, ballSpeedIncreaseFactor, maxPaddleLength, minPaddleLength);
     }
     //done
     //TODO exception
     public static void addBlock(int red, int green, int blue, int points) throws InvalidInputException {
         Game game = Block223Application.getCurrentGame();
+        String error = "";
 
-        Block block = new Block(red, green, blue, points, game);
+        if (red < 0 || red > 255) {
+            error += "Red must be between 0 and 255.";
+        }
+        if (green < 0 || green > 255) {
+            error += "Green must be between 0 and 255.";
+        }
+        if (blue < 0 || blue > 255) {
+            error += "Blue must be between 0 and 255.";
+        }
+        if (points < 0 || points > 1000) {
+            error += "Points need to be between 0 and 1000";
+        }
+
+        for (Block block : Block223Application.getCurrentGame().getBlocks()) {
+            if (red == block.getRed() && green == block.getGreen() && blue == block.getBlue()) {
+                error += "A block with this the same color already exists.";
+            }
+        }
+
+        if (error.length() > 0)
+            throw new InvalidInputException(error.trim());
+
+        try {
+            Block block = new Block(red, green, blue, points, game);
+            block.setRed(red);
+            block.setGreen(green);
+            block.setBlue(blue);
+            block.setPoints(points);
+            //TODO PERSISTENCE DOESNT WORK
+         //   Block223Persistence.save(Block223Application.getBlock223());
+            Block223Controller.getBlocksOfCurrentDesignableGame();
+
+        } catch (RuntimeException e) {
+            error = e.getMessage();
+            throw new InvalidInputException(error);
+        }
 
         block.setRed(red);
         block.setGreen(green);
@@ -270,9 +336,9 @@ public class Block223Controller {
     
     //Mairead
     public static TOUserMode getUserMode() {
-        Block223Application userRole = Block223Application.getCurrentUserRole();
+        UserRole userRole = Block223Application.getCurrentUserRole();
         if (userRole == null) {
-            TOUserMode toUserMode = new TOUserMode(Block223.);
+            TOUserMode toUserMode = new TOUserMode(Block223);
         }
         if (userRole == player){
             TOUserMode toUserMode = new TOUserMode();

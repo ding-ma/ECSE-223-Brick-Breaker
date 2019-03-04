@@ -52,7 +52,8 @@ public class Game
   // CONSTRUCTOR
   //------------------------
 
-  public Game(String aName, int aNrBlocksPerLevel, Admin aAdmin, Ball aBall, Paddle aPaddle, Block223 aBlock223)
+  public Game(String aName, int aNrBlocksPerLevel, Admin aAdmin, Ball aBall, Paddle aPaddle,
+              Block223 aBlock223)
   {
     nrBlocksPerLevel = aNrBlocksPerLevel;
     if (!setName(aName))
@@ -84,7 +85,9 @@ public class Game
     }
   }
 
-  public Game(String aName, int aNrBlocksPerLevel, Admin aAdmin, int aMinBallSpeedXForBall, int aMinBallSpeedYForBall, double aBallSpeedIncreaseFactorForBall, int aMaxPaddleLengthForPaddle, int aMinPaddleLengthForPaddle, Block223 aBlock223)
+  public Game(String aName, int aNrBlocksPerLevel, Admin aAdmin, int aMinBallSpeedXForBall,
+              int aMinBallSpeedYForBall, double aBallSpeedIncreaseFactorForBall, int aMaxPaddleLengthForPaddle,
+              int aMinPaddleLengthForPaddle, Block223 aBlock223)
   {
     name = aName;
     nrBlocksPerLevel = aNrBlocksPerLevel;

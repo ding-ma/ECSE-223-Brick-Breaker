@@ -49,8 +49,15 @@ public class BlockScreen {
         BAdd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                try {
+                    Block223Controller.addBlock(11,102,10,100);
+
+                }
+                catch (InvalidInputException a){
+                    a.printStackTrace();
+                }
                 AddBlock addBlock = new AddBlock();
-                addBlock.AddBlock();
+              //  addBlock.AddBlock();
 
             }
         });
