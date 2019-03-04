@@ -342,13 +342,83 @@ public class Block223Controller {
 	}
 
 	//Mert
-	public static void moveBlock(int level, int oldGridHorizontalPosition, int oldGridVerticalPosition,
-			int newGridHorizontalPosition, int newGridVerticalPosition) throws InvalidInputException {
-	}
-	//Mert
-	public static void removeBlock(int level, int gridHorizontalPosition, int gridVerticalPosition)
-			throws InvalidInputException {
-	}
+    public static void moveBlock(int level, int oldGridHorizontalPosition, int oldGridVerticalPosition,
+                                 int newGridHorizontalPosition, int newGridVerticalPosition) throws InvalidInputException {
+	    
+ String error = "";                                                                                                
+ //check if the current user is admin                                                                              
+ if (Block223Application.getCurrentUserRole().toString() != "admin") {                                             
+     error = "Admin priveleges are required to move a block";                                                      
+     throw new InvalidInputException(error);                                                                       
+ }                                                                                                                 
+ // check if the game exists                                                                                       
+ Game game = Block223Application.getCurrentGame();                                                                 
+ if (game == null) {                                                                                                
+     error = "A game must be selected to move a block";                                                            
+ }                                                                                                                 
+ //check if the it is the admin of the current game                                                                
+if (game.getAdmin().toString() != Block223Application.getCurrentUserRole().toString()) {
+              error = "Only the admin who created the game can move the block.";
+              throw new InvalidInputException(error);                                                        
+    	                                                                                                                                                                                                 
+ }                                                                                                                 
+ //reset error                                                                                                     
+ error = "";                                                                                                       
+                                                                                                                   
+ // check that the level is within the limits                                                                      
+ Level recent = null;                                                                                              
+ if (level <= game.getLevels().size() && level >= game.MIN_NR_LEVELS) {                                            
+     recent = game.getLevel(level);                                                                                
+ } else {                                                                                                          
+     error = "Level" + level + "does not exist";                                                                   
+ }                                                                                                                 
+   //finding blockAssignment                                                                                                    
+BlockAssignment position = recent.findBlockAssignment(oldGridHorizontalPosition, oldGridVerticalPosition);                   
+if (position != null) {                                                                                                      
+    position.delete();                                                                                                       
+} else {                                                                                                                     
+    error = "A block does not exist at location" + oldGridHorizontalPosition + "/" + oldGridVerticalPosition + ".";          
+}                                                                                                                            
+if (recent.findBlockAssignment(newGridHorizontalPosition, newGridVerticalPosition) != null) {                                
+    error = "A block already exists at location" + newGridHorizontalPosition + "/" + newGridVerticalPosition + ".";          
+} else if (newGridVerticalPosition > 0 && newGridVerticalPosition < (Game.PLAY_AREA_SIDE + Game.WALL_PADDING) / Block.SIZE)  
+{                                                                                                                            
+    error = "The vertical position must be between 1 and " + (Game.PLAY_AREA_SIDE + Game.WALL_PADDING) / Block.SIZE + ".";   
+} else {                                                                                                                     
+    position.setGridVerticalPosition(newGridVerticalPosition);                                                               
+    position.setGridHorizontalPosition(newGridHorizontalPosition);                                                           
+                                                                                                                                                                                                                                              
+}    
+    }
+    //Mert
+    public static void removeBlock(int level, int gridHorizontalPosition, int gridVerticalPosition)
+            throws InvalidInputException {
+	    
+   String error = "";                                                                                          
+   //check if the current user is admin                                                                        
+   if (Block223Application.getCurrentUserRole().toString() != "admin") {                                       
+   error = "Admin priveleges are required to move a block";                                                    
+   throw new InvalidInputException(error);                                                                     
+   }                                                                                                           
+                                                                                                               
+   // checks if game exists                                                                                    
+   Game game = Block223Application.getCurrentGame();                                                           
+ 	 if(game == null) {                                                                                          
+   error = "A game must be selected to remove a block.";                                                       
+ 	}                                                                                                            
+ 	 //check if the it is the admin of the current game                                                          
+ 	 if (game.getAdmin().toString() != Block223Application.getCurrentUserRole().toString()) {
+            error = "Only the admin who created the game can remove the block.";
+            throw new InvalidInputException(error);                                                                                       
+ 	 }                                                                                                           
+                                                                                                               
+Level recent;                                                                                                  
+		recent = game.getLevel(level);                                                                           
+		BlockAssignment position = recent.findBlockAssignment(gridHorizontalPosition, gridVerticalPosition);     
+		if (position!=null) {                                                                                    
+			position.delete();                                                                                   
+		}                                                                                                        
+	}                
 	//Mairead
 	public static void saveGame() throws InvalidInputException {
 		Block223 block223 = Block223Application.getBlock223();
