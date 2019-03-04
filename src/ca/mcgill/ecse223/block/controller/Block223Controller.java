@@ -187,21 +187,10 @@ public class Block223Controller {
      error = "A game must be selected to move a block";                                                            
  }                                                                                                                 
  //check if the it is the admin of the current game                                                                
- if (currentUserRole instanceof Admin) {                                                                           
-     boolean gameAdmin = false;                                                                                    
-     List<Game> games = ((Admin) currentUserRole).getGames();                                                      
-                                                                                                                   
-     for (Game rightGame : games) {                                                                                
-         if (rightGame.getName().equals(game.getName())) {                                                         
-             gameAdmin = true;                                                                                     
-             break;                                                                                                
-         }                                                                                                         
-     }                                                                                                             
-                                                                                                                   
-     if (gameAdmin == false) {                                                                                     
-         error = "Only the admin who created the game can move a block"                                            
-     }                                                                                                             
-                                                                                                                   
+if (game.getAdmin().toString() != Block223Application.getCurrentUserRole().toString()) {
+              error = "Only the admin who created the game can move the block.";
+              throw new InvalidInputException(error);                                                        
+    	                                                                                                                                                                                                 
  }                                                                                                                 
  //reset error                                                                                                     
  error = "";                                                                                                       
@@ -248,20 +237,9 @@ if (recent.findBlockAssignment(newGridHorizontalPosition, newGridVerticalPositio
    error = "A game must be selected to remove a block.";                                                       
  	}                                                                                                            
  	 //check if the it is the admin of the current game                                                          
- 	 if (currentUserRole instanceof Admin) {                                                                     
- 	     boolean gameAdmin = false;                                                                              
- 	     List<Game> games = ((Admin) currentUserRole).getGames();                                                
-                                                                                                               
- 	     for (Game rightGame : games) {                                                                          
- 	         if (rightGame.getName().equals(game.getName())) {                                                   
- 	             gameAdmin = true;                                                                               
- 	             break;                                                                                          
- 	         }                                                                                                   
- 	     }                                                                                                       
-                                                                                                               
- 	     if (gameAdmin == false) {                                                                               
- 	         error = "Only the admin who created the game can move a block"                                      
- 	     }                                                                                                       
+ 	 if (game.getAdmin().toString() != Block223Application.getCurrentUserRole().toString()) {
+            error = "Only the admin who created the game can remove the block.";
+            throw new InvalidInputException(error);                                                                                       
  	 }                                                                                                           
                                                                                                                
 Level recent;                                                                                                  
@@ -272,7 +250,6 @@ Level recent;
 		}                                                                                                        
 	}                                                                                                            
                                                                                                                	      
-    }
     //Mairead
     public static void saveGame() throws InvalidInputException {
         Block223 block223 = Block223Application.getBlock223();
