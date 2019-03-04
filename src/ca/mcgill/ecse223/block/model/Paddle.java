@@ -4,14 +4,10 @@
 package ca.mcgill.ecse223.block.model;
 import java.util.*;
 
-<<<<<<< HEAD
-// line 132 "../../../../../Block223 v2.ump"
-=======
 
 // line 142 "../../../../../../../../ump/tmp404732/model.ump"
 // line 199 "../../../../../../../../ump/tmp404732/model.ump"
 
->>>>>>> aebcba364ba7e8c5354bf78eef9aa94673fe709d
 public class Paddle
 {
 

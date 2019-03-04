@@ -5,16 +5,11 @@ package ca.mcgill.ecse223.block.model;
 import java.util.*;
 import java.io.Serializable;
 
-<<<<<<< HEAD
-// line 23 "../../../../../Block223 v2.ump"
-public class User
-=======
 
 // line 24 "../../../../../../../../ump/tmp404732/model.ump"
 // line 154 "../../../../../../../../ump/tmp404732/model.ump"
 
 public class User implements Serializable
->>>>>>> aebcba364ba7e8c5354bf78eef9aa94673fe709d
 {
 
   //------------------------

@@ -4,15 +4,10 @@
 package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 
-<<<<<<< HEAD
-// line 37 "../../../../../Block223 v2.ump"
-public class Player extends UserRole
-=======
 // line 52 "../../../../../../../../ump/tmp404732/model.ump"
 // line 169 "../../../../../../../../ump/tmp404732/model.ump"
 
 public class Player extends UserRole implements Serializable
->>>>>>> aebcba364ba7e8c5354bf78eef9aa94673fe709d
 {
 
   //------------------------

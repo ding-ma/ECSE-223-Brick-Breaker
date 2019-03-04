@@ -202,13 +202,8 @@ public class GameScreen {
         BAdd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-<<<<<<< HEAD
-                UpdateGame updateGame = new UpdateGame();
-                updateGame.UpdateGame("game1");
-=======
                 AddGame addGame = new AddGame();
                 addGame.AddGame();
->>>>>>> aebcba364ba7e8c5354bf78eef9aa94673fe709d
             }
         });
         FGameScreem.add(BAdd);
