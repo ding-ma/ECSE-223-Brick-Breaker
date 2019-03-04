@@ -62,7 +62,7 @@ public class GameScreen {
             @Override
             public void actionPerformed(ActionEvent e) {
                 UpdateGame updateGame = new UpdateGame();
-                updateGame.UpdateGame();
+                updateGame.UpdateGame("game1");
             }
         });
         FGameScreem.add(BAdd);

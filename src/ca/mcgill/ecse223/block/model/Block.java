@@ -4,7 +4,7 @@
 package ca.mcgill.ecse223.block.model;
 import java.util.*;
 
-// line 71 "../../../../../Block223 v2.ump"
+// line 77 "../../../../../Block223 v2.ump"
 public class Block
 {
 
@@ -42,22 +42,22 @@ public class Block
 
   public Block(int aRed, int aGreen, int aBlue, int aPoints, Game aGame)
   {
-    // line 86 "../../../../../Block223 v2.ump"
+    // line 92 "../../../../../Block223 v2.ump"
     if(aRed <MIN_COLOR || aRed > MAX_COLOR){
        throw new RuntimeException ("Red must be between 0 and 255.");
        }
     // END OF UMPLE BEFORE INJECTION
-    // line 91 "../../../../../Block223 v2.ump"
+    // line 97 "../../../../../Block223 v2.ump"
     if(aGreen <MIN_COLOR || aGreen > MAX_COLOR){
        throw new RuntimeException ("Green must be between 0 and 255.");
        }
     // END OF UMPLE BEFORE INJECTION
-    // line 96 "../../../../../Block223 v2.ump"
+    // line 102 "../../../../../Block223 v2.ump"
     if(aBlue <MIN_COLOR || aBlue > MAX_COLOR){
        throw new RuntimeException ("Blue must be between 0 and 255.");
        }
     // END OF UMPLE BEFORE INJECTION
-    // line 101 "../../../../../Block223 v2.ump"
+    // line 107 "../../../../../Block223 v2.ump"
     if(aPoints <MIN_POINTS || aPoints > MAX_POINTS){
        throw new RuntimeException ("Points must be between 1 and 10000.");
        }
@@ -82,7 +82,7 @@ public class Block
   public boolean setRed(int aRed)
   {
     boolean wasSet = false;
-    // line 86 "../../../../../Block223 v2.ump"
+    // line 92 "../../../../../Block223 v2.ump"
     if(aRed <MIN_COLOR || aRed > MAX_COLOR){
        throw new RuntimeException ("Red must be between 0 and 255.");
        }
@@ -95,7 +95,7 @@ public class Block
   public boolean setGreen(int aGreen)
   {
     boolean wasSet = false;
-    // line 91 "../../../../../Block223 v2.ump"
+    // line 97 "../../../../../Block223 v2.ump"
     if(aGreen <MIN_COLOR || aGreen > MAX_COLOR){
        throw new RuntimeException ("Green must be between 0 and 255.");
        }
@@ -108,7 +108,7 @@ public class Block
   public boolean setBlue(int aBlue)
   {
     boolean wasSet = false;
-    // line 96 "../../../../../Block223 v2.ump"
+    // line 102 "../../../../../Block223 v2.ump"
     if(aBlue <MIN_COLOR || aBlue > MAX_COLOR){
        throw new RuntimeException ("Blue must be between 0 and 255.");
        }
@@ -121,7 +121,7 @@ public class Block
   public boolean setPoints(int aPoints)
   {
     boolean wasSet = false;
-    // line 101 "../../../../../Block223 v2.ump"
+    // line 107 "../../../../../Block223 v2.ump"
     if(aPoints <MIN_POINTS || aPoints > MAX_POINTS){
        throw new RuntimeException ("Points must be between 1 and 10000.");
        }

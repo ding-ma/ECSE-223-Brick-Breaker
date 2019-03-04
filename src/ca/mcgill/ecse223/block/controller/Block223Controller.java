@@ -6,7 +6,6 @@ import java.util.List;
 import ca.mcgill.ecse223.block.application.*;
 import ca.mcgill.ecse223.block.model.*;
 import ca.mcgill.ecse223.block.persistence.*;
-
 public class Block223Controller {
     private static Game game;
     // ****************************
@@ -24,19 +23,24 @@ public class Block223Controller {
     //TODO exception
     public static void deleteGame(String name) throws InvalidInputException {
         String error = "";
-        
+        Game game;
         if(Block223Application.getCurrentUserRole().toString() != "admin") {
             error = "Admin privileges are required to delete a game.";
             throw new InvalidInputException(error);
         }
         
         Block223 block223 = Block223Application.getBlock223();
-        Game game = block223.findGame(name);
+        try {
+            game = block223.findGame(name);
+        } catch (Exception e) {
+            throw new InvalidInputException(e.getMessage());
+        }
 
         if (game != null) {
             game.delete();
         }
         
+        Block223Persistence.save(block223);
     }
     
     //Anne-Julie
@@ -85,21 +89,20 @@ public class Block223Controller {
             throw new InvalidInputException(error);
         }*/
 
-    String currentName = game.getName();
+    try {
+        String currentName = game.getName();
+    } catch (Exception e) {
+        throw new RuntimeException(e.getMessage());
+    }
 
-    if(name != currentName) {
+    /*if(name != currentName) {
         
         if(!game.setName(name)) {
             error = "The name of a game must be unique.";
             throw new InvalidInputException(error);
         }
-
-        else if(name == null | name.equals("")) { //TODO what does the catch/rethrow mean
-            error = "The name of a game must be specified.";
-            throw new InvalidInputException(error);
-        }
         game.setName(name);
-    }
+    }*/
 
     //TODO how does it know which game to update
     setGameDetails(nrLevels, nrBlocksPerLevel, minBallSpeedX, 
@@ -124,7 +127,7 @@ public class Block223Controller {
 
 
 
-    public static void deleteBlock(int id) throws InvalidInputException {
+    /* public static void deleteBlock(int id) throws InvalidInputException {
         Block block = Block223Application.getCurrentGame().findBlock(id);
         if (block !=null) {
             block.delete();
@@ -138,11 +141,11 @@ public class Block223Controller {
     	
     	Game game = Block223Application.getCurrentGame();
             Block block = new Block( red, green,  blue,  points, game);
-    }
+    }*/
     //done
     //TODO exception
     //Question about the persistence 
-    public static void deleteBlock(int id) throws InvalidInputException {
+   public static void deleteBlock(int id) throws InvalidInputException {
     Block block = Block223Application.getCurrentGame().findBlock(id);
     if (block!=null ) {
     	block.delete();

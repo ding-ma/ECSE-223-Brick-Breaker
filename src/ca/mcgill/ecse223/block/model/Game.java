@@ -4,7 +4,7 @@
 package ca.mcgill.ecse223.block.model;
 import java.util.*;
 
-// line 40 "../../../../../Block223 v2.ump"
+// line 41 "../../../../../Block223 v2.ump"
 public class Game
 {
 
@@ -51,6 +51,10 @@ public class Game
 
   public Game(String aName, int aNrBlocksPerLevel, Admin aAdmin, Ball aBall, Paddle aPaddle, Block223 aBlock223)
   {
+    // line 71 "../../../../../Block223 v2.ump"
+    if(aName.equals(""))
+       throw new RuntimeException("The name of a game must be specified.");
+    // END OF UMPLE BEFORE INJECTION
     nrBlocksPerLevel = aNrBlocksPerLevel;
     if (!setName(aName))
     {
@@ -83,6 +87,10 @@ public class Game
 
   public Game(String aName, int aNrBlocksPerLevel, Admin aAdmin, int aMinBallSpeedXForBall, int aMinBallSpeedYForBall, double aBallSpeedIncreaseFactorForBall, int aMaxPaddleLengthForPaddle, int aMinPaddleLengthForPaddle, Block223 aBlock223)
   {
+    // line 71 "../../../../../Block223 v2.ump"
+    if(aName.equals(""))
+       throw new RuntimeException("The name of a game must be specified.");
+    // END OF UMPLE BEFORE INJECTION
     name = aName;
     nrBlocksPerLevel = aNrBlocksPerLevel;
     boolean didAddAdmin = setAdmin(aAdmin);
@@ -109,6 +117,10 @@ public class Game
   public boolean setName(String aName)
   {
     boolean wasSet = false;
+    // line 71 "../../../../../Block223 v2.ump"
+    if(aName.equals(""))
+       throw new RuntimeException("The name of a game must be specified.");
+    // END OF UMPLE BEFORE INJECTION
     String anOldName = getName();
     if (hasWithName(aName)) {
       return wasSet;
@@ -604,7 +616,7 @@ public class Game
   /**
    * George
    */
-  // line 58 "../../../../../Block223 v2.ump"
+  // line 59 "../../../../../Block223 v2.ump"
    public Block findBlock(int id){
     List<Block> blocks = this.getBlocks();
    for(Block block : blocks){

@@ -373,7 +373,7 @@ public class Block223
    return game;
    }
    }
-   return null;
+   throw new RuntimeException("A game with the name "+name+" does not exist.");
   }
 
 }
