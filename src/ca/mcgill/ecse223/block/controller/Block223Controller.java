@@ -224,7 +224,7 @@ public class Block223Controller implements Serializable {
             error += "Blue must be between 0 and 255.";
         }
         if (points < 0 || points > 1000) {
-            error += "Points need to be between 0 and 1000";
+            error += "Points need to be between 1 and 1000";
         }
 
         for (Block block : Block223Application.getCurrentGame().getBlocks()) {
@@ -291,6 +291,7 @@ public class Block223Controller implements Serializable {
     //George
     //TODO exception
     public static void updateBlock(int id, int red, int green, int blue, int points) throws InvalidInputException {
+<<<<<<< HEAD
     	String error = "";
     	Block block = Block223Application.getCurrentGame().findBlock(id);
     	if (block == null) {
@@ -309,6 +310,25 @@ public class Block223Controller implements Serializable {
     		   }
    
     }
+=======
+        String error = "";
+        Block block = Block223Application.getCurrentGame().findBlock(id);
+        if (block == null) {
+            error = "A block with this id does not exist. ";
+        }
+        for (Block ablock : Block223Application.getCurrentGame().getBlocks()) {
+            if (red == ablock.getRed() && green == ablock.getGreen() && blue == ablock.getBlue()) {
+                error = "A block with this the same color already exists. ";
+                break;
+            } else {
+                block.setBlue(blue);
+                block.setGreen(green);
+                block.setRed(red);
+                block.setPoints(points);
+            }
+
+        }
+>>>>>>> 545281b8aa7e3db1432a1626a4c4562c950a2312
     }
     //George
     //TODO exception.
