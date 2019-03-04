@@ -2,13 +2,11 @@
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
 package ca.mcgill.ecse223.block.model;
-import java.util.*;
 import java.io.Serializable;
+import java.util.*;
 
-
-// line 24 "../../../../../../../../ump/tmp404732/model.ump"
-// line 154 "../../../../../../../../ump/tmp404732/model.ump"
-
+// line 89 "../../../../../Block223Persistence.ump"
+// line 24 "../../../../../Block223 v2.ump"
 public class User implements Serializable
 {
 
@@ -249,11 +247,19 @@ public class User implements Serializable
     }
   }
 
+  // line 95 "../../../../../Block223Persistence.ump"
+   public static  void reinitializeUniqueUsername(List<User> users){
+    usersByUsername = new HashMap<String, User>();
+    for (User user : users) {
+      usersByUsername.put(user.getUsername(), user);
+    }
+  }
+
 
   /**
    * Mairead
    */
-  // line 30 "../../../../../../../../ump/tmp404732/model.ump"
+  // line 30 "../../../../../Block223 v2.ump"
    public static  UserRole findPassword(String password, User user){
     List<UserRole> roles = user.getRoles();
 	for(UserRole role : roles) {
@@ -272,5 +278,13 @@ public class User implements Serializable
     return super.toString() + "["+
             "username" + ":" + getUsername()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "block223 = "+(getBlock223()!=null?Integer.toHexString(System.identityHashCode(getBlock223())):"null");
-  }
+  }  
+  //------------------------
+  // DEVELOPER CODE - PROVIDED AS-IS
+  //------------------------
+  
+  // line 92 "../../../../../Block223Persistence.ump"
+  private static final long serialVersionUID = -7403802774454467836L ;
+
+  
 }

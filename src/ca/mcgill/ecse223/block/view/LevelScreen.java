@@ -1,11 +1,19 @@
 package ca.mcgill.ecse223.block.view;
 
 import javax.swing.*;
+
+import ca.mcgill.ecse223.block.controller.Block223Controller;
+import ca.mcgill.ecse223.block.controller.TOBlock;
+
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 
 public class LevelScreen {
+
     public void LevelScreen(){
+
         JFrame FGameScreem = new JFrame();
         JButton BDelete = new JButton();
         JButton BSettings = new JButton();
