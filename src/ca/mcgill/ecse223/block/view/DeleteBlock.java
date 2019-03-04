@@ -11,7 +11,6 @@ public class DeleteBlock {
     private JFrame Box = new JFrame();
     private JTextField blockselected = new JTextField();
     private JComboBox list = new JComboBox();
-    private JLabel label = new JLabel();
 
     public void DeleteBlock (){
         //TODO need to get blocks in the game
@@ -19,11 +18,8 @@ public class DeleteBlock {
         //done with JtextField
         //TODO need a way to click on it and delete it
         //kinda done
-        label.setText("Block to be deleted: ");
-        label.setBounds(150,25,200,25);
-        Box.add(label);
 
-            list.setBounds(150,125,200,50);
+            list.setBounds(100,100,200,50);
             for (int k=0; k<3; k++){ //100 will be the number of blocks or something close to that
                 list.addItem("123");//this should be all the blocks
             }
@@ -40,7 +36,7 @@ public class DeleteBlock {
             });
             Box.add(list);
 
-            Deletes.setBounds(150,400,200,50);
+            Deletes.setBounds(20,30,200,50);
             Deletes.setText("Delete Block");
             //   Deletes.setFont(main.font);
             Box.add(Deletes);
@@ -56,12 +52,12 @@ public class DeleteBlock {
             });
             blockselected.setEditable(false);
             blockselected.setVisible(true);
-            blockselected.setBounds(150,50,200,50);
+            blockselected.setBounds(200,200,200,50);
             blockselected.setBackground(Color.white);
             Box.add(blockselected);
 
 
-            Box.setSize(500,600);
+            Box.setSize(800,800);
             Box.setLayout(null);
             Box.setVisible(true);
     }
