@@ -106,14 +106,6 @@ public class Block223Controller implements Serializable {
         }
         
 
-<<<<<<< HEAD
-        Game game = findGame(name);
-
-        if (game != null) {
-            Block223 block223 = getBlock223();
-            game.deleteGame();
-        }
-=======
         //TODO do I need this?
         try {
             game = block223.findGame(name);
@@ -135,32 +127,10 @@ public class Block223Controller implements Serializable {
         
         Block223Persistence.save(block223);
         
->>>>>>> 207fa6f761597530e34055e3e56c4bbf52b0dc1d
     }
     
     //Anne-Julie
     public static void selectGame(String name) throws InvalidInputException {
-<<<<<<< HEAD
-=======
-        String error = "";
-
-        Block223 block223 = Block223Application.getBlock223();  
-        UserRole userRole = Block223Application.getCurrentUserRole();
-        if(userRole instanceof Player || userRole == null){
-            error = "Admin in privileges are required to create a game.";
-            throw new InvalidInputException(error);
-        }
-
-        String adminPassword = userRole.getPassword();
-        Admin admin = new Admin(adminPassword, block223);
-        if(game.getAdmin() != admin) {
-            error = "Only the admin who created the game can delete the game.";
-            throw new InvalidInputException(error);
-        }
-//TODO UNIQUE NAME EXCEPTION
-        Game game = Block223Application.getBlock223().findGame(name);
-        Block223Application.setCurrentGame(game);
->>>>>>> 207fa6f761597530e34055e3e56c4bbf52b0dc1d
     }
     //Anne-Julie
     public static void updateGame(String name, int nrLevels, int nrBlocksPerLevel, int minBallSpeedX, int minBallSpeedY,
@@ -180,9 +150,10 @@ public class Block223Controller implements Serializable {
             error = "A game must be selected to define game settings.";
             throw new InvalidInputException(error);
         }
-        
+    
         String adminPassword = userRole.getPassword();
         Admin admin = new Admin(adminPassword, block223);
+        
         if(game.getAdmin() != admin) {
             error = "Only the admin who created the game can delete the game.";
             throw new InvalidInputException(error);
@@ -291,26 +262,6 @@ public class Block223Controller implements Serializable {
     //George
     //TODO exception
     public static void updateBlock(int id, int red, int green, int blue, int points) throws InvalidInputException {
-<<<<<<< HEAD
-    	String error = "";
-    	Block block = Block223Application.getCurrentGame().findBlock(id);
-    	if (block == null) {
-			error = "A block with this id does not exist. ";
-		}
-    		   for(Block ablock : Block223Application.getCurrentGame().getBlocks()){
-    		   if(red == ablock.getRed()&& green == ablock.getGreen() && blue == ablock.getBlue()){
-    			error = "A block with this the same color already exists. ";
-    		    break;
-    		   }
-     		   else {
-     		    	block.setBlue(red);
-     		    	block.setBlue(green);
-     		    	block.setBlue(blue);
-     		    	block.setPoints(points);
-    		   }
-   
-    }
-=======
         String error = "";
         Block block = Block223Application.getCurrentGame().findBlock(id);
         if (block == null) {
@@ -328,7 +279,6 @@ public class Block223Controller implements Serializable {
             }
 
         }
->>>>>>> 545281b8aa7e3db1432a1626a4c4562c950a2312
     }
     //George
     //TODO exception.
