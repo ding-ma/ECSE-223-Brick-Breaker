@@ -12,21 +12,13 @@ import ca.mcgill.ecse223.block.application.Block223Application;
 import ca.mcgill.ecse223.block.controller.*;
 
 public class BlockScreen {
-	
-	private static int SELECTEDBLOCK;
-	private static int BLOCKID;
 
 	private static String error = null;
 	private static HashMap<Integer, Integer> availableBlocks;
 	private static JLabel errorMessage;
 	private static JButton createBlock;
-	private static JButton updateBlock;
+	private static JButton settingsBlock;
 	private static JButton deleteBlock;
-	
-	private static JButton positionBlock;
-	private static JButton removeBlock;
-	private static JButton updateLocation;
-	
 	private static JComboBox <String> availableBlocksList;
 	private static JLabel AavailableBlocksLablel;
 	private static JLabel blockScreen;
@@ -39,12 +31,8 @@ public class BlockScreen {
 
 		errorMessage = new JLabel();
 		createBlock = new JButton();
-		updateBlock = new JButton();
+		settingsBlock = new JButton();
 		deleteBlock = new JButton();
-		positionBlock = new JButton();
-		removeBlock = new JButton();
-		updateLocation = new JButton();
-		
 		availableBlocksList = new JComboBox<String>(new String[0]);
 		AavailableBlocksLablel = new JLabel();
 		blockScreen = new JLabel();
@@ -53,12 +41,12 @@ public class BlockScreen {
 
 		errorMessage = new JLabel();
 		errorMessage.setForeground(Color.RED);
-		errorMessage.setBounds(0, 380, 200, 50);
+		errorMessage.setBounds(125, 250, 200, 200);
 
 		blockScreen.setText("Block screen");
 		blockScreen.setBounds(180, 0, 200, 50);
 
-		availableBlocksList.setBounds(125,350,200,50);
+		availableBlocksList.setBounds(125,200,200,50);
 
 		//first button:
 		createBlock.setText("Create a Block");
@@ -72,21 +60,15 @@ public class BlockScreen {
 			}
 		});
 
-		//second button: //TODO ERROR
-		updateBlock.setText("Update Block");
-		updateBlock.setBounds(125, 100, 200, 50);
-		updateBlock.addActionListener(new ActionListener() {
+		//second button:
+		settingsBlock.setText("Block/Level Settings");
+		settingsBlock.setBounds(125, 100, 200, 50);
+		settingsBlock.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				SELECTEDBLOCK = availableBlocksList.getSelectedIndex();
-				BLOCKID = availableBlocks.get(SELECTEDBLOCK);
-				if (SELECTEDBLOCK < 0)
-				error = "Block needs to be selected!";
-				refreshData();
-				if (error == null) {
-				UpdateBlock updateBlock = new UpdateBlock();
-				updateBlock.UpdateBlock();
-				}
+				BlockSettings blockSettings = new BlockSettings();
+				blockSettings.BlockSettings();
+
 			}
 		});
 
@@ -96,44 +78,11 @@ public class BlockScreen {
 		deleteBlock.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				SELECTEDBLOCK = availableBlocksList.getSelectedIndex();
-				BLOCKID = availableBlocks.get(SELECTEDBLOCK);
 				DeleteBlock deleteBlock = new DeleteBlock();
 				deleteBlock.DeleteBlock();
-				
+
 			}
 		});
-			
-		//fourth button
-		//TODO ERROR
-		positionBlock.setText("Postition Block");
-		positionBlock.setBounds(125, 200, 200, 50);
-		positionBlock.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			PositionBlock positionBlock = new PositionBlock();
-			positionBlock.PositionBlock();
-		}
-	});
-		
-		//fifth button
-		removeBlock.setText("Remove Block");
-		removeBlock.setBounds(125, 250, 200, 50);
-		removeBlock.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			RemoveBlock removeBlock = new RemoveBlock();
-			removeBlock.RemoveBlock();
-		}
-	});
-		
-		//sixth button
-		updateLocation.setText("Update Grid Position");
-		updateLocation.setBounds(125, 300, 200, 50);
-		updateLocation.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			UpdateLocation updateLocation = new UpdateLocation();
-			updateLocation.UpdateLocation();
-		}
-	});
 		
 		frame.setSize(450, 450);
 		frame.setLayout(null);
@@ -142,14 +91,11 @@ public class BlockScreen {
 
 		frame.add(errorMessage);
 		frame.add(createBlock);
-		frame.add(updateBlock);
+		frame.add(settingsBlock);
 		frame.add(deleteBlock);
 		frame.add(availableBlocksList);
 		frame.add(AavailableBlocksLablel);
 		frame.add(blockScreen);
-		frame.add(positionBlock);
-		frame.add(removeBlock);
-		frame.add(updateLocation);
 
 
 	}
@@ -171,9 +117,99 @@ public class BlockScreen {
 		};
 		availableBlocksList.setSelectedIndex(-1);
 	}
-  public static int getid() {
-	  return BLOCKID;
-  }
+
 
 	}
+
+
+
+
+
+
+
+
+/*    JFrame frame = new JFrame();
+        JLabel label = new JLabel();
+        JButton createBlock = new JButton();
+        JButton BSettings = new JButton();
+        JButton BDelete = new JButton();
+        blockList = new JComboBox<String>();
+        availableBlocks = new HashMap<>();
+
+
+       // String names[] = {"block name", "number of blocks"};
+
+
+
+        //TODO add column header name
+        //TODO show all blocks
+        //TODO add action listeners to columns
+        //TODO change column content to appropriate
+
+        label.setText("Block Screen");
+        label.setBounds(400, 0, 200, 50);
+        frame.add(label);
+
+        createBlock.setText("Create a Block");
+        createBlock.setBounds(20, 50, 200, 50);
+        createBlock.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AddBlock addBlock = new AddBlock();
+                addBlock.AddBlock();
+
+            }
+        });
+        frame.add(createBlock);
+
+        BSettings.setText("Block Settings");
+        BSettings.setBounds(300, 50, 200, 50);
+        BSettings.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                BlockSettings blockSettings = new BlockSettings();
+                blockSettings.BlockSettings();
+
+            }
+        });
+        frame.add(BSettings);
+
+        BDelete.setText("Delete Block");
+        BDelete.setBounds(600, 50, 200, 50);
+        BDelete.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DeleteBlock deleteBlock = new DeleteBlock();
+                deleteBlock.DeleteBlock();
+
+            }
+        });
+        frame.add(BDelete);
+
+
+
+        frame.setSize(900, 600);
+        frame.setLayout(null);
+        frame.setVisible(true);
+    }
+
+    private HashMap<Integer, TOBlock> blocks;
+
+    public void RefreshBlockScreen() {
+
+        JLabel errorMessage = new JLabel();
+        JTextField blockTextField = new JTextField();
+
+        int index = 1;
+        for (TOBlock block : Block223Controller.getBlocksOfCurrentDesignableGame()) {
+            availableBlocks.put(index, block.getId());
+            blockList.addItem("#" + block.getId()
+                    + "Red Value: " + block.getRed()
+                    + "Green Value: " + block.getGreen()
+                    + "Blue Value: " + block.getBlue()
+                    + "Points: " + block.getPoints());
+            index ++;
+        }
+        }
+        }*/
 

@@ -1,11 +1,10 @@
 namespace ca.mcgill.ecse223.block.model;
-use Block223Persistence.ump;
 
 class Block223 {
    1 <@>- * User users;
    1 <@>- * UserRole roles;
    1 <@>- * Game games;
-   
+
    //Anne-Julie 
    public Game findGame(String name){
    List<Game> games = this.getGames();
@@ -18,32 +17,14 @@ class Block223 {
    return null;
    }
    //end
-   
 }
 
 class User {
    unique username;
    1 -> 1..2 UserRole roles;
-   
-   //Mairead 
-   public static UserRole findPassword(String password, User user){
-    List<UserRole> roles = user.getRoles();
-	for(UserRole role : roles) {
-    String rolePassword = role.getPassword();
-    if(password == rolePassword){
-    	return role;
-    	}
-    
-   }
-	return null;
-    
-  }
-  //end
-  
 }
 
 class UserRole {
-
    abstract;
    password;
 }
@@ -59,7 +40,7 @@ class Player {
 class Game {
    const Integer MIN_NR_LEVELS = 1;
    const Integer MAX_NR_LEVELS = 99; // this is somewhat redundant because the max multiplicity is enforced by Umple
-   const Integer PLAY_AREA_SIDE = 390; // play area is now constant
+   const Integer PLAY_AREA_SIDE = 390 ; // play area is now constant
    const Integer WALL_PADDING = 10;
    const Integer COLUMNS_PADDING = 5;
    const Integer ROW_PADDING = 2;
@@ -99,7 +80,7 @@ class Block {
    Integer blue;
    Integer points;
    
-    //George
+   //George
    
    before constructor, setRed{
    if(aRed <MIN_COLOR || aRed > MAX_COLOR){
@@ -121,28 +102,11 @@ class Block {
    throw new RuntimeException ("Points must be between 1 and 10000.");
    }
 }
-//end
-   
-   
 }
 
 // random attribute not needed anymore
 // Each level is filled up with random blocks just before playing the level to reach the nrBlocksPerLevel defined in Game
 class Level {
-
-//Mert
-
-public BlockAssignment findBlockAssignment(int aGridHorizontalPosition, int aGridVerticalPosition) {
-		BlockAssignment foundAssignment = null;
-		for(BlockAssignment position: getBlockAssignments()) {
-			if(position.getGridHorizontalPosition() == aGridHorizontalPosition && position.getGridVerticalPosition() == aGridVerticalPosition) {
-				foundAssignment = position;
-			}
-		}
-		return foundAssignment;
-	  }
-	  //end 
-	  
 }
 
 class BlockAssignment {
@@ -150,8 +114,6 @@ class BlockAssignment {
    Integer gridVerticalPosition;
    * -- 1 Level level;
    * -- 1 Block block;
-   
-   
 }
 
 class Ball {

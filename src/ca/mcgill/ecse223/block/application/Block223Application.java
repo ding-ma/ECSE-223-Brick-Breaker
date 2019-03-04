@@ -18,6 +18,8 @@ public class Block223Application {
             public void run() {
                 Login login = new Login();
                 login.login();
+                BlockScreen blockScreen = new BlockScreen();
+              //  blockScreen.BlockScreen();
             }
         });
 	}
