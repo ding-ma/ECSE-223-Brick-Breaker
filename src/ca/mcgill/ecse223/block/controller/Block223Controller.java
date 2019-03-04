@@ -1,5 +1,6 @@
 package ca.mcgill.ecse223.block.controller;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +9,7 @@ import ca.mcgill.ecse223.block.model.*;
 import ca.mcgill.ecse223.block.persistence.*;
 import ca.mcgill.ecse223.block.controller.TOUserMode.Mode;
 
-public class Block223Controller {
+public class Block223Controller implements Serializable {
     private static Game game;
 
     // ****************************
@@ -42,7 +43,8 @@ public class Block223Controller {
 
         Admin admin = new Admin(adminPassword, block223);
 
-        Game game = new Game(name, 1, admin, 1, 1, 1, 10, 10, block223);
+        Game game = new Game(name, 1, admin, 1, 1,
+                1, 10, 10, block223);
 
         Block223Application.setCurrentGame(game);
     }
@@ -175,7 +177,7 @@ public class Block223Controller {
     //TODO exception
     public static void addBlock(int red, int green, int blue, int points) throws InvalidInputException {
         Game game = Block223Application.getCurrentGame();
-        String error = " ";
+        String error = "";
 
         if (red < 0 || red > 255) {
             error += "Red must be between 0 and 255.";
@@ -199,14 +201,14 @@ public class Block223Controller {
         if (error.length() > 0)
             throw new InvalidInputException(error.trim());
 
-
         try {
             Block block = new Block(red, green, blue, points, game);
             block.setRed(red);
             block.setGreen(green);
             block.setBlue(blue);
             block.setPoints(points);
-            Block223Persistence.save(Block223Application.getBlock223());
+            //TODO PERSISTENCE DOESNT WORK
+         //   Block223Persistence.save(Block223Application.getBlock223());
             Block223Controller.getBlocksOfCurrentDesignableGame();
 
         } catch (RuntimeException e) {
