@@ -144,7 +144,6 @@ public class UpdateBlock {
         	error += "Points must be between 0 and 10000. ";
         	refreshData();
         }
-        if (error == null) {
 
             try {
                 Block223Controller.updateBlock(id, red, green, blue, points);
@@ -154,7 +153,6 @@ public class UpdateBlock {
               error =  a.getMessage();
               refreshData();
             } 
-        }
         if (error == null) {
 		 frame.dispose();	
 		 BlockScreen.refreshData();

@@ -3,6 +3,9 @@ package ca.mcgill.ecse223.block.view;
 import java.awt.Color;
 
 import javax.swing.*;
+
+import ca.mcgill.ecse223.block.controller.Block223Controller;
+import ca.mcgill.ecse223.block.controller.InvalidInputException;
 public class PositionBlock {
 
 
@@ -26,7 +29,7 @@ public class PositionBlock {
 		
 		errorMessage = new JLabel();
 		errorMessage.setForeground(Color.RED);
-		errorMessage.setBounds(0, 250, 400, 200);
+		errorMessage.setBounds(0, 380, 400, 30);
 		
 		postionBlockLabel = new JLabel();
 		postionBlockLabel.setText("Position a block at grid location in a level");
@@ -47,15 +50,23 @@ public class PositionBlock {
 		
 		gridHorizontalValue = new JLabel();
 		gridHorizontalValue.setText("Set the horizontal grid position: ");
-		gridHorizontalValue.setBounds(150, 120,200,50);
+		gridHorizontalValue.setBounds(150, 120,240,50);
 		
 		gridVerticalValue = new JLabel();
 		gridVerticalValue.setText("Set the vertical grid position: ");
-		gridVerticalValue.setBounds(150,200, 200, 50);
+		gridVerticalValue.setBounds(150,200, 240, 50);
 		
 		positionButton = new JButton();
 		positionButton.setBounds(135,320,200,50);
 		positionButton.setText("Position");
+		
+
+		positionButton.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				positionButtonActionPerformed(evt);
+			}
+		});
+		
 		
 
 		frame.setSize(450, 450);
@@ -76,4 +87,44 @@ public class PositionBlock {
 		frame.add(gridVerticalValue);
 		frame.add(positionButton);
 	}
+	
+	private void refreshData() {
+		// error
+		errorMessage.setText(error);
+		
+
+	}
+	
+	private void positionButtonActionPerformed(java.awt.event.ActionEvent evt) {
+		int id = BlockScreen.getid();
+		
+		
+		String sLevel = levelField.getText();
+		if(sLevel == null) {
+			error = "level can't be empty. ";
+			refreshData();
+		}
+		int level = Integer.parseInt(sLevel);
+		
+		String sGridHorizontalPosition = gridHorizontalField.getText();
+		int gridHorizontalPosition = Integer.parseInt(sGridHorizontalPosition);
+		
+		String sGridVerticalPosition = gridVerticalField.getText();
+		int gridVerticalPosition = Integer.parseInt(sGridVerticalPosition);
+		
+		
+		try {
+            Block223Controller.positionBlock(id, level, gridHorizontalPosition, gridVerticalPosition);
+
+        }
+        catch (InvalidInputException a){
+          error =  a.getMessage();
+          refreshData();
+	}	
+	if (error == null) {
+		 frame.dispose();	
+		 BlockScreen.refreshData();
+		}
+	}
 }
+

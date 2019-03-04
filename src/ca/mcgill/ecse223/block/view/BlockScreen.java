@@ -105,11 +105,12 @@ public class BlockScreen {
 		});
 			
 		//fourth button
-		//TODO ERROR
 		positionBlock.setText("Postition Block");
 		positionBlock.setBounds(125, 200, 200, 50);
 		positionBlock.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
+			SELECTEDBLOCK = availableBlocksList.getSelectedIndex();
+			BLOCKID = availableBlocks.get(SELECTEDBLOCK);
 			PositionBlock positionBlock = new PositionBlock();
 			positionBlock.PositionBlock();
 		}

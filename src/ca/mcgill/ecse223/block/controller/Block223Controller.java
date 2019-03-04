@@ -256,7 +256,7 @@ public class Block223Controller {
 			throw new InvalidInputException(e.getMessage());		
 		}
 	}
-	//George TODO Umple Exceptions: 
+	//George  
 	public static void positionBlock(int id, int level, int gridHorizontalPosition, int gridVerticalPosition)
 			throws InvalidInputException {
 

@@ -129,20 +129,6 @@ class Block {
 // random attribute not needed anymore
 // Each level is filled up with random blocks just before playing the level to reach the nrBlocksPerLevel defined in Game
 class Level {
-
-//Mert
-
-public BlockAssignment findBlockAssignment(int aGridHorizontalPosition, int aGridVerticalPosition) {
-		BlockAssignment foundAssignment = null;
-		for(BlockAssignment position: getBlockAssignments()) {
-			if(position.getGridHorizontalPosition() == aGridHorizontalPosition && position.getGridVerticalPosition() == aGridVerticalPosition) {
-				foundAssignment = position;
-			}
-		}
-		return foundAssignment;
-	  }
-	  //end 
-	  
 }
 
 class BlockAssignment {
@@ -151,7 +137,20 @@ class BlockAssignment {
    * -- 1 Level level;
    * -- 1 Block block;
    
+   //George
    
+   before constructor, setGridHorizontalPosition{
+   int maxNumberHorizontalBlocks = (390 - 2 * 5) / Block.SIZE;
+   if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > maxNumberHorizontalBlocks){
+   throw new RuntimeException("The horizontal position must be between 1 and " + maxNumberHorizontalBlocks +".");
+   } 
+}
+ before constructor, setGridVerticalPosition{
+   int maxNumberVerticalBlocks = (390 - 2 * 3) / Block.SIZE;
+   if (aGridVerticalPosition <= 0 || aGridVerticalPosition > maxNumberVerticalBlocks){
+   throw new RuntimeException("The vertical position must be between 1 and " + maxNumberVerticalBlocks +".");
+   } 
+}
 }
 
 class Ball {
