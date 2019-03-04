@@ -183,7 +183,7 @@ public class Block223Controller {
  }                                                                                                                 
  // check if the game exists                                                                                       
  Game game = Block223Application.getCurrentGame();                                                                 
- if (game = null) {                                                                                                
+ if (game == null) {                                                                                                
      error = "A game must be selected to move a block";                                                            
  }                                                                                                                 
  //check if the it is the admin of the current game                                                                
@@ -218,7 +218,7 @@ if (recent.findBlockAssignment(newGridHorizontalPosition, newGridVerticalPositio
     position.setGridVerticalPosition(newGridVerticalPosition);                                                               
     position.setGridHorizontalPosition(newGridHorizontalPosition);                                                           
                                                                                                                                                                                                                                               
-	    
+}    
     }
     //Mert
     public static void removeBlock(int level, int gridHorizontalPosition, int gridVerticalPosition)
