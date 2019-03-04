@@ -47,6 +47,8 @@ public class Block223Controller {
         
         Game game = new Game(name, 1, admin, 1, 1, 1, 10, 10, block223);
 
+        Game game = new Game(aName, aNrBlocksPerLevel, aAdmin, aMinBallSpeedXForBall, aMinBallSpeedYForBall, aBallSpeedIncreaseFactorForBall, aMaxPaddleLengthForPaddle, aMinPaddleLengthForPaddle, aBlock223)
+
         Block223Application.setCurrentGame(game);
 
         block223.addGame(name, game.getNrBlocksPerLevel(), game.getAdmin(), game.getBall(), game.getPaddle());
