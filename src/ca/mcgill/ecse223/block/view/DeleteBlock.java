@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import ca.mcgill.ecse223.block.controller.*;
 
 public class DeleteBlock {
     private JButton Deletes = new JButton();
@@ -29,6 +30,8 @@ public class DeleteBlock {
                 public void actionPerformed(ActionEvent e){
                     list.getSelectedItem();
                     blockselected.setText(""+list.getSelectedItem());
+
+                    int id;
                 }
             });
             Box.add(list);
@@ -41,7 +44,10 @@ public class DeleteBlock {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     System.out.println(list.getSelectedItem());
+                    Block223Controller block223Controller = new Block223Controller();
+                    block223Controller.getCurrentDesignableGame().delete();
 
+                    //TODO ADD REFRESH
                 }
             });
             blockselected.setEditable(false);

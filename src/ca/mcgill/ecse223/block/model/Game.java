@@ -4,7 +4,14 @@
 package ca.mcgill.ecse223.block.model;
 import java.util.*;
 
+<<<<<<< HEAD
 // line 41 "../../../../../Block223 v2.ump"
+=======
+
+// line 56 "../../../../../../../../ump/tmp404732/model.ump"
+// line 174 "../../../../../../../../ump/tmp404732/model.ump"
+
+>>>>>>> aebcba364ba7e8c5354bf78eef9aa94673fe709d
 public class Game
 {
 
@@ -49,7 +56,8 @@ public class Game
   // CONSTRUCTOR
   //------------------------
 
-  public Game(String aName, int aNrBlocksPerLevel, Admin aAdmin, Ball aBall, Paddle aPaddle, Block223 aBlock223)
+  public Game(String aName, int aNrBlocksPerLevel, Admin aAdmin, Ball aBall, Paddle aPaddle,
+              Block223 aBlock223)
   {
     // line 71 "../../../../../Block223 v2.ump"
     if(aName.equals(""))
@@ -85,7 +93,9 @@ public class Game
     }
   }
 
-  public Game(String aName, int aNrBlocksPerLevel, Admin aAdmin, int aMinBallSpeedXForBall, int aMinBallSpeedYForBall, double aBallSpeedIncreaseFactorForBall, int aMaxPaddleLengthForPaddle, int aMinPaddleLengthForPaddle, Block223 aBlock223)
+  public Game(String aName, int aNrBlocksPerLevel, Admin aAdmin, int aMinBallSpeedXForBall,
+              int aMinBallSpeedYForBall, double aBallSpeedIncreaseFactorForBall, int aMaxPaddleLengthForPaddle,
+              int aMinPaddleLengthForPaddle, Block223 aBlock223)
   {
     // line 71 "../../../../../Block223 v2.ump"
     if(aName.equals(""))
@@ -616,7 +626,13 @@ public class Game
   /**
    * George
    */
+<<<<<<< HEAD
   // line 59 "../../../../../Block223 v2.ump"
+=======
+
+  // line 74 "../../../../../../../../ump/tmp404732/model.ump"
+
+>>>>>>> aebcba364ba7e8c5354bf78eef9aa94673fe709d
    public Block findBlock(int id){
     List<Block> blocks = this.getBlocks();
    for(Block block : blocks){

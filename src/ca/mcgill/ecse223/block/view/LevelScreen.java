@@ -72,4 +72,7 @@ public class LevelScreen {
         FGameScreem.setLayout(null);
         FGameScreem.setVisible(true);
     }
+    public void RefreshLevelScreen(){
+        //TODO refresh
+    }
 }

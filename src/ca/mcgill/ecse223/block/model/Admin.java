@@ -3,9 +3,17 @@
 
 package ca.mcgill.ecse223.block.model;
 import java.util.*;
+import java.io.Serializable;
 
+<<<<<<< HEAD
 // line 33 "../../../../../Block223 v2.ump"
 public class Admin extends UserRole
+=======
+// line 48 "../../../../../../../../ump/tmp404732/model.ump"
+// line 164 "../../../../../../../../ump/tmp404732/model.ump"
+
+public class Admin extends UserRole implements Serializable
+>>>>>>> aebcba364ba7e8c5354bf78eef9aa94673fe709d
 {
 
   //------------------------
