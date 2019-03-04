@@ -79,6 +79,14 @@ class Game {
    		}
    }
 
+   //Anne-Julie
+   
+   before setName{
+      if(aName.equals("The name of a game must be specified.")){
+         throw new RuntimeException("");
+      }
+   }
+
    //end
    
 }

@@ -34,10 +34,10 @@ public class Block223Controller implements Serializable {
             error = "The name of the game must be specified";
             throw new InvalidInputException(error); 
         }
-
+        Block223Application.setCurrentUserRole(aUserRole);
         UserRole userRole = Block223Application.getCurrentUserRole();
         if(userRole instanceof Player || userRole == null){
-            error = "Admin in privileges are required to create a game.";
+            error = "Admin privileges are required to create a game.";
             throw new InvalidInputException(error);
         }
         String adminPassword = userRole.getPassword();

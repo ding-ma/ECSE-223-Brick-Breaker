@@ -16,6 +16,7 @@ public class Login extends JFrame {
         Blogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                
                 GameScreen GS = new GameScreen();
                 //TODO check inputs
                 GS.GameScreen();
