@@ -96,56 +96,117 @@ public class Block223Controller implements Serializable {
     //done 
     //TODO exception
     public static void deleteGame(String name) throws InvalidInputException {
+        String error = "";
+        Game game;
+        Block223 block223 = Block223Application.getBlock223();  
+        UserRole userRole = Block223Application.getCurrentUserRole();
+        if(userRole instanceof Player || userRole == null){
+            error = "Admin in privileges are required to create a game.";
+            throw new InvalidInputException(error);
+        }
+        
 
+<<<<<<< HEAD
         Game game = findGame(name);
 
         if (game != null) {
             Block223 block223 = getBlock223();
             game.deleteGame();
         }
+=======
+        //TODO do I need this?
+        try {
+            game = block223.findGame(name);
+        } catch (Exception e) {
+            throw new InvalidInputException(e.getMessage());
+        }
+        
+        String adminPassword = userRole.getPassword();
+        Admin admin = new Admin(adminPassword, block223);
+        if(game.getAdmin() != admin) {
+            error = "Only the admin who created the game can delete the game.";
+            throw new InvalidInputException(error);
+        }
+
+        if (game != null) {
+            game.delete();
+            
+        }
+        
+        Block223Persistence.save(block223);
+        
+>>>>>>> 207fa6f761597530e34055e3e56c4bbf52b0dc1d
     }
     
     //Anne-Julie
     public static void selectGame(String name) throws InvalidInputException {
+<<<<<<< HEAD
+=======
+        String error = "";
+
+        Block223 block223 = Block223Application.getBlock223();  
+        UserRole userRole = Block223Application.getCurrentUserRole();
+        if(userRole instanceof Player || userRole == null){
+            error = "Admin in privileges are required to create a game.";
+            throw new InvalidInputException(error);
+        }
+
+        String adminPassword = userRole.getPassword();
+        Admin admin = new Admin(adminPassword, block223);
+        if(game.getAdmin() != admin) {
+            error = "Only the admin who created the game can delete the game.";
+            throw new InvalidInputException(error);
+        }
+//TODO UNIQUE NAME EXCEPTION
+        Game game = Block223Application.getBlock223().findGame(name);
+        Block223Application.setCurrentGame(game);
+>>>>>>> 207fa6f761597530e34055e3e56c4bbf52b0dc1d
     }
     //Anne-Julie
     public static void updateGame(String name, int nrLevels, int nrBlocksPerLevel, int minBallSpeedX, int minBallSpeedY,
                                   Double ballSpeedIncreaseFactor, int maxPaddleLength, int minPaddleLength) throws InvalidInputException {
 
         String error = "";
+        Block223 block223 = Block223Application.getBlock223();  
 
-        String role = Block223Application.getCurrentUserRole().toString();
-        if (role != "admin") {
-            error = "Admin privileges are required to select a game.";
+        UserRole userRole = Block223Application.getCurrentUserRole();
+        if(userRole instanceof Player || userRole == null){
+            error = "Admin in privileges are required to create a game.";
             throw new InvalidInputException(error);
         }
+
         Game game = Block223Application.getCurrentGame();
         if (game == null) {
             error = "A game must be selected to define game settings.";
             throw new InvalidInputException(error);
         }
-    /*if(game.getAdmin().toString() != block223.getUser(1).toString()) {  //TODO what is the index
-            error = "Only the admin who created the game can edit the game settings.";
+        
+        String adminPassword = userRole.getPassword();
+        Admin admin = new Admin(adminPassword, block223);
+        if(game.getAdmin() != admin) {
+            error = "Only the admin who created the game can delete the game.";
             throw new InvalidInputException(error);
-        }*/
-
-        String currentName = game.getName();
-
-        if (name != currentName) {
-
-            if (!game.setName(name)) {
-                error = "The name of a game must be unique.";
-                throw new InvalidInputException(error);
-            } else if (name == null | name.equals("")) { //TODO what does the catch/rethrow mean
-                error = "The name of a game must be specified.";
-                throw new InvalidInputException(error);
-            }
-            game.setName(name);
+        }
+        
+        String currentName;
+        try {
+            currentName = game.getName();
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
         }
 
-        //TODO how does it know which game to update
-        //       setGameDetails(nrLevels, nrBlocksPerLevel, minBallSpeedX,
-        //               minBallSpeedY, ballSpeedIncreaseFactor, maxPaddleLength, minPaddleLength);
+        if(currentName != name) {
+            try {
+                game.setName(name);
+            } catch (Exception e) {
+                throw new InvalidInputException(e.getMessage());
+            }
+        }
+            
+
+        setGameDetails(nrLevels, nrBlocksPerLevel, minBallSpeedX, minBallSpeedY, 
+        ballSpeedIncreaseFactor, maxPaddleLength, minPaddleLength);
+        
     }
     //done
     //TODO exception
