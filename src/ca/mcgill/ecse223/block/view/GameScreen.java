@@ -19,15 +19,16 @@ import ca.mcgill.ecse223.block.controller.*;
 public class GameScreen {
 
 
-	private String error = null;
-	private HashMap<Integer,String> availableGames;
-	private JLabel errorMessage;
-	private JButton createGame ;
-	private JButton settingsBlock ;
-	private JButton deleteGame ;
-	private JComboBox <String> availableGamesList ;
-	private JLabel availableGamesLablel ;
-	private JLabel gameScreen ;
+	private static String error = null;
+	private static HashMap<Integer,String> availableGames;
+	private static JLabel errorMessage;
+	private static JButton createGame ;
+	private static JButton settingsBlock ;
+	private static JButton deleteGame ;
+	private static JComboBox <String> availableGamesList ;
+	private static JLabel availableGamesLablel ;
+	private static JLabel gameScreen ;
+	private static JButton refresh ;
 
     public void GameScreen() {
     	 JFrame frame = new JFrame();
@@ -38,7 +39,8 @@ public class GameScreen {
  		deleteGame = new JButton();
  		availableGamesList = new JComboBox<String>(new String[0]);
  		availableGamesLablel = new JLabel();
- 		gameScreen = new JLabel();
+		gameScreen = new JLabel();
+		refresh = new JButton(); 
 
  		gameScreen.setText("Game screen");
  		gameScreen.setBounds(180, 0, 200, 50);
@@ -61,9 +63,19 @@ public class GameScreen {
     			index ++;
     		};
     		
-    	    
-    		
-    		//first button:
+			refresh.setText("Refresh!");
+			refresh.setBounds(350, 20, 75, 30);
+			frame.add(refresh);
+			refresh.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					try {
+						refreshData();
+					} catch (Exception a) {
+						a.printStackTrace();
+					}
+				}
+			});
+    		    		//first button:
     	    createGame.setText("Create a Game");
     	    createGame.setBounds(125, 50, 200, 50);
     	    createGame.addActionListener(new ActionListener() {
@@ -90,8 +102,21 @@ public class GameScreen {
     	    settingsBlock.addActionListener(new ActionListener() {
     	        @Override
     	        public void actionPerformed(ActionEvent e) {
-    	            GameSettings gameSettings = new GameSettings();
-    	            gameSettings.GameSettings();
+					int selectedGame = availableGamesList.getSelectedIndex();
+					if (selectedGame < 0)
+		 				error = "A game needs to be selected!";
+					String name = (String) availableGames.get(selectedGame);
+					
+					try {
+						Block223Controller.selectGame(name);
+					} catch (Exception err) {
+						err.printStackTrace();
+					}
+
+					if (error.length() == 0) {
+						GameSettings gameSettings = new GameSettings();
+						gameSettings.GameSettings();
+					}
 
     	        }
     	    });
@@ -126,22 +151,36 @@ public class GameScreen {
     		
     		
     	    }
-    private void refreshData() {
+    public static void refreshData() {
 		// error
 		errorMessage.setText(error);
+
+		availableGames = new HashMap<Integer, String>();
+		availableGamesList.removeAllItems();
+		Integer index = 0;
+		for (TOGame game : Block223Controller.getDesignableGames()) {
+			availableGames.put(index, game.getName());
+			availableGamesList.addItem("name" + game.getName());
+			index ++;
+		};
+
+		error = "";
     }
 
 	private void deleteGameActionPerformed(java.awt.event.ActionEvent evt) {
 		int selectedGame = availableGamesList.getSelectedIndex();
 		if (selectedGame < 0)
-		 error = "A game needs to be selected for deletion!";
+		 error = "A game needs to be selected!";
 		String name = (String) availableGames.get(selectedGame);
 		if (error.length() == 0) {
-			try {
+			DeleteGame deleteGame = new DeleteGame();
+			deleteGame.DeleteGame(name);
+			/*try {
 			Block223Controller.deleteGame(name);
+			
 			} catch (InvalidInputException e) {
 				error = e.getMessage();
-			}	
+			}	*/
 
 	}
 		refreshData();
