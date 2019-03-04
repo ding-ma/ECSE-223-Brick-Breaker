@@ -81,6 +81,6 @@ public class AddGame {
 		}
 		
 		// update visuals
-		refreshData();
+		GameScreen.refreshData();
 	}
     }

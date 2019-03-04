@@ -9,6 +9,7 @@ import javax.swing.*;
 
 import ca.mcgill.ecse223.block.application.Block223Application;
 import ca.mcgill.ecse223.block.controller.Block223Controller;
+import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import ca.mcgill.ecse223.block.controller.TOBlock;
 
 public class UpdateBlock {
@@ -39,7 +40,7 @@ public class UpdateBlock {
 
 		errorMessage = new JLabel();
 		errorMessage.setForeground(Color.RED);
-		errorMessage.setBounds(0, 250, 200, 200);
+		errorMessage.setBounds(0, 250, 400, 200);
 		
 		updateBlockLabel = new JLabel();
 		updateBlockLabel.setText("Update Block");
@@ -111,7 +112,50 @@ public class UpdateBlock {
 
 	}
 	private void updateBlockButtonActionPerformed(java.awt.event.ActionEvent evt) {
-		if (error == null) {
+		int id = BlockScreen.getid();
+		String SRed = redField.getText();
+        int red = Integer.parseInt(SRed);
+
+        if (SRed == null || red < 0 || red > 255) {
+        	error = "Red must be between 0 and 255. ";
+        	refreshData();
+        }
+
+        String SBlue = blueField.getText();
+        int blue = Integer.parseInt(SBlue);
+        
+        if(SBlue == null || blue <0 || blue > 255) {
+        	error += "Blue must be between 0 and 255. ";
+        	refreshData();
+        }
+
+        String SGreen = greenField.getText();
+        int green = Integer.parseInt(SGreen);
+        
+        if(SGreen == null || green <0 || green > 255) {
+        	error += "Green must be between 0 and 255. ";
+        	refreshData();
+        }
+
+        String SPoints = pointsField.getText();
+        int points = Integer.parseInt(SPoints);
+        
+        if(SPoints == null || points <0 || points > 10000) {
+        	error += "Points must be between 0 and 10000. ";
+        	refreshData();
+        }
+        if (error == null) {
+
+            try {
+                Block223Controller.updateBlock(id, red, green, blue, points);
+
+            }
+            catch (InvalidInputException a){
+              error =  a.getMessage();
+              refreshData();
+            } 
+        }
+        if (error == null) {
 		 frame.dispose();	
 		 BlockScreen.refreshData();
 		}
