@@ -193,5 +193,13 @@ public class Level
       aBlockAssignment.delete();
     }
   }
-
+public BlockAssignment findBlockAssignment(int aGridHorizontalPosition, int aGridVerticalPosition) {
+		BlockAssignment foundAssignment = null;
+		for(BlockAssignment position: getBlockAssignments()) {
+			if(position.getGridHorizontalPosition() == aGridHorizontalPosition && position.getGridVerticalPosition() == aGridVerticalPosition) {
+				foundAssignment = position;
+			}
+		}
+		return foundAssignment;
+  }
 }
