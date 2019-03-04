@@ -189,7 +189,7 @@ public class Block223Controller implements Serializable {
             error += "Blue must be between 0 and 255.";
         }
         if (points < 0 || points > 1000) {
-            error += "Points need to be between 0 and 1000";
+            error += "Points need to be between 1 and 1000";
         }
 
         for (Block block : Block223Application.getCurrentGame().getBlocks()) {
@@ -253,9 +253,9 @@ public class Block223Controller implements Serializable {
                 error = "A block with this the same color already exists. ";
                 break;
             } else {
-                block.setBlue(red);
-                block.setBlue(green);
                 block.setBlue(blue);
+                block.setGreen(green);
+                block.setRed(red);
                 block.setPoints(points);
             }
 

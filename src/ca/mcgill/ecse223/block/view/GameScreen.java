@@ -70,7 +70,7 @@ public class GameScreen {
     	        @Override
     	        public void actionPerformed(ActionEvent e) {
     	            AddGame addGame = new AddGame();
-    	            addGame.AddGame();
+    	           // addGame.AddGame();
 
 					try{
 
@@ -81,7 +81,9 @@ public class GameScreen {
 					catch (InvalidInputException a){
 						a.printStackTrace();
 					}
-    	        }
+
+
+				}
     	    });
     	    
     	    //second button:
@@ -109,7 +111,7 @@ public class GameScreen {
     	    });
 				
   
-    		frame.setSize(450, 450);
+    		frame.setSize(600, 700);
     	    frame.setLayout(null);
     	    frame.setVisible(true);
     	    
