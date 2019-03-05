@@ -19,10 +19,10 @@ public class Block223Controller implements Serializable {
     //Yanick
     public static void createGame(String aName) throws InvalidInputException {
         String name = aName;
-        String error;
+        String error = "";
         Block223 block223 = Block223Application.getBlock223();
 
-        if (name == null) {
+        if(name.equals("")){
             error = "The name of the game must be specified";
             throw new InvalidInputException(error);
         }

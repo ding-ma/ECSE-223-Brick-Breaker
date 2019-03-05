@@ -21,6 +21,7 @@ public class DeleteGame {
 
     public void DeleteGame(String game){
 
+
         errorMessage = new JLabel();
         errorMessage.setForeground(Color.RED);
         errorMessage.setBounds(125, 250, 200, 200);
