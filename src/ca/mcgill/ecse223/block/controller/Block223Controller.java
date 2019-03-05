@@ -29,14 +29,14 @@ public class Block223Controller implements Serializable {
             throw new InvalidInputException(error);
         }
 
-        if (name == null) {
+        if(name == null){
             error = "The name of the game must be specified";
             throw new InvalidInputException(error);
         }
 
         UserRole userRole = Block223Application.getCurrentUserRole();
-        if (userRole instanceof Player || userRole == null) {
-            error = "Admin privileges are required to create a game.";
+        if(userRole instanceof Player || userRole == null){
+            error = "Admin in privileges are required to create a game.";
             throw new InvalidInputException(error);
         }
         String adminPassword = userRole.getPassword();
@@ -47,8 +47,6 @@ public class Block223Controller implements Serializable {
                 1, 10, 10, block223);
 
         Block223Application.setCurrentGame(game);
-        Block223Persistence.save(block223);
-
     }
 
     public static String checkGameNameIsUnique(String name, Block223 block223) {
@@ -82,18 +80,19 @@ public class Block223Controller implements Serializable {
         List<Level> levels = game.getLevels();
         int size = levels.size();
 
-        while (nrLevels > size) {
+        while(nrLevels > size){
             game.addLevel();
             size = levels.size();
         }
 
-        while (nrLevels < size) {
-            Level level = game.getLevel(size - 1);
+        while(nrLevels < size){
+            Level level = game.getLevel(size-1);
             level.delete();
             size = levels.size();
         }
 
     }
+
 
 
     //done
