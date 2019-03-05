@@ -27,22 +27,20 @@ public class Block223Controller implements Serializable {
             error = "The name of the game must be specified";
             throw new InvalidInputException(error);
         }
-
-        if (name == null) {
-            error = "The name of the game must be specified";
+        
+        error = checkGameNameIsUnique(name, block223);
+        if (error != null) {
             throw new InvalidInputException(error);
         }
 
-        
-        
+        /*
         UserRole userRole = Block223Application.getCurrentUserRole();
         if(userRole instanceof Player || userRole == null){
             error = "Admin privileges are required to create a game.";
             throw new InvalidInputException(error);
         }
         String adminPassword = userRole.getPassword();
-        
-        
+        */ 
 
         Admin admin = new Admin("adminPassword", block223);
 
@@ -50,6 +48,7 @@ public class Block223Controller implements Serializable {
                 1, 10, 10, block223);
 
         Block223Application.setCurrentGame(game);
+        block223.addGame(game);
         Block223Persistence.save(block223);
 
     }
@@ -176,8 +175,9 @@ public class Block223Controller implements Serializable {
             
 
 
-        setGameDetails(nrLevels, nrBlocksPerLevel, minBallSpeedX, minBallSpeedY,
-                ballSpeedIncreaseFactor, maxPaddleLength, minPaddleLength);
+        setGameDetails(nrLevels, nrBlocksPerLevel, minBallSpeedX, minBallSpeedY, ballSpeedIncreaseFactor, maxPaddleLength, minPaddleLength);
+
+        Block223Persistence.save(block223);
 
     }
     //done
