@@ -4,6 +4,13 @@
             "type": "java",
             "name": "CodeLens (Launch) - Block223Application",
             "request": "launch",
+            "mainClass": "ca.mcgill.ecse223.block.application.Block223Application",
+            "projectName": "ecse223-group-project-p-5"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Block223Application",
+            "request": "launch",
             "mainClass": "Block223Application",
             "projectName": "ecse223-group-project-p-5"
         }

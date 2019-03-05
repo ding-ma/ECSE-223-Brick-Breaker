@@ -12,7 +12,6 @@ import java.awt.event.ActionListener;
 public class DeleteGame {
     private String error = null;
     private JLabel errorMessage;
-
     private JFrame frame = new JFrame();
     private JLabel title = new JLabel();
     private JLabel label = new JLabel();
