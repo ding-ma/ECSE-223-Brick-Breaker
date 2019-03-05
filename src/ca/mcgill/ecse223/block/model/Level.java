@@ -201,7 +201,6 @@ public class Level implements Serializable
   private static final long serialVersionUID = -71234567890L ;
 
   
-}
 public BlockAssignment findBlockAssignment(int aGridHorizontalPosition, int aGridVerticalPosition) {
 		BlockAssignment foundAssignment = null;
 		for(BlockAssignment position: getBlockAssignments()) {
