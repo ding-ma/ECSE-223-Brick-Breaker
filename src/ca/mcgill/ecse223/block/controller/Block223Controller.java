@@ -98,16 +98,32 @@ public class Block223Controller implements Serializable {
     //done
     //TODO exception
     public static void deleteGame(String name) throws InvalidInputException {
-
-
-        Game game = Block223Application.getBlock223().findGame(name);
-
-        if (game != null) {
-            Block223 block223 = Block223Application.getBlock223();
-
-            game.delete();
+       String error = "";
+        Game game;
+        Block223 block223 = Block223Application.getBlock223();  
+        UserRole userRole = Block223Application.getCurrentUserRole();
+        if(userRole instanceof Player || userRole == null){
+            error = "Admin in privileges are required to delete a game.";
+            throw new InvalidInputException(error);
+        }
+        
+        try {
+            game = block223.findGame(name);
+        } catch (Exception e) {
+            throw new InvalidInputException(e.getMessage());
+        }
+        
+		if (userRole.getPassword() != Block223Application.getCurrentGame().getAdmin().getPassword()) {
+            error = "Only the admin who created the game can delete the game. ";
+            throw new InvalidInputException(error);
         }
 
+        if (game != null) {
+            game.delete();
+            
+        }
+        
+        Block223Persistence.save(block223);
     }
 
 
