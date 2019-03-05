@@ -70,18 +70,7 @@ public class GameScreen {
     	        @Override
     	        public void actionPerformed(ActionEvent e) {
     	            AddGame addGame = new AddGame();
-    	           // addGame.AddGame();
-
-					try{
-
-						Block223Controller.createGame("abc1");
-						Block223Controller.setGameDetails(20,20,20,
-								20,1.0,20,20);
-					}
-					catch (InvalidInputException a){
-						a.printStackTrace();
-					}
-
+    	           	addGame.AddGame();
 
 				}
     	    });

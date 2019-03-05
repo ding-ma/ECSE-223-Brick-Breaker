@@ -33,7 +33,7 @@ public class AddGame {
        
 	    errorMessage = new JLabel();
 		errorMessage.setForeground(Color.RED);
-		errorMessage.setBounds(400, 400, 100, 100);
+		errorMessage.setBounds(150, 150, 300, 20);
 		
 		
 		gameNameTextField = new JTextField();
@@ -69,18 +69,24 @@ public class AddGame {
     private void refreshData() {
 		// error
 		errorMessage.setText(error);
-    }
-    private void addGameButtonActionPerformed(java.awt.event.ActionEvent evt) {
-		// clear error message
-		error = null;
-		// call the controller
-		try {
-			Block223Controller.createGame(gameNameTextField.getText());
-		} catch (InvalidInputException e) {
-			error = e.getMessage();
 		}
 		
+    private void addGameButtonActionPerformed(java.awt.event.ActionEvent evt) {
+		// clear error message
+			error = null;
+			String name;
+			name = gameNameTextField.getText();
+		// call the controller
+			try {
+				Block223Controller.createGame(name);
+			UpdateGame gameSettings = new UpdateGame();
+			gameSettings.UpdateGame(name);
+		
+			} catch (InvalidInputException e) {
+				error = e.getMessage();
+			}
+		
 		// update visuals
-		refreshData();
-	}
-    }
+			refreshData();
+		}
+}

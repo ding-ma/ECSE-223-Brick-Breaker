@@ -3,7 +3,11 @@ package ca.mcgill.ecse223.block.view;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import ca.mcgill.ecse223.block.application.Block223Application;
 import ca.mcgill.ecse223.block.controller.*;
+import ca.mcgill.ecse223.block.model.Admin;
+import ca.mcgill.ecse223.block.model.Block223;
 
 public class Login extends JFrame {
     public void login(){
@@ -22,8 +26,10 @@ public class Login extends JFrame {
                 GS.GameScreen();
 
                 try {
+                    
                     Block223Controller.register("user","pass","pass1");
                     Block223Controller.login("user", "pass1");
+                    
                 }
                 catch (InvalidInputException a) {
                     a.printStackTrace();
