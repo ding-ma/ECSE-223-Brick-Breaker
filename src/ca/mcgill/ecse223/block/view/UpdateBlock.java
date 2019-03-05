@@ -36,6 +36,8 @@ public class UpdateBlock {
 	public void UpdateBlock() {
 		frame = new JFrame();
 
+
+
 		errorMessage = new JLabel();
 		errorMessage.setForeground(Color.RED);
 		errorMessage.setBounds(0, 250, 400, 200);
@@ -79,9 +81,6 @@ public class UpdateBlock {
 		updateButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				updateBlockButtonActionPerformed(evt);
-				BlockScreen blockScreen = new BlockScreen();
-				blockScreen.refreshData();
-
 			}
 		});
 		
@@ -141,11 +140,10 @@ public class UpdateBlock {
         String SPoints = pointsField.getText();
         int points = Integer.parseInt(SPoints);
         
-        if(SGreen == null || green <0 || green > 255) {
-        	error += "Green must be between 0 and 255. ";
+        if(SPoints == null || points <0 || points > 10000) {
+        	error += "Points must be between 0 and 10000. ";
         	refreshData();
         }
-        if (error == null) {
 
             try {
                 Block223Controller.updateBlock(id, red, green, blue, points);
@@ -155,7 +153,6 @@ public class UpdateBlock {
               error =  a.getMessage();
               refreshData();
             } 
-        }
         if (error == null) {
 		 frame.dispose();	
 		 BlockScreen.refreshData();
