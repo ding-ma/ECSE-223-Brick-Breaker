@@ -111,61 +111,63 @@ public class Block223Controller implements Serializable {
 
     }
 
+
+    //Anne-Julie
     public static void selectGame(String name) throws InvalidInputException {
         String error = "";
 
         Block223 block223 = Block223Application.getBlock223();
         UserRole userRole = Block223Application.getCurrentUserRole();
-
-        if (userRole instanceof Player || userRole == null) {
-            error += "Admin privileges are required to create a game.";
+        if(userRole instanceof Player || userRole == null){
+            error = "Admin in privileges are required to create a game.";
             throw new InvalidInputException(error);
         }
 
         String adminPassword = userRole.getPassword();
-        Admin admin = new Admin(adminPassword, block223);
         Game game = Block223Application.getBlock223().findGame(name);
 
-        if (game.getAdmin() != admin) {
-            error += "Only the admin who created the game can access its information.";
+        if (userRole.getPassword() != Block223Application.getCurrentGame().getAdmin().getPassword()) {
+            error = "Only the admin who created the game can select the game.";
             throw new InvalidInputException(error);
+
         }
+
+        Block223Application.setCurrentGame(game);
     }
 
     //Anne-Julie
     public static void updateGame(String name, int nrLevels, int nrBlocksPerLevel, int minBallSpeedX, int minBallSpeedY,
                                   Double ballSpeedIncreaseFactor, int maxPaddleLength, int minPaddleLength) throws InvalidInputException {
+
         String error = "";
         Block223 block223 = Block223Application.getBlock223();
 
         UserRole userRole = Block223Application.getCurrentUserRole();
-        if (userRole instanceof Player || userRole == null) {
-            error += "Admin privileges are required to create a game.";
+        if(userRole instanceof Player || userRole == null){
+            error = "Admin in privileges are required to create a game.";
             throw new InvalidInputException(error);
         }
 
         Game game = Block223Application.getCurrentGame();
         if (game == null) {
-            error += "A game must be selected to define game settings.";
+            error = "A game must be selected to define game settings.";
             throw new InvalidInputException(error);
         }
 
-        String adminPassword = userRole.getPassword();
-        Admin admin = new Admin(adminPassword, block223);
-        if (game.getAdmin() != admin) {
-            error += "Only the admin who created the game can define its game settings.";
+        if (userRole.getPassword() != Block223Application.getCurrentGame().getAdmin().getPassword()) {
+            error += "Only admin who created the game can define its settings.";
             throw new InvalidInputException(error);
+
         }
 
         String currentName;
         try {
             currentName = game.getName();
-            Block223Persistence.save(Block223Application.getBlock223());
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
 
-        if (currentName != name) {
+        if(currentName != name) {
             try {
                 game.setName(name);
             } catch (Exception e) {
