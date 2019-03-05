@@ -102,7 +102,7 @@ public class Block223Controller implements Serializable {
         Block223 block223 = Block223Application.getBlock223();  
         UserRole userRole = Block223Application.getCurrentUserRole();
         if(userRole instanceof Player || userRole == null){
-            error = "Admin in privileges are required to delete a game.";
+            error = "Admin privileges are required to delete a game.";
             throw new InvalidInputException(error);
         }
         
@@ -133,7 +133,7 @@ public class Block223Controller implements Serializable {
         Block223 block223 = Block223Application.getBlock223();  
         UserRole userRole = Block223Application.getCurrentUserRole();
         if(userRole instanceof Player || userRole == null){
-            error = "Admin in privileges are required to create a game.";
+            error = "Admin privileges are required to select a game.";
             throw new InvalidInputException(error);
         }
 
@@ -158,7 +158,7 @@ public class Block223Controller implements Serializable {
 
         UserRole userRole = Block223Application.getCurrentUserRole();
         if(userRole instanceof Player || userRole == null){
-            error = "Admin in privileges are required to create a game.";
+            error = "Admin privileges are required to update a game.";
             throw new InvalidInputException(error);
         }
 
@@ -169,7 +169,7 @@ public class Block223Controller implements Serializable {
         }
         
 		if (userRole.getPassword() != Block223Application.getCurrentGame().getAdmin().getPassword()) {
-            error += "Only admin who created the game can define its settings.";
+            error += "Only the admin who created the game can define its settings.";
             throw new InvalidInputException(error);
 
         }

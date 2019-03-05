@@ -16,8 +16,6 @@ public class BlockScreen {
 	private static int SELECTEDBLOCK;
 	private static int BLOCKID;
 
-	private static int SELECTEDBLOCK;
-	private static int BLOCKID;
 
 	private static String error = null;
 	private static HashMap<Integer, Integer> availableBlocks;

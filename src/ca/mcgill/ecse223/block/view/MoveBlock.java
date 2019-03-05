@@ -21,7 +21,7 @@ public class MoveBlock {
 
 	private JButton positionButton;
 	private JFrame frame;
-	public void PositionBlock(){
+	public void MoveBlock(){
 		frame = new JFrame();
 		
 		errorMessage = new JLabel();
