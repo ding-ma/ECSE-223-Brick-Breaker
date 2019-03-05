@@ -1,6 +1,7 @@
 package ca.mcgill.ecse223.block.view;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -16,7 +17,7 @@ public class GameSettings {
         frame.add(label);
 
         Bblock.setText("Blocks");
-        Bblock.setBounds(30,50,100,50);
+        Bblock.setBounds(30,50,150,30);
         Bblock.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -29,7 +30,7 @@ public class GameSettings {
         frame.add(Bblock);
 
         BUpdateGame.setText("Update Game");
-        BUpdateGame.setBounds(30,150,100,50);
+        BUpdateGame.setBounds(30,150,150,30);
         BUpdateGame.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -39,9 +40,10 @@ public class GameSettings {
         });
         frame.add(BUpdateGame);
 
-
-        frame.setSize(200,300);
+        frame.setSize(250,300);
         frame.setLayout(null);
         frame.setVisible(true);
+        frame.getContentPane().setBackground(Color.PINK);
+
     }
 }
