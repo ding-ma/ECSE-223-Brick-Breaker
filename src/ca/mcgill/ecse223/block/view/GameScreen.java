@@ -62,7 +62,7 @@ public class GameScreen {
 		Integer index = 0;
 		for (TOGame game : Block223Controller.getDesignableGames()) {
 			availableGames.put(index, game.getName());
-			availableGamesList.addItem("name" + game.getName());
+			availableGamesList.addItem("name: " + game.getName());
 			index ++;
 		};
 
