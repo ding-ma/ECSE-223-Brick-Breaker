@@ -124,13 +124,12 @@ public class Block223Controller implements Serializable {
 
         String adminPassword = userRole.getPassword();
         Admin admin = new Admin(adminPassword, block223);
+        Game game = Block223Application.getBlock223().findGame(name);
+
         if (game.getAdmin() != admin) {
             error += "Only the admin who created the game can access its information.";
             throw new InvalidInputException(error);
         }
-
-        Game game = Block223Application.getBlock223().findGame(name);
-        Block223Application.setCurrentGame(game);
     }
 
     //Anne-Julie
