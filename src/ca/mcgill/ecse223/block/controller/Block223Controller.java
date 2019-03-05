@@ -36,7 +36,7 @@ public class Block223Controller implements Serializable {
 
         UserRole userRole = Block223Application.getCurrentUserRole();
         if (userRole instanceof Player || userRole == null) {
-            error = "Admin in privileges are required to create a game.";
+            error = "Admin privileges are required to create a game.";
             throw new InvalidInputException(error);
         }
         String adminPassword = userRole.getPassword();
@@ -118,7 +118,7 @@ public class Block223Controller implements Serializable {
         UserRole userRole = Block223Application.getCurrentUserRole();
 
         if (userRole instanceof Player || userRole == null) {
-            error += "Admin in privileges are required to create a game.";
+            error += "Admin privileges are required to create a game.";
             throw new InvalidInputException(error);
         }
 
@@ -140,7 +140,7 @@ public class Block223Controller implements Serializable {
 
         UserRole userRole = Block223Application.getCurrentUserRole();
         if (userRole instanceof Player || userRole == null) {
-            error += "Admin in privileges are required to create a game.";
+            error += "Admin privileges are required to create a game.";
             throw new InvalidInputException(error);
         }
 
@@ -186,7 +186,21 @@ public class Block223Controller implements Serializable {
         Block223 block223 = Block223Application.getBlock223();
 
         String error = "";
+        UserRole userRole = Block223Application.getCurrentUserRole();
+        if (userRole instanceof Player || userRole == null) {
+            error += "Admin privileges are required to create a game.";
+            throw new InvalidInputException(error);
+        }
+        if (Block223Application.getCurrentGame() == null) {
+            error += "A game must be selected to position a block. ";
+            throw new InvalidInputException(error);
+        }
 
+        if (userRole.getPassword() != Block223Application.getCurrentGame().getAdmin().getPassword()) {
+            error += "Only admin who created the game can update a block. ";
+            throw new InvalidInputException(error);
+
+        }
         if (red < 0 || red > 255) {
             error += "Red must be between 0 and 255.";
         }
@@ -228,6 +242,27 @@ public class Block223Controller implements Serializable {
 
 
     public static void deleteBlock(int id) throws InvalidInputException {
+        String error = "";
+
+        UserRole userRole = Block223Application.getCurrentUserRole();
+        if (userRole instanceof Player || userRole == null) {
+            error += "Admin privileges are required to create a game.";
+            throw new InvalidInputException(error);
+        }
+
+        if (Block223Application.getCurrentGame() == null) {
+            error += "A game most be selected to position a block. ";
+            throw new InvalidInputException(error);
+        }
+
+        if (userRole.getPassword() != Block223Application.getCurrentGame().getAdmin().getPassword()) {
+            error += "Only admin who created the game can update a block. ";
+            throw new InvalidInputException(error);
+        }
+        if (error.length() > 0)
+            throw new InvalidInputException(error.trim());
+
+
         Block block = Block223Application.getCurrentGame().findBlock(id);
         if (block != null) {
             block.delete();
@@ -240,15 +275,7 @@ public class Block223Controller implements Serializable {
             }
         }
 
-//    	Game game = Block223Application.getCurrentGame();
-//            Block block = new Block( red, green,  blue,  points, game);
     }
-    //done
-    //TODO exception
-    //Question about the persistence 
-
-
-    //George
     //Done
     public static void updateBlock(int id, int red, int green, int blue, int points) throws InvalidInputException {
         String error = "";
@@ -258,13 +285,13 @@ public class Block223Controller implements Serializable {
         Block block = Block223Application.getCurrentGame().findBlock(id);
         //error 1.
         if (userRole instanceof Player || userRole == null) {
-            error += "Admin in privileges are required to position a block.";
+            error += "Admin privileges are required to position a block.";
             throw new InvalidInputException(error);
         }
 
         //error2.
         if (Block223Application.getCurrentGame() == null) {
-            error += "A game most be selected to position a block. ";
+            error += "A game must be selected to position a block. ";
             throw new InvalidInputException(error);
         }
 
@@ -307,7 +334,7 @@ public class Block223Controller implements Serializable {
 
         //error 1.
         if (userRole instanceof Player || userRole == null) {
-            error = "Admin in privileges are required to position a block. ";
+            error = "Admin privileges are required to position a block. ";
             throw new InvalidInputException(error);
         }
 

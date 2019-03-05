@@ -310,7 +310,7 @@ public class Block implements Serializable
         nextId = block.getId();
       }
     }
-    nextId  ;
+    nextId ++ ;
 }
   }
 
