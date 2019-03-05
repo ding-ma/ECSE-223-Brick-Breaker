@@ -5,7 +5,11 @@
             "name": "CodeLens (Launch) - Block223Application",
             "request": "launch",
             "mainClass": "ca.mcgill.ecse223.block.application.Block223Application",
+<<<<<<< HEAD
             "projectName": "IT3"
+=======
+            "projectName": "ecse223-group-project-p-5"
+>>>>>>> a9e4c809921e6f78dd0057b80594ab7410e0f0bf
         },
         {
             "type": "java",

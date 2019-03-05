@@ -29,9 +29,12 @@ public class GameScreen {
 	private static JLabel availableGamesLablel ;
 	private static JLabel gameScreen ;
 	private static JButton refresh ;
+	private static int selectGame;
+	private static String GAMENAME;
 
 	public void GameScreen() {
 		JFrame frame = new JFrame();
+
 
 		errorMessage = new JLabel();
 		createGame = new JButton();
@@ -94,11 +97,13 @@ public class GameScreen {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int selectedGame = availableGamesList.getSelectedIndex();
-				if (selectedGame < 0)
+				GAMENAME = availableGames.get(selectedGame);
+				if (selectGame < 0)
 					error = "A game needs to be selected!";
-				String name = (String) availableGames.get(selectedGame);
+
 
 				try {
+					String name = (String) availableGames.get(selectedGame);
 					Block223Controller.selectGame(name);
 				} catch (Exception err) {
 					err.printStackTrace();
@@ -115,13 +120,19 @@ public class GameScreen {
 		//third button:
 		deleteGame.setText("Delete a Game");
 		deleteGame.setBounds(125, 150, 200, 50);
-		deleteGame.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				deleteGameActionPerformed(evt);
-
+		deleteGame.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				selectGame = availableGamesList.getSelectedIndex();
+				GAMENAME = availableGames.get(selectGame);
+				if (selectGame <0)
+					error = "A game needs to be selected!";
+				refreshData();
+				if (error == null) {
+					DeleteBlock deleteBlock = new DeleteBlock();
+					deleteBlock.DeleteBlock();
+				}
 			}
-
-
 		});
 
 
@@ -138,6 +149,8 @@ public class GameScreen {
 		frame.add(availableGamesList);
 		frame.add(availableGamesLablel);
 		frame.add(gameScreen);
+		frame.getContentPane().setBackground(Color.PINK);
+
 
 
 
@@ -151,7 +164,7 @@ public class GameScreen {
 		Integer index = 0;
 		for (TOGame game : Block223Controller.getDesignableGames()) {
 			availableGames.put(index, game.getName());
-			availableGamesList.addItem("name" + game.getName());
+			availableGamesList.addItem("name: " + game.getName());
 			index ++;
 		};
 
@@ -159,22 +172,8 @@ public class GameScreen {
 		availableGamesList.setSelectedIndex(-1);
 	}
 
-	private void deleteGameActionPerformed(java.awt.event.ActionEvent evt) {
-		int selectedGame = availableGamesList.getSelectedIndex();
-		if (selectedGame < 0)
-			error = "A game needs to be selected!";
-		String name = (String) availableGames.get(selectedGame);
-		if (error.length() == 0) {
-			DeleteGame deleteGame = new DeleteGame();
-			deleteGame.DeleteGame(name);
-			/*try {
-			Block223Controller.deleteGame(name);
 
-			} catch (InvalidInputException e) {
-				error = e.getMessage();
-			}	*/
-
-		}
-		refreshData();
+	public static String getName() {
+		return GAMENAME;
 	}
 }
