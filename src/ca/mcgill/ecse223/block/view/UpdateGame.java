@@ -17,12 +17,12 @@ public class UpdateGame {
     String error = null;
 
     private static JLabel errorMessage;
-    
+
     public void UpdateGame(){
         errorMessage = new JLabel();
-		errorMessage.setForeground(Color.RED);
+        errorMessage.setForeground(Color.RED);
         errorMessage.setBounds(125, 250, 200, 200);
-        
+
         JFrame frame = new JFrame();
         JLabel title = new JLabel();
         JLabel instruction = new JLabel();
@@ -35,7 +35,7 @@ public class UpdateGame {
 
         JLabel nbLevelsLabel = new JLabel("Number of levels: ");
         JTextField nbLevels = new JTextField(String.valueOf(currentGame.numberOfLevels()));
-        
+
         JLabel nbBlocksPerLevelLabel = new JLabel("Number of blocks per level: ");
         JTextField nbBlocksPerLevel = new JTextField(String.valueOf(currentGame.getNrBlocksPerLevel()));
 
@@ -74,7 +74,7 @@ public class UpdateGame {
         frame.add(newNameLabel);
         newName.setBounds(180, 82, 200, 30);
         frame.add(newName);
-        
+
         nbLevelsLabel.setBounds(5, 113, 200, 30);
         frame.add(nbLevels);
         nbLevels.setBounds(180, 113, 200, 30);
@@ -109,7 +109,7 @@ public class UpdateGame {
         frame.add(minPaddleLengthLabel);
         minPaddleLength.setBounds(180, 296, 200, 30);
         frame.add(minPaddleLength);
-        
+
         confirm.setText("Confirm");
         confirm.setBounds(150, 330, 120, 30);
         frame.add(confirm);
@@ -126,19 +126,20 @@ public class UpdateGame {
 
                 try {
                     Block223Controller.updateGame(newName.getText(), nrLevels, nrBlocksPerLevel,
-                    minSpeedX, minSpeedY, ballSpeedIncrease, maxPadLen, minPadLen);
+                            minSpeedX, minSpeedY, ballSpeedIncrease, maxPadLen, minPadLen);
                     GameScreen gameScreen = new GameScreen();
                     gameScreen.refreshData();
+                    frame.dispose();
                 } catch (InvalidInputException a){
-                  error =  a.getMessage();
-                }   
+                    error =  a.getMessage();
+                }
                 refreshData();
             }
         });
     }
     private void refreshData() {
-		// error
-		errorMessage.setText(error);
+        // error
+        errorMessage.setText(error);
 
-	}
+    }
 }
