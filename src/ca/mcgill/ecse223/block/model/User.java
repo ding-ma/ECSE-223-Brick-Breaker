@@ -1,12 +1,13 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
+/*This code was generated using the UMPLE 1.29.1.4439.923218886 modeling language!*/
 
 package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 import java.util.*;
 
-// line 89 "../../../../../Block223Persistence.ump"
-// line 24 "../../../../../Block223 v2.ump"
+// line 91 "../../../../../../../../ump/tmp256427/Block223Persistence.ump"
+// line 25 "../../../../../../../../ump/tmp256427/model.ump"
+// line 211 "../../../../../../../../ump/tmp256427/model.ump"
 public class User implements Serializable
 {
 
@@ -247,7 +248,7 @@ public class User implements Serializable
     }
   }
 
-  // line 95 "../../../../../Block223Persistence.ump"
+  // line 97 "../../../../../../../../ump/tmp256427/Block223Persistence.ump"
    public static  void reinitializeUniqueUsername(List<User> users){
     usersByUsername = new HashMap<String, User>();
     for (User user : users) {
@@ -259,7 +260,7 @@ public class User implements Serializable
   /**
    * Mairead
    */
-  // line 30 "../../../../../Block223 v2.ump"
+  // line 31 "../../../../../../../../ump/tmp256427/model.ump"
    public static  UserRole findPassword(String password, User user){
     List<UserRole> roles = user.getRoles();
 	for(UserRole role : roles) {
@@ -267,7 +268,7 @@ public class User implements Serializable
     if(password == rolePassword){
     	return role;
     	}
-    
+
    }
 	return null;
   }
@@ -283,7 +284,7 @@ public class User implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 92 "../../../../../Block223Persistence.ump"
+  // line 94 "../../../../../../../../ump/tmp256427/Block223Persistence.ump"
   private static final long serialVersionUID = -7403802774454467836L ;
 
   

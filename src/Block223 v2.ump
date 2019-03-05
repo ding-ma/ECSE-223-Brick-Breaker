@@ -5,8 +5,8 @@ class Block223 {
    1 <@>- * User users;
    1 <@>- * UserRole roles;
    1 <@>- * Game games;
-   
-   //Anne-Julie 
+
+   //Anne-Julie
    public Game findGame(String name){
    List<Game> games = this.getGames();
    for(Game game : games){
@@ -18,14 +18,14 @@ class Block223 {
    return null;
    }
    //end
-   
+
 }
 
 class User {
    unique username;
    1 -> 1..2 UserRole roles;
-   
-   //Mairead 
+
+   //Mairead
    public static UserRole findPassword(String password, User user){
     List<UserRole> roles = user.getRoles();
 	for(UserRole role : roles) {
@@ -33,13 +33,13 @@ class User {
     if(password == rolePassword){
     	return role;
     	}
-    
+
    }
 	return null;
-    
+
   }
   //end
-  
+
 }
 
 class UserRole {
@@ -71,8 +71,8 @@ class Game {
    1 <@>- * BlockAssignment blockAssignments;
    1 <@>- 1 Ball ball;
    1 <@>- 1 Paddle paddle;
-   
-   //George 
+
+   //George
    public Block findBlock(int id){
    List<Block> blocks = this.getBlocks();
    for(Block block : blocks){
@@ -83,24 +83,45 @@ class Game {
    }
    return null;
    }
+   //Yannick
+
+      before constructor, setNrBlocksPerLevel{
+         if(aNrBlocksPerLevel <= 0){
+            throw new RuntimeException("The  number  of  blocks  per  level  must be greater than zero");
+         }
+      }
+
+      after setName{
+      		if(!setName(aName)){
+      			throw new RuntimeException("The name of a game must be unique");
+      		}
+      }
+
+      //Anne-Julie
+
+      before setName{
+         if(aName.equals("The name of a game must be specified.")){
+            throw new RuntimeException("");
+         }
+      }
    //end
-   
+
 }
 
 class Block {
    const Integer MIN_COLOR = 0;
    const Integer MAX_COLOR = 255;
    const Integer MIN_POINTS = 1;
-   const Integer MAX_POINTS = 1000; 
+   const Integer MAX_POINTS = 1000;
    const Integer SIZE = 20;
    autounique id;
    Integer red;
    Integer green;
    Integer blue;
    Integer points;
-   
+
     //George
-   
+
    before constructor, setRed{
    if(aRed <MIN_COLOR || aRed > MAX_COLOR){
    throw new RuntimeException ("Red must be between 0 and 255.");
@@ -122,13 +143,27 @@ class Block {
    }
 }
 //end
-   
-   
+
+
 }
 
 // random attribute not needed anymore
 // Each level is filled up with random blocks just before playing the level to reach the nrBlocksPerLevel defined in Game
 class Level {
+
+//Mert
+
+public BlockAssignment findBlockAssignment(int aGridHorizontalPosition, int aGridVerticalPosition) {
+		BlockAssignment foundAssignment = null;
+		for(BlockAssignment position: getBlockAssignments()) {
+			if(position.getGridHorizontalPosition() == aGridHorizontalPosition && position.getGridVerticalPosition() == aGridVerticalPosition) {
+				foundAssignment = position;
+			}
+		}
+		return foundAssignment;
+	  }
+	  //end
+
 }
 
 class BlockAssignment {
@@ -136,20 +171,20 @@ class BlockAssignment {
    Integer gridVerticalPosition;
    * -- 1 Level level;
    * -- 1 Block block;
-   
+
    //George
-   
+
    before constructor, setGridHorizontalPosition{
    int maxNumberHorizontalBlocks = (390 - 2 * 5) / Block.SIZE;
    if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > maxNumberHorizontalBlocks){
    throw new RuntimeException("The horizontal position must be between 1 and " + maxNumberHorizontalBlocks +".");
-   } 
+   }
 }
  before constructor, setGridVerticalPosition{
    int maxNumberVerticalBlocks = (390 - 2 * 3) / Block.SIZE;
    if (aGridVerticalPosition <= 0 || aGridVerticalPosition > maxNumberVerticalBlocks){
    throw new RuntimeException("The vertical position must be between 1 and " + maxNumberVerticalBlocks +".");
-   } 
+   }
 }
 }
 

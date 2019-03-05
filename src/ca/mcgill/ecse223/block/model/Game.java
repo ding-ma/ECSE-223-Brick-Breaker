@@ -1,12 +1,13 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
+/*This code was generated using the UMPLE 1.29.1.4439.923218886 modeling language!*/
 
 package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 import java.util.*;
 
-// line 54 "../../../../../Block223Persistence.ump"
-// line 59 "../../../../../Block223 v2.ump"
+// line 56 "../../../../../../../../ump/tmp256427/Block223Persistence.ump"
+// line 60 "../../../../../../../../ump/tmp256427/model.ump"
+// line 231 "../../../../../../../../ump/tmp256427/model.ump"
 public class Game implements Serializable
 {
 
@@ -53,6 +54,11 @@ public class Game implements Serializable
 
   public Game(String aName, int aNrBlocksPerLevel, Admin aAdmin, Ball aBall, Paddle aPaddle, Block223 aBlock223)
   {
+    // line 90 "../../../../../../../../ump/tmp256427/model.ump"
+    if(aNrBlocksPerLevel <= 0){
+                throw new RuntimeException("The  number  of  blocks  per  level  must be greater than zero");
+             }
+    // END OF UMPLE BEFORE INJECTION
     nrBlocksPerLevel = aNrBlocksPerLevel;
     if (!setName(aName))
     {
@@ -85,6 +91,11 @@ public class Game implements Serializable
 
   public Game(String aName, int aNrBlocksPerLevel, Admin aAdmin, int aMinBallSpeedXForBall, int aMinBallSpeedYForBall, double aBallSpeedIncreaseFactorForBall, int aMaxPaddleLengthForPaddle, int aMinPaddleLengthForPaddle, Block223 aBlock223)
   {
+    // line 90 "../../../../../../../../ump/tmp256427/model.ump"
+    if(aNrBlocksPerLevel <= 0){
+                throw new RuntimeException("The  number  of  blocks  per  level  must be greater than zero");
+             }
+    // END OF UMPLE BEFORE INJECTION
     name = aName;
     nrBlocksPerLevel = aNrBlocksPerLevel;
     boolean didAddAdmin = setAdmin(aAdmin);
@@ -111,12 +122,22 @@ public class Game implements Serializable
   public boolean setName(String aName)
   {
     boolean wasSet = false;
+    // line 104 "../../../../../../../../ump/tmp256427/model.ump"
+    if(aName.equals("The name of a game must be specified.")){
+                throw new RuntimeException("");
+             }
+    // END OF UMPLE BEFORE INJECTION
     String anOldName = getName();
     if (hasWithName(aName)) {
       return wasSet;
     }
     name = aName;
     wasSet = true;
+    // line 96 "../../../../../../../../ump/tmp256427/model.ump"
+    if(!setName(aName)){
+          			throw new RuntimeException("The name of a game must be unique");
+          		}
+    // END OF UMPLE AFTER INJECTION
     if (anOldName != null) {
       gamesByName.remove(anOldName);
     }
@@ -127,6 +148,11 @@ public class Game implements Serializable
   public boolean setNrBlocksPerLevel(int aNrBlocksPerLevel)
   {
     boolean wasSet = false;
+    // line 90 "../../../../../../../../ump/tmp256427/model.ump"
+    if(aNrBlocksPerLevel <= 0){
+                throw new RuntimeException("The  number  of  blocks  per  level  must be greater than zero");
+             }
+    // END OF UMPLE BEFORE INJECTION
     nrBlocksPerLevel = aNrBlocksPerLevel;
     wasSet = true;
     return wasSet;
@@ -602,7 +628,7 @@ public class Game implements Serializable
     }
   }
 
-  // line 61 "../../../../../Block223Persistence.ump"
+  // line 63 "../../../../../../../../ump/tmp256427/Block223Persistence.ump"
    public static  void reinitializeUniqueName(List<Game> games){
     gamesByName = new HashMap<String, Game>();
     for (Game game : games) {
@@ -614,7 +640,7 @@ public class Game implements Serializable
   /**
    * George
    */
-  // line 77 "../../../../../Block223 v2.ump"
+  // line 78 "../../../../../../../../ump/tmp256427/model.ump"
    public Block findBlock(int id){
     List<Block> blocks = this.getBlocks();
    for(Block block : blocks){
@@ -641,7 +667,7 @@ public class Game implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 57 "../../../../../Block223Persistence.ump"
+  // line 59 "../../../../../../../../ump/tmp256427/Block223Persistence.ump"
   private static final long serialVersionUID = 2045406856025012133L ;
 
   

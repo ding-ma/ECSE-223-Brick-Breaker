@@ -87,7 +87,7 @@ public class AddBlock {
 				}
 				catch (InvalidInputException a){
 					error =  a.getMessage();
-				}   
+				}
 				refreshData();
 			}
 

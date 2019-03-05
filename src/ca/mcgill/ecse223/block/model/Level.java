@@ -1,5 +1,5 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
+/*This code was generated using the UMPLE 1.29.1.4439.923218886 modeling language!*/
 
 package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
@@ -9,8 +9,9 @@ import java.util.*;
  * random attribute not needed anymore
  * Each level is filled up with random blocks just before playing the level to reach the nrBlocksPerLevel defined in Game
  */
-// line 71 "../../../../../Block223Persistence.ump"
-// line 131 "../../../../../Block223 v2.ump"
+// line 73 "../../../../../../../../ump/tmp256427/Block223Persistence.ump"
+// line 153 "../../../../../../../../ump/tmp256427/model.ump"
+// line 243 "../../../../../../../../ump/tmp256427/model.ump"
 public class Level implements Serializable
 {
 
@@ -192,17 +193,14 @@ public class Level implements Serializable
       aBlockAssignment.delete();
     }
   }
-  
-  //------------------------
-  // DEVELOPER CODE - PROVIDED AS-IS
-  //------------------------
-  
-  // line 74 "../../../../../Block223Persistence.ump"
-  private static final long serialVersionUID = -71234567890L ;
 
-  
-public BlockAssignment findBlockAssignment(int aGridHorizontalPosition, int aGridVerticalPosition) {
-		BlockAssignment foundAssignment = null;
+
+  /**
+   * Mert
+   */
+  // line 158 "../../../../../../../../ump/tmp256427/model.ump"
+   public BlockAssignment findBlockAssignment(int aGridHorizontalPosition, int aGridVerticalPosition){
+    BlockAssignment foundAssignment = null;
 		for(BlockAssignment position: getBlockAssignments()) {
 			if(position.getGridHorizontalPosition() == aGridHorizontalPosition && position.getGridVerticalPosition() == aGridVerticalPosition) {
 				foundAssignment = position;
@@ -210,4 +208,13 @@ public BlockAssignment findBlockAssignment(int aGridHorizontalPosition, int aGri
 		}
 		return foundAssignment;
   }
+  
+  //------------------------
+  // DEVELOPER CODE - PROVIDED AS-IS
+  //------------------------
+  
+  // line 76 "../../../../../../../../ump/tmp256427/Block223Persistence.ump"
+  private static final long serialVersionUID = -71234567890L ;
+
+  
 }

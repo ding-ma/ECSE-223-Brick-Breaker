@@ -12,19 +12,18 @@ import java.awt.event.ActionListener;
 public class DeleteGame {
     private String error = null;
     private JLabel errorMessage;
-    
     private JFrame frame = new JFrame();
     private JLabel title = new JLabel();
     private JLabel label = new JLabel();
     private JLabel label2 = new JLabel();
     private JButton confirm = new JButton();
-        
+
     public void DeleteGame(String game){
 
         errorMessage = new JLabel();
-		errorMessage.setForeground(Color.RED);
-		errorMessage.setBounds(125, 250, 200, 200);
-    	
+        errorMessage.setForeground(Color.RED);
+        errorMessage.setBounds(125, 250, 200, 200);
+
         frame.setSize(350,300);
         frame.setLayout(null);
         frame.setVisible(true);
@@ -50,21 +49,22 @@ public class DeleteGame {
                     Block223Controller.deleteGame(game);
                     GameScreen gameScreen = new GameScreen();
                     gameScreen.refreshData();
+                    frame.dispose();
 
                 }
                 catch (InvalidInputException a){
-                  error =  a.getMessage();
-                }   
+                    error =  a.getMessage();
+                }
                 refreshData();
             }
         });
 
 
     }
-    
-    private void refreshData() {
-		// error
-		errorMessage.setText(error);
 
-	}
+    private void refreshData() {
+        // error
+        errorMessage.setText(error);
+
+    }
 }

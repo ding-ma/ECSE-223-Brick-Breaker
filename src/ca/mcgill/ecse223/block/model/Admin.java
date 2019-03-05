@@ -1,12 +1,13 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
+/*This code was generated using the UMPLE 1.29.1.4439.923218886 modeling language!*/
 
 package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 import java.util.*;
 
-// line 15 "../../../../../Block223Persistence.ump"
-// line 51 "../../../../../Block223 v2.ump"
+// line 17 "../../../../../../../../ump/tmp256427/Block223Persistence.ump"
+// line 52 "../../../../../../../../ump/tmp256427/model.ump"
+// line 221 "../../../../../../../../ump/tmp256427/model.ump"
 public class Admin extends UserRole implements Serializable
 {
 
@@ -147,7 +148,7 @@ public class Admin extends UserRole implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 18 "../../../../../Block223Persistence.ump"
+  // line 20 "../../../../../../../../ump/tmp256427/Block223Persistence.ump"
   private static final long serialVersionUID = 2315072607928790501L ;
 
   

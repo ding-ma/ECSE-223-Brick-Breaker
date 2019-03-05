@@ -10,7 +10,6 @@ import ca.mcgill.ecse223.block.application.Block223Application;
 import ca.mcgill.ecse223.block.controller.Block223Controller;
 public class UpdateLocation {
 
-	
 	private String error = null;
 	private JLabel errorMessage;
 
@@ -32,11 +31,11 @@ public class UpdateLocation {
 	private JFrame frame;
 	public void UpdateLocation(){
 		frame = new JFrame();
-		
+
 		errorMessage = new JLabel();
 		errorMessage.setForeground(Color.RED);
 		errorMessage.setBounds(0, 250, 400, 200);
-		
+
 		moveBlockLabel = new JLabel();
 		moveBlockLabel.setText("Move a block from one grid location to another in a level");
 		moveBlockLabel.setBounds(80, 0, 450, 50);
@@ -68,31 +67,30 @@ public class UpdateLocation {
 
 		gridHorizontalField = new JTextField();
 		gridHorizontalField.setBounds(200, 215, 200, 30);
-		
 		gridVerticalValue = new JLabel();
 		gridVerticalValue.setText("New vertical position: ");
 		gridVerticalValue.setBounds(0,265, 200, 30);
 
 		gridVerticalField = new JTextField();
 		gridVerticalField.setBounds(200,265,200,30);
- 		
+
 		positionButton = new JButton();
 		positionButton.setBounds(135,320,200,50);
 		positionButton.setText("Position");
-		
+
 		frame.setSize(550, 450);
 		frame.setLayout(null);
 		frame.setVisible(true);
 		frame.getContentPane().setBackground(Color.PINK);
 
 		frame.add(errorMessage);
-		
+
 		frame.add(levelField);
 		frame.add(gridHorizontalField);
 		frame.add(gridVerticalField);
-		
+
 		frame.add(moveBlockLabel);
-		
+
 		frame.add(levelNumber);
 		frame.add(gridHorizontalValue);
 		frame.add(gridVerticalValue);

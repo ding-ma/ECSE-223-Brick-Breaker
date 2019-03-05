@@ -1,12 +1,13 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
+/*This code was generated using the UMPLE 1.29.1.4439.923218886 modeling language!*/
 
 package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 import java.util.*;
 
-// line 3 "../../../../../Block223Persistence.ump"
-// line 4 "../../../../../Block223 v2.ump"
+// line 3 "../../../../../../../../ump/tmp256427/Block223Persistence.ump"
+// line 5 "../../../../../../../../ump/tmp256427/model.ump"
+// line 206 "../../../../../../../../ump/tmp256427/model.ump"
 public class Block223 implements Serializable
 {
 
@@ -362,7 +363,7 @@ public class Block223 implements Serializable
     
   }
 
-  // line 9 "../../../../../Block223Persistence.ump"
+  // line 11 "../../../../../../../../ump/tmp256427/Block223Persistence.ump"
    public void reinitialize(){
     User.reinitializeUniqueUsername(this.getUsers());
     Game.reinitializeUniqueName(this.getGames());
@@ -373,7 +374,7 @@ public class Block223 implements Serializable
   /**
    * Anne-Julie
    */
-  // line 11 "../../../../../Block223 v2.ump"
+  // line 12 "../../../../../../../../ump/tmp256427/model.ump"
    public Game findGame(String name){
     List<Game> games = this.getGames();
    for(Game game : games){
@@ -389,7 +390,7 @@ public class Block223 implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 6 "../../../../../Block223Persistence.ump"
+  // line 8 "../../../../../../../../ump/tmp256427/Block223Persistence.ump"
   private static final long serialVersionUID = -2683593616927798071L ;
 
   
