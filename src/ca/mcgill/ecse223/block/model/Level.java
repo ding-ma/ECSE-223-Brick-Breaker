@@ -10,8 +10,8 @@ import java.util.*;
  * Each level is filled up with random blocks just before playing the level to reach the nrBlocksPerLevel defined in Game
  */
 // line 73 "../../../../../../../../ump/tmp256427/Block223Persistence.ump"
-// line 132 "../../../../../../../../ump/tmp256427/model.ump"
-// line 208 "../../../../../../../../ump/tmp256427/model.ump"
+// line 153 "../../../../../../../../ump/tmp256427/model.ump"
+// line 230 "../../../../../../../../ump/tmp256427/model.ump"
 public class Level implements Serializable
 {
 
@@ -193,15 +193,7 @@ public class Level implements Serializable
       aBlockAssignment.delete();
     }
   }
-  public BlockAssignment findBlockAssignment(int aGridHorizontalPosition, int aGridVerticalPosition) {
-    BlockAssignment foundAssignment = null;
-    for(BlockAssignment position: getBlockAssignments()) {
-      if(position.getGridHorizontalPosition() == aGridHorizontalPosition && position.getGridVerticalPosition() == aGridVerticalPosition) {
-        foundAssignment = position;
-      }
-    }
-    return foundAssignment;
-  }
+  
   //------------------------
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------

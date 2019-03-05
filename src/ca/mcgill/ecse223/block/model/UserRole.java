@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 // line 104 "../../../../../../../../ump/tmp256427/Block223Persistence.ump"
 // line 46 "../../../../../../../../ump/tmp256427/model.ump"
-// line 181 "../../../../../../../../ump/tmp256427/model.ump"
+// line 203 "../../../../../../../../ump/tmp256427/model.ump"
 public abstract class UserRole implements Serializable
 {
 
