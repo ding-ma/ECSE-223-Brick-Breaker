@@ -11,7 +11,7 @@ import java.util.*;
  */
 // line 73 "../../../../../../../../ump/tmp256427/Block223Persistence.ump"
 // line 153 "../../../../../../../../ump/tmp256427/model.ump"
-// line 230 "../../../../../../../../ump/tmp256427/model.ump"
+// line 243 "../../../../../../../../ump/tmp256427/model.ump"
 public class Level implements Serializable
 {
 
@@ -192,6 +192,21 @@ public class Level implements Serializable
       BlockAssignment aBlockAssignment = blockAssignments.get(i - 1);
       aBlockAssignment.delete();
     }
+  }
+
+
+  /**
+   * Mert
+   */
+  // line 158 "../../../../../../../../ump/tmp256427/model.ump"
+   public BlockAssignment findBlockAssignment(int aGridHorizontalPosition, int aGridVerticalPosition){
+    BlockAssignment foundAssignment = null;
+		for(BlockAssignment position: getBlockAssignments()) {
+			if(position.getGridHorizontalPosition() == aGridHorizontalPosition && position.getGridVerticalPosition() == aGridVerticalPosition) {
+				foundAssignment = position;
+			}
+		}
+		return foundAssignment;
   }
   
   //------------------------

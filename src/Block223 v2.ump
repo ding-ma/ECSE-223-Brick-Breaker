@@ -151,6 +151,19 @@ class Block {
 // Each level is filled up with random blocks just before playing the level to reach the nrBlocksPerLevel defined in Game
 class Level {
 
+//Mert
+
+public BlockAssignment findBlockAssignment(int aGridHorizontalPosition, int aGridVerticalPosition) {
+		BlockAssignment foundAssignment = null;
+		for(BlockAssignment position: getBlockAssignments()) {
+			if(position.getGridHorizontalPosition() == aGridHorizontalPosition && position.getGridVerticalPosition() == aGridVerticalPosition) {
+				foundAssignment = position;
+			}
+		}
+		return foundAssignment;
+	  }
+	  //end
+
 }
 
 class BlockAssignment {

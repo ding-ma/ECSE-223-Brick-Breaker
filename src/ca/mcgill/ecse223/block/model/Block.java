@@ -7,7 +7,7 @@ import java.util.*;
 
 // line 30 "../../../../../../../../ump/tmp256427/Block223Persistence.ump"
 // line 112 "../../../../../../../../ump/tmp256427/model.ump"
-// line 225 "../../../../../../../../ump/tmp256427/model.ump"
+// line 238 "../../../../../../../../ump/tmp256427/model.ump"
 public class Block implements Serializable
 {
 

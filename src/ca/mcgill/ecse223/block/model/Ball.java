@@ -6,8 +6,8 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 23 "../../../../../../../../ump/tmp256427/Block223Persistence.ump"
-// line 179 "../../../../../../../../ump/tmp256427/model.ump"
-// line 240 "../../../../../../../../ump/tmp256427/model.ump"
+// line 192 "../../../../../../../../ump/tmp256427/model.ump"
+// line 253 "../../../../../../../../ump/tmp256427/model.ump"
 public class Ball implements Serializable
 {
 

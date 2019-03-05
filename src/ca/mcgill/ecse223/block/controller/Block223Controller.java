@@ -183,6 +183,8 @@ public class Block223Controller implements Serializable {
     //TODO exception
     public static void addBlock(int red, int green, int blue, int points) throws InvalidInputException {
         Game game = Block223Application.getCurrentGame();
+        Block223 block223 = Block223Application.getBlock223();
+
         String error = "";
 
         if (red < 0 || red > 255) {
@@ -214,8 +216,8 @@ public class Block223Controller implements Serializable {
             block.setBlue(blue);
             block.setPoints(points);
             //TODO PERSISTENCE DOESNT WORK
-            Block223Persistence.save(Block223Application.getBlock223());
             Block223Controller.getBlocksOfCurrentDesignableGame();
+            Block223Persistence.save(block223);
 
         } catch (RuntimeException e) {
             error = e.getMessage();

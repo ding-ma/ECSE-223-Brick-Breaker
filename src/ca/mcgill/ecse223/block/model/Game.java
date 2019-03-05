@@ -7,7 +7,7 @@ import java.util.*;
 
 // line 56 "../../../../../../../../ump/tmp256427/Block223Persistence.ump"
 // line 60 "../../../../../../../../ump/tmp256427/model.ump"
-// line 218 "../../../../../../../../ump/tmp256427/model.ump"
+// line 231 "../../../../../../../../ump/tmp256427/model.ump"
 public class Game implements Serializable
 {
 
