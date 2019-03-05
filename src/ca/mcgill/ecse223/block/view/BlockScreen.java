@@ -12,9 +12,10 @@ import ca.mcgill.ecse223.block.application.Block223Application;
 import ca.mcgill.ecse223.block.controller.*;
 
 public class BlockScreen {
-
+	
 	private static int SELECTEDBLOCK;
 	private static int BLOCKID;
+
 
 	private static String error = null;
 	private static HashMap<Integer, Integer> availableBlocks;
@@ -44,7 +45,6 @@ public class BlockScreen {
 		positionBlock = new JButton();
 		removeBlock = new JButton();
 		updateLocation = new JButton();
-
 		availableBlocksList = new JComboBox<String>(new String[0]);
 		AavailableBlocksLablel = new JLabel();
 		blockScreen = new JLabel();

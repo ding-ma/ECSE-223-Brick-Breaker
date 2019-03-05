@@ -74,7 +74,6 @@ public class UpdateGame {
         frame.add(newNameLabel);
         newName.setBounds(180, 82, 200, 30);
         frame.add(newName);
-
         nbLevelsLabel.setBounds(5, 113, 200, 30);
         frame.add(nbLevels);
         nbLevels.setBounds(180, 113, 200, 30);
@@ -109,7 +108,6 @@ public class UpdateGame {
         frame.add(minPaddleLengthLabel);
         minPaddleLength.setBounds(180, 296, 200, 30);
         frame.add(minPaddleLength);
-
         confirm.setText("Confirm");
         confirm.setBounds(150, 330, 120, 30);
         frame.add(confirm);
