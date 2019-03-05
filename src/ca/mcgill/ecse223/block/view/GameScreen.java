@@ -136,7 +136,7 @@ public class GameScreen {
 		});
 
 
-		frame.setSize(450, 450);
+		frame.setSize(550, 700);
 		frame.setLayout(null);
 		frame.setVisible(true);
 

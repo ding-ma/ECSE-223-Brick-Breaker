@@ -51,7 +51,7 @@ public class UpdateGame {
         JTextField minPaddleLength = new JTextField(String.valueOf(currentGame.getPaddle().getMinPaddleLength()));
         JButton confirm = new JButton();
 
-        frame.setSize(500,400);
+        frame.setSize(500,450);
         frame.setLayout(null);
         frame.setVisible(true);
 
@@ -111,6 +111,8 @@ public class UpdateGame {
         confirm.setText("Confirm");
         confirm.setBounds(150, 330, 120, 30);
         frame.add(confirm);
+        frame.getContentPane().setBackground(Color.PINK);
+
 
         confirm.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
