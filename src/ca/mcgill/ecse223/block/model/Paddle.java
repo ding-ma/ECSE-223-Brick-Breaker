@@ -1,14 +1,14 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
+/*This code was generated using the UMPLE 1.29.1.4439.923218886 modeling language!*/
 
 package ca.mcgill.ecse223.block.model;
+import java.io.Serializable;
 import java.util.*;
 
-
-// line 142 "../../../../../../../../ump/tmp404732/model.ump"
-// line 199 "../../../../../../../../ump/tmp404732/model.ump"
-
-public class Paddle
+// line 79 "../../../../../../../../ump/tmp256427/Block223Persistence.ump"
+// line 164 "../../../../../../../../ump/tmp256427/model.ump"
+// line 223 "../../../../../../../../ump/tmp256427/model.ump"
+public class Paddle implements Serializable
 {
 
   //------------------------
@@ -103,5 +103,13 @@ public class Paddle
             "maxPaddleLength" + ":" + getMaxPaddleLength()+ "," +
             "minPaddleLength" + ":" + getMinPaddleLength()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "game = "+(getGame()!=null?Integer.toHexString(System.identityHashCode(getGame())):"null");
-  }
+  }  
+  //------------------------
+  // DEVELOPER CODE - PROVIDED AS-IS
+  //------------------------
+  
+  // line 82 "../../../../../../../../ump/tmp256427/Block223Persistence.ump"
+  private static final long serialVersionUID = -7410987654321L ;
+
+  
 }

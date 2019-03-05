@@ -22,6 +22,8 @@ public class GameSettings {
             public void actionPerformed(ActionEvent e) {
                 BlockScreen BS = new BlockScreen();
                 BS.BlockScreen();
+                frame.dispose();	
+                BlockScreen.refreshData();   
             }
         });
         frame.add(Bblock);

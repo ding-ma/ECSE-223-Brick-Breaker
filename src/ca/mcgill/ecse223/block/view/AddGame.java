@@ -53,6 +53,7 @@ public class AddGame {
         createGame.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				addGameButtonActionPerformed(evt);
+				frame.dispose();
 			}
 		});
         
@@ -75,12 +76,13 @@ public class AddGame {
 		error = null;
 		// call the controller
 		try {
-			Block223Controller.createGame(gameNameTextField.getText());
+			String name = gameNameTextField.getText();
+			Block223Controller.createGame(name);
 		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		
 		// update visuals
-		refreshData();
+		GameScreen.refreshData();
 	}
     }

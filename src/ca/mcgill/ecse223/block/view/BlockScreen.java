@@ -12,7 +12,7 @@ import ca.mcgill.ecse223.block.application.Block223Application;
 import ca.mcgill.ecse223.block.controller.*;
 
 public class BlockScreen {
-	
+
 	private static int SELECTEDBLOCK;
 	private static int BLOCKID;
 
@@ -22,11 +22,11 @@ public class BlockScreen {
 	private static JButton createBlock;
 	private static JButton updateBlock;
 	private static JButton deleteBlock;
-	
+
 	private static JButton positionBlock;
 	private static JButton removeBlock;
 	private static JButton updateLocation;
-	
+
 	private static JComboBox <String> availableBlocksList;
 	private static JLabel AavailableBlocksLablel;
 	private static JLabel blockScreen;
@@ -34,7 +34,7 @@ public class BlockScreen {
 
 	public void BlockScreen() {
 		JFrame frame = new JFrame();
-		
+
 
 
 		errorMessage = new JLabel();
@@ -44,7 +44,7 @@ public class BlockScreen {
 		positionBlock = new JButton();
 		removeBlock = new JButton();
 		updateLocation = new JButton();
-		
+
 		availableBlocksList = new JComboBox<String>(new String[0]);
 		AavailableBlocksLablel = new JLabel();
 		blockScreen = new JLabel();
@@ -81,11 +81,11 @@ public class BlockScreen {
 				SELECTEDBLOCK = availableBlocksList.getSelectedIndex();
 				BLOCKID = availableBlocks.get(SELECTEDBLOCK);
 				if (SELECTEDBLOCK < 0)
-				error = "Block needs to be selected!";
+					error = "Block needs to be selected!";
 				refreshData();
 				if (error == null) {
-				UpdateBlock updateBlock = new UpdateBlock();
-				updateBlock.UpdateBlock();
+					UpdateBlock updateBlock = new UpdateBlock();
+					updateBlock.UpdateBlock();
 				}
 			}
 		});
@@ -108,38 +108,38 @@ public class BlockScreen {
 				}
 			}
 		});
-			
+
 		//fourth button
 		//TODO ERROR
 		positionBlock.setText("Postition Block");
 		positionBlock.setBounds(125, 200, 200, 50);
 		positionBlock.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			PositionBlock positionBlock = new PositionBlock();
-			positionBlock.PositionBlock();
-		}
-	});
-		
+			public void actionPerformed(ActionEvent e) {
+				PositionBlock positionBlock = new PositionBlock();
+				positionBlock.PositionBlock();
+			}
+		});
+
 		//fifth button
 		removeBlock.setText("Remove Block");
 		removeBlock.setBounds(125, 250, 200, 50);
 		removeBlock.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			RemoveBlock removeBlock = new RemoveBlock();
-			removeBlock.RemoveBlock();
-		}
-	});
-		
+			public void actionPerformed(ActionEvent e) {
+				RemoveBlock removeBlock = new RemoveBlock();
+				removeBlock.RemoveBlock();
+			}
+		});
+
 		//sixth button
 		updateLocation.setText("Update Grid Position");
 		updateLocation.setBounds(125, 300, 200, 50);
 		updateLocation.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			UpdateLocation updateLocation = new UpdateLocation();
-			updateLocation.UpdateLocation();
-		}
-	});
-		
+			public void actionPerformed(ActionEvent e) {
+				UpdateLocation updateLocation = new UpdateLocation();
+				updateLocation.UpdateLocation();
+			}
+		});
+
 		frame.setSize(550, 700);
 		frame.setLayout(null);
 		frame.setVisible(true);
@@ -168,16 +168,15 @@ public class BlockScreen {
 		for (TOBlock block : Block223Controller.getBlocksOfCurrentDesignableGame()) {
 			availableBlocks.put(index, block.getId());
 			availableBlocksList.addItem(" Red Value: " + block.getRed()
-			+ " Green Value: " + block.getGreen()
-			+ " Blue Value: " + block.getBlue()
-			+ " Points: " + block.getPoints());
+					+ " Green Value: " + block.getGreen()
+					+ " Blue Value: " + block.getBlue()
+					+ " Points: " + block.getPoints());
 			index ++;
 		};
 		availableBlocksList.setSelectedIndex(-1);
 	}
-  public static int getid() {
-	  return BLOCKID;
-  }
-
+	public static int getid() {
+		return BLOCKID;
 	}
 
+}
