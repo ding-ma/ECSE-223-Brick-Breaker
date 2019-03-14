@@ -1,0 +1,56 @@
+class GameOccurence{
+gameStatus{
+	
+	Begin{
+	[playSelected()] -> Playing;
+	Integer activeBlocks = NUM_OF_BLOCKS_INIT;
+	}
+		
+		Playing{
+				
+		moveBall(){
+		
+			[activeBlocks == 0]/{->PauseGame;}
+		
+			[isBlockHit(){doBlockHit();}];
+				
+			[isOutOfBounds()] /{}PauseGame; //life lost
+			
+			[isLevelEnded()]/{}PauseGame; //level ended
+			
+			[isGameEnded()]/{}Done;
+		}
+		
+		pauseSelected() -> PauseGame;
+		
+		}
+		
+		Paused{
+		
+		saveBlock223(); //saved
+		
+		playSelected() -> PlayGame; //resume
+		
+		}
+		
+		Done{
+		
+		}
+		
+	}
+	
+	private isBlockHit(ballLocationX, ballLocationY, gridHorizontalPosition, gridVerticalPosition){
+	//true or false
+    }
+	
+	private void doBlockHit(){
+	//update number of active blocks
+	}
+	
+	private isOutOfBounds(getBallLocationY(), PLAY_AREA_SIDE){}
+		
+	private isGameEnded(int CurrentLevel, int numberOfLevels){}
+
+
+}
+
