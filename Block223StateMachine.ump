@@ -2,7 +2,8 @@ class GameOccurence{
 Integer activeBlocks = 5;
 
 gameStatus{
-	
+
+	//initial status
 	Begin{
 		entry/{
 		initializeBlocks();
@@ -30,6 +31,7 @@ gameStatus{
 	}->Playing;
 	}
 	
+	//While playing game
 	Playing{
 		entry /{
 		moveBall(BallOccurrence aBallOccurrence);
@@ -82,6 +84,7 @@ gameStatus{
 		
 		}
 		
+		//game paused
 		Paused{
 		resumeGame()[noBlocksLeft()]/{
 			initializeBlocks();
@@ -92,18 +95,19 @@ gameStatus{
 		}
 		
 		
-		
+		//game ended
 		Done{
 			updateHallOfFame[isLastLevel()]{
 				addHallOfFameEntry(HallOfFameEntry aHallOfFameEntry);
 				}-> Final;
 			gameOver[!isLastLevel()]{
 				displayGameOver();
-				}->End;
+				}->Done;
 			}
 		
 	}
 	
+	//helper methods (guards)
 	private boolean isGameAdmin();
 	private boolean ofTestMode();
 	private boolean hasEnoughBlocks();
@@ -116,7 +120,35 @@ gameStatus{
 	private boolean hasLifeLeft();
 	private boolean isLastLevel();
 	
+	//methods
+	private initializeBlocks();
+	private initializeBall();
+	private initializePaddle();
+	private displayScore();
+	private addRandomBlocks();
+	private doBlockHit()
+	private increaseScore()
+	
+	private doBlockHit(BallOccurrece aBallOccurrence);
+	private deleteBlock(SpecificBlock aBlock);
+	private resetPaddlePos(PaddleOccurrence aPaddleOccurrence);
+	private resetBallPos(BallOccurrence aBallOccurrence);
+	private increaseScore(HallOfFameEntry aHallOfFameEntry);
+			
+	private deleteBlock(BlockAssignmentOccurrence aBlockAssignmentOccurrence);
 
+	private doWallHit(BallOccurrence aBallOccurrence);
+	private doOutOfBounds(BallOccurrence aBallOccurence);
+	private resetPaddlePos(PaddleOccurrence aPaddleOccurence);
+	private resetBallPos(BallOccurrence aBallOccurrence);
 
+	private doWallHit(BallOccurrence aBallOccurrence);
+	private doPaddleHit(BallOccurrence aBallOccurrence);
+									
+	private doOutOfBounds(BallOccurrence aBallOccurence);
+	private stopBall(BallOccurrence aBallOccurrence);
+	private stopPaddle(BallOccurrence aBallOccurrence);
+	private displayGameOver();
+			
 }
 
