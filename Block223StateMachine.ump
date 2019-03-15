@@ -37,7 +37,7 @@ gameStatus{
 		
 		move(BallOccurrence aBallOccurrence)[isBlockHit() && !isLastBlock()] /{
 			doBlockHit(BallOccurrence aBallOccurrence);
-			deleteBlock(BlockOccurence aBlockOccurrence);
+			deleteBlock(BlockAssignmentOccurence aBlockAssignmentOccurrence);
 			increaseScore(HallOfEntry aHallOfFameEntry);
 			}->Playing;
 			
@@ -52,7 +52,7 @@ gameStatus{
 			
 		move(BallOccurrence aBallOccurrence)[isBlockHit() && isLastBlock() && isLastLevel()]{
 			doBlockHit(BallOccurrence aBallOccurrence);
-			deleteBlock(BlockOccurrence aBlockOccurrence);
+			deleteBlock(BlockAssignmentOccurrence aBlockAssignmentOccurrence);
 			increaseScore(HallOfFameEntry aHallOfFameEntry);
 			}->Done;
 			
