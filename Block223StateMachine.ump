@@ -1,55 +1,121 @@
 class GameOccurence{
+Integer activeBlocks = 5;
+
 gameStatus{
 	
 	Begin{
-	[playSelected()] -> Playing;
-	Integer activeBlocks = NUM_OF_BLOCKS_INIT;
+		entry/{
+		initializeBlocks();
+		initializeBall();
+		initializePaddle();
+		}
+	
+	startGame()[isGameAdmin() && ofTestMode() && hasAllBlocks()] /{
+	}->Playing;
+	
+	startGame()[!ofTestMode()&& hasAllBlocks()] /{
+		displayScore(HallOfFameEntry aHallOfFameEntry);
+	}->Playing;
+	
+	startGame() [isGameAdmin() && ofTestMode() && !hasEnoughBlocks()] / {
+		addRandomBlocks();}->Playing;
+	
+	startGame()[!ofTestMode()&& !hasAllBlocks()] /{
+		addRandomBlocks();
+		displayScore(HallOfFameEntry aHallOfFameEntry);
+		
+	}->Playing;
+	
+	startGame()[isGameAdmin()&& ofTestMode() && hasAllBlocks()] /{
+	}->Playing;
 	}
-		
-		Playing{
-				
-		moveBall(){
-		
-			[activeBlocks == 0]/{->PauseGame;}
-		
-			[isBlockHit(){doBlockHit();}];
-				
-			[isOutOfBounds()] /{}PauseGame; //life lost
-			
-			[isLevelEnded()]/{}PauseGame; //level ended
-			
-			[isGameEnded()]/{}Done;
+	
+	Playing{
+		entry /{
+		moveBall(BallOccurrence aBallOccurrence);
 		}
 		
-		pauseSelected() -> PauseGame;
+		move(BallOccurrence aBallOccurrence)[isBlockHit() && !isLastBlock()] /{
+			doBlockHit(BallOccurrence aBallOccurrence);
+			deleteBlock(BlockOccurence aBlockOccurrence);
+			increaseScore(HallOfEntry aHallOfFameEntry);
+			}->Playing;
+			
+		move(BallOccurrence aBallOccurrence)[isBlockHit && isLastBlock() && !isLastLevel()]/ {
+			doBlockHit(BallOccurrece aBallOccurrence);
+			deleteBlock(SpecificBlock aBlock);
+			resetPaddlePos(PaddleOccurrence aPaddleOccurrence);
+			resetBallPos(BallOccurrence aBallOccurrence);
+			increaseScore(HallOfFameEntry aHallOfFameEntry);
+			currentLevel++;
+			}->Paused;
+			
+		move(BallOccurrence aBallOccurrence)[isBlockHit() && isLastBlock() && isLastLevel()]{
+			doBlockHit(BallOccurrence aBallOccurrence);
+			deleteBlock(BlockOccurrence aBlockOccurrence);
+			increaseScore(HallOfFameEntry aHallOfFameEntry);
+			}->Done;
+			
+		move(BallOccurrence aBallOccurrence)[isWallHit()]{
+			doWallHit(BallOccurrence aBallOccurrence);
+			}->Playing;
+			
+		move(BallOccurrence aBallOccurrence)[isPaddleHit()] /{
+			doPaddleHit(BallOccurrence aBallOccurrence);
+		}->Playing;
+		
+		move(BallOccurrence aBallOccurrence)[isOutOfBounds() && !isLastLife()] /{
+			doOutOfBounds(BallOccurrence aBallOccurence);
+			resetPaddlePos(PaddleOccurrence aPaddleOccurence);
+			resetBallPos(BallOccurrence aBallOccurrence);
+			currentLives--;
+		}->Paused;
+		
+		pauseGame()[!isOutOfBounds()] /{
+		stopBall(BallOccurrence aBallOccurrence);
+		stopPaddle(BallOccurrence aBallOccurrence);
+		}->Paused;
+		
+		exit /{
+		stopBall(BallOccurrence aBallOccurrence);
+		}
 		
 		}
 		
 		Paused{
-		
-		saveBlock223(); //saved
-		
-		playSelected() -> PlayGame; //resume
-		
+		resumeGame()[noBlocksLeft()]/{
+			initializeBlocks();
+			addRandomBlocks();
+			initializeBall();
+			initializePaddle();
+		}->Playing;
 		}
+		
+		
 		
 		Done{
-		
-		}
+			updateHallOfFame[isLastLevel()]{
+				addHallOfFameEntry(HallOfFameEntry aHallOfFameEntry);
+				}-> Final;
+			gameOver[!isLastLevel()]{
+				displayGameOver();
+				}->End;
+			}
 		
 	}
 	
-	private isBlockHit(ballLocationX, ballLocationY, gridHorizontalPosition, gridVerticalPosition){
-	//true or false
-    }
+	private boolean isGameAdmin();
+	private boolean ofTestMode();
+	private boolean hasEnoughBlocks();
+	private boolean hasNoBlocks();
+	private boolean isBlockHit();
+	private boolean isWallHit();
+	private boolean isPaddleHit();
+	private boolean isOutOfBounds();
+	private boolean isLastBlock();
+	private boolean hasLifeLeft();
+	private boolean isLastLevel();
 	
-	private void doBlockHit(){
-	//update number of active blocks
-	}
-	
-	private isOutOfBounds(getBallLocationY(), PLAY_AREA_SIDE){}
-		
-	private isGameEnded(int CurrentLevel, int numberOfLevels){}
 
 
 }
