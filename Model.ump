@@ -1,0 +1,80 @@
+class Game {
+     * -- 1 HallOfFameEntry;
+   Integer waitTime;
+   Boolean ofTestMode;
+   Boolean published;
+  
+}
+
+class Player {
+isA UserRole;
+  Boolean togglePause;
+}
+
+
+class Paddle {
+}
+
+class Ball {
+}
+
+class HallOfFameEntry
+{
+  * -- 1 Player;
+  Integer points;
+}
+
+class GameOccurrence
+{
+  1 -- 1 Player;
+  * -- 1 Game;
+  Integer currentLives;
+  Integer currentLevel;
+  
+ Integer nbActiveBlocks;
+}
+
+class PaddleOccurrence {
+  Integer rightMovement;
+Integer leftMovement;
+Integer originalPXLocation;
+Integer originalPYLocation;
+Integer currentPadXPos;
+Integer currentPadYPos;
+Integer currentPaddleLeng;
+* -- 1 Paddle;
+  1 <@>- 1 GameOccurrence; 
+  
+}
+
+class BlockAssignmentOccurrence{
+  
+  autounique playBlockID;
+  Integer horizontalPos;
+  Integer verticalPos;
+  
+  //location in grid  
+  * -- 1 Block;
+  1 <@>- 1 GameOccurrence;
+  
+}
+class BallOccurrence {
+  * -- 1 Ball;
+  1 <@>- 1 GameOccurrence; 
+  
+  Integer currentBallXPos;
+  Integer currentBallYPos;
+  Integer originalBXLocation;
+  Integer originalBYLocation;
+  Boolean outOfBound;
+}
+
+class Block{}
+
+class Admin
+{
+  Boolean isGameAdmin;
+  1 -- * Game;
+}
+
+//$?[End_of_model]$?
