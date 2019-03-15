@@ -66,6 +66,8 @@ class BallOccurrence {
   Integer currentBallYPos;
   Integer originalBXLocation;
   Integer originalBYLocation;
+  Integer currentBallXVel;
+  Integer currentBallYVel;
   Boolean outOfBound;
 }
 
