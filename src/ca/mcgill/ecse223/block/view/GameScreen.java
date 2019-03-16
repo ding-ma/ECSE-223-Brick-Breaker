@@ -62,7 +62,7 @@ public class GameScreen {
 		Integer index = 0;
 		for (TOGame game : Block223Controller.getDesignableGames()) {
 			availableGames.put(index, game.getName());
-			availableGamesList.addItem("name" + game.getName());
+			availableGamesList.addItem("name: " + game.getName());
 			index ++;
 		};
 
@@ -136,7 +136,7 @@ public class GameScreen {
 		});
 
 
-		frame.setSize(450, 450);
+		frame.setSize(550, 700);
 		frame.setLayout(null);
 		frame.setVisible(true);
 
@@ -162,6 +162,7 @@ public class GameScreen {
 		availableGames = new HashMap<Integer, String>();
 		availableGamesList.removeAllItems();
 		Integer index = 0;
+		
 		for (TOGame game : Block223Controller.getDesignableGames()) {
 			availableGames.put(index, game.getName());
 			availableGamesList.addItem("name: " + game.getName());

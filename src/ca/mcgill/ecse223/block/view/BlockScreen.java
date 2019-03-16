@@ -91,7 +91,7 @@ public class BlockScreen {
 		});
 
 		//third button:
-		deleteBlock.setText("Delete Block");
+		deleteBlock.setText("Delete Block from game");
 		deleteBlock.setBounds(125, 150, 200, 50);
 		deleteBlock.addActionListener(new ActionListener() {
 			@Override
@@ -121,7 +121,7 @@ public class BlockScreen {
 		});
 
 		//fifth button
-		removeBlock.setText("Remove Block");
+		removeBlock.setText("Remove Block from level");
 		removeBlock.setBounds(125, 250, 200, 50);
 		removeBlock.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

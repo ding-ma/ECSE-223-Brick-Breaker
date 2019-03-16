@@ -1,0 +1,122 @@
+class GameOccurence{
+gameStatus{
+	//initial status
+	Begin{
+		entry/{
+		initializeBlocks();
+		initializeBall();
+		initializePaddle();
+		}
+	
+	startGame()[isGameAdmin() && ofTestMode() && hasAllBlocks()] /{
+	}->Playing;
+	
+	startGame()[!ofTestMode()&& hasAllBlocks()] /{
+		displayScore(HallOfFameEntry aHallOfFameEntry);
+	}->Playing;
+	
+	startGame() [isGameAdmin() && ofTestMode() && !hasAllBlocks()] / {
+		addRandomBlocks();
+		}->Playing;
+	
+	startGame()[!ofTestMode()&& !hasAllBlocks()] /{
+		addRandomBlocks();
+		displayScore(HallOfFameEntry aHallOfFameEntry);	
+	}->Playing;
+	
+	
+	
+	}
+	
+	//While playing game
+	Playing{
+		entry /{
+		moveBall(BallOccurrence aBallOccurrence);
+		}
+		
+		moveBall(BallOccurrence aBallOccurrence)[isBlockHit() && !isLastBlock()] /{
+			doBlockHit(BallOccurrence aBallOccurrence);
+			deleteBlock(BlockAssignmentOccurence aBlockAssignmentOccurrence);
+			increaseScore(HallOfEntry aHallOfFameEntry);
+			}->Playing;
+			
+		moveBall(BallOccurrence aBallOccurrence)[isBlockHit() && isLastBlock() && !isLastLevel()]/ {
+			doBlockHit(BallOccurrence aBallOccurrence);
+			deleteBlock(SpecificBlock aBlock);
+			resetPaddlePos(PaddleOccurrence aPaddleOccurrence);
+			resetBallPos(BallOccurrence aBallOccurrence);
+			increaseScore(HallOfFameEntry aHallOfFameEntry);
+			currentLevel++;
+			}->Paused;
+			
+		moveBall(BallOccurrence aBallOccurrence)[isBlockHit() && isLastBlock() && isLastLevel()]/{
+			doBlockHit(BallOccurrence aBallOccurrence);
+			deleteBlock(BlockAssignmentOccurrence aBlockAssignmentOccurrence);
+			increaseScore(HallOfFameEntry aHallOfFameEntry);
+			}->Finish;
+			
+		moveBall(BallOccurrence aBallOccurrence)[isWallHit()]/{
+			doWallHit(BallOccurrence aBallOccurrence);
+			}->Playing;
+				
+		moveBall(BallOccurrence aBallOccurrence)[isPaddleHit()] /{
+			doPaddleHit(BallOccurrence aBallOccurrence);
+		}->Playing;
+		
+		moveBall(BallOccurrence aBallOccurrence)[isOutOfBounds() && !isLastLife()] /{
+			doOutOfBounds(BallOccurrence aBallOccurence);
+			resetPaddlePos(PaddleOccurrence aPaddleOccurence);
+			resetBallPos(BallOccurrence aBallOccurrence);
+			currentLives--;
+		}->Paused;
+		moveBall(BallOccurrence aBallOccurrence)[isOutOfBounds() && isLastLife()] /{
+			doOutOfBounds(BallOccurrence aBallOccurence);
+			resetPaddlePos(PaddleOccurrence aPaddleOccurence);
+			resetBallPos(BallOccurrence aBallOccurrence);
+			currentLives--;
+		}->Finish;
+		
+		pauseGame()[!isOutOfBounds()] /{
+		stopBall(BallOccurrence aBallOccurrence);
+		stopPaddle(BallOccurrence aBallOccurrence);
+		}->Paused;
+		
+		exit /{
+		stopBall(BallOccurrence aBallOccurrence);
+		}
+		
+		}
+		
+		//game paused
+		Paused{
+		resumeGame()[noBlocksLeft()]/{
+			initializeBlocks();
+			addRandomBlocks();
+			initializeBall();
+			initializePaddle();
+		}->Playing;
+		resumeGame()[!noBlocksLeft()]/{
+			initializeBlocks();
+			initializeBall();
+			initializePaddle();
+		}->Playing;
+		}
+		
+		
+		//game ended
+		Finish{
+			updateHallOfFame[isLastLevel()]/{
+				addHallOfFameEntry(HallOfFameEntry aHallOfFameEntry);
+				}-> Final;
+			gameOver[!isLastLevel()]/{
+				displayGameOver();
+				}-> Final;
+			}
+
+	}
+	
+	//helper methods (guards)
+	//private boolean isGameAdmin();
+
+			
+}
