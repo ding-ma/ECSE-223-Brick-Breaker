@@ -15,7 +15,7 @@ gameStatus{
 		displayScore(HallOfFameEntry aHallOfFameEntry);
 	}->Playing;
 	
-	startGame() [isGameAdmin() && ofTestMode() && !hasEnoughBlocks()] / {
+	startGame() [isGameAdmin() && ofTestMode() && !hasAllBlocks()] / {
 		addRandomBlocks();
 		}->Playing;
 	
@@ -24,8 +24,7 @@ gameStatus{
 		displayScore(HallOfFameEntry aHallOfFameEntry);	
 	}->Playing;
 	
-	startGame()[isGameAdmin()&& ofTestMode() && hasAllBlocks()] /{
-	}->Playing;
+	
 	
 	}
 	
@@ -117,47 +116,7 @@ gameStatus{
 	}
 	
 	//helper methods (guards)
-	private boolean isGameAdmin();
-	private boolean ofTestMode();
-	private boolean hasEnoughBlocks();
-	private boolean hasNoBlocks();
-	private boolean isBlockHit();
-	private boolean isWallHit();
-	private boolean isPaddleHit();
-	private boolean isOutOfBounds();
-	private boolean isLastBlock();
-	private boolean hasLifeLeft();
+	//private boolean isGameAdmin();
 
-	private boolean isLastLevel();
-	
-	//methods
-	private initializeBlocks();
-	private initializeBall();
-	private initializePaddle();
-	private displayScore();
-	private addRandomBlocks();
-	private doBlockHit()
-	private increaseScore()
-	
-	private doBlockHit(BallOccurrece aBallOccurrence);
-	private deleteBlock(SpecificBlock aBlock);
-	private resetPaddlePos(PaddleOccurrence aPaddleOccurrence);
-	private resetBallPos(BallOccurrence aBallOccurrence);
-	private increaseScore(HallOfFameEntry aHallOfFameEntry);
-			
-	private deleteBlock(BlockAssignmentOccurrence aBlockAssignmentOccurrence);
-
-	private doWallHit(BallOccurrence aBallOccurrence);
-	private doOutOfBounds(BallOccurrence aBallOccurence);
-	private resetPaddlePos(PaddleOccurrence aPaddleOccurence);
-	private resetBallPos(BallOccurrence aBallOccurrence);
-
-	private doWallHit(BallOccurrence aBallOccurrence);
-	private doPaddleHit(BallOccurrence aBallOccurrence);
-									
-	private doOutOfBounds(BallOccurrence aBallOccurence);
-	private stopBall(BallOccurrence aBallOccurrence);
-	private stopPaddle(BallOccurrence aBallOccurrence);
-	private displayGameOver();
 			
 }
