@@ -23,14 +23,14 @@ public class Block223Controller implements Serializable {
         String error = "";
         Block223 block223 = Block223Application.getBlock223();
 
-<<<<<<< HEAD
+
         UserRole userRole = Block223Application.getCurrentUserRole();
         if(userRole instanceof Player || userRole == null){
             error = "Admin privileges are required to create a game.";
-=======
+
         if(name.equals("")){
             error = "The name of the game must be specified";
->>>>>>> a9e4c809921e6f78dd0057b80594ab7410e0f0bf
+
             throw new InvalidInputException(error);
         }
         
@@ -56,7 +56,7 @@ public class Block223Controller implements Serializable {
         Block223Application.setCurrentGame(game);
         block223.addGame(game);
         Block223Persistence.save(block223);
-
+        }
     }
 
     public static String checkGameNameIsUnique(String name, Block223 block223) {
@@ -141,11 +141,11 @@ public class Block223Controller implements Serializable {
         Block223 block223 = Block223Application.getBlock223();
         UserRole userRole = Block223Application.getCurrentUserRole();
         if (userRole instanceof Player || userRole == null) {
-<<<<<<< HEAD
+
             error = "Admin in privileges are required to create a game.";
-=======
+
             error = "Admin privileges are required to select a game.";
->>>>>>> a9e4c809921e6f78dd0057b80594ab7410e0f0bf
+
             throw new InvalidInputException(error);
         }
         
@@ -170,11 +170,11 @@ public class Block223Controller implements Serializable {
 
         UserRole userRole = Block223Application.getCurrentUserRole();
         if (userRole instanceof Player || userRole == null) {
-<<<<<<< HEAD
+
             error += "Admin privileges are required to create a game.";
-=======
+
             error = "Admin privileges are required to update a game.";
->>>>>>> a9e4c809921e6f78dd0057b80594ab7410e0f0bf
+
             throw new InvalidInputException(error);
         }
 
@@ -208,13 +208,13 @@ public class Block223Controller implements Serializable {
 
         setGameDetails(nrLevels, nrBlocksPerLevel, minBallSpeedX, minBallSpeedY, ballSpeedIncreaseFactor, maxPaddleLength, minPaddleLength);
 
-<<<<<<< HEAD
+
         Block223Persistence.save(block223);
-=======
-    }
->>>>>>> a9e4c809921e6f78dd0057b80594ab7410e0f0bf
 
     }
+
+
+    
     //done
     //TODO exception
     public static void addBlock(int red, int green, int blue, int points) throws InvalidInputException {
