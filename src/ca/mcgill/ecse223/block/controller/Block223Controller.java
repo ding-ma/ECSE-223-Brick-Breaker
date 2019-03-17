@@ -137,15 +137,21 @@ public static void createGame(String aName) throws InvalidInputException {
             error = "Admin privileges are required to select a game.";
             throw new InvalidInputException(error);
         }
-
+//TODO this dnt work
         String adminPassword = userRole.getPassword();
-        Game game = Block223Application.getBlock223().findGame(name);
-
         if (userRole.getPassword() != Block223Application.getCurrentGame().getAdmin().getPassword()) {
             error = "Only the admin who created the game can select the game.";
             throw new InvalidInputException(error);
-
         }
+        
+        Game game = Block223Application.getBlock223().findGame(name);
+        
+        if(game == null) {
+        	error = "A game with name " + name+ " does not exist.";
+        	throw new InvalidInputException(error);
+        }
+
+
 
         Block223Application.setCurrentGame(game);
     }
@@ -159,7 +165,7 @@ public static void createGame(String aName) throws InvalidInputException {
 
         UserRole userRole = Block223Application.getCurrentUserRole();
         if (userRole instanceof Player || userRole == null) {
-            error = "Admin privileges are required to update a game.";
+            error = "Admin privileges are required to define game settings.";
             throw new InvalidInputException(error);
         }
 
@@ -175,19 +181,19 @@ public static void createGame(String aName) throws InvalidInputException {
 
         }
 
-        String currentName;
-        try {
-            currentName = game.getName();
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
+        String currentName = game.getName();
+        if (currentName==null) {
+        	error = "The name of a game must be specified.";
+        	throw new InvalidInputException(error);
         }
+       
 
         if (currentName != name) {
-            try {
-                game.setName(name);
-            } catch (Exception e) {
-                throw new InvalidInputException(e.getMessage());
+            if(name == null || name.equals("")){
+                error = "The name of a game must be specified.";
+                throw new InvalidInputException(error);
             }
+            game.setName(name);
         }
 
 
@@ -548,17 +554,17 @@ public static void createGame(String aName) throws InvalidInputException {
     // Query methods
     // ****************************
     //George
-    public static List<TOGame> getDesignableGames()  {
+    public static List<TOGame> getDesignableGames() throws InvalidInputException  {
 		String error;
 		UserRole userRole = Block223Application.getCurrentUserRole();
-        /*if(userRole instanceof Player || userRole == null){
+        if(userRole instanceof Player || userRole == null){
             error = "Admin privileges are required to access game information.";
             throw new InvalidInputException(error);
-        }*/
+        }
         ArrayList<TOGame> games = new ArrayList<TOGame>();
         for (Game game : Block223Application.getBlock223().getGames()) {
             //NOT sure about the numberOfBlocks() method.
-            TOGame toGame = new TOGame(game.getName(), game.numberOfLevels(), game.numberOfBlocks(),
+            TOGame toGame = new TOGame(game.getName(), game.numberOfLevels(), game.getNrBlocksPerLevel(),
                     game.getBall().getMinBallSpeedX(), game.getBall().getMinBallSpeedY(), game.getBall().getBallSpeedIncreaseFactor(),
                     game.getPaddle().getMaxPaddleLength(), game.getPaddle().getMinPaddleLength());
             games.add(toGame);
@@ -571,7 +577,7 @@ public static void createGame(String aName) throws InvalidInputException {
 
  		String error;
 		UserRole userRole = Block223Application.getCurrentUserRole();
-        /*if(userRole instanceof Player || userRole == null){
+        if(userRole instanceof Player || userRole == null){
             error = "Admin privileges are required to access game information.";
             throw new InvalidInputException(error);
         }
@@ -586,7 +592,7 @@ public static void createGame(String aName) throws InvalidInputException {
  		if (userRole.getPassword() != Block223Application.getCurrentGame().getAdmin().getPassword()) {
             error = "Only the admin who created the game can access its information.";
             throw new InvalidInputException(error);
-         }*/
+         }
         
         TOGame toGame = new TOGame(game.getName(), game.getLevels().size(), game.getNrBlocksPerLevel(),
                 game.getBall().getMinBallSpeedX(), game.getBall().getMinBallSpeedY(),
