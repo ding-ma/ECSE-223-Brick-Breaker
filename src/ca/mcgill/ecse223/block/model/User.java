@@ -1,13 +1,13 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.29.1.4439.923218886 modeling language!*/
+/*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
 package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 import java.util.*;
 
-// line 91 "../../../../../../../../ump/tmp256427/Block223Persistence.ump"
-// line 25 "../../../../../../../../ump/tmp256427/model.ump"
-// line 211 "../../../../../../../../ump/tmp256427/model.ump"
+// line 11 "../../../../../Block223Persistence.ump"
+// line 90 "../../../../../Block223PersistenceMairead.ump"
+// line 29 "../../../../../Block223 v3.ump"
 public class User implements Serializable
 {
 
@@ -248,27 +248,26 @@ public class User implements Serializable
     }
   }
 
-  // line 97 "../../../../../../../../ump/tmp256427/Block223Persistence.ump"
+  // line 96 "../../../../../Block223PersistenceMairead.ump"
    public static  void reinitializeUniqueUsername(List<User> users){
     usersByUsername = new HashMap<String, User>();
     for (User user : users) {
       usersByUsername.put(user.getUsername(), user);
     }
   }
-
-
-  /**
+  
+ /**
    * Mairead
    */
-  // line 31 "../../../../../../../../ump/tmp256427/model.ump"
-   public static  UserRole findPassword(String password, User user){
+  // line 33 "../../../../../Block223 v2.ump"
+  public static  UserRole findPassword(String password, User user){
     List<UserRole> roles = user.getRoles();
 	for(UserRole role : roles) {
     String rolePassword = role.getPassword();
-    if(password == rolePassword){
+    if(password.equals(rolePassword)){
     	return role;
     	}
-
+    
    }
 	return null;
   }
@@ -284,8 +283,8 @@ public class User implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 94 "../../../../../../../../ump/tmp256427/Block223Persistence.ump"
-  private static final long serialVersionUID = -7403802774454467836L ;
+  // line 14 "../../../../../Block223Persistence.ump"
+  private static final long serialVersionUID = 4267485601061759914L ;
 
   
 }

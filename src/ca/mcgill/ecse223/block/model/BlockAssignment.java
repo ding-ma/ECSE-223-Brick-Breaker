@@ -1,12 +1,12 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.29.1.4439.923218886 modeling language!*/
+/*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
 package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 
-// line 50 "../../../../../../../../ump/tmp256427/Block223Persistence.ump"
-// line 170 "../../../../../../../../ump/tmp256427/model.ump"
-// line 248 "../../../../../../../../ump/tmp256427/model.ump"
+// line 47 "../../../../../Block223Persistence.ump"
+// line 49 "../../../../../Block223PersistenceMairead.ump"
+// line 131 "../../../../../Block223 v3.ump"
 public class BlockAssignment implements Serializable
 {
 
@@ -29,18 +29,6 @@ public class BlockAssignment implements Serializable
 
   public BlockAssignment(int aGridHorizontalPosition, int aGridVerticalPosition, Level aLevel, Block aBlock, Game aGame)
   {
-    // line 179 "../../../../../../../../ump/tmp256427/model.ump"
-    int maxNumberHorizontalBlocks = (390 - 2 * 5) / Block.SIZE;
-       if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > maxNumberHorizontalBlocks){
-       throw new RuntimeException("The horizontal position must be between 1 and " + maxNumberHorizontalBlocks +".");
-       }
-    // END OF UMPLE BEFORE INJECTION
-    // line 185 "../../../../../../../../ump/tmp256427/model.ump"
-    int maxNumberVerticalBlocks = (390 - 2 * 3) / Block.SIZE;
-       if (aGridVerticalPosition <= 0 || aGridVerticalPosition > maxNumberVerticalBlocks){
-       throw new RuntimeException("The vertical position must be between 1 and " + maxNumberVerticalBlocks +".");
-       }
-    // END OF UMPLE BEFORE INJECTION
     gridHorizontalPosition = aGridHorizontalPosition;
     gridVerticalPosition = aGridVerticalPosition;
     boolean didAddLevel = setLevel(aLevel);
@@ -67,12 +55,6 @@ public class BlockAssignment implements Serializable
   public boolean setGridHorizontalPosition(int aGridHorizontalPosition)
   {
     boolean wasSet = false;
-    // line 179 "../../../../../../../../ump/tmp256427/model.ump"
-    int maxNumberHorizontalBlocks = (390 - 2 * 5) / Block.SIZE;
-       if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > maxNumberHorizontalBlocks){
-       throw new RuntimeException("The horizontal position must be between 1 and " + maxNumberHorizontalBlocks +".");
-       }
-    // END OF UMPLE BEFORE INJECTION
     gridHorizontalPosition = aGridHorizontalPosition;
     wasSet = true;
     return wasSet;
@@ -81,12 +63,6 @@ public class BlockAssignment implements Serializable
   public boolean setGridVerticalPosition(int aGridVerticalPosition)
   {
     boolean wasSet = false;
-    // line 185 "../../../../../../../../ump/tmp256427/model.ump"
-    int maxNumberVerticalBlocks = (390 - 2 * 3) / Block.SIZE;
-       if (aGridVerticalPosition <= 0 || aGridVerticalPosition > maxNumberVerticalBlocks){
-       throw new RuntimeException("The vertical position must be between 1 and " + maxNumberVerticalBlocks +".");
-       }
-    // END OF UMPLE BEFORE INJECTION
     gridVerticalPosition = aGridVerticalPosition;
     wasSet = true;
     return wasSet;
@@ -210,8 +186,8 @@ public class BlockAssignment implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 53 "../../../../../../../../ump/tmp256427/Block223Persistence.ump"
-  private static final long serialVersionUID = -3900912597282882073L ;
+  // line 50 "../../../../../Block223Persistence.ump"
+  private static final long serialVersionUID = -6011556325373584641L ;
 
   
 }

@@ -1,12 +1,11 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.29.1.4439.923218886 modeling language!*/
+/*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
 package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 
-// line 104 "../../../../../../../../ump/tmp256427/Block223Persistence.ump"
-// line 46 "../../../../../../../../ump/tmp256427/model.ump"
-// line 216 "../../../../../../../../ump/tmp256427/model.ump"
+// line 103 "../../../../../Block223PersistenceMairead.ump"
+// line 48 "../../../../../Block223 v3.ump"
 public abstract class UserRole implements Serializable
 {
 
@@ -91,13 +90,5 @@ public abstract class UserRole implements Serializable
     return super.toString() + "["+
             "password" + ":" + getPassword()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "block223 = "+(getBlock223()!=null?Integer.toHexString(System.identityHashCode(getBlock223())):"null");
-  }  
-  //------------------------
-  // DEVELOPER CODE - PROVIDED AS-IS
-  //------------------------
-  
-  // line 107 "../../../../../../../../ump/tmp256427/Block223Persistence.ump"
-  private static final long serialVersionUID = 212345678909876547L ;
-
-  
+  }
 }
