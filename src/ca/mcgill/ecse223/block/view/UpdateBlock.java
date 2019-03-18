@@ -140,10 +140,11 @@ public class UpdateBlock {
         String SPoints = pointsField.getText();
         int points = Integer.parseInt(SPoints);
         
-        if(SPoints == null || points <0 || points > 10000) {
-        	error += "Points must be between 0 and 10000. ";
+        if(SGreen == null || green <0 || green > 255) {
+        	error += "Green must be between 0 and 255. ";
         	refreshData();
         }
+        if (error == null) {
 
             try {
                 Block223Controller.updateBlock(id, red, green, blue, points);
@@ -153,6 +154,7 @@ public class UpdateBlock {
               error =  a.getMessage();
               refreshData();
             } 
+        }
         if (error == null) {
 		 frame.dispose();	
 		 BlockScreen.refreshData();
