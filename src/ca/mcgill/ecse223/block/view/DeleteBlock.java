@@ -45,7 +45,11 @@ public class DeleteBlock {
                 public void actionPerformed(ActionEvent e) {
                     System.out.println(list.getSelectedItem());
                     Block223Controller block223Controller = new Block223Controller();
-                    block223Controller.getCurrentDesignableGame().delete();
+                    try {
+                        block223Controller.getCurrentDesignableGame().delete();
+                    } catch (InvalidInputException e1) {
+                        e1.printStackTrace();
+                    }
 
                     //TODO ADD REFRESH
                 }

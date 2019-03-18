@@ -694,5 +694,22 @@ public static void createGame(String aName) throws InvalidInputException {
 
         return to;
     }
+    // play mode
+//TODO returned null to remove the errors
+    public static List<TOPlayableGame> getPlayableGames() throws InvalidInputException {
+        return null;
+    }
+
+    public static List<TOCurrentlyPlayedGame> getCurrentPlayableGame() throws InvalidInputException {
+        return null;
+    }
+
+    public static TOHallOfFame getHallOfFame(int start, int end) throws InvalidInputException {
+        return null;
+    }
+
+    public static TOHallOfFame getHallOfFameWithMostRecentEntry(int numberOfEntries) throws InvalidInputException {
+        return null;
+    }
 }
 

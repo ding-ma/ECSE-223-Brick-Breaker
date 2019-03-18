@@ -193,6 +193,19 @@ public class Level implements Serializable
       aBlockAssignment.delete();
     }
   }
+  /**
+   * Mert
+   */
+  // line 158 "../../../../../../../../ump/tmp256427/model.ump"
+  public BlockAssignment findBlockAssignment(int aGridHorizontalPosition, int aGridVerticalPosition){
+    BlockAssignment foundAssignment = null;
+    for(BlockAssignment position: getBlockAssignments()) {
+      if(position.getGridHorizontalPosition() == aGridHorizontalPosition && position.getGridVerticalPosition() == aGridVerticalPosition) {
+        foundAssignment = position;
+      }
+    }
+    return foundAssignment;
+  }
   
   //------------------------
   // DEVELOPER CODE - PROVIDED AS-IS
