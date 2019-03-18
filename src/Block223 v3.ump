@@ -30,11 +30,17 @@ class User {
    unique username;
    1 -> 1..2 UserRole roles;
       //Mairead 
+   
+   before constructor, User{
+   if((username == "")){
+   throw new RuntimeException("The username must be specified.");}
+   }
+   //Mairead 
    public static UserRole findPassword(String password, User user){
     List<UserRole> roles = user.getRoles();
 	for(UserRole role : roles) {
     String rolePassword = role.getPassword();
-    if(password == rolePassword){
+    if(password.equals(rolePassword)){
     	return role;
     	}
     
@@ -48,6 +54,10 @@ class User {
 class UserRole {
    abstract;
    password;
+
+      before constructor, UserRole{
+   if(password.equals(null)){
+   throw new RuntimeException("The player password needs to be specified.");}
 }
 
 class Admin {
