@@ -8,31 +8,61 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import ca.mcgill.ecse223.block.view.*;
 
 public class AddBlock {
-	
-	private String error = null;
-	private JLabel errorMessage;
-	
+    //TODO errors for add block, print on ui and not console
+
+    private String error = null;
+    private JLabel errorMessage;
+
     private JTextField RedValue = new JTextField();
     private JTextField GreenValue = new JTextField();
     private JTextField BlueValue = new JTextField();
     private JTextField PointValue = new JTextField();
     private JButton CreateButton = new JButton();
     private JFrame frame = new JFrame();
+    private JLabel redValue;
+    private JLabel greenValue;
+    private JLabel blueValue;
+    private JLabel pointsValue;
+    private JLabel addBlock;
 
     public void AddBlock() {
 
-    		
-    	errorMessage = new JLabel();
-    	errorMessage = new JLabel();
-		errorMessage.setForeground(Color.RED);
-		errorMessage.setBounds(400, 400, 200, 200);
-    	
-    	
-        CreateButton.setBounds(250, 600, 200, 50);
+        addBlock = new JLabel();
+        addBlock.setText("Create Block");
+        addBlock.setBounds(180, 0, 200, 50);
+        frame.add(addBlock);
+
+        redValue = new JLabel();
+        redValue.setText("Set the New Red Value: ");
+        redValue.setBounds(50, 40,200,50);
+
+        greenValue = new JLabel();
+        greenValue.setText("Set the New Green Value: ");
+        greenValue.setBounds(250, 40,200,50);
+
+        blueValue = new JLabel();
+        blueValue.setText("Set the New Blue Value: ");
+        blueValue.setBounds(50,120, 200, 50);
+
+        pointsValue = new JLabel();
+        pointsValue.setText("Set the New Points Value: ");
+        pointsValue.setBounds(250, 120, 200, 50);
+
+        frame.add(redValue);
+        frame.add(greenValue);
+        frame.add(blueValue);
+        frame.add(pointsValue);
+
+        errorMessage = new JLabel();
+        errorMessage = new JLabel();
+        errorMessage.setForeground(Color.RED);
+        errorMessage.setBounds(5, 200, 440, 200);
+
+        CreateButton.setBounds(120,200,200,50);
         CreateButton.setText("Create Block");
-        //  CreateButton.setFont(main.font);
 
         CreateButton.addActionListener(new ActionListener() {
             @Override
@@ -49,29 +79,23 @@ public class AddBlock {
                 String SPoints = PointValue.getText();
                 int points = Integer.parseInt(SPoints);
 
-                System.out.println("points = " + points);
-                System.out.println("green = " + green);
-                System.out.println("blue = " + blue);
-                System.out.println("red = " + red);
-
                 try {
                     Block223Controller.addBlock(red, green, blue, points);
                     BlockScreen blockScreen = new BlockScreen();
-                  //  blockScreen.RefreshBlockScreen();
-
+                    blockScreen.refreshData();
+                    frame.dispose();
                 }
                 catch (InvalidInputException a){
-                  error =  a.getMessage();
-                }   
+                    error =  a.getMessage();
+                }
                 refreshData();
             }
-            
-            
+
+
         });
         frame.add(CreateButton);
 
-        RedValue.setBounds(250, 100, 200, 50);
-        RedValue.setText("Enter Red Value");
+        RedValue.setBounds(50,80,150,30);
         //    RedValue.setFont(ui.font);
         RedValue.addMouseListener(new MouseAdapter() {
             @Override
@@ -81,8 +105,7 @@ public class AddBlock {
         });
         frame.add(RedValue);
 
-        GreenValue.setBounds(250, 200, 200, 50);
-        GreenValue.setText("Enter Green Value");
+        GreenValue.setBounds(250,80,150,30);
         //  GreenValue.setFont(ui.font);
         GreenValue.addMouseListener(new MouseAdapter() {
             @Override
@@ -92,8 +115,7 @@ public class AddBlock {
         });
         frame.add(GreenValue);
 
-        BlueValue.setBounds(250, 300, 200, 50);
-        BlueValue.setText("Enter Blue Value");
+        BlueValue.setBounds(50,160,150,30);
         //     BlueValue.setFont(ui.font);
         BlueValue.addMouseListener(new MouseAdapter() {
             @Override
@@ -103,8 +125,7 @@ public class AddBlock {
         });
         frame.add(BlueValue);
 
-        PointValue.setBounds(250, 400, 200, 50);
-        PointValue.setText("Enter Points Value");
+        PointValue.setBounds(250,160,150,30);
         //    PointValue.setFont(ui.font);
         PointValue.addMouseListener(new MouseAdapter() {
             @Override
@@ -115,13 +136,14 @@ public class AddBlock {
         frame.add(PointValue);
         frame.add(errorMessage);
 
-        frame.setSize(1000, 800);
+        frame.setSize(450, 450);
+        frame.getContentPane().setBackground(Color.PINK);
         frame.setLayout(null);
         frame.setVisible(true);
     }
-	private void refreshData() {
-		// error
-		errorMessage.setText(error);
+    private void refreshData() {
+        // error
+        errorMessage.setText(error);
 
-	}
+    }
 }

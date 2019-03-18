@@ -82,7 +82,11 @@ public class BlockScreen {
 				BLOCKID = availableBlocks.get(SELECTEDBLOCK);
 				if (SELECTEDBLOCK < 0)
 				error = "Block needs to be selected!";
-				refreshData();
+				try {
+					refreshData();
+				} catch (InvalidInputException e1) {
+					e1.printStackTrace();
+				}
 				if (error == null) {
 				UpdateBlock updateBlock = new UpdateBlock();
 				updateBlock.UpdateBlock();
@@ -150,7 +154,7 @@ public class BlockScreen {
 
 
 	}
-	public static void refreshData() {
+	public static void refreshData() throws InvalidInputException {
 		// error
 		errorMessage.setText(error);
 		

@@ -80,7 +80,11 @@ public class UpdateBlock {
 		
 		updateButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				updateBlockButtonActionPerformed(evt);
+				try {
+					updateBlockButtonActionPerformed(evt);
+				} catch (InvalidInputException e) {
+					e.printStackTrace();
+				}
 			}
 		});
 		
@@ -111,7 +115,7 @@ public class UpdateBlock {
 		errorMessage.setText(error);
 
 	}
-	private void updateBlockButtonActionPerformed(java.awt.event.ActionEvent evt) {
+	private void updateBlockButtonActionPerformed(java.awt.event.ActionEvent evt) throws InvalidInputException {
 		int id = BlockScreen.getid();
 		String SRed = redField.getText();
         int red = Integer.parseInt(SRed);
