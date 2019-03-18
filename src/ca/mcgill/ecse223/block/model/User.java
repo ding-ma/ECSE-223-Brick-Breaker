@@ -255,17 +255,16 @@ public class User implements Serializable
       usersByUsername.put(user.getUsername(), user);
     }
   }
-
-
-  /**
+  
+ /**
    * Mairead
    */
-  // line 34 "../../../../../Block223 v3.ump"
-   public static  UserRole findPassword(String password, User user){
+  // line 33 "../../../../../Block223 v2.ump"
+  public static  UserRole findPassword(String password, User user){
     List<UserRole> roles = user.getRoles();
 	for(UserRole role : roles) {
     String rolePassword = role.getPassword();
-    if(password == rolePassword){
+    if(password.equals(rolePassword)){
     	return role;
     	}
     
