@@ -34,7 +34,12 @@ public class DeleteBlock {
 
                 }
                 Box.dispose();
-                BlockScreen.refreshData();
+                try {
+                    BlockScreen.refreshData();
+                } catch (InvalidInputException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
             }
         });
 
