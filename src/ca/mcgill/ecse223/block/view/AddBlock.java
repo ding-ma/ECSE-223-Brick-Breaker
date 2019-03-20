@@ -12,21 +12,21 @@ import ca.mcgill.ecse223.block.view.*;
 
 public class AddBlock {
 
-    private String error = null;
-    private JLabel errorMessage;
+	private String error = null;
+	private JLabel errorMessage;
 
-    private JTextField RedValue = new JTextField();
-    private JTextField GreenValue = new JTextField();
-    private JTextField BlueValue = new JTextField();
-    private JTextField PointValue = new JTextField();
-    private JButton CreateButton = new JButton();
-    private JFrame frame = new JFrame();
-    private JLabel redValue;
-    private JLabel greenValue;
-    private JLabel blueValue;
-    private JLabel pointsValue;
-    private JLabel addBlock;
-	
+	private JTextField RedValue = new JTextField();
+	private JTextField GreenValue = new JTextField();
+	private JTextField BlueValue = new JTextField();
+	private JTextField PointValue = new JTextField();
+	private JButton CreateButton = new JButton();
+	private JFrame frame = new JFrame();
+	private JLabel redValue;
+	private JLabel greenValue;
+	private JLabel blueValue;
+	private JLabel pointsValue;
+	private JLabel addBlock;
+
 	public void AddBlock() {
 
 		addBlock = new JLabel();
@@ -139,97 +139,95 @@ public class AddBlock {
 		frame.getContentPane().setBackground(Color.PINK);
 		frame.setLayout(null);
 		frame.setVisible(true);
-	
-	
-        errorMessage = new JLabel();
-        errorMessage.setForeground(Color.RED);
-        errorMessage.setBounds(5, 200, 440, 200);
-
-        CreateButton.setBounds(120,200,200,50);
-        CreateButton.setText("Create Block");
-
-        CreateButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String SRed = RedValue.getText();
-                int red = Integer.parseInt(SRed);
-
-                String SBlue = BlueValue.getText();
-                int blue = Integer.parseInt(SBlue);
-
-                String SGreen = GreenValue.getText();
-                int green = Integer.parseInt(SGreen);
-
-                String SPoints = PointValue.getText();
-                int points = Integer.parseInt(SPoints);
-
-                try {
-                    Block223Controller.addBlock(red, green, blue, points);
-                    BlockScreen blockScreen = new BlockScreen();
-                    blockScreen.refreshData();
-                    frame.dispose();
-                }
-                catch (InvalidInputException a){
-                    error =  a.getMessage();
-                }
-                refreshData();
-            }
 
 
-        });
-        frame.add(CreateButton);
+		errorMessage = new JLabel();
+		errorMessage.setForeground(Color.RED);
+		errorMessage.setBounds(5, 200, 440, 200);
 
-        RedValue.setBounds(50,80,150,30);
-        //    RedValue.setFont(ui.font);
-        RedValue.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                RedValue.setText("");
-            }
-        });
-        frame.add(RedValue);
+		CreateButton.setBounds(120,200,200,50);
+		CreateButton.setText("Create Block");
 
-        GreenValue.setBounds(250,80,150,30);
-        //  GreenValue.setFont(ui.font);
-        GreenValue.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                GreenValue.setText("");
-            }
-        });
-        frame.add(GreenValue);
+		CreateButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String SRed = RedValue.getText();
+				int red = Integer.parseInt(SRed);
 
-        BlueValue.setBounds(50,160,150,30);
-        //     BlueValue.setFont(ui.font);
-        BlueValue.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                BlueValue.setText("");
-            }
-        });
-        frame.add(BlueValue);
+				String SBlue = BlueValue.getText();
+				int blue = Integer.parseInt(SBlue);
 
-        PointValue.setBounds(250,160,150,30);
-        //    PointValue.setFont(ui.font);
-        PointValue.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                PointValue.setText("");
-            }
-        });
-        frame.add(PointValue);
-        frame.add(errorMessage);
+				String SGreen = GreenValue.getText();
+				int green = Integer.parseInt(SGreen);
 
-        frame.setSize(450, 450);
-        frame.getContentPane().setBackground(Color.PINK);
-        frame.setLayout(null);
-        frame.setVisible(true);
-    }
+				String SPoints = PointValue.getText();
+				int points = Integer.parseInt(SPoints);
 
-    private void refreshData() {
-        // error
-        errorMessage.setText(error);
+				try {
+					Block223Controller.addBlock(red, green, blue, points);
+					BlockScreen blockScreen = new BlockScreen();
+					blockScreen.refreshData();
+					frame.dispose();
+				}
+				catch (InvalidInputException a){
+					error =  a.getMessage();
+				}
+				refreshData();
+			}
 
-    }
->>>>>>> 4ccf32a60c587a5019b20113b6b4d838a2113423
+
+		});
+		frame.add(CreateButton);
+
+		RedValue.setBounds(50,80,150,30);
+		//    RedValue.setFont(ui.font);
+		RedValue.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				RedValue.setText("");
+			}
+		});
+		frame.add(RedValue);
+
+		GreenValue.setBounds(250,80,150,30);
+		//  GreenValue.setFont(ui.font);
+		GreenValue.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				GreenValue.setText("");
+			}
+		});
+		frame.add(GreenValue);
+
+		BlueValue.setBounds(50,160,150,30);
+		//     BlueValue.setFont(ui.font);
+		BlueValue.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				BlueValue.setText("");
+			}
+		});
+		frame.add(BlueValue);
+
+		PointValue.setBounds(250,160,150,30);
+		//    PointValue.setFont(ui.font);
+		PointValue.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				PointValue.setText("");
+			}
+		});
+		frame.add(PointValue);
+		frame.add(errorMessage);
+
+		frame.setSize(450, 450);
+		frame.getContentPane().setBackground(Color.PINK);
+		frame.setLayout(null);
+		frame.setVisible(true);
+	}
+
+	private void refreshData() {
+		// error
+		errorMessage.setText(error);
+	}
 }
