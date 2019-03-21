@@ -6,6 +6,7 @@ import java.util.List;
 
 import ca.mcgill.ecse223.block.application.*;
 import ca.mcgill.ecse223.block.model.*;
+import ca.mcgill.ecse223.block.view.*;
 import ca.mcgill.ecse223.block.persistence.*;
 import ca.mcgill.ecse223.block.controller.TOUserMode.Mode;
 
@@ -615,9 +616,47 @@ public class Block223Controller implements Serializable {
 // play mode
 
     public static void selectPlayableGame(String name, int id) throws InvalidInputException  {
+        String error;
+        UserRole userRole = Block223Application.getCurrentUserRole();
+        if (userRole instanceof Admin || userRole == null) {
+            error = "Player privileges are required to play a game.";
+            throw new InvalidInputException(error);
+        }
+        Game game = Game.getWithName(name);
+        Block223 block223 = Block223Application.getBlock223();
+        if (game != null){
+            UserRole player = Block223Application.getCurrentUserRole();
+            String username = User.findUserName(player);
+            PlayedGame pgame = new PlayedGame(username, game, block223);
+            pgame.setPlayer((Player) player);
+        }
+        else {
+            Block223 pgame = Block223.findPlayableGame(id);
+        }
+        Block223Application.setCurrentPlayableGame(pgame);
     }
 
     public static void startGame(Block223PlayModeInterface ui) throws InvalidInputException {
+        PlayedGame game = Block223Application.getCurrentPlayableGame();
+        game.play();
+        ui.takeInputs();
+        if(game.getPlayStatus()==PlayStatus.Moving){
+            String userInputs = ui.takeInputs();
+            Block223Controller.updatePaddlePosition(userInputs);
+            game.move();
+            if (userInputs.contains("")){
+                game.pause();
+            }
+            game.getWaitTime();
+            ui.refresh();
+        }
+        if (game.getPlayStatus()==PlayStatus.GameOver){
+            Block223Application.setCurrentGame(null);
+        }
+        if (game.getPlayStatus()!=null){
+            Block223 block = Block223Application.getBlock223();
+            Block223Persistence.save(block);
+        }
     }
 
     public static void testGame(Block223PlayModeInterface ui) throws InvalidInputException {
@@ -810,7 +849,14 @@ public class Block223Controller implements Serializable {
     }
 
     public static List<TOCurrentlyPlayedGame> getCurrentPlayableGame() throws InvalidInputException {
-return null;
+        PlayedGame pgame = Block223Application.getCurrentPlayableGame();
+        PlayedGame.PlayStatus paused = pgame.getPlayStatus();
+        
+        TOCurrentlyPlayedGame result = new TOCurrentlyPlayedGame(pgame.getGame().getName(), paused, pgame.getScore(), pgame.getLives(),
+                pgame.getCurrentLevel(), pgame.getPlayername(), (int)pgame.getCurrentBallX(), (int)pgame.getCurrentBallY(), (int)pgame.getCurrentPaddleLength(),
+                (int)pgame.getCurrentPaddleX());
+
+return result;
     }
 
     public static TOHallOfFame getHallOfFame(int start, int end) throws InvalidInputException {
