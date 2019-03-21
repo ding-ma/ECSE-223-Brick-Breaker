@@ -545,7 +545,7 @@ public class Block223Controller implements Serializable {
     }
 
     //Mairead
-    public static void logout() {
+    public static void logout() throws InvalidInputException{
         Block223Application.setCurrentUserRole(null);
         return;
     }
@@ -633,8 +633,8 @@ public class Block223Controller implements Serializable {
 
 
     //George
-    public static TOBlock getBlockOfCurrentDesignableGame(int id) {
-        String error;
+    public static TOBlock getBlockOfCurrentDesignableGame(int id) throws InvalidInputException{
+            String error;
         UserRole userRole = Block223Application.getCurrentUserRole();
         /*if(userRole instanceof Player || userRole == null){
             error = "Admin privileges are required to access game information.";
@@ -655,7 +655,7 @@ public class Block223Controller implements Serializable {
     }
 
     //George
-    public static List<TOGridCell> getBlocksAtLevelOfCurrentDesignableGame(int level) {
+    public static List<TOGridCell> getBlocksAtLevelOfCurrentDesignableGame(int level) throws InvalidInputException{
         String error;
         UserRole userRole = Block223Application.getCurrentUserRole();
         /*if(userRole instanceof Player || userRole == null){
@@ -682,7 +682,7 @@ public class Block223Controller implements Serializable {
     }
 
     //Mairead
-    public static TOUserMode getUserMode() { //put in refresh data class
+    public static TOUserMode getUserMode() throws InvalidInputException{ //put in refresh data class
         UserRole userRole = Block223Application.getCurrentUserRole();
         Mode i;
         TOUserMode to = new TOUserMode(Mode.None);
