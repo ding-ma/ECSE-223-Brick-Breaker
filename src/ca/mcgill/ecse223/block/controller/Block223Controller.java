@@ -107,23 +107,18 @@ public class Block223Controller implements Serializable {
             throw new InvalidInputException(error);
         }
 
-        try {
-            game = block223.findGame(name);
-        } catch (Exception e) {
-            throw new InvalidInputException(e.getMessage());
-        }
-
-        if (userRole.getPassword() != Block223Application.getCurrentGame().getAdmin().getPassword()) {
-            error = "Only the admin who created the game can delete the game. ";
-            throw new InvalidInputException(error);
-        }
+        game = block223.findGame(name);
+       
 
         if (game != null) {
+        	if(!userRole.equals(game.getAdmin())) {
+                error = "Only the admin who created the game can delete the game.";
+                throw new InvalidInputException(error);
+            }
             game.delete();
-
+            Block223Persistence.save(block223);
         }
 
-        Block223Persistence.save(block223);
     }
 
 
@@ -137,20 +132,17 @@ public class Block223Controller implements Serializable {
             error = "Admin privileges are required to select a game.";
             throw new InvalidInputException(error);
         }
-//TODO this dnt work
-        String adminPassword = userRole.getPassword();
-        if (userRole.getPassword() != Block223Application.getCurrentGame().getAdmin().getPassword()) {
-            error = "Only the admin who created the game can select the game.";
-            throw new InvalidInputException(error);
-        }
 
         Game game = Block223Application.getBlock223().findGame(name);
-
         if (game == null) {
             error = "A game with name " + name + " does not exist.";
             throw new InvalidInputException(error);
         }
-
+        
+        if(!userRole.equals(game.getAdmin())) {
+        	error = "Only the admin who created the game can select the game.";
+        	throw new InvalidInputException(error);
+        }
 
         Block223Application.setCurrentGame(game);
     }
@@ -174,19 +166,12 @@ public class Block223Controller implements Serializable {
             throw new InvalidInputException(error);
         }
 
-        if (userRole.getPassword() != Block223Application.getCurrentGame().getAdmin().getPassword()) {
-            error = "Only admin who created the game can define its settings.";
-            throw new InvalidInputException(error);
-
+        if(!userRole.equals(game.getAdmin())) {
+        	error = "Only the admin who created the game can define its game settings.";
+        	throw new InvalidInputException(error);
         }
 
         String currentName = game.getName();
-        if (currentName == null) {
-            error = "The name of a game must be specified.";
-            throw new InvalidInputException(error);
-        }
-
-
         if (currentName != name) {
             if (name == null || name.equals("")) {
                 error = "The name of a game must be specified.";
@@ -194,7 +179,6 @@ public class Block223Controller implements Serializable {
             }
             game.setName(name);
         }
-
 
         setGameDetails(nrLevels, nrBlocksPerLevel, minBallSpeedX, minBallSpeedY,
                 ballSpeedIncreaseFactor, maxPaddleLength, minPaddleLength);
@@ -489,38 +473,110 @@ public class Block223Controller implements Serializable {
         Block223Persistence.save(Block223Application.getBlock223());
     }
 
+    
     //Mairead
     public static void saveGame() throws InvalidInputException {
-        Block223 block223 = Block223Application.getBlock223();
+    	
+    	String error = "";
+    	Block223 block223 = Block223Application.getBlock223();
+    	
+        
         Block223Persistence.save(block223);
+        if(Block223Application.getCurrentGame() == null) {
+        	error+="A game must be selected to save it.";
+        
+        throw new InvalidInputException(error);
+        }
+        
+      
+        	UserRole userRole = Block223Application.getCurrentUserRole();
+            if(userRole instanceof Player || userRole == null){
+                error = "Admin privileges are required to save a game.";
+                throw new InvalidInputException(error);
+            }
+       
+       
     }
 
-    //Mairead
     public static void register(String username, String playerPassword, String adminPassword)
             throws InvalidInputException {
-        Block223 block223 = Block223Application.resetBlock223();
+    	Block223 block223 = Block223Application.resetBlock223();
 
         String error = "";
-        UserRole oldRole = Block223Application.getCurrentUserRole();
-
-        if (oldRole != null) {
-            error += "Cannot register while a user is logged in";
+        
+    	if (Block223Application.getCurrentUserRole() != null) {
+            error += "Cannot register a new user while a user is logged in.";
+        	throw new InvalidInputException(error);
         }
+       
+        
+        if((playerPassword == null)||(playerPassword.equals(""))){
+            throw new InvalidInputException("The player password needs to be specified.");}
+        
+        if((username.equals(""))||(username == null)) {
+        	error = "The username must be specified.";
+        	throw new InvalidInputException(error);
+        }
+        
+        if(playerPassword.equals(adminPassword)) {
+        	error = "The passwords have to be different.";
+        	throw new InvalidInputException(error);
+        }
+       
+    			
+        
+       /* UserRole oldRole = Block223Application.getCurrentUserRole();*/
 
+        if (Block223Application.getCurrentUserRole() != null) {
+            error += "Cannot register a new user while a user is logged in.";
+        	throw new InvalidInputException(error);
+        }
+       
+        
+        if((playerPassword == null)||(playerPassword.equals(""))){
+            throw new InvalidInputException("The player password needs to be specified.");}
+        
+        
+        if(username.equals("")) {
+        	error = "The username must be specified.";
+        	
+        	throw new InvalidInputException(error);
+        }
+        
+        if(playerPassword.equals(adminPassword)) {
+        	error = "The passwords have to be different.";
+        	throw new InvalidInputException(error);
+        }
+       
+          Player player; 
         try {
-            Player player = new Player(playerPassword, block223);
-            User user = new User(username, block223, player);
-            if ((adminPassword != null) && (adminPassword != "")) {
-                Admin admin = new Admin(adminPassword, block223);
-                //UserRole role = new UserRole(adminPassword, block223);
-                user.addRole(admin);
-            }
-            Block223Persistence.save(block223);
-        } catch (RuntimeException e) {
-            throw new InvalidInputException(e.getMessage());
+          player = new Player(playerPassword, block223);}
+        catch (RuntimeException e) {
+        	
+        	    throw new InvalidInputException("The player password needs to be specified ");
         }
-        Block223Persistence.save(block223);
-    }
+        
+        User user;
+        try {   	
+       		user = new User(username, block223, player);
+        	}
+            catch (RuntimeException e) {
+            	if((e.getMessage()).equals("The username has already been taken")) {
+            		
+            	    throw new InvalidInputException("The username must be spcified");
+            	    
+            	}
+            	    throw new InvalidInputException("The username has already been taken");}
+            	    
+            	    if ((adminPassword != null) && (adminPassword != "")) {
+                        Admin admin = new Admin(adminPassword, block223);
+                       //UserRole role = new UserRole(adminPassword, block223);
+                       user.addRole(admin);
+            	  }
+            	    
+            	    Block223Persistence.save(block223);
+            }
+
 
     //Mairead
     public static void login(String username, String password) throws InvalidInputException {
@@ -529,18 +585,24 @@ public class Block223Controller implements Serializable {
 
         if (oldRole != null) {
             error += "Cannot register while a user is logged in";
+        	throw new InvalidInputException(error);
+            
         }
         Block223Application.resetBlock223();
 
         User user = User.getWithUsername(username);
         if (user == null) {
-            error += "Username and password do not match";
+            error += "The username and password do not match.";
+        	throw new InvalidInputException(error);
+
         }
         ///List<UserRole> roles = user.getRoles();
         UserRole role = User.findPassword(password, user);
         Block223Application.setCurrentUserRole(role);
         if (role == null) {
-            error += "player password needs to be specified";
+            error += "The username and password do not match.";
+        	throw new InvalidInputException(error);
+
         }
     }
 
@@ -697,17 +759,22 @@ public class Block223Controller implements Serializable {
         } else if (userRole instanceof Admin) {
             to.setMode(Mode.Design);
         }
-
-
         return to;
     }
 
     // play mode
 //TODO returned null to remove the errors
+//Mairead
     public static List<TOPlayableGame> getPlayableGames() throws InvalidInputException {
+        Block223 block223 = Block223Application.getBlock223();
+        UserRole role = Block223Application.getCurrentUserRole();
+        List<TOPlayableGame> result = block223.getGames(); 
+
+        //boolean in UMPLE Game class to iterate thru and return true or false for published status
+        
         return null;
     }
-
+//Mairead
     public static List<TOCurrentlyPlayedGame> getCurrentPlayableGame() throws InvalidInputException {
         return null;
     }
