@@ -7,6 +7,7 @@ import java.util.List;
 import ca.mcgill.ecse223.block.application.*;
 import ca.mcgill.ecse223.block.model.*;
 import ca.mcgill.ecse223.block.persistence.*;
+import ca.mcgill.ecse223.block.view.Block223PlayModeInterface;
 import ca.mcgill.ecse223.block.controller.TOUserMode.Mode;
 
 public class Block223Controller implements Serializable {
@@ -47,7 +48,7 @@ public class Block223Controller implements Serializable {
 
         Block223Application.setCurrentGame(game);
         block223.addGame(game);
-        Block223Persistence.save(block223);
+        //Block223Persistence.save(block223);
 
     }
 
@@ -172,14 +173,21 @@ public class Block223Controller implements Serializable {
         }
 
         String currentName = game.getName();
+        
+        error = checkGameNameIsUnique(name, block223);
+		    if (error != null) {
+		        throw new InvalidInputException(error);
+	    }
         if (currentName != name) {
             if (name == null || name.equals("")) {
                 error = "The name of a game must be specified.";
                 throw new InvalidInputException(error);
             }
+            
             game.setName(name);
         }
-
+		
+        
         setGameDetails(nrLevels, nrBlocksPerLevel, minBallSpeedX, minBallSpeedY,
                 ballSpeedIncreaseFactor, maxPaddleLength, minPaddleLength);
 
@@ -533,6 +541,30 @@ public class Block223Controller implements Serializable {
         Block223Application.setCurrentUserRole(null);
         return;
     }
+    
+    //anne-julie
+    public static void testGame(Block223PlayModeInterface ui) throws InvalidInputException {
+    	Game game = Block223Application.getCurrentGame();
+    	
+    	UserRole admin = Block223Application.getCurrentUserRole();
+    	
+    	String username = "admin1";
+    	//String username = User.findUsername(admin);
+    	
+    	Block223 block223 = Block223Application.getBlock223();
+    	
+    	PlayedGame pgame = new PlayedGame(username, game, block223);	//result?
+    	pgame.setPlayer(null);
+    	//Block223Application.setCurrentPlayableGame(pgame);
+    	
+    	//startGame(ui);
+    }
+    
+    public static void publishGame() throws InvalidInputException {
+    	
+    	Game game = Block223Application.getCurrentGame();
+    	game.setPublished(true);
+    }
 
     // ****************************
     // Query methods
@@ -573,9 +605,9 @@ public class Block223Controller implements Serializable {
             throw new InvalidInputException(error);
         }
 
-        if (userRole.getPassword() != Block223Application.getCurrentGame().getAdmin().getPassword()) {
-            error = "Only the admin who created the game can access its information.";
-            throw new InvalidInputException(error);
+        if(!userRole.equals(game.getAdmin())) {
+        	error = "Only the admin who created the game can access its information.";
+        	throw new InvalidInputException(error);
         }
 
         TOGame toGame = new TOGame(game.getName(), game.getLevels().size(), game.getNrBlocksPerLevel(),
