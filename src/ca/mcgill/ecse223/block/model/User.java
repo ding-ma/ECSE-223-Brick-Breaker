@@ -34,6 +34,10 @@ public class User implements Serializable
 
   public User(String aUsername, Block223 aBlock223, UserRole... allRoles)
   {
+    // line 35 "../../../../../Block223 v3.ump"
+    if((username == "")){
+       throw new RuntimeException("The username must be specified.");}
+    // END OF UMPLE BEFORE INJECTION
     if (!setUsername(aUsername))
     {
       throw new RuntimeException("Cannot create due to duplicate username");
@@ -255,12 +259,13 @@ public class User implements Serializable
       usersByUsername.put(user.getUsername(), user);
     }
   }
-  
- /**
+
+
+  /**
    * Mairead
    */
-  // line 33 "../../../../../Block223 v2.ump"
-  public static  UserRole findPassword(String password, User user){
+  // line 40 "../../../../../Block223 v3.ump"
+   public static  UserRole findPassword(String password, User user){
     List<UserRole> roles = user.getRoles();
 	for(UserRole role : roles) {
     String rolePassword = role.getPassword();

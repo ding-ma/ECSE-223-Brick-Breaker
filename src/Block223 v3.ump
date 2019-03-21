@@ -56,8 +56,10 @@ class UserRole {
    password;
 
       before constructor, UserRole{
-   if(password.equals(null)){
-   throw new RuntimeException("The player password needs to be specified.");}
+   			if(password.equals(null)){
+   				throw new RuntimeException("The player password needs to be specified.");
+   			}
+   	}
 }
 
 class Admin {
@@ -220,8 +222,14 @@ class Ball {
 }
 
 class Paddle {
-   const Integer PADDLE_WIDTH = 5;
-   const Integer VERTICAL_DISTANCE = 30;
-   Integer maxPaddleLength;
-   Integer minPaddleLength;
+	const Integer PADDLE_WIDTH = 5;
+	const Integer VERTICAL_DISTANCE = 30;
+	Integer maxPaddleLength;
+	Integer minPaddleLength;
+   
+	before constructor, setMaxPaddleLength{
+		if(aMaxPaddleLength <= 0){
+			throw new RuntimeException ("");
+		}
+	}
 }

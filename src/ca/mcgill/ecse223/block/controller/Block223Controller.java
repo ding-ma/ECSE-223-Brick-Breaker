@@ -16,14 +16,14 @@ public class Block223Controller implements Serializable {
     // Modifier methods
     // ****************************
 
-    //Yanick
+    //Yannick
     public static void createGame(String aName) throws InvalidInputException {
         String name = aName;
         String error = "";
         Block223 block223 = Block223Application.getBlock223();
 
-        UserRole userRole = Block223Application.getCurrentUserRole();
-        if (userRole instanceof Player || userRole == null) {
+        UserRole admin = Block223Application.getCurrentUserRole();
+        if (admin instanceof Player || admin == null) {
             error = "Admin privileges are required to create a game.";
             throw new InvalidInputException(error);
         }
@@ -38,12 +38,7 @@ public class Block223Controller implements Serializable {
             throw new InvalidInputException(error);
         }
 
-        String adminPassword = userRole.getPassword();
-
-        Admin admin = new Admin(adminPassword, block223);
-
-        Game game = new Game(name, 1, admin, 1, 1,
-                1, 10, 10, block223);
+        Game game = new Game(name, 1, (Admin)admin, 1, 1, 1, 10, 10, block223);
 
         Block223Application.setCurrentGame(game);
         block223.addGame(game);
