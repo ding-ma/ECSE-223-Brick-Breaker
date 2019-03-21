@@ -612,6 +612,22 @@ public class Block223Controller implements Serializable {
         return;
     }
 
+// play mode
+
+    public static void selectPlayableGame(String name, int id) throws InvalidInputException  {
+    }
+
+    public static void startGame(Block223PlayModeInterface ui) throws InvalidInputException {
+    }
+
+    public static void testGame(Block223PlayModeInterface ui) throws InvalidInputException {
+    }
+
+    public static void publishGame () throws InvalidInputException {
+    }
+
+
+
     // ****************************
     // Query methods
     // ****************************
@@ -764,19 +780,37 @@ public class Block223Controller implements Serializable {
 
     // play mode
 //TODO returned null to remove the errors
-//Mairead
-    public static List<TOPlayableGame> getPlayableGames() throws InvalidInputException {
-        Block223 block223 = Block223Application.getBlock223();
-        UserRole role = Block223Application.getCurrentUserRole();
-        List<TOPlayableGame> result = block223.getGames(); 
 
-        //boolean in UMPLE Game class to iterate thru and return true or false for published status
-        
-        return null;
+    public static List<TOPlayableGame> getPlayableGames() throws InvalidInputException {
+        String error;
+        UserRole userRole = Block223Application.getCurrentUserRole();
+        if (userRole instanceof Admin || userRole == null) {
+            error = "Player privileges are required to play a game.";
+            throw new InvalidInputException(error);
+        }
+
+        Block223 block223 = Block223Application.getBlock223();
+        UserRole player = Block223Application.getCurrentUserRole();
+        ArrayList<TOPlayableGame> result = new ArrayList<TOPlayableGame>();
+        //games
+        block223.getGames();
+
+        for (Game published : block223.getGames()){
+            if(game == published){
+                TOPlayableGame to = new TOPlayableGame(game.getName(), -1, 0);
+                result.add(to);
+            }
+        }
+        getPlayableGames();
+        for(Game game: block223.getGames()){
+            TOPlayableGame to= new TOPlayableGame(game.getName(), game.getId(), game.getCurrentLevel());
+            result.add(to);
+        }
+        return result;
     }
-//Mairead
+
     public static List<TOCurrentlyPlayedGame> getCurrentPlayableGame() throws InvalidInputException {
-        return null;
+return null;
     }
 
     public static TOHallOfFame getHallOfFame(int start, int end) throws InvalidInputException {
