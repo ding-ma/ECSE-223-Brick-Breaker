@@ -31,9 +31,11 @@ public class Block223Application {
 	}
 
 	//TODO resetBlock223().
+
 	public static Block223 resetBlock223() {
 		block223 = Block223Persistence.load();
 		return block223;
+
 	}
 	//TODO: How do you actually setCurrentGame?
 	public static void setCurrentGame (Game aGame) {
