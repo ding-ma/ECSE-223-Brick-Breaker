@@ -204,7 +204,7 @@ class Ball {
    //Yannick
 	before constructor {
 		if(aMinBallSpeedX <= 0 && aMinBallSpeedY <= 0){
-			throw new RuntimeException ("The  minimum  speed  of  the  ball  must be greater than zero.");
+			throw new RuntimeException ("The minimum speed of the ball must be greater than zero.");
 		}
 	}
    

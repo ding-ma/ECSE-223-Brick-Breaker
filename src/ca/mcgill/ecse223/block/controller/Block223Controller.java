@@ -61,10 +61,14 @@ public class Block223Controller implements Serializable {
 
         Game game = Block223Application.getCurrentGame();
         
+        if(minBallSpeedX <= 0 && minBallSpeedY <= 0){
+			throw new InvalidInputException ("The minimum speed of the ball must be greater than zero.");
+		}
+        
         if(nrLevels < 1 || nrLevels > 99) {
         	throw new InvalidInputException ("The number of levels must be between 1 and 99.");
         }
-
+        
         if (game != null) {
         	
 	        if(game.getAdmin() != Block223Application.getCurrentUserRole()) {
@@ -73,13 +77,16 @@ public class Block223Controller implements Serializable {
 	        
 	        Ball ball = game.getBall();
 	
-	        
-	
 	        Paddle paddle = game.getPaddle();
 	        
 	        try {
+	        	for (Level level : game.getLevels()){
+	        		if(level.getBlockAssignments().size() > nrBlocksPerLevel) {
+	        			throw new InvalidInputException ("The maximum number of blocks per level cannot be less than the number of existing blocks in a level.");
+	        		}
+	        	}
 	        	game.setNrBlocksPerLevel(nrBlocksPerLevel);
-	        	
+
 	        	ball.setMinBallSpeedX(minBallSpeedX);
 	        	ball.setMinBallSpeedY(minBallSpeedX);
 	        	ball.setBallSpeedIncreaseFactor(ballSpeedIncreaseFactor);
@@ -90,8 +97,11 @@ public class Block223Controller implements Serializable {
 	        } catch (RuntimeException e) {
 	            throw new InvalidInputException(e.getMessage());
 	        }
+	        
+	        
 	
 	        List<Level> levels = game.getLevels();
+	        
 	        int size = levels.size();
 	
 	        while (nrLevels > size) {
