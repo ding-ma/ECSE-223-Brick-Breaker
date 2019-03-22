@@ -393,7 +393,7 @@ public class Block223Controller implements Serializable {
 			aLevel = Block223Application.getCurrentGame().getLevel(level - 1);
 			BlockAssignment blockAssignment = new BlockAssignment(gridHorizontalPosition, gridVerticalPosition, aLevel,
 					aBlock, Block223Application.getCurrentGame());
-			Block223Persistence.save(block223);
+		//	Block223Persistence.save(block223);
 		} catch (RuntimeException e) {
 			error = e.getMessage();
 			throw new InvalidInputException(e.getMessage());
