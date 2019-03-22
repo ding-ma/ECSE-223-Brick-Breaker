@@ -60,34 +60,55 @@ public class Block223Controller implements Serializable {
     public static void setGameDetails(int nrLevels, int nrBlocksPerLevel, int minBallSpeedX, int minBallSpeedY, Double ballSpeedIncreaseFactor, int maxPaddleLength, int minPaddleLength) throws InvalidInputException {
 
         Game game = Block223Application.getCurrentGame();
-
-        game.setNrBlocksPerLevel(nrBlocksPerLevel);
-
-        Ball ball = game.getBall();
-
-        ball.setMinBallSpeedX(minBallSpeedX);
-        ball.setMinBallSpeedY(minBallSpeedX);
-        ball.setBallSpeedIncreaseFactor(ballSpeedIncreaseFactor);
-
-        Paddle paddle = game.getPaddle();
-
-        paddle.setMaxPaddleLength(maxPaddleLength);
-        paddle.setMinPaddleLength(minPaddleLength);
-
-        List<Level> levels = game.getLevels();
-        int size = levels.size();
-
-        while (nrLevels > size) {
-            game.addLevel();
-            size = levels.size();
+        
+        if(nrLevels < 1 || nrLevels > 99) {
+        	throw new InvalidInputException ("The number of levels must be between 1 and 99.");
         }
 
-        while (nrLevels < size) {
-            Level level = game.getLevel(size - 1);
-            level.delete();
-            size = levels.size();
-        }
+        if (game != null) {
+        	
+	        if(game.getAdmin() != Block223Application.getCurrentUserRole()) {
+	        	throw new InvalidInputException ("Only the admin who created the game can define its game settings.");
+	        }
+	        
+	        Ball ball = game.getBall();
+	
+	        
+	
+	        Paddle paddle = game.getPaddle();
+	        
+	        try {
+	        	game.setNrBlocksPerLevel(nrBlocksPerLevel);
+	        	
+	        	ball.setMinBallSpeedX(minBallSpeedX);
+	        	ball.setMinBallSpeedY(minBallSpeedX);
+	        	ball.setBallSpeedIncreaseFactor(ballSpeedIncreaseFactor);
+	        	
+		        paddle.setMaxPaddleLength(maxPaddleLength);
+		        paddle.setMinPaddleLength(minPaddleLength);
+		        
+	        } catch (RuntimeException e) {
+	            throw new InvalidInputException(e.getMessage());
+	        }
+	
+	        List<Level> levels = game.getLevels();
+	        int size = levels.size();
+	
+	        while (nrLevels > size) {
+	            game.addLevel();
+	            size = levels.size();
+	        }
+	
+	        while (nrLevels < size) {
+	            Level level = game.getLevel(size - 1);
+	            level.delete();
+	            size = levels.size();
+	        }
 
+    
+        } else {
+			throw new InvalidInputException ("A game must be selected to define game settings.");
+		}
     }
 
     //done

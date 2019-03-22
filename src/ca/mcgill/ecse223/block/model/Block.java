@@ -53,8 +53,8 @@ public class Block implements Serializable
     // END OF UMPLE BEFORE INJECTION
     // line 143 "../../../../../Block223 v3.ump"
     if(aGreen <MIN_COLOR || aGreen > MAX_COLOR){
-       throw new RuntimeException ("Green must be between 0 and 255.");
-       }
+    			throw new RuntimeException ("Green must be between 0 and 255.");
+    		}
     // END OF UMPLE BEFORE INJECTION
     // line 148 "../../../../../Block223 v3.ump"
     if(aBlue <MIN_COLOR || aBlue > MAX_COLOR){
@@ -102,8 +102,8 @@ public class Block implements Serializable
     boolean wasSet = false;
     // line 143 "../../../../../Block223 v3.ump"
     if(aGreen <MIN_COLOR || aGreen > MAX_COLOR){
-       throw new RuntimeException ("Green must be between 0 and 255.");
-       }
+    			throw new RuntimeException ("Green must be between 0 and 255.");
+    		}
     // END OF UMPLE BEFORE INJECTION
     green = aGreen;
     wasSet = true;

@@ -56,7 +56,7 @@ class UserRole {
    password;
 
       before constructor, UserRole{
-   			if(password.equals(null)){
+   			if(aPassword == null || aPassword == ""){
    				throw new RuntimeException("The player password needs to be specified.");
    			}
    	}
@@ -101,7 +101,7 @@ class Game {
 
          before constructor, setNrBlocksPerLevel{
             if(aNrBlocksPerLevel <= 0){
-               throw new RuntimeException("The  number  of  blocks  per  level  must be greater than zero");
+               throw new RuntimeException("The number of blocks per level must be greater than zero.");
             }
          }
 
@@ -140,10 +140,10 @@ class Block {
       }
    }
 	before constructor, setGreen{
-   if(aGreen <MIN_COLOR || aGreen > MAX_COLOR){
-   throw new RuntimeException ("Green must be between 0 and 255.");
-   }
-}
+		if(aGreen <MIN_COLOR || aGreen > MAX_COLOR){
+			throw new RuntimeException ("Green must be between 0 and 255.");
+		}
+	}
 	before constructor, setBlue{
    if(aBlue <MIN_COLOR || aBlue > MAX_COLOR){
    throw new RuntimeException ("Blue must be between 0 and 255.");
@@ -202,22 +202,16 @@ class Ball {
    Double ballSpeedIncreaseFactor;
 
    //Yannick
-   before constructor, setMinBallSpeedX{
-      if(aMinBallSpeedX <= 0){
-         throw new RuntimeException ("The  minimum  speed  of  the  ball  must be greater than zero.");
-      }
-   }
-
-   before constructor, setMinBallSpeedY{
-      if(aMinBallSpeedY <= 0){
-         throw new RuntimeException ("The  minimum  speed  of  the  ball  must be greater than zero.");
-      }
-   }
-
-   before constructor, setBallSpeedIncreaseFactor{
-      if(aBallSpeedIncreaseFactor <= 0){
-         throw new RuntimeException ("The speed increase factor of the ball must be greater than zero.");
-      }
+	before constructor {
+		if(aMinBallSpeedX <= 0 && aMinBallSpeedY <= 0){
+			throw new RuntimeException ("The  minimum  speed  of  the  ball  must be greater than zero.");
+		}
+	}
+   
+	before constructor, setBallSpeedIncreaseFactor {
+		if(aBallSpeedIncreaseFactor <= 0){
+			throw new RuntimeException ("The speed increase factor of the ball must be greater than zero.");
+		}
    }
 }
 
@@ -226,10 +220,17 @@ class Paddle {
 	const Integer VERTICAL_DISTANCE = 30;
 	Integer maxPaddleLength;
 	Integer minPaddleLength;
-   
-	before constructor, setMaxPaddleLength{
-		if(aMaxPaddleLength <= 0){
-			throw new RuntimeException ("");
+	
+	//Yannick
+	before constructor, setMaxPaddleLength {
+		if(aMaxPaddleLength <= 0 || aMaxPaddleLength > 390){
+			throw new RuntimeException ("The maximum length of the paddle must be greater than zero and less than or equal to 390.");
+		}
+	}
+	
+	before constructor, setMinPaddleLength {
+		if(aMinPaddleLength <= 0){
+			throw new RuntimeException ("The minimum length of the paddle must be greater than zero.");
 		}
 	}
 }

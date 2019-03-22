@@ -62,7 +62,7 @@ public class Game implements Serializable
   {
     // line 103 "../../../../../Block223 v3.ump"
     if(aNrBlocksPerLevel <= 0){
-                   throw new RuntimeException("The  number  of  blocks  per  level  must be greater than zero");
+                   throw new RuntimeException("The number of blocks per level must be greater than zero.");
                 }
     // END OF UMPLE BEFORE INJECTION
     published = false;
@@ -111,7 +111,7 @@ public class Game implements Serializable
   {
     // line 103 "../../../../../Block223 v3.ump"
     if(aNrBlocksPerLevel <= 0){
-                   throw new RuntimeException("The  number  of  blocks  per  level  must be greater than zero");
+                   throw new RuntimeException("The number of blocks per level must be greater than zero.");
                 }
     // END OF UMPLE BEFORE INJECTION
     published = false;
@@ -188,7 +188,7 @@ public class Game implements Serializable
     boolean wasSet = false;
     // line 103 "../../../../../Block223 v3.ump"
     if(aNrBlocksPerLevel <= 0){
-                   throw new RuntimeException("The  number  of  blocks  per  level  must be greater than zero");
+                   throw new RuntimeException("The number of blocks per level must be greater than zero.");
                 }
     // END OF UMPLE BEFORE INJECTION
     nrBlocksPerLevel = aNrBlocksPerLevel;

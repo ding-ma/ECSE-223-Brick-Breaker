@@ -26,7 +26,7 @@ public abstract class UserRole implements Serializable
   public UserRole(String aPassword, Block223 aBlock223)
   {
     // line 59 "../../../../../Block223 v3.ump"
-    if(password.equals(null)){
+    if(aPassword == null || aPassword == ""){
        				throw new RuntimeException("The player password needs to be specified.");
        			}
     // END OF UMPLE BEFORE INJECTION
