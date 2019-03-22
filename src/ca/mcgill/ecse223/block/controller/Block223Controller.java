@@ -286,7 +286,6 @@ public class Block223Controller implements Serializable {
 			}
 		}
 	}
-	//TODO 2 more failures
 	public static void updateBlock(int id, int red, int green, int blue, int points) throws InvalidInputException {
 		Game game = Block223Application.getCurrentGame();
 		String error = "";
@@ -305,18 +304,31 @@ public class Block223Controller implements Serializable {
 				error += "Only the admin who created the game can update a block.";
 			}
 
+
 			if (game.findBlock(id) == null) {
 				error += "The block does not exist. ";
+				throw new InvalidInputException(error);
+
 			}  
-			for (Block block : game.getBlocks()) {
-				if (red == block.getRed() && green == block.getGreen() && blue == block.getBlue()) {
-					error += "A block with the same color already exists for the game.";
+			if(game.findBlock(id) != null)
+				if (points < 0 || points > 1000) {
+					error += "Points must be between 1 and 1000.";
+					throw new InvalidInputException(error);
+
 				}
-			}
+			if (points > 0 && points < 1000) {
+				for (Block block : game.getBlocks()) {
+					if (red == block.getRed() && green == block.getGreen() && blue == block.getBlue()) {
+						error += "A block with the same color already exists for the game.";
+						throw new InvalidInputException(error);
+					}
+				}
+			}		
 		}
 		if (error.length() > 0)
 			throw new InvalidInputException(error.trim());
 		try {
+
 			Block block = Block223Application.getCurrentGame().findBlock(id);
 			block.setRed(red);
 			block.setGreen(green);
@@ -341,7 +353,7 @@ public class Block223Controller implements Serializable {
 		UserRole userRole = Block223Application.getCurrentUserRole();
 		Block aBlock;
 		Level aLevel;
-		
+
 		if (game==null) {
 			error +="A game must be selected to position a block.";
 		} 
@@ -383,6 +395,7 @@ public class Block223Controller implements Serializable {
 					aBlock, Block223Application.getCurrentGame());
 			Block223Persistence.save(block223);
 		} catch (RuntimeException e) {
+			error = e.getMessage();
 			throw new InvalidInputException(e.getMessage());
 		}
 	}
@@ -652,7 +665,7 @@ public class Block223Controller implements Serializable {
 
 		List<TOGridCell> gridCells = new ArrayList<TOGridCell>();
 
-		int numLevels = game.getLevels().size();
+		int numLevels = game.numberOfLevels();
 		if(level > numLevels || level < 1)
 			throw new InvalidInputException("Level " + level + " does not exist for the game.");
 
