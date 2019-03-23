@@ -28,6 +28,7 @@ public class Block223Controller implements Serializable {
             throw new InvalidInputException(error);
         }
 
+
 		error = checkGameNameIsUnique(name, block223);
 		if (error != null) {
 			throw new InvalidInputException(error);
@@ -42,6 +43,7 @@ public class Block223Controller implements Serializable {
 
         Block223Application.setCurrentGame(game);
         block223.addGame(game);
+
         Block223Persistence.save(block223);
 
 	}
@@ -120,6 +122,10 @@ public class Block223Controller implements Serializable {
 			throw new InvalidInputException ("A game must be selected to define game settings.");
 		}
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> c3a127c57cd300b5bd73d425ab569c67bcd57cd7
 
 		game = block223.findGame(name);
 
