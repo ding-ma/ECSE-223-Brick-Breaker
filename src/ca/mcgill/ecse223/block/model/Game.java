@@ -161,9 +161,7 @@ public class Game implements Serializable
   {
     boolean wasSet = false;
     // line 117 "../../../../../Block223 v3.ump"
-    if(aName.equals("The name of a game must be specified.")){
-                   throw new RuntimeException("");
-                }
+
     // END OF UMPLE BEFORE INJECTION
     String anOldName = getName();
     if (hasWithName(aName)) {
@@ -172,9 +170,9 @@ public class Game implements Serializable
     name = aName;
     wasSet = true;
     // line 109 "../../../../../Block223 v3.ump"
-    if(!setName(aName)){
-             			throw new RuntimeException("The name of a game must be unique");
-             		}
+    //if(!setName(aName)){
+    //         			throw new RuntimeException("The name of a game must be unique");
+    //         		}
     // END OF UMPLE AFTER INJECTION
     if (anOldName != null) {
       gamesByName.remove(anOldName);
