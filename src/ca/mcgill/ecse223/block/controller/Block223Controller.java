@@ -122,6 +122,15 @@ public class Block223Controller implements Serializable {
 			throw new InvalidInputException ("A game must be selected to define game settings.");
 		}
     }
+	public static void deleteGame(String name) throws InvalidInputException {
+		String error = "";
+        Game game;	        
+        Block223 block223 = Block223Application.getBlock223();
+        UserRole userRole = Block223Application.getCurrentUserRole();
+        if (userRole instanceof Player || userRole == null) {	        
+            error = "Admin privileges are required to delete a game.";	           
+            throw new InvalidInputException(error);	            
+        }	        
 
 		game = block223.findGame(name);
 
@@ -131,6 +140,11 @@ public class Block223Controller implements Serializable {
 				error = "Only the admin who created the game can delete the game.";
 				throw new InvalidInputException(error);
 			}
+			if(game.isPublished()) {
+				error = "A published game cannot be deleted.";
+				throw new InvalidInputException(error);
+			}
+			
 			game.delete();
 			Block223Persistence.save(block223);
 		}
@@ -155,7 +169,12 @@ public class Block223Controller implements Serializable {
 			error = "A game with name " + name + " does not exist.";
 			throw new InvalidInputException(error);
 		}
-
+		
+		if(game.isPublished()) {
+			error = "A published game cannot be changed.";
+			throw new InvalidInputException(error);
+		}
+		
 		if(!userRole.equals(game.getAdmin())) {
 			error = "Only the admin who created the game can select the game.";
 			throw new InvalidInputException(error);
@@ -570,6 +589,13 @@ public class Block223Controller implements Serializable {
 		ArrayList<TOGame> games = new ArrayList<TOGame>();
 		for (Game game : Block223Application.getBlock223().getGames()) {
 			//NOT sure about the numberOfBlocks() method.
+			if(game.isPublished()) {
+				break;
+			}
+			
+			if(!userRole.equals(Block223Application.getCurrentGame().getAdmin())) {
+				break;
+			}
 			TOGame toGame = new TOGame(game.getName(), game.numberOfLevels(), game.getNrBlocksPerLevel(),
 					game.getBall().getMinBallSpeedX(), game.getBall().getMinBallSpeedY(), game.getBall().getBallSpeedIncreaseFactor(),
 					game.getPaddle().getMaxPaddleLength(), game.getPaddle().getMinPaddleLength());
@@ -595,7 +621,7 @@ public class Block223Controller implements Serializable {
 			throw new InvalidInputException(error);
 		}
 
-		if (userRole.getPassword() != Block223Application.getCurrentGame().getAdmin().getPassword()) {
+		if (!userRole.equals(game.getAdmin())) {
 			error = "Only the admin who created the game can access its information.";
 			throw new InvalidInputException(error);
 		}
@@ -621,7 +647,7 @@ public class Block223Controller implements Serializable {
 			error+="Admin privileges are required to access game information.";
 			throw new InvalidInputException(error);
 		}
-		if (!(userRole.equals(game.getAdmin())) || userRole ==null) {
+		if (!userRole.equals(game.getAdmin())) {
 			error+="Only the admin who created the game can access its information.";
 			throw new InvalidInputException(error);
 		}
