@@ -122,10 +122,6 @@ public class Block223Controller implements Serializable {
 			throw new InvalidInputException ("A game must be selected to define game settings.");
 		}
     }
-<<<<<<< HEAD
-=======
-
->>>>>>> c3a127c57cd300b5bd73d425ab569c67bcd57cd7
 
 		game = block223.findGame(name);
 
