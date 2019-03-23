@@ -481,36 +481,98 @@ public class Block223Controller implements Serializable {
 
 	//Mairead
 	public static void saveGame() throws InvalidInputException {
-		Block223 block223 = Block223Application.getBlock223();
-		Block223Persistence.save(block223);
-	}
-
+    	
+    	String error = "";
+    	Block223 block223 = Block223Application.getBlock223();
+    	
+        
+        Block223Persistence.save(block223);
+        if(Block223Application.getCurrentGame() == null) {
+        	error+="A game must be selected to save it.";
+        
+        throw new InvalidInputException(error);
+        }
+        UserRole userRole = Block223Application.getCurrentUserRole();
+		
+            if(userRole instanceof Player || userRole == null){
+                error = "Admin privileges are required to save a game.";
+                throw new InvalidInputException(error);
+            }
+    }
 	//Mairead
 	public static void register(String username, String playerPassword, String adminPassword)
-			throws InvalidInputException {
-		Block223 block223 = Block223Application.resetBlock223();
+            throws InvalidInputException {
+    	Block223 block223 = Block223Application.getBlock223();
 
-		String error = "";
-		UserRole oldRole = Block223Application.getCurrentUserRole();
+        String error = "";
+        
+    	if (Block223Application.getCurrentUserRole() != null) {
+            error += "Cannot register a new user while a user is logged in.";
+        	throw new InvalidInputException(error);
+        }
+       
+        
+        if((playerPassword == null)||(playerPassword.equals(""))){
+            throw new InvalidInputException("The player password needs to be specified.");
+            }
+  
+        
+        if(playerPassword.equals(adminPassword)) {
+        	error = "The passwords have to be different.";
+        	throw new InvalidInputException(error);
+        }
+       
 
-		if (oldRole != null) {
-			error += "Cannot register while a user is logged in";
-		}
+        if (Block223Application.getCurrentUserRole() != null) {
+            error += "Cannot register a new user while a user is logged in.";
+        	throw new InvalidInputException(error);
+        }
+       
+        
+        if((playerPassword == null)||(playerPassword.equals(""))){
+            throw new InvalidInputException("The player password needs to be specified.");}
+        
+        
+        if(username == null||username.equals("")) {
+        	error = "The username must be specified.";
+        	throw new InvalidInputException(error);
+        }
+        
+        if(playerPassword.equals(adminPassword)) {
+        	error = "The passwords have to be different.";
+        	throw new InvalidInputException(error);
+        }
+       
+          Player player; 
+        try {
+          player = new Player(playerPassword, block223);}
+        catch (RuntimeException e) {
+        	
+        	    throw new InvalidInputException("The player password needs to be specified ");
+        }
+        
+        User user;
+        try {   	
+       		user = new User(username, block223, player);
+        	}
+            catch (RuntimeException e) {
+            	if((e.getMessage()).equals("The username has already been taken")) {
+            		
+            	    throw new InvalidInputException("The username must be specified.");
+            	    
+            	}
+            	    throw new InvalidInputException("The username has already been taken.");
+            	    }
+            	    
+            	    if ((adminPassword != null) && (adminPassword != "")) {
+                        Admin admin = new Admin(adminPassword, block223);
+                       user.addRole(admin);
+            	  }
+            	    
+            	    Block223Persistence.save(block223);
+            }
 
-		try {
-			Player player = new Player(playerPassword, block223);
-			User user = new User(username, block223, player);
-			if ((adminPassword != null) && (adminPassword != "")) {
-				Admin admin = new Admin(adminPassword, block223);
-				//UserRole role = new UserRole(adminPassword, block223);
-				user.addRole(admin);
-			}
-			Block223Persistence.save(block223);
-		} catch (RuntimeException e) {
-			throw new InvalidInputException(e.getMessage());
-		}
-		Block223Persistence.save(block223);
-	}
+	
 
 	//Mairead
 	public static void login(String username, String password) throws InvalidInputException {
