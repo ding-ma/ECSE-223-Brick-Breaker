@@ -32,7 +32,7 @@ class User {
       //Mairead 
    
    before constructor, User{
-   if((username == "")){
+   if(username == null||username.equals("")) {
    throw new RuntimeException("The username must be specified.");}
    }
    //Mairead 
