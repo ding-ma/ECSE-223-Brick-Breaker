@@ -761,11 +761,15 @@ public class PlayedGame implements Serializable
 
 //TODO, move x/y if they match a block assignment
 
-       if (x == && y ==) {
-         x = x++;
-         y = y++;
+       for (BlockAssignment ablockAssignment : assignments) {
+         if (ablockAssignment.getGridHorizontalPosition() == x && ablockAssignment.getGridVerticalPosition() == y) {
+           x = x++;
+           y = y++;
+         }
+         if (ablockAssignment.getGridHorizontalPosition() != x && ablockAssignment.getGridVerticalPosition() != y) {
+           PlayedBlockAssignment pblock = new PlayedBlockAssignment(x, y, game.getRandomBlock(), this);
+         }
        }
-       PlayedBlockAssignment pblock = new PlayedBlockAssignment(x, y, game.getRandomBlock(), this);
      }
 
    }

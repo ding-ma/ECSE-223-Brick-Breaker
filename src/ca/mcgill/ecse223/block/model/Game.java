@@ -4,6 +4,8 @@
 package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 // line 29 "../../../../../Block223Persistence.ump"
 // line 55 "../../../../../Block223PersistenceMairead.ump"
@@ -917,9 +919,10 @@ public class Game implements Serializable
   private static final long serialVersionUID = -210105651472293481L ;
 
 
-  public static Block getRandomBlock() {
+  public Block getRandomBlock() {
     Random random = new Random();
-    BlockAssignment blockAssignment = new BlockAssignment(random.nextInt(), random.nextInt(), level);
-    return blockAssignment;
+    List<Block> assignments = getBlocks();
+    Block rng = assignments.get(random.nextInt(assignments.size()));
+    return rng;
   }
 }

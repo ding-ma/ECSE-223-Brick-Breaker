@@ -634,7 +634,7 @@ public class Block223Controller implements Serializable {
             PlayedGame result = new PlayedGame(username, game, block223);
             result.setPlayer((Player) player);
         } else {
-            //TODO fix this may cause errors
+            //this may cause errors
             pgame = block223.findPlayableGame(id);
         }
         Block223Application.setCurrentPlayableGame(pgame);
@@ -837,7 +837,6 @@ public class Block223Controller implements Serializable {
         }
         List<PlayedGame> played = player.getBlock223().getPlayedGames();
         for (PlayedGame agame : played) {
-            selectPlayableGame
             TOPlayableGame to = new TOPlayableGame(agame.getGame().getName(), agame.getId(), agame.getCurrentLevel());
             result.add(to);
         }
@@ -846,6 +845,7 @@ public class Block223Controller implements Serializable {
 
     // play mode
 
+    //TODO error handling for this one
     public static TOCurrentlyPlayedGame getCurrentPlayableGame() throws InvalidInputException {
         String error;
         UserRole userRole = Block223Application.getCurrentUserRole();
@@ -872,14 +872,15 @@ public class Block223Controller implements Serializable {
         TOCurrentlyPlayedGame result = new TOCurrentlyPlayedGame(pgame.getGame().getName(), paused, pgame.getScore(), pgame.getLives(),
                 pgame.getCurrentLevel(), pgame.getPlayername(), (int) pgame.getCurrentBallX(), (int) pgame.getCurrentBallY(), (int) pgame.getCurrentPaddleLength(),
                 (int) pgame.getCurrentPaddleX());
-        pgame.getBlocks();
-        for (PlayedBlockAssignment pblocks : pgame.getBlocks()) {
-            TOCurrentBlock to = new TOCurrentBlock(pblocks.getBlock().getRed(), pblocks.getBlock().getGreen(), pblocks.getBlock().getBlue(), pblocks.getBlock().getPoints(), pblocks.getX(), pblocks.getY(), result);
+        List<PlayedBlockAssignment> blocks = pgame.getBlocks();
+        for (PlayedBlockAssignment pblocks : blocks) {
+            TOCurrentBlock to = new TOCurrentBlock(pblocks.getBlock().getRed(), pblocks.getBlock().getGreen(), pblocks.getBlock().
+                    getBlue(), pblocks.getBlock().getPoints(), pblocks.getX(), pblocks.getY(), result);
         }
         return result;
     }
 
-    public static boolean status() {
+    private static boolean status() {
         PlayedGame pgame = Block223Application.getCurrentPlayableGame();
         if (pgame.getPlayStatus() == PlayStatus.Ready) {
             return true;
