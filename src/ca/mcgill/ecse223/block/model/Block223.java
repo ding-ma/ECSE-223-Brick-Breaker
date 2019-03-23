@@ -39,6 +39,7 @@ public class Block223 implements Serializable
     games = new ArrayList<Game>();
   }
 
+
   //------------------------
   // INTERFACE
   //------------------------
@@ -619,5 +620,12 @@ public class Block223 implements Serializable
   // line 8 "../../../../../Block223Persistence.ump"
   private static final long serialVersionUID = 6181302407834705923L ;
 
-  
+  public PlayedGame findPlayableGame(int id) {
+    for (PlayedGame game : Collections.unmodifiableList(playedGames)) {
+      if (game.getGame().equals(id)) {
+        return game;
+      }
+    }
+    return null;
+  }
 }

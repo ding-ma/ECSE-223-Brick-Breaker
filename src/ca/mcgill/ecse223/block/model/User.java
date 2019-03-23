@@ -51,7 +51,8 @@ public class User implements Serializable
     }
   }
 
-  //------------------------
+
+    //------------------------
   // INTERFACE
   //------------------------
 
@@ -286,5 +287,10 @@ public class User implements Serializable
   // line 14 "../../../../../Block223Persistence.ump"
   private static final long serialVersionUID = 4267485601061759914L ;
 
-  
+    //TODO
+    public static String findUserName(UserRole player) {
+        return null;
+    }
+
+
 }

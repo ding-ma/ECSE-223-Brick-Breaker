@@ -4,10 +4,12 @@
 package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 // line 65 "../../../../../Block223Persistence.ump"
 // line 11 "../../../../../Block223PlayMode.ump"
 // line 1 "../../../../../Block223States.ump"
+
 public class PlayedGame implements Serializable
 {
 
@@ -72,6 +74,7 @@ public class PlayedGame implements Serializable
   private List<PlayedBlockAssignment> blocks;
   private BouncePoint bounce;
   private Block223 block223;
+
 
   //------------------------
   // CONSTRUCTOR
@@ -738,8 +741,34 @@ public class PlayedGame implements Serializable
    */
   // line 69 "../../../../../Block223States.ump"
    private void doSetup(){
-    // TODO implement
-  }
+     resetCurrentBallX();
+     resetCurrentBallY();
+     resetCurrentBallX();
+     resetCurrentBallY();
+     resetCurrentPaddleX();
+     getGame();
+     Level assignment = game.getLevel(currentLevel - 1);
+     List<BlockAssignment> assignments = assignment.getBlockAssignments();
+     for (BlockAssignment a : assignments) {
+       PlayedBlockAssignment pblock = new PlayedBlockAssignment(Game.WALL_PADDING + (Block.SIZE +
+               Game.COLUMNS_PADDING) * (a.getGridHorizontalPosition() - 1), Game.WALL_PADDING + (Block.SIZE + Game.ROW_PADDING) *
+               (a.getGridVerticalPosition() - 1), a.getBlock(), this);
+     }
+
+     while (numberOfBlocks() < game.getNrBlocksPerLevel()) {
+       int x = ThreadLocalRandom.current().nextInt(1, 15);
+       int y = ThreadLocalRandom.current().nextInt(1, 15);
+
+//TODO, move x/y if they match a block assignment
+
+       if (x == && y ==) {
+         x = x++;
+         y = y++;
+       }
+       PlayedBlockAssignment pblock = new PlayedBlockAssignment(x, y, game.getRandomBlock(), this);
+     }
+
+   }
 
   // line 73 "../../../../../Block223States.ump"
    private void doHitPaddleOrWall(){
@@ -800,5 +829,5 @@ public class PlayedGame implements Serializable
   // line 68 "../../../../../Block223Persistence.ump"
   private static final long serialVersionUID = 8597675110221231714L ;
 
-  
+
 }

@@ -73,13 +73,12 @@ class PlayedGame {
     PlayedGame.resetBallDirectionY();
     PlayedGame.resetCurrentPaddleX();
     PlayedGame.getGame();
-    Game level = Game.getLevel(currentLevel-1);
+    game.getLevel(currentLevel-1);
     // not sure about next one
     assignments = level.getBlockAssignments();
     for(Level a : assignments){
     PlayerBlockAssignment pblock = new PlayerBlockAssignment(Game.WALL_PADDING + (Block.SIZE + Game.COLUMNS_PADDING)*(a.getGridHorizontalPosition()-1),
                                                         Game.WALL_PADDING+(Block.SIZE + Game.ROW_PADDING)*(a.getGridVerticalPosition-1),a.getBlock(),this);
-
    }
     for(numberOfBlocks<game.getNrBlocksPerLevel()){
     //TODO implement getRandomBlock()

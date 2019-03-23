@@ -135,6 +135,7 @@ public class Game implements Serializable
     }
   }
 
+
   //------------------------
   // INTERFACE
   //------------------------
@@ -915,5 +916,10 @@ public class Game implements Serializable
   // line 32 "../../../../../Block223Persistence.ump"
   private static final long serialVersionUID = -210105651472293481L ;
 
-  
+
+  public static Block getRandomBlock() {
+    Random random = new Random();
+    BlockAssignment blockAssignment = new BlockAssignment(random.nextInt(), random.nextInt(), level);
+    return blockAssignment;
+  }
 }
