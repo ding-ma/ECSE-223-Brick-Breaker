@@ -32,8 +32,12 @@ public class User implements Serializable
   // CONSTRUCTOR
   //------------------------
 
-  public User(String aUsername, Block223 aBlock223, UserRole... allRoles)
+   public User(String aUsername, Block223 aBlock223, UserRole... allRoles)
   {
+    // line 35 "../../../../../Block223 v3.ump"
+    if(username == null||username.equals(""){ 	
+       throw new RuntimeException("The username must be specified.");}
+    // END OF UMPLE BEFORE INJECTION
     if (!setUsername(aUsername))
     {
       throw new RuntimeException("Cannot create due to duplicate username");
@@ -50,6 +54,7 @@ public class User implements Serializable
       throw new RuntimeException("Unable to create user due to block223");
     }
   }
+
 
   //------------------------
   // INTERFACE
