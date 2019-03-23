@@ -52,7 +52,6 @@ public class Block223Controller implements Serializable {
             throw new InvalidInputException(error);
         }
 
-<<<<<<< HEAD
         String adminPassword = userRole.getPassword();
 
         Admin admin = new Admin(adminPassword, block223);
@@ -65,7 +64,7 @@ public class Block223Controller implements Serializable {
         //Block223Persistence.save(block223);
 
     }
-=======
+
     public static String checkGameNameIsUnique(String name, Block223 block223) {
         for (Game game : block223.getGames()) {
             if (game.getName().equals(name)) {
@@ -140,11 +139,7 @@ public class Block223Controller implements Serializable {
 			throw new InvalidInputException ("A game must be selected to define game settings.");
 		}
     }
-<<<<<<< HEAD
-=======
 
->>>>>>> c3a127c57cd300b5bd73d425ab569c67bcd57cd7
->>>>>>> 0b0e525cd6c28b9d2e66b876b7266ec9a3ef7b69
 
     public static String checkGameNameIsUnique(String name, Block223 block223) {
         for (Game game : block223.getGames()) {
@@ -365,8 +360,6 @@ public class Block223Controller implements Serializable {
         }
 
 
-<<<<<<< HEAD
-=======
 		}
 		if(!userRole.equals(Block223Application.getCurrentGame().getAdmin())) {
 			error += "Only the admin who created the game can delete a block.";
@@ -435,7 +428,6 @@ public class Block223Controller implements Serializable {
 			error = e.getMessage();
 			throw new InvalidInputException(error);
 		}
->>>>>>> 0b0e525cd6c28b9d2e66b876b7266ec9a3ef7b69
 
 
         if (Block223Application.getCurrentGame().findBlock(id) == null) {
@@ -455,9 +447,6 @@ public class Block223Controller implements Serializable {
             }
         }
 
-<<<<<<< HEAD
-    }
-=======
 		Block223 block223 = Block223Application.getBlock223();
 		Game game = Block223Application.getCurrentGame();
 		String error = "";
@@ -510,7 +499,6 @@ public class Block223Controller implements Serializable {
 			throw new InvalidInputException(e.getMessage());
 		}
 	}
->>>>>>> 0b0e525cd6c28b9d2e66b876b7266ec9a3ef7b69
 
     //Done
     public static void updateBlock(int id, int red, int green, int blue, int points) throws InvalidInputException {
@@ -894,7 +882,7 @@ public class Block223Controller implements Serializable {
     public static List<TOGridCell> getBlocksAtLevelOfCurrentDesignableGame(int level) {
         String error;
         UserRole userRole = Block223Application.getCurrentUserRole();
-        /*if(userRole instanceof Player || userRole == null){
+        if(userRole instanceof Player || userRole == null){
             error = "Admin privileges are required to access game information.";
             throw new InvalidInputException(error);
         }
@@ -904,20 +892,6 @@ public class Block223Controller implements Serializable {
 			throw new InvalidInputException(error);
 		}
 		if (userRole.getPassword() != Block223Application.getCurrentGame().getAdmin().getPassword()) {
-<<<<<<< HEAD
-            error = "Only the admin who created the game can access its information.";
-            throw new InvalidInputException(error);
-		}*/
-        ArrayList<TOGridCell> gridCells = new ArrayList<TOGridCell>();
-        for (BlockAssignment blockAssignment : Block223Application.getCurrentGame().getLevel(level - 1).getBlockAssignments()) {
-            TOGridCell toGridCell = new TOGridCell(blockAssignment.getGridHorizontalPosition(), blockAssignment.getGridVerticalPosition(),
-                    blockAssignment.getBlock().getId(), blockAssignment.getBlock().getRed(), blockAssignment.getBlock().getGreen(),
-                    blockAssignment.getBlock().getBlue(), blockAssignment.getBlock().getPoints());
-            gridCells.add(toGridCell);
-        }
-        return gridCells;
-    }
-=======
 			error = "Only the admin who created the game can access its information.";
 			throw new InvalidInputException(error);
 		}
@@ -953,7 +927,6 @@ public class Block223Controller implements Serializable {
 
 		Level alevel = game.getLevel(level - 1);
 		List<BlockAssignment> assignments = alevel.getBlockAssignments();
->>>>>>> 0b0e525cd6c28b9d2e66b876b7266ec9a3ef7b69
 
     //Mairead
     public static TOUserMode getUserMode() { //put in refresh data class
