@@ -23,7 +23,7 @@ public abstract class UserRole implements Serializable
   // CONSTRUCTOR
   //------------------------
 
-  public UserRole(String aPassword, Block223 aBlock223)
+public UserRole(String aPassword, Block223 aBlock223)
   {
     // line 59 "../../../../../Block223 v3.ump"
     if(aPassword == null || aPassword == ""){
