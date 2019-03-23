@@ -7,7 +7,7 @@ import java.util.*;
 
 // line 59 "../../../../../Block223Persistence.ump"
 // line 78 "../../../../../Block223PersistenceMairead.ump"
-// line 145 "../../../../../Block223 v3.ump"
+// line 218 "../../../../../Block223 v3.ump"
 public class Paddle implements Serializable
 {
 
@@ -35,6 +35,16 @@ public class Paddle implements Serializable
 
   public Paddle(int aMaxPaddleLength, int aMinPaddleLength, Game aGame)
   {
+    // line 226 "../../../../../Block223 v3.ump"
+    if(aMaxPaddleLength <= 0 || aMaxPaddleLength > 390){
+    			throw new RuntimeException ("The maximum length of the paddle must be greater than zero and less than or equal to 390.");
+    		}
+    // END OF UMPLE BEFORE INJECTION
+    // line 232 "../../../../../Block223 v3.ump"
+    if(aMinPaddleLength <= 0){
+    			throw new RuntimeException ("The minimum length of the paddle must be greater than zero.");
+    		}
+    // END OF UMPLE BEFORE INJECTION
     maxPaddleLength = aMaxPaddleLength;
     minPaddleLength = aMinPaddleLength;
     if (aGame == null || aGame.getPaddle() != null)
@@ -46,6 +56,16 @@ public class Paddle implements Serializable
 
   public Paddle(int aMaxPaddleLength, int aMinPaddleLength, String aNameForGame, int aNrBlocksPerLevelForGame, Admin aAdminForGame, Ball aBallForGame, Block223 aBlock223ForGame)
   {
+    // line 226 "../../../../../Block223 v3.ump"
+    if(aMaxPaddleLength <= 0 || aMaxPaddleLength > 390){
+    			throw new RuntimeException ("The maximum length of the paddle must be greater than zero and less than or equal to 390.");
+    		}
+    // END OF UMPLE BEFORE INJECTION
+    // line 232 "../../../../../Block223 v3.ump"
+    if(aMinPaddleLength <= 0){
+    			throw new RuntimeException ("The minimum length of the paddle must be greater than zero.");
+    		}
+    // END OF UMPLE BEFORE INJECTION
     maxPaddleLength = aMaxPaddleLength;
     minPaddleLength = aMinPaddleLength;
     game = new Game(aNameForGame, aNrBlocksPerLevelForGame, aAdminForGame, aBallForGame, this, aBlock223ForGame);
@@ -58,6 +78,11 @@ public class Paddle implements Serializable
   public boolean setMaxPaddleLength(int aMaxPaddleLength)
   {
     boolean wasSet = false;
+    // line 226 "../../../../../Block223 v3.ump"
+    if(aMaxPaddleLength <= 0 || aMaxPaddleLength > 390){
+    			throw new RuntimeException ("The maximum length of the paddle must be greater than zero and less than or equal to 390.");
+    		}
+    // END OF UMPLE BEFORE INJECTION
     maxPaddleLength = aMaxPaddleLength;
     wasSet = true;
     return wasSet;
@@ -66,6 +91,11 @@ public class Paddle implements Serializable
   public boolean setMinPaddleLength(int aMinPaddleLength)
   {
     boolean wasSet = false;
+    // line 232 "../../../../../Block223 v3.ump"
+    if(aMinPaddleLength <= 0){
+    			throw new RuntimeException ("The minimum length of the paddle must be greater than zero.");
+    		}
+    // END OF UMPLE BEFORE INJECTION
     minPaddleLength = aMinPaddleLength;
     wasSet = true;
     return wasSet;

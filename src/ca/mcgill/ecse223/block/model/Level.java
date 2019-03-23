@@ -11,7 +11,7 @@ import java.util.*;
  */
 // line 41 "../../../../../Block223Persistence.ump"
 // line 72 "../../../../../Block223PersistenceMairead.ump"
-// line 128 "../../../../../Block223 v3.ump"
+// line 162 "../../../../../Block223 v3.ump"
 public class Level implements Serializable
 {
 
@@ -193,18 +193,20 @@ public class Level implements Serializable
       aBlockAssignment.delete();
     }
   }
+
+
   /**
    * Mert
    */
-  // line 158 "../../../../../../../../ump/tmp256427/model.ump"
-  public BlockAssignment findBlockAssignment(int aGridHorizontalPosition, int aGridVerticalPosition){
+  // line 166 "../../../../../Block223 v3.ump"
+   public BlockAssignment findBlockAssignment(int aGridHorizontalPosition, int aGridVerticalPosition){
     BlockAssignment foundAssignment = null;
-    for(BlockAssignment position: getBlockAssignments()) {
-      if(position.getGridHorizontalPosition() == aGridHorizontalPosition && position.getGridVerticalPosition() == aGridVerticalPosition) {
-        foundAssignment = position;
-      }
-    }
-    return foundAssignment;
+		for(BlockAssignment position: getBlockAssignments()) {
+			if(position.getGridHorizontalPosition() == aGridHorizontalPosition && position.getGridVerticalPosition() == aGridVerticalPosition) {
+				foundAssignment = position;
+			}
+		}
+		return foundAssignment;
   }
   
   //------------------------
