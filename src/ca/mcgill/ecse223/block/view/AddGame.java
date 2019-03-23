@@ -72,7 +72,7 @@ public class AddGame {
     }
     private void addGameButtonActionPerformed(java.awt.event.ActionEvent evt) {
 		// clear error message
-		error = null;
+			error = null;
 		// call the controller
 		try {
 			Block223Controller.createGame(gameNameTextField.getText());

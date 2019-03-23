@@ -16,96 +16,116 @@ public class Block223Controller implements Serializable {
 	// Modifier methods
 	// ****************************
 
-	//Yanick
-	public static void createGame(String aName) throws InvalidInputException {
-		String name = aName;
-		String error = "";
-		Block223 block223 = Block223Application.getBlock223();
+    //Yannick
+    public static void createGame(String aName) throws InvalidInputException {
+        String name = aName;
+        String error = "";
+        Block223 block223 = Block223Application.getBlock223();
 
-		UserRole userRole = Block223Application.getCurrentUserRole();
-		if (userRole instanceof Player || userRole == null) {
-			error = "Admin privileges are required to create a game.";
-			throw new InvalidInputException(error);
-		}
+        UserRole admin = Block223Application.getCurrentUserRole();
+        if (admin instanceof Player || admin == null) {
+            error = "Admin privileges are required to create a game.";
+            throw new InvalidInputException(error);
+        }
+
 
 		error = checkGameNameIsUnique(name, block223);
 		if (error != null) {
 			throw new InvalidInputException(error);
 		}
 
-		if (name.equals("")) {
-			error = "The name of the game must be specified";
-			throw new InvalidInputException(error);
-		}
+        if (name == null || name == "") {
+            error = "The name of a game must be specified.";
+            throw new InvalidInputException(error);
+        }
 
-		String adminPassword = userRole.getPassword();
+        Game game = new Game(name, 1, (Admin)admin, 1, 1, 1, 10, 10, block223);
 
-		Admin admin = new Admin(adminPassword, block223);
+        Block223Application.setCurrentGame(game);
+        block223.addGame(game);
 
-		Game game = new Game(name, 1, admin, 1, 1,
-				1, 10, 10, block223);
-
-		Block223Application.setCurrentGame(game);
-		block223.addGame(game);
-		Block223Persistence.save(block223);
+        Block223Persistence.save(block223);
 
 	}
 
-	public static String checkGameNameIsUnique(String name, Block223 block223) {
-		for (Game game : block223.getGames()) {
-			if (game.getName().equals(name)) {
-				String error = "The name of a game must be unique";
-				return error;
-			}
-		}
-		return null;
-	}
+    public static String checkGameNameIsUnique(String name, Block223 block223) {
+        for (Game game : block223.getGames()) {
+            if (game.getName().equals(name)) {
+                String error = "The name of a game must be unique.";
+                return error;
+            }
+        }
+        return null;
+    }
 
 	//Yannick
 	public static void setGameDetails(int nrLevels, int nrBlocksPerLevel, int minBallSpeedX, int minBallSpeedY, Double ballSpeedIncreaseFactor, int maxPaddleLength, int minPaddleLength) throws InvalidInputException {
 
-		Game game = Block223Application.getCurrentGame();
-
-		game.setNrBlocksPerLevel(nrBlocksPerLevel);
-
-		Ball ball = game.getBall();
-
-		ball.setMinBallSpeedX(minBallSpeedX);
-		ball.setMinBallSpeedY(minBallSpeedX);
-		ball.setBallSpeedIncreaseFactor(ballSpeedIncreaseFactor);
-
-		Paddle paddle = game.getPaddle();
-
-		paddle.setMaxPaddleLength(maxPaddleLength);
-		paddle.setMinPaddleLength(minPaddleLength);
-
-		List<Level> levels = game.getLevels();
-		int size = levels.size();
-
-		while (nrLevels > size) {
-			game.addLevel();
-			size = levels.size();
+        Game game = Block223Application.getCurrentGame();
+        
+        if(minBallSpeedX <= 0 && minBallSpeedY <= 0){
+			throw new InvalidInputException ("The minimum speed of the ball must be greater than zero.");
 		}
+        
+        if(nrLevels < 1 || nrLevels > 99) {
+        	throw new InvalidInputException ("The number of levels must be between 1 and 99.");
+        }
+        
+        if (game != null) {
+        	
+	        if(game.getAdmin() != Block223Application.getCurrentUserRole()) {
+	        	throw new InvalidInputException ("Only the admin who created the game can define its game settings.");
+	        }
+	        
+	        Ball ball = game.getBall();
+	
+	        Paddle paddle = game.getPaddle();
+	        
+	        try {
+	        	for (Level level : game.getLevels()){
+	        		if(level.getBlockAssignments().size() > nrBlocksPerLevel) {
+	        			throw new InvalidInputException ("The maximum number of blocks per level cannot be less than the number of existing blocks in a level.");
+	        		}
+	        	}
+	        	game.setNrBlocksPerLevel(nrBlocksPerLevel);
 
-		while (nrLevels < size) {
-			Level level = game.getLevel(size - 1);
-			level.delete();
-			size = levels.size();
+	        	ball.setMinBallSpeedX(minBallSpeedX);
+	        	ball.setMinBallSpeedY(minBallSpeedX);
+	        	ball.setBallSpeedIncreaseFactor(ballSpeedIncreaseFactor);
+	        	
+		        paddle.setMaxPaddleLength(maxPaddleLength);
+		        paddle.setMinPaddleLength(minPaddleLength);
+		        
+	        } catch (RuntimeException e) {
+	            throw new InvalidInputException(e.getMessage());
+	        }
+	        
+	        
+	
+	        List<Level> levels = game.getLevels();
+	        
+	        int size = levels.size();
+	
+	        while (nrLevels > size) {
+	            game.addLevel();
+	            size = levels.size();
+	        }
+	
+	        while (nrLevels < size) {
+	            Level level = game.getLevel(size - 1);
+	            level.delete();
+	            size = levels.size();
+	        }
+
+    
+        } else {
+			throw new InvalidInputException ("A game must be selected to define game settings.");
 		}
+    }
+<<<<<<< HEAD
+=======
 
-	}
-
-	//done
-	//TODO exception
-	public static void deleteGame(String name) throws InvalidInputException {
-		String error = "";
-		Game game;
-		Block223 block223 = Block223Application.getBlock223();
-		UserRole userRole = Block223Application.getCurrentUserRole();
-		if (userRole instanceof Player || userRole == null) {
-			error = "Admin privileges are required to delete a game.";
-			throw new InvalidInputException(error);
-		}
+>>>>>>> c3a127c57cd300b5bd73d425ab569c67bcd57cd7
 
 		game = block223.findGame(name);
 
