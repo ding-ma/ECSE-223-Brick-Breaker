@@ -48,14 +48,14 @@ public class Block223Controller implements Serializable {
 
         Block223Application.setCurrentGame(game);
         block223.addGame(game);
-        Block223Persistence.save(block223);
+        //Block223Persistence.save(block223);
 
     }
 
     public static String checkGameNameIsUnique(String name, Block223 block223) {
         for (Game game : block223.getGames()) {
             if (game.getName().equals(name)) {
-                String error = "The name of a game must be unique";
+                String error = "The name of a game must be unique.";
                 return error;
             }
         }
