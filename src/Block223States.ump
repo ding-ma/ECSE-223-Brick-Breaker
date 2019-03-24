@@ -29,37 +29,129 @@ class PlayedGame {
   // Guards
   
   private boolean hitPaddle() {
-    // TODO implement
+    // George
+    BouncePoint bp = calculateBouncePointPaddle();
+    
+    setBounce(bp);
+    
+    if(bp != null){
+    	return true;
+    }
     return false;
   }
 
   private boolean isOutOfBoundsAndLastLife() {
-    // TODO implement
-    return false;
+     int lives = getLives(); 
+   boolean outOfBounds = isOutOfBounds();
+   if(outOfBounds == true){
+      if(lives == 1){
+        return true;
+      }
+  }
+  else return false;
   }
   
   private boolean isOutOfBounds() {
-    // TODO implement
-    return false;
+   double xI = getCurrentBallX();
+     double yI = getCurrentBallY();
+     double dx = getBallDirectionX();
+     double dy = getBallDirectionY();
+
+     double xF = xI+dx;
+     double yF = yI+dy;
+     
+    Rectangle rect = new Rectangle(0,Game.PLAY_AREA_SIDE, Game.PLAY_AREA_SIDE, (Ball.BALL_DIAMETER / 2));
+    
+    boolean outOfBounds = rect.intersectsLine(xI, yI, xF, yF);
+    return outOfBounds;
+    
   }
   
   private boolean hitLastBlockAndLastLevel() {
-    // TODO implement
+	// Yannick
+	game = getGame();
+
+	int nrLevels = game.numberOfLevels();
+	
+	setBounce(null);
+
+	if(nrLevels == currentLevel){
+		int nrBlocks = numberOfBlocks();
+
+		if(nrBlocks == 1){
+			PlayedBlockAssignment block = getBlock(0);
+			BouncePoint bp = calculateBouncePointBlock(block);
+			if(bp == null){
+				return false;
+			}
+			setBounce(bp);
+			return true;
+		}
+	}
     return false;
   }
   
-  private boolean hitLastBlock(){
-    // TODO implement
-    return false;
-  }
+	private boolean hitLastBlock(){
+    // Yannick
+    	int nrBlocks = numberOfBlocks();
+    
+    	setBounce(null);
+    
+    	if(nrBlocks == 1){
+    
+    		PlayedBlockAssignment block = getBlock(0);
+    
+    		BouncePoint bp = calculateBouncePointBlock(block);
+    
+    		if(bp == null){
+    			return false;
+    		}
+    	
+    		setBounce(bp);
+			return true;
+		}
+    
+		return false;
+	}
   
   private boolean hitBlock() {
-    // TODO implement
+    // Yannick
+    
+    int nrBlocks = numberOfBlocks();
+    
+    setBounce(null);
+    
+    for(int i = 0 ; i < numberOfBlocks() - 1 ; i++){
+    
+    	 PlayedBlockAssignment block = getBlock(i);
+    	 
+    	 BouncePoint bp = calculateBouncePointBlock(block);
+    	 
+    	 bounce = getBounce();
+    	 
+    	 if(bp != null && bounce != null){
+    	 	Boolean closer = isCloser(bp, bounce);
+    	 
+    	 	if(closer){
+    	 	
+    	 		setBounce(bp);
+    	 	
+    		}
+    		return true;
+    	}
+    }
     return false;
   }
   
   private boolean hitWall() {
-    // TODO implement
+    // George
+    BouncePoint bp = calculateBouncePointWall();
+    
+    setBounce(bp);
+    
+    if(bp != null){
+    	return true;
+    }
     return false;
   }
   
@@ -100,27 +192,78 @@ class PlayedGame {
                             }
   
   private void doHitPaddleOrWall() {
-    // TODO implement
+    // George
+    bounceBall();
   }
 
   private void doOutOfBounds() {
-    // TODO implement
+    
+     setLives(lives-1);
+     resetCurrentBallX();
+     resetCurrentBallY();
+     resetBallDirectionX();
+     resetBallDirectionY();
+     resetCurrentPaddleX();
   }
 
   private void doHitBlock() {
-    // TODO implement
+    // Yannick
+    int score = getScore();
+    bounce = getBounce();
+    
+    PlayedBlockAssignment pblock = bounce.getHitBlock();
+    
+    Block block = pblock.getBlock();
+    
+    int points = block.getPoints();
+    
+    setScore(score + points);
+    
+    pblock.delete();
+    
+    bounceBall();
+    
   }
 
   private void doHitBlockNextLevel() {
-    // TODO implement
+    // Yannick
+    doHitBlock();
+    
+    int level = getCurrentLevel();
+    
+    setCurrentLevel(level + 1);
+    
+    setCurrentPaddleLength(getGame().getPaddle().getMaxPaddleLength() -
+    	(getGame().getPaddle().getMaxPaddleLength() - getGame().getPaddle().getMinPaddleLength()) / 
+    	(getGame().numberOfLevels() - 1) * (getCurrentLevel() - 1));
+    	
+    setWaitTime(INITIAL_WAIT_TIME * Math.pow(getGame().getBall().getBallSpeedIncreaseFactor(), (getCurrentLevel() - 1)));
+    
   }
 
   private void doHitNothingAndNotOutOfBounds() {
-    // TODO implement
+    double x = getCurrentBallX();
+    double y = getCurrentBallY();
+    double dx = getBallDirectionX();
+    double dy = getBallDirectionY();
+    
+    setCurrentBallX(x+dx);
+    setCurrentBallY(y+dy);
+    
   }
 
   private void doGameOver() {
-    // TODO implement
+      PlayedGame pgame = Block223Application.getCurrentPlayableGame();
+     Block223 block223 = Block223Application.getBlock223();
+     Player p = pgame.getPlayer();
+     if(p!=null){
+       Game game = pgame.getGame();
+       HallOfFameEntry hof = new HallOfFameEntry(score, playername, p, game, block223);
+       game.setMostRecentEntry(hof);
+     }
+
+     game.delete();
+    
   }
 
 }

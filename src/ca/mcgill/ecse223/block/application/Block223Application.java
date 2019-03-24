@@ -26,15 +26,18 @@ public class Block223Application {
 	//Done
 	public static Block223 getBlock223() {
 		if (block223 == null) {
-			block223 = new Block223();
+			//changed
+			block223 = Block223Persistence.load();
 		}
  		return block223;
 	}
 
 	//TODO resetBlock223().
+
 	public static Block223 resetBlock223() {
 		block223 = Block223Persistence.load();
 		return block223;
+
 	}
 	//TODO: How do you actually setCurrentGame?
 	public static void setCurrentGame (Game aGame) {
@@ -61,6 +64,9 @@ public class Block223Application {
 
 		
 	}
+
+	
+
 	public static void setCurrentPlayableGame(PlayedGame aGame){
 		currentPlayableGame = aGame;
 	}
@@ -68,5 +74,7 @@ public class Block223Application {
 	public static PlayedGame getCurrentPlayableGame(){
 		return currentPlayableGame;
 	}
+
+	
 
 }

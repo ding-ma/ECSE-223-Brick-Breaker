@@ -5,9 +5,8 @@ package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 import java.util.*;
 
-// line 35 "../../../../../Block223Persistence.ump"
-// line 29 "../../../../../Block223PersistenceMairead.ump"
-// line 90 "../../../../../Block223 v3.ump"
+// line 63 "../../../../../Block223Persistence.ump"
+// line 125 "../../../../../Block223 v3.ump"
 public class Block implements Serializable
 {
 
@@ -46,22 +45,22 @@ public class Block implements Serializable
 
   public Block(int aRed, int aGreen, int aBlue, int aPoints, Game aGame)
   {
-    // line 104 "../../../../../Block223 v3.ump"
+    // line 139 "../../../../../Block223 v3.ump"
     if(aRed <MIN_COLOR || aRed > MAX_COLOR){
-       throw new RuntimeException ("Red must be between 0 and 255.");
-       }
+             throw new RuntimeException ("Red must be between 0 and 255.");
+          }
     // END OF UMPLE BEFORE INJECTION
-    // line 109 "../../../../../Block223 v3.ump"
+    // line 144 "../../../../../Block223 v3.ump"
     if(aGreen <MIN_COLOR || aGreen > MAX_COLOR){
-       throw new RuntimeException ("Green must be between 0 and 255.");
-       }
+    			throw new RuntimeException ("Green must be between 0 and 255.");
+    		}
     // END OF UMPLE BEFORE INJECTION
-    // line 114 "../../../../../Block223 v3.ump"
+    // line 149 "../../../../../Block223 v3.ump"
     if(aBlue <MIN_COLOR || aBlue > MAX_COLOR){
        throw new RuntimeException ("Blue must be between 0 and 255.");
        }
     // END OF UMPLE BEFORE INJECTION
-    // line 119 "../../../../../Block223 v3.ump"
+    // line 154 "../../../../../Block223 v3.ump"
     if(aPoints <MIN_POINTS || aPoints > MAX_POINTS){
        throw new RuntimeException ("Points must be between 1 and 1000.");
        }
@@ -87,10 +86,10 @@ public class Block implements Serializable
   public boolean setRed(int aRed)
   {
     boolean wasSet = false;
-    // line 104 "../../../../../Block223 v3.ump"
+    // line 139 "../../../../../Block223 v3.ump"
     if(aRed <MIN_COLOR || aRed > MAX_COLOR){
-       throw new RuntimeException ("Red must be between 0 and 255.");
-       }
+             throw new RuntimeException ("Red must be between 0 and 255.");
+          }
     // END OF UMPLE BEFORE INJECTION
     red = aRed;
     wasSet = true;
@@ -100,10 +99,10 @@ public class Block implements Serializable
   public boolean setGreen(int aGreen)
   {
     boolean wasSet = false;
-    // line 109 "../../../../../Block223 v3.ump"
+    // line 144 "../../../../../Block223 v3.ump"
     if(aGreen <MIN_COLOR || aGreen > MAX_COLOR){
-       throw new RuntimeException ("Green must be between 0 and 255.");
-       }
+    			throw new RuntimeException ("Green must be between 0 and 255.");
+    		}
     // END OF UMPLE BEFORE INJECTION
     green = aGreen;
     wasSet = true;
@@ -113,7 +112,7 @@ public class Block implements Serializable
   public boolean setBlue(int aBlue)
   {
     boolean wasSet = false;
-    // line 114 "../../../../../Block223 v3.ump"
+    // line 149 "../../../../../Block223 v3.ump"
     if(aBlue <MIN_COLOR || aBlue > MAX_COLOR){
        throw new RuntimeException ("Blue must be between 0 and 255.");
        }
@@ -126,7 +125,7 @@ public class Block implements Serializable
   public boolean setPoints(int aPoints)
   {
     boolean wasSet = false;
-    // line 119 "../../../../../Block223 v3.ump"
+    // line 154 "../../../../../Block223 v3.ump"
     if(aPoints <MIN_POINTS || aPoints > MAX_POINTS){
        throw new RuntimeException ("Points must be between 1 and 1000.");
        }
@@ -409,7 +408,7 @@ public class Block implements Serializable
     }
   }
 
-  // line 36 "../../../../../Block223PersistenceMairead.ump"
+  // line 68 "../../../../../Block223Persistence.ump"
    public static  void reinitializeAutouniqueID(List<Game> games){
     nextId = 1; 
     for (Game game : games) {
@@ -420,7 +419,7 @@ public class Block implements Serializable
       }
     }
     nextId++;
-}
+	}
   }
 
 
@@ -438,7 +437,7 @@ public class Block implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 38 "../../../../../Block223Persistence.ump"
+  // line 80 "../../../../../Block223Persistence.ump"
   private static final long serialVersionUID = 5332292624658907512L ;
 
   

@@ -5,8 +5,7 @@ package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 import java.util.*;
 
-// line 11 "../../../../../Block223Persistence.ump"
-// line 90 "../../../../../Block223PersistenceMairead.ump"
+// line 17 "../../../../../Block223Persistence.ump"
 // line 29 "../../../../../Block223 v3.ump"
 public class User implements Serializable
 {
@@ -249,19 +248,21 @@ public class User implements Serializable
     }
   }
 
-  // line 96 "../../../../../Block223PersistenceMairead.ump"
+  // line 22 "../../../../../Block223Persistence.ump"
    public static  void reinitializeUniqueUsername(List<User> users){
     usersByUsername = new HashMap<String, User>();
     for (User user : users) {
       usersByUsername.put(user.getUsername(), user);
     }
   }
-  
- /**
+
+
+  /**
+   * Mairead
    * Mairead
    */
-  // line 33 "../../../../../Block223 v2.ump"
-  public static  UserRole findPassword(String password, User user){
+  // line 37 "../../../../../Block223 v3.ump"
+   public static  UserRole findPassword(String password, User user){
     List<UserRole> roles = user.getRoles();
 	for(UserRole role : roles) {
     String rolePassword = role.getPassword();
@@ -271,6 +272,28 @@ public class User implements Serializable
     
    }
 	return null;
+  }
+
+
+  /**
+   * end
+   * Anne-Julie
+   */
+  // line 52 "../../../../../Block223 v3.ump"
+   public static  String findUsername(UserRole currentuserrole){
+    Map<User, String> usernamesUser = new HashMap<>();
+		for(Map.Entry<String, User> entry : usersByUsername.entrySet()){
+		usernamesUser.put(entry.getValue(), entry.getKey());
+	}
+	for (User value : usernamesUser.keySet()) {
+		List<UserRole> roles = value.getRoles();
+      		for(UserRole role : roles) {
+      			if(role==currentuserrole) {
+      				return value.getUsername().toString();
+      		}
+      	}
+	}
+      return null;
   }
 
 
@@ -284,7 +307,7 @@ public class User implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 14 "../../../../../Block223Persistence.ump"
+  // line 28 "../../../../../Block223Persistence.ump"
   private static final long serialVersionUID = 4267485601061759914L ;
 
 

@@ -9,9 +9,8 @@ import java.util.*;
  * random attribute not needed anymore
  * Each level is filled up with random blocks just before playing the level to reach the nrBlocksPerLevel defined in Game
  */
-// line 41 "../../../../../Block223Persistence.ump"
-// line 72 "../../../../../Block223PersistenceMairead.ump"
-// line 128 "../../../../../Block223 v3.ump"
+// line 83 "../../../../../Block223Persistence.ump"
+// line 163 "../../../../../Block223 v3.ump"
 public class Level implements Serializable
 {
 
@@ -193,25 +192,27 @@ public class Level implements Serializable
       aBlockAssignment.delete();
     }
   }
+
+
   /**
    * Mert
    */
-  // line 158 "../../../../../../../../ump/tmp256427/model.ump"
-  public BlockAssignment findBlockAssignment(int aGridHorizontalPosition, int aGridVerticalPosition){
+  // line 167 "../../../../../Block223 v3.ump"
+   public BlockAssignment findBlockAssignment(int aGridHorizontalPosition, int aGridVerticalPosition){
     BlockAssignment foundAssignment = null;
-    for(BlockAssignment position: getBlockAssignments()) {
-      if(position.getGridHorizontalPosition() == aGridHorizontalPosition && position.getGridVerticalPosition() == aGridVerticalPosition) {
-        foundAssignment = position;
-      }
-    }
-    return foundAssignment;
+		for(BlockAssignment position: getBlockAssignments()) {
+			if(position.getGridHorizontalPosition() == aGridHorizontalPosition && position.getGridVerticalPosition() == aGridVerticalPosition) {
+				foundAssignment = position;
+			}
+		}
+		return foundAssignment;
   }
   
   //------------------------
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 44 "../../../../../Block223Persistence.ump"
+  // line 86 "../../../../../Block223Persistence.ump"
   private static final long serialVersionUID = -7956760334392179806L ;
 
   

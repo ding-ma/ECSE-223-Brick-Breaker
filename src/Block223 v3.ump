@@ -1,7 +1,7 @@
 namespace ca.mcgill.ecse223.block.model;
 
 use Block223Persistence.ump;
-use Block223PersistenceMairead.ump;
+
 use Block223PlayMode.ump;
 use Block223States.ump;
 use Block223TransferObjectsPlayMode.ump;
@@ -42,10 +42,7 @@ class User {
    1 -> 1..2 UserRole roles;
       //Mairead 
    
-   before constructor, User{
-   if((username == "")){
-   throw new RuntimeException("The username must be specified.");}
-   }
+
    //Mairead 
    public static UserRole findPassword(String password, User user){
     List<UserRole> roles = user.getRoles();
@@ -61,32 +58,36 @@ class User {
   }
   //end
 
-  //Anne Julie
-   public static String findUsername(UserRole currentuserrole) {
-     Map<User, String> usernamesUser = new HashMap<>();
-     for (Map.Entry<String, User> entry : usersByUsername.entrySet()) {
-       usernamesUser.put(entry.getValue(), entry.getKey());
-     }
-     for (User value : usernamesUser.keySet()) {
-       List<UserRole> roles = value.getRoles();
-       for (UserRole role : roles) {
-         if (role == currentuserrole) {
-           return value.getUsername().toString();
-         }
-       }
-     }
-     return null;
-     }
-     //end
+
+  //Anne-Julie 
+   public static String findUsername(UserRole currentuserrole){
+	Map<User, String> usernamesUser = new HashMap<>();
+		for(Map.Entry<String, User> entry : usersByUsername.entrySet()){
+		usernamesUser.put(entry.getValue(), entry.getKey());
+	}
+	for (User value : usernamesUser.keySet()) {
+		List<UserRole> roles = value.getRoles();
+      		for(UserRole role : roles) {
+      			if(role==currentuserrole) {
+      				return value.getUsername().toString();
+      		}
+      	}
+	}
+      return null;
+ }
+   //end
+
 }
 
 class UserRole {
    abstract;
    password;
 
-      before constructor, UserRole{
-   if(password.equals(null)){
-   throw new RuntimeException("The player password needs to be specified.");}
+      before constructor, setPassword{
+   			if(aPassword == null || aPassword == ""){
+   				throw new RuntimeException("The player password needs to be specified.");
+   			}
+   	}
 }
 
 class Admin {
@@ -128,21 +129,7 @@ class Game {
 
          before constructor, setNrBlocksPerLevel{
             if(aNrBlocksPerLevel <= 0){
-               throw new RuntimeException("The  number  of  blocks  per  level  must be greater than zero");
-            }
-         }
-
-         after setName{
-         		if(!setName(aName)){
-         			throw new RuntimeException("The name of a game must be unique");
-         		}
-         }
-
-         //Anne-Julie
-
-         before setName{
-            if(aName.equals("The name of a game must be specified.")){
-               throw new RuntimeException("");
+               throw new RuntimeException("The number of blocks per level must be greater than zero.");
             }
          }
       //end
@@ -171,15 +158,15 @@ class Block {
    //George
    
    before constructor, setRed{
-   if(aRed <MIN_COLOR || aRed > MAX_COLOR){
-   throw new RuntimeException ("Red must be between 0 and 255.");
+      if(aRed <MIN_COLOR || aRed > MAX_COLOR){
+         throw new RuntimeException ("Red must be between 0 and 255.");
+      }
    }
-}
 	before constructor, setGreen{
-   if(aGreen <MIN_COLOR || aGreen > MAX_COLOR){
-   throw new RuntimeException ("Green must be between 0 and 255.");
-   }
-}
+		if(aGreen <MIN_COLOR || aGreen > MAX_COLOR){
+			throw new RuntimeException ("Green must be between 0 and 255.");
+		}
+	}
 	before constructor, setBlue{
    if(aBlue <MIN_COLOR || aBlue > MAX_COLOR){
    throw new RuntimeException ("Blue must be between 0 and 255.");
@@ -236,11 +223,37 @@ class Ball {
    Integer minBallSpeedX;
    Integer minBallSpeedY;
    Double ballSpeedIncreaseFactor;
+
+   //Yannick
+	before constructor {
+		if(aMinBallSpeedX <= 0 && aMinBallSpeedY <= 0){
+			throw new RuntimeException ("The minimum speed of the ball must be greater than zero.");
+		}
+	}
+   
+	before constructor, setBallSpeedIncreaseFactor {
+		if(aBallSpeedIncreaseFactor <= 0){
+			throw new RuntimeException ("The speed increase factor of the ball must be greater than zero.");
+		}
+   }
 }
 
 class Paddle {
-   const Integer PADDLE_WIDTH = 5;
-   const Integer VERTICAL_DISTANCE = 30;
-   Integer maxPaddleLength;
-   Integer minPaddleLength;
+	const Integer PADDLE_WIDTH = 5;
+	const Integer VERTICAL_DISTANCE = 30;
+	Integer maxPaddleLength;
+	Integer minPaddleLength;
+	
+	//Yannick
+	before constructor, setMaxPaddleLength {
+		if(aMaxPaddleLength <= 0 || aMaxPaddleLength > 390){
+			throw new RuntimeException ("The maximum length of the paddle must be greater than zero and less than or equal to 390.");
+		}
+	}
+	
+	before constructor, setMinPaddleLength {
+		if(aMinPaddleLength <= 0){
+			throw new RuntimeException ("The minimum length of the paddle must be greater than zero.");
+		}
+	}
 }
