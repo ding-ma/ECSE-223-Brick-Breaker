@@ -710,23 +710,84 @@ public class PlayedGame implements Serializable
 
   // line 47 "../../../../../Block223States.ump"
    private boolean hitLastBlockAndLastLevel(){
-    // TODO implement
+    // Yannick
+	game = getGame();
+
+	int nrLevels = game.numberOfLevels();
+	
+	setBounce(null);
+
+	if(nrLevels == currentLevel){
+		int nrBlocks = numberOfBlocks();
+
+		if(nrBlocks == 1){
+			PlayedBlockAssignment block = getBlock(0);
+			BouncePoint bp = calculateBouncePointBlock(block);
+			if(bp == null){
+				return false;
+			}
+			setBounce(bp);
+			return true;
+		}
+	}
     return false;
   }
 
-  // line 52 "../../../../../Block223States.ump"
+  // line 71 "../../../../../Block223States.ump"
    private boolean hitLastBlock(){
-    // TODO implement
-    return false;
+    // Yannick
+    	int nrBlocks = numberOfBlocks();
+    
+    	setBounce(null);
+    
+    	if(nrBlocks == 1){
+    
+    		PlayedBlockAssignment block = getBlock(0);
+    
+    		BouncePoint bp = calculateBouncePointBlock(block);
+    
+    		if(bp == null){
+    			return false;
+    		}
+    	
+    		setBounce(bp);
+			return true;
+		}
+    
+		return false;
   }
 
-  // line 57 "../../../../../Block223States.ump"
+  // line 94 "../../../../../Block223States.ump"
    private boolean hitBlock(){
-    // TODO implement
+    // Yannick
+    
+    int nrBlocks = numberOfBlocks();
+    
+    setBounce(null);
+    
+    for(int i = 0 ; i < numberOfBlocks() - 1 ; i++){
+    
+    	 PlayedBlockAssignment block = getBlock(i);
+    	 
+    	 BouncePoint bp = calculateBouncePointBlock(block);
+    	 
+    	 bounce = getBounce();
+    	 
+    	 if(bp != null && bounce != null){
+    	 	Boolean closer = isCloser(bp, bounce);
+    	 
+    	 	if(closer){
+    	 	
+    	 		setBounce(bp);
+    	 	
+    		}
+    		return true;
+    	}
+    }
     return false;
   }
 
-  // line 62 "../../../../../Block223States.ump"
+  // line 123 "../../../../../Block223States.ump"
    private boolean hitWall(){
     // TODO implement
     return false;
@@ -736,32 +797,57 @@ public class PlayedGame implements Serializable
   /**
    * Actions
    */
-  // line 69 "../../../../../Block223States.ump"
+  // line 130 "../../../../../Block223States.ump"
    private void doSetup(){
     // TODO implement
   }
 
-  // line 73 "../../../../../Block223States.ump"
+  // line 134 "../../../../../Block223States.ump"
    private void doHitPaddleOrWall(){
     // TODO implement
   }
 
-  // line 77 "../../../../../Block223States.ump"
+  // line 138 "../../../../../Block223States.ump"
    private void doOutOfBounds(){
     // TODO implement
   }
 
-  // line 81 "../../../../../Block223States.ump"
+  // line 142 "../../../../../Block223States.ump"
    private void doHitBlock(){
-    // TODO implement
+    // Yannick
+    int score = getScore();
+    bounce = getBounce();
+    
+    PlayedBlockAssignment pblock = bounce.getHitBlock();
+    
+    Block block = pblock.getBlock();
+    
+    int points = block.getPoints();
+    
+    setScore(score + points);
+    
+    pblock.delete();
+    
+    bounceBall();
   }
 
-  // line 85 "../../../../../Block223States.ump"
+  // line 161 "../../../../../Block223States.ump"
    private void doHitBlockNextLevel(){
-    // TODO implement
+    // Yannick
+    doHitBlock();
+    
+    int level = getCurrentLevel();
+    
+    setCurrentLevel(level + 1);
+    
+    setCurrentPaddleLength(getGame().getPaddle().getMaxPaddleLength() -
+    	(getGame().getPaddle().getMaxPaddleLength() - getGame().getPaddle().getMinPaddleLength()) / 
+    	(getGame().numberOfLevels() - 1) * (getCurrentLevel() - 1));
+    	
+    setWaitTime(INITIAL_WAIT_TIME * Math.pow(getGame().getBall().getBallSpeedIncreaseFactor(), (getCurrentLevel() - 1)));
   }
 
-  // line 89 "../../../../../Block223States.ump"
+  // line 177 "../../../../../Block223States.ump"
    private void doHitNothingAndNotOutOfBounds(){
     double x = getCurrentBallX();
     double y = getCurrentBallY();
@@ -772,7 +858,7 @@ public class PlayedGame implements Serializable
     setCurrentBallY(y+dy);
   }
 
-  // line 100 "../../../../../Block223States.ump"
+  // line 181 "../../../../../Block223States.ump"
    private void doGameOver(){
     // TODO implement
   }
