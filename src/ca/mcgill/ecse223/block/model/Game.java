@@ -5,8 +5,7 @@ package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 import java.util.*;
 
-// line 29 "../../../../../Block223Persistence.ump"
-// line 55 "../../../../../Block223PersistenceMairead.ump"
+// line 49 "../../../../../Block223Persistence.ump"
 // line 6 "../../../../../Block223PlayMode.ump"
 // line 73 "../../../../../Block223 v3.ump"
 public class Game implements Serializable
@@ -161,7 +160,9 @@ public class Game implements Serializable
   {
     boolean wasSet = false;
     // line 117 "../../../../../Block223 v3.ump"
-
+    if(aName.equals("The name of a game must be specified.")){
+                   throw new RuntimeException("");
+                }
     // END OF UMPLE BEFORE INJECTION
     String anOldName = getName();
     if (hasWithName(aName)) {
@@ -170,9 +171,9 @@ public class Game implements Serializable
     name = aName;
     wasSet = true;
     // line 109 "../../../../../Block223 v3.ump"
-    //if(!setName(aName)){
-    //         			throw new RuntimeException("The name of a game must be unique");
-    //         		}
+    if(!setName(aName)){
+             			throw new RuntimeException("The name of a game must be unique");
+             		}
     // END OF UMPLE AFTER INJECTION
     if (anOldName != null) {
       gamesByName.remove(anOldName);
@@ -893,7 +894,7 @@ public class Game implements Serializable
     }
   }
 
-  // line 62 "../../../../../Block223PersistenceMairead.ump"
+  // line 54 "../../../../../Block223Persistence.ump"
    public static  void reinitializeUniqueName(List<Game> games){
     gamesByName = new HashMap<String, Game>();
     for (Game game : games) {
@@ -935,7 +936,7 @@ public class Game implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 32 "../../../../../Block223Persistence.ump"
+  // line 60 "../../../../../Block223Persistence.ump"
   private static final long serialVersionUID = -210105651472293481L ;
 
   

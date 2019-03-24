@@ -5,8 +5,7 @@ package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 import java.util.*;
 
-// line 53 "../../../../../Block223Persistence.ump"
-// line 22 "../../../../../Block223PersistenceMairead.ump"
+// line 95 "../../../../../Block223Persistence.ump"
 // line 198 "../../../../../Block223 v3.ump"
 public class Ball implements Serializable
 {
@@ -37,7 +36,7 @@ public class Ball implements Serializable
   {
     // line 206 "../../../../../Block223 v3.ump"
     if(aMinBallSpeedX <= 0 && aMinBallSpeedY <= 0){
-    			throw new RuntimeException ("The  minimum  speed  of  the  ball  must be greater than zero.");
+    			throw new RuntimeException ("The minimum speed of the ball must be greater than zero.");
     		}
     // END OF UMPLE BEFORE INJECTION
     // line 212 "../../../../../Block223 v3.ump"
@@ -59,7 +58,7 @@ public class Ball implements Serializable
   {
     // line 206 "../../../../../Block223 v3.ump"
     if(aMinBallSpeedX <= 0 && aMinBallSpeedY <= 0){
-    			throw new RuntimeException ("The  minimum  speed  of  the  ball  must be greater than zero.");
+    			throw new RuntimeException ("The minimum speed of the ball must be greater than zero.");
     		}
     // END OF UMPLE BEFORE INJECTION
     // line 212 "../../../../../Block223 v3.ump"
@@ -149,7 +148,7 @@ public class Ball implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 56 "../../../../../Block223Persistence.ump"
+  // line 98 "../../../../../Block223Persistence.ump"
   private static final long serialVersionUID = 7342002601644000501L ;
 
   

@@ -21,33 +21,42 @@ class PlayedGame {
    
    // the PlayedBall and PlayedPaddle are not in a separate class to avoid the bug in Umple that occurred for the second constructor of Game
 
-   // no direct link to Ball, because the ball can be found by navigating to PlayedGame, Game, and then Ball
+   // no direct link to Ball, because the ball can be found by navigating to Game and then Ball
    const Integer BALL_INITIAL_X = Game.PLAY_AREA_SIDE / 2;
    const Integer BALL_INITIAL_Y = Game.PLAY_AREA_SIDE / 2;
    // 0/0 is the top left corner of the play area, i.e., a directionX/Y of 0/1 moves the ball down in a straight line
-   Double ballDirectionX = getGame().getBall().getMinBallSpeedX();
-   Double ballDirectionY = getGame().getBall().getMinBallSpeedY();
+   defaulted Double ballDirectionX = getGame().getBall().getMinBallSpeedX();
+   defaulted Double ballDirectionY = getGame().getBall().getMinBallSpeedY();
    // the position of the ball is at the center of the ball
    defaulted Double currentBallX = BALL_INITIAL_X;
    defaulted Double currentBallY = BALL_INITIAL_Y;
 
-   // no direct link to Paddle, because the paddle can be found by navigating to PlayedGame, Game, and then Paddle
+   // no direct link to Paddle, because the paddle can be found by navigating to Game and then Paddle
    const Integer PADDLE_MOVE_RIGHT = 1; // pixels moved when right arrow key is pressed
    const Integer PADDLE_MOVE_LEFT = -1; // pixels moved when left arrow key is pressed
    Double currentPaddleLength = getGame().getPaddle().getMaxPaddleLength();
-   // the position of the paddle is at its top right corner
+   // the position of the paddle is at its top left corner
    defaulted Double currentPaddleX = (Game.PLAY_AREA_SIDE - currentPaddleLength) / 2;
    immutable Double currentPaddleY = Game.PLAY_AREA_SIDE - Paddle.VERTICAL_DISTANCE - Paddle.PADDLE_WIDTH;
 
    * -- 1 Game game;
    1 <@>- * PlayedBlockAssignment blocks;
    0..1 -> 0..1 BouncePoint bounce;
+   
+   before constructor {
+      boolean didAddGameResult = setGame(aGame);
+      if (!didAddGameResult)
+      {
+         throw new RuntimeException("Unable to create playedGame due to game");
+      }
+   }
+   
 }
 
 class PlayedBlockAssignment {
    // the associated block is either (a) the same as the one of the corresponding BlockAssignent or (b) randomly chosen
    * -- 1 Block block;
-   // the position of a block is at its top right corner
+   // the position of a block is at its top left corner
    Integer x;
    Integer y;
 }
