@@ -4,8 +4,11 @@
 package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 
-// line 103 "../../../../../Block223PersistenceMairead.ump"
-// line 74 "../../../../../Block223 v3.ump"
+
+// line 31 "../../../../../Block223Persistence.ump"
+// line 54 "../../../../../Block223 v3.ump"
+
+
 public abstract class UserRole implements Serializable
 {
 
@@ -100,5 +103,15 @@ public abstract class UserRole implements Serializable
     return super.toString() + "["+
             "password" + ":" + getPassword()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "block223 = "+(getBlock223()!=null?Integer.toHexString(System.identityHashCode(getBlock223())):"null");
+
+  }  
+  //------------------------
+  // DEVELOPER CODE - PROVIDED AS-IS
+  //------------------------
+  
+  // line 34 "../../../../../Block223Persistence.ump"
+  private static final long serialVersionUID = 3389752283403781197L ;
+
   }
+
 }
