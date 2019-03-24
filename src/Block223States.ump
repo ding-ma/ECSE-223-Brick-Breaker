@@ -29,7 +29,14 @@ class PlayedGame {
   // Guards
   
   private boolean hitPaddle() {
-    // TODO implement
+    // George
+    BouncePoint bp = calculateBouncePointPaddle();
+    
+    setBounce(bp);
+    
+    if(bp != null){
+    	return true;
+    }
     return false;
   }
 
@@ -120,7 +127,14 @@ class PlayedGame {
   }
   
   private boolean hitWall() {
-    // TODO implement
+    // George
+    BouncePoint bp = calculateBouncePointWall();
+    
+    setBounce(bp);
+    
+    if(bp != null){
+    	return true;
+    }
     return false;
   }
   
@@ -131,7 +145,8 @@ class PlayedGame {
   }
   
   private void doHitPaddleOrWall() {
-    // TODO implement
+    // George
+    bounceBall();
   }
 
   private void doOutOfBounds() {

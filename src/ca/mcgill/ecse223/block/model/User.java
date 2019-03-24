@@ -32,12 +32,11 @@ public class User implements Serializable
   // CONSTRUCTOR
   //------------------------
 
-   public User(String aUsername, Block223 aBlock223, UserRole... allRoles)
+  public User(String aUsername, Block223 aBlock223, UserRole... allRoles)
   {
-    // line 35 "../../../../../Block223 v3.ump"
-
-    if(username == null||username.equals(""){ 	
-
+    // line 36 "../../../../../Block223 v3.ump"
+    if(username == ""||username.equals("")){
+    
        throw new RuntimeException("The username must be specified.");}
     // END OF UMPLE BEFORE INJECTION
     if (!setUsername(aUsername))
@@ -57,7 +56,6 @@ public class User implements Serializable
     }
   }
 
-
   //------------------------
   // INTERFACE
   //------------------------
@@ -65,8 +63,9 @@ public class User implements Serializable
   public boolean setUsername(String aUsername)
   {
     boolean wasSet = false;
-    // line 35 "../../../../../Block223 v3.ump"
-    if((username == "")){
+    // line 36 "../../../../../Block223 v3.ump"
+    if(username == ""||username.equals("")){
+    
        throw new RuntimeException("The username must be specified.");}
     // END OF UMPLE BEFORE INJECTION
     String anOldUsername = getUsername();
@@ -271,7 +270,7 @@ public class User implements Serializable
   /**
    * Mairead
    */
-  // line 40 "../../../../../Block223 v3.ump"
+  // line 42 "../../../../../Block223 v3.ump"
    public static  UserRole findPassword(String password, User user){
     List<UserRole> roles = user.getRoles();
 	for(UserRole role : roles) {
@@ -289,7 +288,7 @@ public class User implements Serializable
    * end
    * Anne-Julie
    */
-  // line 55 "../../../../../Block223 v3.ump"
+  // line 57 "../../../../../Block223 v3.ump"
    public static  String findUsername(UserRole currentuserrole){
     Map<User, String> usernamesUser = new HashMap<>();
 		for(Map.Entry<String, User> entry : usersByUsername.entrySet()){
