@@ -721,30 +721,23 @@ public class Block223Controller implements Serializable {
 	// Query methods
 	// ****************************
 	//George
-	public static List<TOGame> getDesignableGames() throws InvalidInputException {
-		String error;
-		UserRole userRole = Block223Application.getCurrentUserRole();
-		if (userRole instanceof Player || userRole == null) {
-			error = "Admin privileges are required to access game information.";
-			throw new InvalidInputException(error);
-		}
-		ArrayList<TOGame> games = new ArrayList<TOGame>();
-		for (Game game : Block223Application.getBlock223().getGames()) {
-			//NOT sure about the numberOfBlocks() method.
-			if(game.isPublished()) {
-				break;
-			}
-			
-			if(!userRole.equals(Block223Application.getCurrentGame().getAdmin())) {
-				break;
-			}
-			TOGame toGame = new TOGame(game.getName(), game.numberOfLevels(), game.getNrBlocksPerLevel(),
-					game.getBall().getMinBallSpeedX(), game.getBall().getMinBallSpeedY(), game.getBall().getBallSpeedIncreaseFactor(),
-					game.getPaddle().getMaxPaddleLength(), game.getPaddle().getMinPaddleLength());
-			games.add(toGame);
-		}
-		return games;
-	}
+	  public static List<TOGame> getDesignableGames() throws InvalidInputException {
+	        String error;
+	        UserRole userRole = Block223Application.getCurrentUserRole();
+	        if (userRole instanceof Player || userRole == null) {
+	            error = "Admin privileges are required to access game information.";
+	            throw new InvalidInputException(error);
+	        }
+	        ArrayList<TOGame> games = new ArrayList<TOGame>();
+	        for (Game game : Block223Application.getBlock223().getGames()) {
+	            //NOT sure about the numberOfBlocks() method.
+	            TOGame toGame = new TOGame(game.getName(), game.numberOfLevels(), game.getNrBlocksPerLevel(),
+	                    game.getBall().getMinBallSpeedX(), game.getBall().getMinBallSpeedY(), game.getBall().getBallSpeedIncreaseFactor(),
+	                    game.getPaddle().getMaxPaddleLength(), game.getPaddle().getMinPaddleLength());
+	            games.add(toGame);
+	        }
+	        return games;
+	    }
 
 	//Ding
 	public static TOGame getCurrentDesignableGame() throws InvalidInputException {
@@ -793,8 +786,6 @@ public class Block223Controller implements Serializable {
 			error+="Only the admin who created the game can access its information.";
 			throw new InvalidInputException(error);
 		}
-
-
 
 		ArrayList<TOBlock> blocks = new ArrayList<TOBlock>();
 		for (Block block : Block223Application.getCurrentGame().getBlocks()) {
@@ -864,8 +855,9 @@ public class Block223Controller implements Serializable {
 		}
 		return gridCells;
 	}
+	
 	//Mairead
-	public static TOUserMode getUserMode() throws InvalidInputException{ //put in refresh data class
+	public static TOUserMode getUserMode(){ //put in refresh data class
 		UserRole userRole = Block223Application.getCurrentUserRole();
 		
 		TOUserMode to = new TOUserMode(Mode.None);
