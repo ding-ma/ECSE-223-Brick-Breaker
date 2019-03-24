@@ -64,7 +64,9 @@ public class Block223Application {
 
 		
 	}
+
 	
+
 	public static void setCurrentPlayableGame(PlayedGame aGame){
 		currentPlayableGame = aGame;
 	}
@@ -72,5 +74,7 @@ public class Block223Application {
 	public static PlayedGame getCurrentPlayableGame(){
 		return currentPlayableGame;
 	}
+
 	
+
 }
