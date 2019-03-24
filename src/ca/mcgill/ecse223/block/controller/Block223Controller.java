@@ -7,6 +7,7 @@ import java.util.List;
 import ca.mcgill.ecse223.block.application.*;
 import ca.mcgill.ecse223.block.model.*;
 import ca.mcgill.ecse223.block.persistence.*;
+import ca.mcgill.ecse223.block.view.Block223PlayModeInterface;
 import ca.mcgill.ecse223.block.controller.TOUserMode.Mode;
 
 public class Block223Controller implements Serializable {
@@ -62,6 +63,7 @@ public class Block223Controller implements Serializable {
 	public static void setGameDetails(int nrLevels, int nrBlocksPerLevel, int minBallSpeedX, int minBallSpeedY, Double ballSpeedIncreaseFactor, int maxPaddleLength, int minPaddleLength) throws InvalidInputException {
 
         Game game = Block223Application.getCurrentGame();
+        UserRole userRole = Block223Application.getCurrentUserRole();
         
         if(minBallSpeedX <= 0 && minBallSpeedY <= 0){
 			throw new InvalidInputException ("The minimum speed of the ball must be greater than zero.");
@@ -70,12 +72,16 @@ public class Block223Controller implements Serializable {
         if(nrLevels < 1 || nrLevels > 99) {
         	throw new InvalidInputException ("The number of levels must be between 1 and 99.");
         }
-        
+        if(userRole instanceof Player || userRole == null) {
+				throw new InvalidInputException("Admin privileges are required to define game settings.");
+			}
+	        
         if (game != null) {
         	
-	        if(game.getAdmin() != Block223Application.getCurrentUserRole()) {
+	        if(game.getAdmin() != userRole) {
 	        	throw new InvalidInputException ("Only the admin who created the game can define its game settings.");
 	        }
+	        
 	        
 	        Ball ball = game.getBall();
 	
@@ -635,6 +641,63 @@ public class Block223Controller implements Serializable {
 	public static void logout() {
 		Block223Application.setCurrentUserRole(null);
 		return;
+	}
+	
+	public static void testGame(Block223PlayModeInterface ui) throws InvalidInputException {
+		String error = "";
+		
+		Game game = Block223Application.getCurrentGame();
+		if(game==null) {
+			error = "A game must be selected to publish it.";
+			throw new InvalidInputException(error);
+		}
+		
+		UserRole userRole = Block223Application.getCurrentUserRole();
+		if (userRole instanceof Player || userRole == null) {
+			error = "Admin privileges are required to test a game.";
+			throw new InvalidInputException(error);
+		}
+		
+		if(game.getAdmin() != userRole) {
+			error = "Only the admin who created the game can test it.";
+        	throw new InvalidInputException(error);
+        }
+		
+		UserRole admin = Block223Application.getCurrentUserRole();
+		
+		String username = User.findUsername(admin);
+		
+		Block223 block223 = Block223Application.getBlock223();
+		
+		PlayedGame pgame = new PlayedGame(username, game, block223);
+		pgame.setPlayer(null);
+		Block223Application.setCurrentPlayableGame(pgame);
+		//startGame(ui);
+	}
+	
+	public static void publishGame() throws InvalidInputException {
+		String error = "";
+		Game game = Block223Application.getCurrentGame();
+		if(game == null) {
+			error = "A game must be selected to publish it.";
+			throw new InvalidInputException(error);
+		}
+		
+		UserRole userRole = Block223Application.getCurrentUserRole();
+		if (userRole instanceof Player || userRole == null) {
+			error = "Admin privileges are required to publish a game.";
+			throw new InvalidInputException(error);
+		}
+		
+		if(game.getAdmin() != userRole) {
+			error = "Only the admin who created the game can publish it.";
+        	throw new InvalidInputException(error);
+        }
+		if(game.getNrBlocksPerLevel()<1) {
+			error = "At least one block must be defined for a game to be published.";
+			throw new InvalidInputException(error);
+		}
+		game.setPublished(true);
 	}
 
 	// ****************************

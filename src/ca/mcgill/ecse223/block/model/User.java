@@ -65,6 +65,10 @@ public class User implements Serializable
   public boolean setUsername(String aUsername)
   {
     boolean wasSet = false;
+    // line 35 "../../../../../Block223 v3.ump"
+    if((username == "")){
+       throw new RuntimeException("The username must be specified.");}
+    // END OF UMPLE BEFORE INJECTION
     String anOldUsername = getUsername();
     if (hasWithUsername(aUsername)) {
       return wasSet;
@@ -278,6 +282,28 @@ public class User implements Serializable
     
    }
 	return null;
+  }
+
+
+  /**
+   * end
+   * Anne-Julie
+   */
+  // line 55 "../../../../../Block223 v3.ump"
+   public static  String findUsername(UserRole currentuserrole){
+    Map<User, String> usernamesUser = new HashMap<>();
+		for(Map.Entry<String, User> entry : usersByUsername.entrySet()){
+		usernamesUser.put(entry.getValue(), entry.getKey());
+	}
+	for (User value : usernamesUser.keySet()) {
+		List<UserRole> roles = value.getRoles();
+      		for(UserRole role : roles) {
+      			if(role==currentuserrole) {
+      				return value.getUsername().toString();
+      		}
+      	}
+	}
+      return null;
   }
 
 
