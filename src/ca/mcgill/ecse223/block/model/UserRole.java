@@ -4,11 +4,8 @@
 package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 
-
 // line 31 "../../../../../Block223Persistence.ump"
-// line 54 "../../../../../Block223 v3.ump"
-
-
+// line 69 "../../../../../Block223 v3.ump"
 public abstract class UserRole implements Serializable
 {
 
@@ -28,7 +25,7 @@ public abstract class UserRole implements Serializable
 
   public UserRole(String aPassword, Block223 aBlock223)
   {
-    // line 79 "../../../../../Block223 v3.ump"
+    // line 74 "../../../../../Block223 v3.ump"
     if(aPassword == null || aPassword == ""){
        				throw new RuntimeException("The player password needs to be specified.");
        			}
@@ -48,7 +45,7 @@ public abstract class UserRole implements Serializable
   public boolean setPassword(String aPassword)
   {
     boolean wasSet = false;
-    // line 79 "../../../../../Block223 v3.ump"
+    // line 74 "../../../../../Block223 v3.ump"
     if(aPassword == null || aPassword == ""){
        				throw new RuntimeException("The player password needs to be specified.");
        			}
@@ -103,7 +100,6 @@ public abstract class UserRole implements Serializable
     return super.toString() + "["+
             "password" + ":" + getPassword()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "block223 = "+(getBlock223()!=null?Integer.toHexString(System.identityHashCode(getBlock223())):"null");
-
   }  
   //------------------------
   // DEVELOPER CODE - PROVIDED AS-IS
@@ -112,5 +108,5 @@ public abstract class UserRole implements Serializable
   // line 34 "../../../../../Block223Persistence.ump"
   private static final long serialVersionUID = 3389752283403781197L ;
 
-  }
-
+  
+}
