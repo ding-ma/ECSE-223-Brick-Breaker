@@ -288,7 +288,7 @@ public class User implements Serializable
   private static final long serialVersionUID = 4267485601061759914L ;
 
 
-  public static String findUsername(UserRole player) {
+  public static String findUsername(UserRole currentuserrole) {
     Map<User, String> usernamesUser = new HashMap<>();
     for (Map.Entry<String, User> entry : usersByUsername.entrySet()) {
       usernamesUser.put(entry.getValue(), entry.getKey());
@@ -296,13 +296,13 @@ public class User implements Serializable
     for (User value : usernamesUser.keySet()) {
       List<UserRole> roles = value.getRoles();
       for (UserRole role : roles) {
-        if (role == player) {
-          return value.getUsername().toString();
+        if (role == currentuserrole) {
+          return value.getUsername();
         }
       }
     }
     return null;
-    }
+  }
 
 
 }

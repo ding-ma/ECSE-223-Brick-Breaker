@@ -1,17 +1,15 @@
 package ca.mcgill.ecse223.block.controller;
 
+import ca.mcgill.ecse223.block.application.Block223Application;
+import ca.mcgill.ecse223.block.controller.TOUserMode.Mode;
+import ca.mcgill.ecse223.block.model.*;
+import ca.mcgill.ecse223.block.model.PlayedGame.PlayStatus;
+import ca.mcgill.ecse223.block.persistence.Block223Persistence;
+import ca.mcgill.ecse223.block.view.Block223PlayModeInterface;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import ca.mcgill.ecse223.block.application.*;
-import ca.mcgill.ecse223.block.model.*;
-import ca.mcgill.ecse223.block.view.*;
-import ca.mcgill.ecse223.block.persistence.*;
-import ca.mcgill.ecse223.block.controller.TOUserMode.Mode;
-import ca.mcgill.ecse223.block.model.PlayedGame.PlayStatus;
-import javafx.print.PageLayout;
-import org.omg.CORBA.DynAnyPackage.Invalid;
 
 public class Block223Controller implements Serializable {
     private static Game game;
@@ -628,14 +626,14 @@ public class Block223Controller implements Serializable {
         PlayedGame pgame = null;
 
         if (game != null) {
-            UserRole player = Block223Application.getCurrentUserRole();
-            String username = User.findUsername(player);
+            UserRole currentuserrole = Block223Application.getCurrentUserRole();
+            String username = User.findUsername(currentuserrole);
 
             if (username == null && game == null) {
                 throw new InvalidInputException("The game does not exist.");
             }
             PlayedGame result = new PlayedGame(username, game, block223);
-            result.setPlayer((Player) player);
+            result.setPlayer((Player) currentuserrole);
         } else {
             //this may cause errors
             pgame = block223.findPlayableGame(id);
@@ -707,12 +705,10 @@ public class Block223Controller implements Serializable {
                     pgame.setCurrentPaddleX(currentPaddleX + position);
                 }
                 if (userInput.equals(" ")) {
-
+                    PlayStatus paused = PlayStatus.Paused;
                     break;
                 }
             }
-
-
         }
     }
 
