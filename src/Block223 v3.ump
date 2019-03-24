@@ -31,7 +31,7 @@ class User {
    1 -> 1..2 UserRole roles;
       //Mairead 
    
-  
+
    //Mairead 
    public static UserRole findPassword(String password, User user){
     List<UserRole> roles = user.getRoles();
@@ -46,13 +46,31 @@ class User {
     
   }
   //end
+
+  //Anne-Julie 
+   public static String findUsername(UserRole currentuserrole){
+	Map<User, String> usernamesUser = new HashMap<>();
+		for(Map.Entry<String, User> entry : usersByUsername.entrySet()){
+		usernamesUser.put(entry.getValue(), entry.getKey());
+	}
+	for (User value : usernamesUser.keySet()) {
+		List<UserRole> roles = value.getRoles();
+      		for(UserRole role : roles) {
+      			if(role==currentuserrole) {
+      				return value.getUsername().toString();
+      		}
+      	}
+	}
+      return null;
+ }
+   //end
 }
 
 class UserRole {
    abstract;
    password;
 
-      before constructor, UserRole{
+      before constructor, setPassword{
    			if(aPassword == null || aPassword == ""){
    				throw new RuntimeException("The player password needs to be specified.");
    			}
@@ -99,20 +117,6 @@ class Game {
          before constructor, setNrBlocksPerLevel{
             if(aNrBlocksPerLevel <= 0){
                throw new RuntimeException("The number of blocks per level must be greater than zero.");
-            }
-         }
-
-         after setName{
-         		if(!setName(aName)){
-         			throw new RuntimeException("The name of a game must be unique");
-         		}
-         }
-
-         //Anne-Julie
-
-         before setName{
-            if(aName.equals("The name of a game must be specified.")){
-               throw new RuntimeException("");
             }
          }
       //end
