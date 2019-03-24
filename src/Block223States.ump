@@ -55,8 +55,8 @@ class PlayedGame {
 		int nrBlocks = numberOfBlocks();
 
 		if(nrBlocks == 1){
-			block = getBlock(0);
-			bp = calculateBouncePointBlock(block);
+			PlayedBlockAssignment block = getBlock(0);
+			BouncePoint bp = calculateBouncePointBlock(block);
 			if(bp == null){
 				return false;
 			}
@@ -67,13 +67,55 @@ class PlayedGame {
     return false;
   }
   
-  private boolean hitLastBlock(){
+	private boolean hitLastBlock(){
     // Yannick
-    return false;
-  }
+    	int nrBlocks = numberOfBlocks();
+    
+    	setBounce(null);
+    
+    	if(nrBlocks == 1){
+    
+    		PlayedBlockAssignment block = getBlock(0);
+    
+    		BouncePoint bp = calculateBouncePointBlock(block);
+    
+    		if(bp == null){
+    			return false;
+    		}
+    	
+    		setBounce(bp);
+			return true;
+		}
+    
+		return false;
+	}
   
   private boolean hitBlock() {
-    // TODO implement
+    // Yannick
+    
+    int nrBlocks = numberOfBlocks();
+    
+    setBounce(null);
+    
+    for(int i = 0 ; i < numberOfBlocks() - 1 ; i++){
+    
+    	 PlayedBlockAssignment block = getBlock(i);
+    	 
+    	 BouncePoint bp = calculateBouncePointBlock(block);
+    	 
+    	 bounce = getBounce();
+    	 
+    	 if(bp != null && bounce != null){
+    	 	Boolean closer = isCloser(bp, bounce);
+    	 
+    	 	if(closer){
+    	 	
+    	 		setBounce(bp);
+    	 	
+    		}
+    		return true;
+    	}
+    }
     return false;
   }
   
@@ -116,7 +158,19 @@ class PlayedGame {
   }
 
   private void doHitBlockNextLevel() {
-    // TODO implement
+    // Yannick
+    doHitBlock();
+    
+    int level = getCurrentLevel();
+    
+    setCurrentLevel(level + 1);
+    
+    setCurrentPaddleLength(getGame().getPaddle().getMaxPaddleLength() -
+    	(getGame().getPaddle().getMaxPaddleLength() - getGame().getPaddle().getMinPaddleLength()) / 
+    	(getGame().numberOfLevels() - 1) * (getCurrentLevel() - 1));
+    	
+    setWaitTime(INITIAL_WAIT_TIME * Math.pow(getGame().getBall().getBallSpeedIncreaseFactor(), (getCurrentLevel() - 1)));
+    
   }
 
   private void doHitNothingAndNotOutOfBounds() {
