@@ -885,7 +885,7 @@ public class PlayedGame implements Serializable
      resetBallDirectionX();
      resetBallDirectionY();
      resetCurrentPaddleX();
-    // TODO implement
+    
   }
 
   // line 157 "../../../../../Block223States.ump"
@@ -948,7 +948,7 @@ public class PlayedGame implements Serializable
      }
 
      game.delete();
-    // TODO implement
+    
   }
 
 
