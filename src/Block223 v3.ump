@@ -31,8 +31,10 @@ class User {
    1 -> 1..2 UserRole roles;
       //Mairead 
    
+
    before constructor, setUsername{
-   if((username == "")){
+   if(username == ""||username.equals("")){
+
    throw new RuntimeException("The username must be specified.");}
    }
    //Mairead 
