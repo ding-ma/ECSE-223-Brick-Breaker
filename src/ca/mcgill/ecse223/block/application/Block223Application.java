@@ -10,6 +10,7 @@ public class Block223Application {
 	private static Block223 block223;
 	private static Game game;
 	private static UserRole userRole;
+	private static PlayedGame currentPlayableGame;
 
 	
 	public static void main(String[] args) {
@@ -25,7 +26,8 @@ public class Block223Application {
 	//Done
 	public static Block223 getBlock223() {
 		if (block223 == null) {
-			block223 = new Block223();
+			//changed
+			block223 = Block223Persistence.load();
 		}
  		return block223;
 	}
@@ -61,6 +63,14 @@ public class Block223Application {
 		return userRole;
 
 		
+	}
+	
+	public static void setCurrentPlayableGame(PlayedGame aGame){
+		currentPlayableGame = aGame;
+	}
+
+	public static PlayedGame getCurrentPlayableGame(){
+		return currentPlayableGame;
 	}
 	
 }
