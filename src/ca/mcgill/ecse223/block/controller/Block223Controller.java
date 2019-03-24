@@ -874,7 +874,7 @@ public class Block223Controller implements Serializable {
 		}
 
 
-		return to;
+		return to
 	}
 
 	// play mode
@@ -887,15 +887,105 @@ public class Block223Controller implements Serializable {
     public static List<TOCurrentlyPlayedGame> getCurrentPlayableGame() throws InvalidInputException {
         return null;
     }
+*/
+      public static TOHallOfFame getHallOfFame(int start, int end) throws InvalidInputException {
+		
+    	String errorMessage;
+		TOHallOfFame result;
+		UserRole currentUserRole = Block223Application.getCurrentUserRole();
+		
+		try {
+			
+			if(!(currentUserRole instanceof Player)) {
+				errorMessage = "Player privileges are required to access a game's hall of fame.";
+				throw new InvalidInputException(errorMessage);
+			}
+			
+			PlayedGame pgame = Block223Application.getCurrentPlayableGame();
+			if(pgame.equals(null) || pgame==null ) {
+				errorMessage = "A game must be selected to view its hall of fame.";
+				throw new InvalidInputException(errorMessage);
+			}
+			Game game = pgame.getGame();			
 
-    public static TOHallOfFame getHallOfFame(int start, int end) throws InvalidInputException {
-        return null;
-    }
+			result = new TOHallOfFame(game.getName());
+			
+			if(start < 1) {
+				start=1;
+			}
+			if(end > game.numberOfHallOfFameEntries()) {
+				end=game.numberOfHallOfFameEntries();
+			}
+			start = start - 1;
+			end = end - 1;
+			
+			for(int x=start; x<end; x++) {
+				TOHallOfFameEntry to = new TOHallOfFameEntry(
+						x+1,
+						game.getHallOfFameEntry(x).getPlayername(),
+						game.getHallOfFameEntry(x).getScore(),
+						result
+						);
+				result.addEntry(to);
+			}
+			
+		}
+		catch(NullPointerException e) {
+			throw new InvalidInputException(e.getMessage());
+		}
+		return result;
+	}
+	public static TOHallOfFame getHallOfFameWithMostRecentEntry(int numberOfEntries) throws InvalidInputException {
+		String errorMessage;
+		TOHallOfFame result;
+		UserRole currentUserRole = Block223Application.getCurrentUserRole();
+		
+		try {
+			
+			if(!(currentUserRole instanceof Player)) {
+				errorMessage = "Player privileges are required to access a game's hall of fame.";
+				throw new InvalidInputException(errorMessage);
+			}
+			
+			PlayedGame pgame = Block223Application.getCurrentPlayableGame();
+			if(pgame.equals(null) || pgame==null) {
+				errorMessage = "A game must be selected to view its hall of fame.";
+				throw new InvalidInputException(errorMessage);
+			}
+			Game game = pgame.getGame();
 
-    public static TOHallOfFame getHallOfFameWithMostRecentEntry(int numberOfEntries) throws InvalidInputException {
-        return null;
-   }
-	 */
+			result = new TOHallOfFame(game.getName());
+			
+			HallOfFameEntry mostRecent = game.getMostRecentEntry();
+			int indexR = game.indexOfHallOfFameEntry(mostRecent);
+			
+			int start = indexR - numberOfEntries/2;
+			if(start<1) {
+				start = 1;
+			}
+			
+			int end = start + numberOfEntries - 1;
+			if(end>game.numberOfHallOfFameEntries()) {
+				end = game.numberOfHallOfFameEntries();
+			}
+			
+			start = start - 1;
+			end = end - 1;
+			
+			for(int x=start; x<end; x++) {
+				TOHallOfFameEntry to = new TOHallOfFameEntry(
+						x+1,
+						game.getHallOfFameEntry(x).getPlayername(),
+						game.getHallOfFameEntry(x).getScore(),
+						result
+						);
+				result.addEntry(to);
+			}
+			
+		}catch(NullPointerException e) {
+			throw new InvalidInputException(e.getMessage());
+		}
+		return result;	}
+
 }
-
 
