@@ -133,7 +133,6 @@ class PlayedGame {
 	
 	//intersectionA
 	if (interA) {
-		this.setBallDirectionX()
 		return new BouncePoint(xCurrent,xNext, BounceDirection.FLIP_Y);
 	   }
 	   
