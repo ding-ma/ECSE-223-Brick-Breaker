@@ -625,7 +625,7 @@ public class Block223Controller implements Serializable {
         PlayedGame pgame = null;
         if (game != null){
             UserRole player = Block223Application.getCurrentUserRole();
-            String username = User.findUserName(player);
+            String username = User.findUsername(player);
 
             if (username == null) {
                 throw new InvalidInputException("The game does not exist.");
@@ -664,6 +664,30 @@ public class Block223Controller implements Serializable {
         }
     }
 
+    public static void updatePaddlePosition(String userInput) {
+        PlayedGame pgame = Block223Application.getCurrentPlayableGame();
+        if (pgame != null) {
+            while (Block223Application.getCurrentPlayableGame() != null) {
+
+                if (userInput.equals("l")) {
+                    double currentPaddleX = pgame.getCurrentPaddleX();
+                    double position = PlayedGame.PADDLE_MOVE_LEFT;
+                    pgame.setCurrentPaddleX(currentPaddleX + position);
+                }
+                if (userInput.equals("r")) {
+                    double currentPaddleX = pgame.getCurrentPaddleX();
+                    double position = PlayedGame.PADDLE_MOVE_RIGHT;
+                    pgame.setCurrentPaddleX(currentPaddleX + position);
+                }
+                if (userInput.equals(" ")) {
+
+                    break;
+                }
+            }
+
+
+        }
+    }
     public static void publishGame() throws InvalidInputException {
     }
 
@@ -847,10 +871,10 @@ public class Block223Controller implements Serializable {
 
     //TODO error handling for this one
     public static TOCurrentlyPlayedGame getCurrentPlayableGame() throws InvalidInputException {
-        String error;
+        String error = "";
         UserRole userRole = Block223Application.getCurrentUserRole();
         if (userRole == null) {
-            error = "Player privileges are required to play a game.";
+            error += "Player privileges are required to play a game.";
             throw new InvalidInputException(error);
         }
         if (Block223Application.getCurrentGame() == null) {
@@ -860,7 +884,11 @@ public class Block223Controller implements Serializable {
             throw new InvalidInputException("Player privileges are required to play a game.");
         }
         //TODO
-        if (userRole instanceof Admin && getCurrentPlayableGame().get != Admin) {
+
+        else if (!userRole.equals(Block223Application.getCurrentGame().getAdmin())) {
+            error += "Only the admin who created the game can add a block.";
+        }
+        if (userRole instanceof Admin && getCurrentPlayableGame().getPlayername() == Admin) {
             throw new InvalidInputException("Only the admin of a game can test the game.");
         }
         if (userRole instanceof Player && getCurrentPlayableGame() == null) {

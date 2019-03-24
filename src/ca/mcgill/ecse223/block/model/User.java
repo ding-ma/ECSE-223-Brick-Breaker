@@ -287,9 +287,21 @@ public class User implements Serializable
   // line 14 "../../../../../Block223Persistence.ump"
   private static final long serialVersionUID = 4267485601061759914L ;
 
-    //TODO
-    public static String findUserName(UserRole player) {
-        return null;
+
+  public static String findUsername(UserRole player) {
+    Map<User, String> usernamesUser = new HashMap<>();
+    for (Map.Entry<String, User> entry : usersByUsername.entrySet()) {
+      usernamesUser.put(entry.getValue(), entry.getKey());
+    }
+    for (User value : usernamesUser.keySet()) {
+      List<UserRole> roles = value.getRoles();
+      for (UserRole role : roles) {
+        if (role == player) {
+          return value.getUsername().toString();
+        }
+      }
+    }
+    return null;
     }
 
 

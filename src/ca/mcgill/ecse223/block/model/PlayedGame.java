@@ -759,7 +759,6 @@ public class PlayedGame implements Serializable
        int x = ThreadLocalRandom.current().nextInt(1, 15);
        int y = ThreadLocalRandom.current().nextInt(1, 15);
 
-//TODO, move x/y if they match a block assignment
 
        for (BlockAssignment ablockAssignment : assignments) {
          if (ablockAssignment.getGridHorizontalPosition() == x && ablockAssignment.getGridVerticalPosition() == y) {
