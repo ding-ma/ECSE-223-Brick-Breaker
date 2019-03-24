@@ -5,6 +5,11 @@ package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 import java.util.*;
 
+import ca.mcgill.ecse223.block.application.Block223Application;
+
+
+import java.awt.*;
+
 // line 107 "../../../../../Block223Persistence.ump"
 // line 11 "../../../../../Block223PlayMode.ump"
 // line 1 "../../../../../Block223States.ump"
@@ -738,14 +743,30 @@ public class PlayedGame implements Serializable
 
   // line 44 "../../../../../Block223States.ump"
    private boolean isOutOfBoundsAndLastLife(){
-    // TODO implement
-    return false;
+   int lives = getLives(); 
+   boolean outOfBounds = isOutOfBounds();
+   if(outOfBounds == true){
+      if(lives == 1){
+        return true;
+      }
+  }
+  else return false;
   }
 
   // line 49 "../../../../../Block223States.ump"
    private boolean isOutOfBounds(){
-    // TODO implement
-    return false;
+     double xI = getCurrentBallX();
+     double yI = getCurrentBallY();
+     double dx = getBallDirectionX();
+     double dy = getBallDirectionY();
+
+     double xF = xI+dx;
+     double yF = yI+dy;
+     
+    Rectangle rect = new Rectangle(0,Game.PLAY_AREA_SIDE, Game.PLAY_AREA_SIDE, (Ball.BALL_DIAMETER / 2));
+    
+    boolean outOfBounds = rect.intersectsLine(xI, yI, xF, yF);
+    return outOfBounds;
   }
 
   // line 54 "../../../../../Block223States.ump"
@@ -857,6 +878,13 @@ public class PlayedGame implements Serializable
 
   // line 153 "../../../../../Block223States.ump"
    private void doOutOfBounds(){
+
+     setLives(lives-1);
+     resetCurrentBallX();
+     resetCurrentBallY();
+     resetBallDirectionX();
+     resetBallDirectionY();
+     resetCurrentPaddleX();
     // TODO implement
   }
 
@@ -910,6 +938,16 @@ public class PlayedGame implements Serializable
   // line 203 "../../../../../Block223States.ump"
 
    private void doGameOver(){
+     PlayedGame pgame = Block223Application.getCurrentPlayableGame();
+     Block223 block223 = Block223Application.getBlock223();
+     Player p = pgame.getPlayer();
+     if(p!=null){
+       Game game = pgame.getGame();
+       HallOfFameEntry hof = new HallOfFameEntry(score, playername, p, game, block223);
+       game.setMostRecentEntry(hof);
+     }
+
+     game.delete();
     // TODO implement
   }
 
