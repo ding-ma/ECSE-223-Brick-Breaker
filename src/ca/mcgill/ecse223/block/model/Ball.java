@@ -37,7 +37,7 @@ public class Ball implements Serializable
   {
     // line 206 "../../../../../Block223 v3.ump"
     if(aMinBallSpeedX <= 0 && aMinBallSpeedY <= 0){
-    			throw new RuntimeException ("The  minimum  speed  of  the  ball  must be greater than zero.");
+    			throw new RuntimeException ("The minimum speed of the ball must be greater than zero.");
     		}
     // END OF UMPLE BEFORE INJECTION
     // line 212 "../../../../../Block223 v3.ump"
@@ -59,7 +59,7 @@ public class Ball implements Serializable
   {
     // line 206 "../../../../../Block223 v3.ump"
     if(aMinBallSpeedX <= 0 && aMinBallSpeedY <= 0){
-    			throw new RuntimeException ("The  minimum  speed  of  the  ball  must be greater than zero.");
+    			throw new RuntimeException ("The minimum speed of the ball must be greater than zero.");
     		}
     // END OF UMPLE BEFORE INJECTION
     // line 212 "../../../../../Block223 v3.ump"

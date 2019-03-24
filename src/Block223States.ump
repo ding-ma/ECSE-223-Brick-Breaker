@@ -44,12 +44,31 @@ class PlayedGame {
   }
   
   private boolean hitLastBlockAndLastLevel() {
-    // TODO implement
+	// Yannick
+	game = getGame();
+
+	int nrLevels = game.numberOfLevels();
+	
+	setBounce(null);
+
+	if(nrLevels == currentLevel){
+		int nrBlocks = numberOfBlocks();
+
+		if(nrBlocks == 1){
+			block = getBlock(0);
+			bp = calculateBouncePointBlock(block);
+			if(bp == null){
+				return false;
+			}
+			setBounce(bp);
+			return true;
+		}
+	}
     return false;
   }
   
   private boolean hitLastBlock(){
-    // TODO implement
+    // Yannick
     return false;
   }
   
@@ -78,7 +97,22 @@ class PlayedGame {
   }
 
   private void doHitBlock() {
-    // TODO implement
+    // Yannick
+    int score = getScore();
+    bounce = getBounce();
+    
+    PlayedBlockAssignment pblock = bounce.getHitBlock();
+    
+    Block block = pblock.getBlock();
+    
+    int points = block.getPoints();
+    
+    setScore(score + points);
+    
+    pblock.delete();
+    
+    bounceBall();
+    
   }
 
   private void doHitBlockNextLevel() {
