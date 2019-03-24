@@ -29,9 +29,21 @@ class PlayedGame {
   // Guards
   
   private boolean hitPaddle() {
+<<<<<<< HEAD
     BouncePoint bp = calculateBouncePointPaddle();
 	   setBounce(bp);
 	   return (bp!=null);
+=======
+    // George
+    BouncePoint bp = calculateBouncePointPaddle();
+    
+    setBounce(bp);
+    
+    if(bp != null){
+    	return true;
+    }
+    return false;
+>>>>>>> 46d9820c466edcd778b2f63e2fe76d39e60510a3
   }
 
 
@@ -46,22 +58,90 @@ class PlayedGame {
   }
   
   private boolean hitLastBlockAndLastLevel() {
-    // TODO implement
+	// Yannick
+	game = getGame();
+
+	int nrLevels = game.numberOfLevels();
+	
+	setBounce(null);
+
+	if(nrLevels == currentLevel){
+		int nrBlocks = numberOfBlocks();
+
+		if(nrBlocks == 1){
+			PlayedBlockAssignment block = getBlock(0);
+			BouncePoint bp = calculateBouncePointBlock(block);
+			if(bp == null){
+				return false;
+			}
+			setBounce(bp);
+			return true;
+		}
+	}
     return false;
   }
   
-  private boolean hitLastBlock(){
-    // TODO implement
-    return false;
-  }
+	private boolean hitLastBlock(){
+    // Yannick
+    	int nrBlocks = numberOfBlocks();
+    
+    	setBounce(null);
+    
+    	if(nrBlocks == 1){
+    
+    		PlayedBlockAssignment block = getBlock(0);
+    
+    		BouncePoint bp = calculateBouncePointBlock(block);
+    
+    		if(bp == null){
+    			return false;
+    		}
+    	
+    		setBounce(bp);
+			return true;
+		}
+    
+		return false;
+	}
   
   private boolean hitBlock() {
-    // TODO implement
+    // Yannick
+    
+    int nrBlocks = numberOfBlocks();
+    
+    setBounce(null);
+    
+    for(int i = 0 ; i < numberOfBlocks() - 1 ; i++){
+    
+    	 PlayedBlockAssignment block = getBlock(i);
+    	 
+    	 BouncePoint bp = calculateBouncePointBlock(block);
+    	 
+    	 bounce = getBounce();
+    	 
+    	 if(bp != null && bounce != null){
+    	 	Boolean closer = isCloser(bp, bounce);
+    	 
+    	 	if(closer){
+    	 	
+    	 		setBounce(bp);
+    	 	
+    		}
+    		return true;
+    	}
+    }
     return false;
   }
   
   private boolean hitWall() {
-    // TODO implement
+    // George
+    BouncePoint bp = calculateBouncePointWall();
+    
+    setBounce(bp);
+    
+    if(bp != null){
+    	return true;
+    }
     return false;
   }
   
@@ -72,7 +152,8 @@ class PlayedGame {
   }
   
   private void doHitPaddleOrWall() {
-    // TODO implement
+    // George
+    bounceBall();
   }
 
   private void doOutOfBounds() {
@@ -80,11 +161,38 @@ class PlayedGame {
   }
 
   private void doHitBlock() {
-    // TODO implement
+    // Yannick
+    int score = getScore();
+    bounce = getBounce();
+    
+    PlayedBlockAssignment pblock = bounce.getHitBlock();
+    
+    Block block = pblock.getBlock();
+    
+    int points = block.getPoints();
+    
+    setScore(score + points);
+    
+    pblock.delete();
+    
+    bounceBall();
+    
   }
 
   private void doHitBlockNextLevel() {
-    // TODO implement
+    // Yannick
+    doHitBlock();
+    
+    int level = getCurrentLevel();
+    
+    setCurrentLevel(level + 1);
+    
+    setCurrentPaddleLength(getGame().getPaddle().getMaxPaddleLength() -
+    	(getGame().getPaddle().getMaxPaddleLength() - getGame().getPaddle().getMinPaddleLength()) / 
+    	(getGame().numberOfLevels() - 1) * (getCurrentLevel() - 1));
+    	
+    setWaitTime(INITIAL_WAIT_TIME * Math.pow(getGame().getBall().getBallSpeedIncreaseFactor(), (getCurrentLevel() - 1)));
+    
   }
 
   private void doHitNothingAndNotOutOfBounds() {
