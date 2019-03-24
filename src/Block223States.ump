@@ -29,9 +29,11 @@ class PlayedGame {
   // Guards
   
   private boolean hitPaddle() {
-    // TODO implement
-    return false;
+    BouncePoint bp = calculateBouncePointPaddle();
+	   setBounce(bp);
+	   return (bp!=null);
   }
+
 
   private boolean isOutOfBoundsAndLastLife() {
     // TODO implement
@@ -99,5 +101,64 @@ class PlayedGame {
   private void doGameOver() {
     // TODO implement
   }
-
+  
+  //!!!George!!!
+  private BouncePoint calculateBouncePointPaddle() {
+   	int radius = Ball.BALL_DIAMETER/2;
+   	
+   	//ball coords
+   	double xCurrent = this.getCurrentBallX();
+	double yCurrent = this.getCurrentBallY();
+	double xNext = xCurrent + this.getBallDirectionX();
+	double yNext = yCurrent + this.getBallDirectionY();
+	
+	//paddle rectangles
+	Rectangle2D.Double rectA = new Rectangle2D.Double(this.getCurrentPaddleX(), this.getCurrentPaddleY() - radius, this.getCurrentPaddleLength(), radius);
+	Rectangle2D.Double rectB = new Rectangle2D.Double(this.getCurrentPaddleX() - radius, this.getCurrentPaddleY(), radius, 5.);
+	Rectangle2D.Double rectC = new Rectangle2D.Double(this.getCurrentPaddleX() + this.getCurrentPaddleLength(), this.getCurrentPaddleY(), radius, 5);
+	Rectangle2D.Double rectE = new Rectangle2D.Double(this.getCurrentPaddleX() - radius, this.getCurrentPaddleY() - radius, radius, radius);
+	Rectangle2D.Double rectF = new Rectangle2D.Double(this.getCurrentPaddleX() + this.getCurrentPaddleLength(), this.getCurrentPaddleY() - radius, radius, radius);
+	
+	//intersections
+	boolean interA = rectA.intersectsLine(xCurrent, yCurrent, xNext, yNext);
+	boolean interB = rectB.intersectsLine(xCurrent, yCurrent, xNext, yNext);
+	boolean interC = rectC.intersectsLine(xCurrent, yCurrent, xNext, yNext);
+	boolean interE = rectE.intersectsLine(xCurrent, yCurrent, xNext, yNext);
+	boolean interF = rectF.intersectsLine(xCurrent, yCurrent, xNext, yNext);
+	
+	//the ball does not intersect anything
+	if (!interA && !interB && !interC && !interE && !interF) {
+		return null;
+		}
+	
+	//intersectionA
+	if (interA) {
+		this.setBallDirectionX()
+		return new BouncePoint(xCurrent,xNext, BounceDirection.FLIP_Y);
+	   }
+	   
+	 //intersectionB
+	 if (interB) {
+		boolean onB = rectB.contains(xNext, yNext);
+			if (onB) {
+				return = new BouncePoint(xCurrent,xNext, BounceDirection.FLIP_X);
+		   }
+	   }
+	  
+	 //intersectionC
+	 if (interC) {
+		boolean onC = rectC.contains(xNext, yNext);
+			if (onC) {
+				return = new BouncePoint(xCurrent,xNext, BounceDirection.FLIP_X);
+		   }
+	   }
+	   
+	  //intersectionE
+	  if (interC) {
+		boolean onC = rectC.contains(xNext, yNext);
+			if (onC) {
+				return = new BouncePoint(xCurrent,xNext, BounceDirection.FLIP_X);
+		   }
+	   }   
+	
 }

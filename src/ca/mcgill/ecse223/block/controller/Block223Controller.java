@@ -281,9 +281,6 @@ public class Block223Controller implements Serializable {
 			throw new InvalidInputException(error);
 		}
 
-
-
-
 		if (Block223Application.getCurrentGame().findBlock(id) == null) {
 			error +="There was an exception while deleting a non-existing block.";
 
