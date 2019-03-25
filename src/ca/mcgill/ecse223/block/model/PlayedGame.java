@@ -963,14 +963,19 @@ public class PlayedGame implements Serializable
     setCurrentBallY(y+dy);
   }
 
-  // line 256 "../../../../../Block223States.ump"
-   private void doGameOver(){
-    PlayedGame pgame = Block223Application.getCurrentPlayableGame();
-     Block223 block223 = Block223Application.getBlock223();
-     Player p = pgame.getPlayer();
+
+
+  // line 203 "../../../../../Block223States.ump"
+
+ private void doGameOver(){
+     
+     Block223 block223 = getBlock223();
+     Player p = block223.getPlayer();
+
      if(p!=null){
-       Game game = pgame.getGame();
-       HallOfFameEntry hof = new HallOfFameEntry(score, playername, p, game, block223);
+       PlayedGame pg = getGame();
+       HallOfFameEntry hof = new HallOfFameEntry(score, playername, p, pg, block223);
+       Game game;
        game.setMostRecentEntry(hof);
      }
 
@@ -1399,6 +1404,7 @@ public class PlayedGame implements Serializable
 		}else {
 			return false;
 		}
+
   }
 
 
