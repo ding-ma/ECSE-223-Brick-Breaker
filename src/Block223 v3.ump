@@ -151,30 +151,30 @@ class Block {
    Integer green;
    Integer blue;
    Integer points;
-   //George
    
+   //George
    before constructor, setRed{
-      if(aRed <MIN_COLOR || aRed > MAX_COLOR){
-         throw new RuntimeException ("Red must be between 0 and 255.");
-      }
-   }
+   		if(aRed <MIN_COLOR || aRed > MAX_COLOR){
+        	throw new RuntimeException ("Red must be between 0 and 255.");
+     		}
+		}
 	before constructor, setGreen{
 		if(aGreen <MIN_COLOR || aGreen > MAX_COLOR){
 			throw new RuntimeException ("Green must be between 0 and 255.");
+			}
 		}
-	}
 	before constructor, setBlue{
-   if(aBlue <MIN_COLOR || aBlue > MAX_COLOR){
-   throw new RuntimeException ("Blue must be between 0 and 255.");
-   }
-}
+ 		if(aBlue <MIN_COLOR || aBlue > MAX_COLOR){
+  			throw new RuntimeException ("Blue must be between 0 and 255.");
+  			}
+		}	
 	before constructor, setPoints{
-   if(aPoints <MIN_POINTS || aPoints > MAX_POINTS){
-   throw new RuntimeException ("Points must be between 1 and 1000.");
-   }
-}
-//end
-}
+		if(aPoints <MIN_POINTS || aPoints > MAX_POINTS){
+  		 throw new RuntimeException ("Points must be between 1 and 1000.");
+  		 	}
+		}
+	//---end---
+	}
 
 // random attribute not needed anymore
 // Each level is filled up with random blocks just before playing the level to reach the nrBlocksPerLevel defined in Game

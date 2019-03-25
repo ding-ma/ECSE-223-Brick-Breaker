@@ -610,6 +610,21 @@ public class Block223 implements Serializable
    }
    return null;
   }
+
+
+  /**
+   * end
+   * Ding
+   */
+  // line 29 "../../../../../Block223 v3.ump"
+   public PlayedGame findPlayableGame(int id){
+    for (PlayedGame game : Collections.unmodifiableList(playedGames)) {
+               if (game.getGame().equals(id)) {
+                   return game;
+               }
+           }
+           return null;
+  }
   
   //------------------------
   // DEVELOPER CODE - PROVIDED AS-IS

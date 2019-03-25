@@ -7,6 +7,7 @@ import java.util.List;
 
 import ca.mcgill.ecse223.block.application.*;
 import ca.mcgill.ecse223.block.model.*;
+import ca.mcgill.ecse223.block.model.PlayedGame.PlayStatus;
 import ca.mcgill.ecse223.block.persistence.*;
 import ca.mcgill.ecse223.block.view.Block223PlayModeInterface;
 import ca.mcgill.ecse223.block.controller.TOUserMode.Mode;
@@ -188,7 +189,7 @@ public class Block223Controller implements Serializable {
         Game game = Block223Application.getCurrentGame();
         String error = "";
 
-        UseRole userRole = Block223Application.getCurrentUserRole();
+        UserRole userRole = Block223Application.getCurrentUserRole();
         if (game == null) {
             error += "A game must be selected to add a block.";
         } else if (!userRole.equals(Block223Application.getCurrentGame().getAdmin())) {
@@ -361,7 +362,7 @@ public class Block223Controller implements Serializable {
 		}
 	}
 	  //Mert
-     public static void moveBlock(int level, int oldGridHorizontalPosition, int oldGridVerticalPosition,
+	public static void moveBlock(int level, int oldGridHorizontalPosition, int oldGridVerticalPosition,
 			int newGridHorizontalPosition, int newGridVerticalPosition) throws InvalidInputException {
 		String error = "";
 		UserRole user = Block223Application.getCurrentUserRole();
@@ -437,25 +438,21 @@ public class Block223Controller implements Serializable {
     }
 	//Mairead
 	public static void saveGame() throws InvalidInputException {
+    	
     	String error = "";
+    	
        Block223 block223 = Block223Application.getBlock223();
        Block223Persistence.save(block223);
        Game game = Block223Application.getCurrentGame();
+  
+    	
         if(game == null) {
         	error+="A game must be selected to save it.";
+        
         throw new InvalidInputException(error);
         }
-        UserRole userRole = Block223Application.getCurrentUserRole();
-            if(userRole instanceof Player || userRole == null){
-                error = "Admin privileges are required to save a game.";
-                throw new InvalidInputException(error);
-            }
-         if(game != null) {
-      if(game.getAdmin() != Block223Application.getCurrentUserRole()) {
-            throw new InvalidInputException ("Only the admin who created the game can save it.");
-            }
-         }
-        }
+	}
+	
 	//Mairead
 	public static void register(String username, String playerPassword, String adminPassword)
             throws InvalidInputException {
@@ -989,4 +986,3 @@ public class Block223Controller implements Serializable {
 		return result;	
 	}
 }
-
