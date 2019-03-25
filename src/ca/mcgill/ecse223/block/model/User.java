@@ -50,8 +50,7 @@ public class User implements Serializable
     }
   }
 
-
-    //------------------------
+  //------------------------
   // INTERFACE
   //------------------------
 
@@ -310,22 +309,5 @@ public class User implements Serializable
   // line 28 "../../../../../Block223Persistence.ump"
   private static final long serialVersionUID = 4267485601061759914L ;
 
-
-  public static String findUsername(UserRole currentuserrole) {
-    Map<User, String> usernamesUser = new HashMap<>();
-    for (Map.Entry<String, User> entry : usersByUsername.entrySet()) {
-      usernamesUser.put(entry.getValue(), entry.getKey());
-    }
-    for (User value : usernamesUser.keySet()) {
-      List<UserRole> roles = value.getRoles();
-      for (UserRole role : roles) {
-        if (role == currentuserrole) {
-          return value.getUsername();
-        }
-      }
-    }
-    return null;
-  }
-
-
+  
 }

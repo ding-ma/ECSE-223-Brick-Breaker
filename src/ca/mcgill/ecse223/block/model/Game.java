@@ -4,8 +4,6 @@
 package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 import java.util.*;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 // line 49 "../../../../../Block223Persistence.ump"
 // line 6 "../../../../../Block223PlayMode.ump"
@@ -145,7 +143,6 @@ public class Game implements Serializable
       throw new RuntimeException("Unable to create game due to block223");
     }
   }
-
 
   //------------------------
   // INTERFACE
@@ -932,13 +929,5 @@ public class Game implements Serializable
   // line 60 "../../../../../Block223Persistence.ump"
   private static final long serialVersionUID = -210105651472293481L ;
 
-
-
-  public Block getRandomBlock() {
-    Random random = new Random();
-    List<Block> assignments = getBlocks();
-    Block rng = assignments.get(random.nextInt(assignments.size()));
-    return rng;
-  }
+  
 }
-

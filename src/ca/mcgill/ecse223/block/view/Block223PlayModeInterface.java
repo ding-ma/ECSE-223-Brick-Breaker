@@ -1,9 +1,11 @@
 package ca.mcgill.ecse223.block.view;
 
+import javax.swing.*;
+
 public interface Block223PlayModeInterface {
-
-	String takeInputs();
-
-	void refresh();
+	
+	public String takeInputs();
+	
+	public void refresh();
 
 }
