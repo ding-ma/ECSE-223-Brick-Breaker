@@ -24,6 +24,16 @@ class Block223 {
    return null;
    }
    //end
+    //Ding
+    public PlayedGame findPlayableGame(int id) {
+           for (PlayedGame game : Collections.unmodifiableList(playedGames)) {
+               if (game.getGame().equals(id)) {
+                   return game;
+               }
+           }
+           return null;
+       }
+       //end
 }
 
 class User {
@@ -120,6 +130,14 @@ class Game {
             }
          }
       //end
+       //Ding
+       public Block getRandomBlock() {
+          Random random = new Random();
+          List<Block> assignments = getBlocks();
+          Block rng = assignments.get(random.nextInt(assignments.size()));
+          return rng;
+        }
+        //end
 }
 
 class Block {
