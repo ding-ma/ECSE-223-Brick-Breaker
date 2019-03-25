@@ -42,13 +42,30 @@ class PlayedGame {
 
 
   private boolean isOutOfBoundsAndLastLife() {
-    // TODO implement
-    return false;
+     int lives = getLives(); 
+   boolean outOfBounds = isOutOfBounds();
+   if(outOfBounds == true){
+      if(lives == 1){
+        return true;
+      }
+  }
+  else return false;
   }
   
   private boolean isOutOfBounds() {
-    // TODO implement
-    return false;
+   double xI = getCurrentBallX();
+     double yI = getCurrentBallY();
+     double dx = getBallDirectionX();
+     double dy = getBallDirectionY();
+
+     double xF = xI+dx;
+     double yF = yI+dy;
+     
+    Rectangle rect = new Rectangle(0,Game.PLAY_AREA_SIDE, Game.PLAY_AREA_SIDE, (Ball.BALL_DIAMETER / 2));
+    
+    boolean outOfBounds = rect.intersectsLine(xI, yI, xF, yF);
+    return outOfBounds;
+    
   }
   
   private boolean hitLastBlockAndLastLevel() {
@@ -151,7 +168,13 @@ class PlayedGame {
   }
 
   private void doOutOfBounds() {
-    // TODO implement
+    
+     setLives(lives-1);
+     resetCurrentBallX();
+     resetCurrentBallY();
+     resetBallDirectionX();
+     resetBallDirectionY();
+     resetCurrentPaddleX();
   }
 
   private void doHitBlock() {
@@ -201,7 +224,17 @@ class PlayedGame {
   }
 
   private void doGameOver() {
-    // TODO implement
+      PlayedGame pgame = Block223Application.getCurrentPlayableGame();
+     Block223 block223 = Block223Application.getBlock223();
+     Player p = pgame.getPlayer();
+     if(p!=null){
+       Game game = pgame.getGame();
+       HallOfFameEntry hof = new HallOfFameEntry(score, playername, p, game, block223);
+       game.setMostRecentEntry(hof);
+     }
+
+     game.delete();
+    
   }
   
 	private BouncePoint calculateBouncePointPaddle(){

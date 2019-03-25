@@ -1,7 +1,7 @@
 namespace ca.mcgill.ecse223.block.model;
 
 use Block223Persistence.ump;
-use Block223PersistenceMairead.ump;
+
 use Block223PlayMode.ump;
 use Block223States.ump;
 use Block223TransferObjectsPlayMode.ump;
@@ -32,11 +32,6 @@ class User {
       //Mairead 
    
 
-   before constructor, setUsername{
-   if(username == ""||username.equals("")){
-
-   throw new RuntimeException("The username must be specified.");}
-   }
    //Mairead 
    public static UserRole findPassword(String password, User user){
     List<UserRole> roles = user.getRoles();

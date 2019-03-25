@@ -7,10 +7,14 @@ import java.awt.geom.Point2D;
 import java.awt.geom.*;
 import java.io.Serializable;
 import java.util.*;
+import java.util.List;
+
+import ca.mcgill.ecse223.block.application.Block223Application;
 
 
+import java.awt.*;
 
-// line 65 "../../../../../Block223Persistence.ump"
+// line 107 "../../../../../Block223Persistence.ump"
 // line 11 "../../../../../Block223PlayMode.ump"
 // line 1 "../../../../../Block223States.ump"
 public class PlayedGame implements Serializable
@@ -30,13 +34,13 @@ public class PlayedGame implements Serializable
 
   /**
    * the PlayedBall and PlayedPaddle are not in a separate class to avoid the bug in Umple that occurred for the second constructor of Game
-   * no direct link to Ball, because the ball can be found by navigating to PlayedGame, Game, and then Ball
+   * no direct link to Ball, because the ball can be found by navigating to Game and then Ball
    */
   public static final int BALL_INITIAL_X = Game.PLAY_AREA_SIDE / 2;
   public static final int BALL_INITIAL_Y = Game.PLAY_AREA_SIDE / 2;
 
   /**
-   * no direct link to Paddle, because the paddle can be found by navigating to PlayedGame, Game, and then Paddle
+   * no direct link to Paddle, because the paddle can be found by navigating to Game and then Paddle
    * pixels moved when right arrow key is pressed
    */
   public static final int PADDLE_MOVE_RIGHT = 1;
@@ -84,13 +88,20 @@ public class PlayedGame implements Serializable
 
   public PlayedGame(String aPlayername, Game aGame, Block223 aBlock223)
   {
+    // line 47 "../../../../../Block223PlayMode.ump"
+    boolean didAddGameResult = setGame(aGame);
+          if (!didAddGameResult)
+          {
+             throw new RuntimeException("Unable to create playedGame due to game");
+          }
+    // END OF UMPLE BEFORE INJECTION
     score = 0;
     lives = NR_LIVES;
     currentLevel = 1;
     waitTime = INITIAL_WAIT_TIME;
     playername = aPlayername;
-    ballDirectionX = getGame().getBall().getMinBallSpeedX();
-    ballDirectionY = getGame().getBall().getMinBallSpeedY();
+    resetBallDirectionX();
+    resetBallDirectionY();
     resetCurrentBallX();
     resetCurrentBallY();
     currentPaddleLength = getGame().getPaddle().getMaxPaddleLength();
@@ -154,7 +165,7 @@ public class PlayedGame implements Serializable
     wasSet = true;
     return wasSet;
   }
-
+  /* Code from template attribute_SetDefaulted */
   public boolean setBallDirectionX(double aBallDirectionX)
   {
     boolean wasSet = false;
@@ -163,12 +174,28 @@ public class PlayedGame implements Serializable
     return wasSet;
   }
 
+  public boolean resetBallDirectionX()
+  {
+    boolean wasReset = false;
+    ballDirectionX = getDefaultBallDirectionX();
+    wasReset = true;
+    return wasReset;
+  }
+  /* Code from template attribute_SetDefaulted */
   public boolean setBallDirectionY(double aBallDirectionY)
   {
     boolean wasSet = false;
     ballDirectionY = aBallDirectionY;
     wasSet = true;
     return wasSet;
+  }
+
+  public boolean resetBallDirectionY()
+  {
+    boolean wasReset = false;
+    ballDirectionY = getDefaultBallDirectionY();
+    wasReset = true;
+    return wasReset;
   }
   /* Code from template attribute_SetDefaulted */
   public boolean setCurrentBallX(double aCurrentBallX)
@@ -262,10 +289,20 @@ public class PlayedGame implements Serializable
   {
     return ballDirectionX;
   }
+  /* Code from template attribute_GetDefaulted */
+  public double getDefaultBallDirectionX()
+  {
+    return getGame().getBall().getMinBallSpeedX();
+  }
 
   public double getBallDirectionY()
   {
     return ballDirectionY;
+  }
+  /* Code from template attribute_GetDefaulted */
+  public double getDefaultBallDirectionY()
+  {
+    return getGame().getBall().getMinBallSpeedY();
   }
 
   /**
@@ -297,7 +334,7 @@ public class PlayedGame implements Serializable
   }
 
   /**
-   * the position of the paddle is at its top right corner
+   * the position of the paddle is at its top left corner
    */
   public double getCurrentPaddleX()
   {
@@ -710,14 +747,30 @@ public class PlayedGame implements Serializable
 
   // line 44 "../../../../../Block223States.ump"
    private boolean isOutOfBoundsAndLastLife(){
-    // TODO implement
-    return false;
+   int lives = getLives(); 
+   boolean outOfBounds = isOutOfBounds();
+   if(outOfBounds == true){
+      if(lives == 1){
+        return true;
+      }
+  }
+  return false;
   }
 
   // line 49 "../../../../../Block223States.ump"
    private boolean isOutOfBounds(){
-    // TODO implement
-    return false;
+     double xI = getCurrentBallX();
+     double yI = getCurrentBallY();
+     double dx = getBallDirectionX();
+     double dy = getBallDirectionY();
+
+     double xF = xI+dx;
+     double yF = yI+dy;
+     
+    Rectangle rect = new Rectangle(0,Game.PLAY_AREA_SIDE, Game.PLAY_AREA_SIDE, (Ball.BALL_DIAMETER / 2));
+    
+    boolean outOfBounds = rect.intersectsLine(xI, yI, xF, yF);
+    return outOfBounds;
   }
 
   // line 54 "../../../../../Block223States.ump"
@@ -829,7 +882,14 @@ public class PlayedGame implements Serializable
 
   // line 153 "../../../../../Block223States.ump"
    private void doOutOfBounds(){
-    // TODO implement
+
+     setLives(lives-1);
+     resetCurrentBallX();
+     resetCurrentBallY();
+     resetBallDirectionX();
+     resetBallDirectionY();
+     resetCurrentPaddleX();
+    
   }
 
   // line 157 "../../../../../Block223States.ump"
@@ -878,9 +938,21 @@ public class PlayedGame implements Serializable
     setCurrentBallY(y+dy);
   }
 
+
   // line 203 "../../../../../Block223States.ump"
+
    private void doGameOver(){
-    // TODO implement
+     PlayedGame pgame = Block223Application.getCurrentPlayableGame();
+     Block223 block223 = Block223Application.getBlock223();
+     Player p = pgame.getPlayer();
+     if(p!=null){
+       Game game = pgame.getGame();
+       HallOfFameEntry hof = new HallOfFameEntry(score, playername, p, game, block223);
+       game.setMostRecentEntry(hof);
+     }
+
+     game.delete();
+    
   }
 
   // line 207 "../../../../../Block223States.ump"
@@ -1313,7 +1385,7 @@ public class PlayedGame implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 68 "../../../../../Block223Persistence.ump"
+  // line 110 "../../../../../Block223Persistence.ump"
   private static final long serialVersionUID = 8597675110221231714L ;
 
 // line 537 "../../../../../Block223States.ump"

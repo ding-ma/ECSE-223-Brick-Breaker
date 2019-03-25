@@ -5,8 +5,7 @@ package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 import java.util.*;
 
-// line 11 "../../../../../Block223Persistence.ump"
-// line 90 "../../../../../Block223PersistenceMairead.ump"
+// line 17 "../../../../../Block223Persistence.ump"
 // line 29 "../../../../../Block223 v3.ump"
 public class User implements Serializable
 {
@@ -34,11 +33,6 @@ public class User implements Serializable
 
   public User(String aUsername, Block223 aBlock223, UserRole... allRoles)
   {
-    // line 36 "../../../../../Block223 v3.ump"
-    if(username == ""||username.equals("")){
-    
-       throw new RuntimeException("The username must be specified.");}
-    // END OF UMPLE BEFORE INJECTION
     if (!setUsername(aUsername))
     {
       throw new RuntimeException("Cannot create due to duplicate username");
@@ -63,11 +57,6 @@ public class User implements Serializable
   public boolean setUsername(String aUsername)
   {
     boolean wasSet = false;
-    // line 36 "../../../../../Block223 v3.ump"
-    if(username == ""||username.equals("")){
-    
-       throw new RuntimeException("The username must be specified.");}
-    // END OF UMPLE BEFORE INJECTION
     String anOldUsername = getUsername();
     if (hasWithUsername(aUsername)) {
       return wasSet;
@@ -258,7 +247,7 @@ public class User implements Serializable
     }
   }
 
-  // line 96 "../../../../../Block223PersistenceMairead.ump"
+  // line 22 "../../../../../Block223Persistence.ump"
    public static  void reinitializeUniqueUsername(List<User> users){
     usersByUsername = new HashMap<String, User>();
     for (User user : users) {
@@ -269,8 +258,9 @@ public class User implements Serializable
 
   /**
    * Mairead
+   * Mairead
    */
-  // line 42 "../../../../../Block223 v3.ump"
+  // line 37 "../../../../../Block223 v3.ump"
    public static  UserRole findPassword(String password, User user){
     List<UserRole> roles = user.getRoles();
 	for(UserRole role : roles) {
@@ -288,7 +278,7 @@ public class User implements Serializable
    * end
    * Anne-Julie
    */
-  // line 57 "../../../../../Block223 v3.ump"
+  // line 52 "../../../../../Block223 v3.ump"
    public static  String findUsername(UserRole currentuserrole){
     Map<User, String> usernamesUser = new HashMap<>();
 		for(Map.Entry<String, User> entry : usersByUsername.entrySet()){
@@ -316,7 +306,7 @@ public class User implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 14 "../../../../../Block223Persistence.ump"
+  // line 28 "../../../../../Block223Persistence.ump"
   private static final long serialVersionUID = 4267485601061759914L ;
 
   

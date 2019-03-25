@@ -5,10 +5,9 @@ package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 import java.util.*;
 
-// line 29 "../../../../../Block223Persistence.ump"
-// line 55 "../../../../../Block223PersistenceMairead.ump"
+// line 49 "../../../../../Block223Persistence.ump"
 // line 6 "../../../../../Block223PlayMode.ump"
-// line 93 "../../../../../Block223 v3.ump"
+// line 88 "../../../../../Block223 v3.ump"
 public class Game implements Serializable
 {
 
@@ -40,7 +39,7 @@ public class Game implements Serializable
   private boolean published;
   private String name;
   private int nrBlocksPerLevel;
-  private Comparator<HallOfFameEntry> hallOfFameEntriesPriority;
+  private transient Comparator<HallOfFameEntry> hallOfFameEntriesPriority;
 
   //Game Associations
   private HallOfFameEntry mostRecentEntry;
@@ -60,7 +59,7 @@ public class Game implements Serializable
 
   public Game(String aName, int aNrBlocksPerLevel, Admin aAdmin, Ball aBall, Paddle aPaddle, Block223 aBlock223)
   {
-    // line 123 "../../../../../Block223 v3.ump"
+    // line 118 "../../../../../Block223 v3.ump"
     if(aNrBlocksPerLevel <= 0){
                    throw new RuntimeException("The number of blocks per level must be greater than zero.");
                 }
@@ -109,7 +108,7 @@ public class Game implements Serializable
 
   public Game(String aName, int aNrBlocksPerLevel, Admin aAdmin, int aMinBallSpeedXForBall, int aMinBallSpeedYForBall, double aBallSpeedIncreaseFactorForBall, int aMaxPaddleLengthForPaddle, int aMinPaddleLengthForPaddle, Block223 aBlock223)
   {
-    // line 123 "../../../../../Block223 v3.ump"
+    // line 118 "../../../../../Block223 v3.ump"
     if(aNrBlocksPerLevel <= 0){
                    throw new RuntimeException("The number of blocks per level must be greater than zero.");
                 }
@@ -176,7 +175,7 @@ public class Game implements Serializable
   public boolean setNrBlocksPerLevel(int aNrBlocksPerLevel)
   {
     boolean wasSet = false;
-    // line 123 "../../../../../Block223 v3.ump"
+    // line 118 "../../../../../Block223 v3.ump"
     if(aNrBlocksPerLevel <= 0){
                    throw new RuntimeException("The number of blocks per level must be greater than zero.");
                 }
@@ -885,7 +884,7 @@ public class Game implements Serializable
     }
   }
 
-  // line 62 "../../../../../Block223PersistenceMairead.ump"
+  // line 54 "../../../../../Block223Persistence.ump"
    public static  void reinitializeUniqueName(List<Game> games){
     gamesByName = new HashMap<String, Game>();
     for (Game game : games) {
@@ -897,7 +896,7 @@ public class Game implements Serializable
   /**
    * George
    */
-  // line 110 "../../../../../Block223 v3.ump"
+  // line 105 "../../../../../Block223 v3.ump"
    public Block findBlock(int id){
     List<Block> blocks = this.getBlocks();
    for(Block block : blocks){
@@ -927,7 +926,7 @@ public class Game implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 32 "../../../../../Block223Persistence.ump"
+  // line 60 "../../../../../Block223Persistence.ump"
   private static final long serialVersionUID = -210105651472293481L ;
 
   
