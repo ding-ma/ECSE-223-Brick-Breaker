@@ -213,13 +213,20 @@ public class Block223Controller implements Serializable {
 			error = "Only the admin who created the game can define its game settings.";
 			throw new InvalidInputException(error);
 		}
-
+		
+		error = checkGameNameIsUnique(name, block223);
+		if (error != null) {
+			throw new InvalidInputException(error);
+		}
+		
 		String currentName = game.getName();
 		if (currentName != name) {
 			if (name == null || name.equals("")) {
 				error = "The name of a game must be specified.";
 				throw new InvalidInputException(error);
 			}
+		
+			
 			game.setName(name);
 		}
 
@@ -756,11 +763,15 @@ public class Block223Controller implements Serializable {
 	        }
 	        ArrayList<TOGame> games = new ArrayList<TOGame>();
 	        for (Game game : Block223Application.getBlock223().getGames()) {
-	            //NOT sure about the numberOfBlocks() method.
+	        	if(!game.isPublished()) {
+	        		if(Block223Application.getCurrentUserRole().equals(game.getAdmin())) {
+	        			//NOT sure about the numberOfBlocks() method.
 	            TOGame toGame = new TOGame(game.getName(), game.numberOfLevels(), game.getNrBlocksPerLevel(),
 	                    game.getBall().getMinBallSpeedX(), game.getBall().getMinBallSpeedY(), game.getBall().getBallSpeedIncreaseFactor(),
 	                    game.getPaddle().getMaxPaddleLength(), game.getPaddle().getMinPaddleLength());
 	            games.add(toGame);
+	        		}
+	        	}
 	        }
 	        return games;
 	    }
@@ -900,7 +911,7 @@ public class Block223Controller implements Serializable {
 		}
 
 
-		return to
+		return to;
 	}
 
 	// play mode
