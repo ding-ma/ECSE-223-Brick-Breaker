@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 17 "../../../../../Block223Persistence.ump"
-// line 29 "../../../../../Block223 v3.ump"
+// line 39 "../../../../../Block223 v3.ump"
 public class User implements Serializable
 {
 
@@ -260,7 +260,7 @@ public class User implements Serializable
    * Mairead
    * Mairead
    */
-  // line 37 "../../../../../Block223 v3.ump"
+  // line 47 "../../../../../Block223 v3.ump"
    public static  UserRole findPassword(String password, User user){
     List<UserRole> roles = user.getRoles();
 	for(UserRole role : roles) {
@@ -278,7 +278,7 @@ public class User implements Serializable
    * end
    * Anne-Julie
    */
-  // line 52 "../../../../../Block223 v3.ump"
+  // line 62 "../../../../../Block223 v3.ump"
    public static  String findUsername(UserRole currentuserrole){
     Map<User, String> usernamesUser = new HashMap<>();
 		for(Map.Entry<String, User> entry : usersByUsername.entrySet()){

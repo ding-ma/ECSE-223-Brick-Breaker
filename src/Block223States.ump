@@ -159,7 +159,36 @@ class PlayedGame {
   // Actions
   
   private void doSetup() {
-    // TODO implement
+     				resetCurrentBallX();
+                              resetCurrentBallY();
+                              resetCurrentBallX();
+                              resetCurrentBallY();
+                              resetCurrentPaddleX();
+                              getGame();
+                              Level assignment = game.getLevel(currentLevel - 1);
+                              List<BlockAssignment> assignments = assignment.getBlockAssignments();
+                              for (BlockAssignment a : assignments) {
+                                PlayedBlockAssignment pblock = new PlayedBlockAssignment(Game.WALL_PADDING + (Block.SIZE +
+                                        Game.COLUMNS_PADDING) * (a.getGridHorizontalPosition() - 1), Game.WALL_PADDING + (Block.SIZE + Game.ROW_PADDING) *
+                                        (a.getGridVerticalPosition() - 1), a.getBlock(), this);
+                              }
+
+                              while (numberOfBlocks() < game.getNrBlocksPerLevel()) {
+                                int x = ThreadLocalRandom.current().nextInt(1, 15);
+                                int y = ThreadLocalRandom.current().nextInt(1, 15);
+
+
+
+                                for (BlockAssignment ablockAssignment : assignments) {
+                                  if (ablockAssignment.getGridHorizontalPosition() == x && ablockAssignment.getGridVerticalPosition() == y) {
+                                    x=x++;
+                                    y=y++;
+                                  }
+                                  if (ablockAssignment.getGridHorizontalPosition() != x && ablockAssignment.getGridVerticalPosition() != y){
+                                    PlayedBlockAssignment pblock = new PlayedBlockAssignment(x, y, game.getRandomBlock(), this);
+                                  }
+                                }
+                              }
   }
   
   private void doHitPaddleOrWall() {
