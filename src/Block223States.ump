@@ -251,17 +251,18 @@ class PlayedGame {
     
   }
 
-  private void doGameOver() {
-      PlayedGame pgame = Block223Application.getCurrentPlayableGame();
-     Block223 block223 = Block223Application.getBlock223();
-     Player p = pgame.getPlayer();
+ private void doGameOver(){
+     
+     Block223 block223 = getBlock223();
+     Player p = block223.getPlayer();
      if(p!=null){
-       Game game = pgame.getGame();
-       HallOfFameEntry hof = new HallOfFameEntry(score, playername, p, game, block223);
+       PlayedGame pg = getGame();
+       HallOfFameEntry hof = new HallOfFameEntry(score, playername, p, pg, block223);
+       Game game;
        game.setMostRecentEntry(hof);
      }
 
-     game.delete();
+     pg.delete();
     
   }
 
