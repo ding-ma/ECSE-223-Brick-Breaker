@@ -451,7 +451,21 @@ public class Block223Controller implements Serializable {
         
         throw new InvalidInputException(error);
         }
-	}
+        
+        UserRole userRole = Block223Application.getCurrentUserRole();
+		
+            if(userRole instanceof Player || userRole == null){
+                error = "Admin privileges are required to save a game.";
+                throw new InvalidInputException(error);
+            }
+
+         if(game != null) {
+      if(game.getAdmin() != Block223Application.getCurrentUserRole()) {
+            throw new InvalidInputException ("Only the admin who created the game can save it.");
+            }
+         }
+        
+        }
 	
 	//Mairead
 	public static void register(String username, String playerPassword, String adminPassword)
