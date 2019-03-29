@@ -39,7 +39,11 @@ public class Game implements Serializable
   private boolean published;
   private String name;
   private int nrBlocksPerLevel;
+<<<<<<< HEAD
   private transient Comparator<HallOfFameEntry> hallOfFameEntriesPriority;
+=======
+    private transient Comparator<HallOfFameEntry> hallOfFameEntriesPriority;
+>>>>>>> 5081991ba826b9665fb8e0de2e704fe32b874c79
 
   //Game Associations
   private HallOfFameEntry mostRecentEntry;
@@ -72,7 +76,7 @@ public class Game implements Serializable
         public int compare(HallOfFameEntry arg0, HallOfFameEntry arg1)
         {
           return ((Integer)arg0.getScore()).compareTo(
-                 ((Integer)arg1.getScore()));
+                  arg1.getScore());
         }
       };
     if (!setName(aName))
@@ -122,7 +126,7 @@ public class Game implements Serializable
         public int compare(HallOfFameEntry arg0, HallOfFameEntry arg1)
         {
           return ((Integer)arg0.getScore()).compareTo(
-                 ((Integer)arg1.getScore()));
+                  arg1.getScore());
         }
       };
     boolean didAddAdmin = setAdmin(aAdmin);

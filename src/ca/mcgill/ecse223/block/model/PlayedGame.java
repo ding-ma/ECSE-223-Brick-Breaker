@@ -2,15 +2,16 @@
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
 package ca.mcgill.ecse223.block.model;
-import java.awt.Rectangle;
+
+import java.awt.*;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
-
-import ca.mcgill.ecse223.block.application.Block223Application;
 
 // line 107 "../../../../../Block223Persistence.ump"
 // line 11 "../../../../../Block223PlayMode.ump"
@@ -736,21 +737,16 @@ public class PlayedGame implements Serializable
     BouncePoint bp = calculateBouncePointPaddle();
     
     setBounce(bp);
-    
-    if(bp != null){
-    	return true;
-    }
-    return false;
-  }
+
+     return bp != null;
+   }
 
   // line 45 "../../../../../Block223States.ump"
    private boolean isOutOfBoundsAndLastLife(){
     int lives = getLives(); 
    boolean outOfBounds = isOutOfBounds();
    if(outOfBounds == true){
-      if(lives == 1){
-        return true;
-      }
+     return lives == 1;
   }
  return false;
   }
@@ -856,12 +852,9 @@ public class PlayedGame implements Serializable
     BouncePoint bp = calculateBouncePointWall();
     
     setBounce(bp);
-    
-    if(bp != null){
-    	return true;
-    }
-    return false;
-  }
+
+     return bp != null;
+   }
 
 
   /**
@@ -963,18 +956,21 @@ public class PlayedGame implements Serializable
     setCurrentBallY(y+dy);
   }
 
-  // line 256 "../../../../../Block223States.ump"
-   private void doGameOver(){
-    PlayedGame pgame = Block223Application.getCurrentPlayableGame();
-     Block223 block223 = Block223Application.getBlock223();
-     Player p = pgame.getPlayer();
+
+
+  // line 203 "../../../../../Block223States.ump"
+
+ private void doGameOver(){
+     
+     Block223 block223 = getBlock223();
+   Player p = getPlayer();
+   Game pg = getGame();
      if(p!=null){
-       Game game = pgame.getGame();
-       HallOfFameEntry hof = new HallOfFameEntry(score, playername, p, game, block223);
-       game.setMostRecentEntry(hof);
+       HallOfFameEntry hof = new HallOfFameEntry(score, playername, p, pg, block223);
+       pg.setMostRecentEntry(hof);
      }
 
-     game.delete();
+   pg.delete();
   }
 
 
@@ -1393,12 +1389,9 @@ public class PlayedGame implements Serializable
 			return true;
 		}
 		double distance =Math.sqrt(Math.pow(Math.abs(currentBallX-bp.getX()),2)+Math.pow(Math.abs(currentBallY-bp.getY()),2));
-		double bounceDistance = Math.sqrt(Math.pow(Math.abs(currentBallX-bounce.getX()),2)+Math.pow(Math.abs(currentBallY-bounce.getY()),2));;
-		if(distance<=bounceDistance) {
-			return true;
-		}else {
-			return false;
-		}
+     double bounceDistance = Math.sqrt(Math.pow(Math.abs(currentBallX - bounce.getX()), 2) + Math.pow(Math.abs(currentBallY - bounce.getY()), 2));
+     return distance <= bounceDistance;
+
   }
 
 

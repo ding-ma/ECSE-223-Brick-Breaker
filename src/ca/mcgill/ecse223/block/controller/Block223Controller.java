@@ -1,16 +1,15 @@
 package ca.mcgill.ecse223.block.controller;
 
-import java.io.Serializable;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import ca.mcgill.ecse223.block.application.*;
+import ca.mcgill.ecse223.block.application.Block223Application;
+import ca.mcgill.ecse223.block.controller.TOUserMode.Mode;
 import ca.mcgill.ecse223.block.model.*;
 import ca.mcgill.ecse223.block.model.PlayedGame.PlayStatus;
-import ca.mcgill.ecse223.block.persistence.*;
+import ca.mcgill.ecse223.block.persistence.Block223Persistence;
 import ca.mcgill.ecse223.block.view.Block223PlayModeInterface;
-import ca.mcgill.ecse223.block.controller.TOUserMode.Mode;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Block223Controller implements Serializable {
 	private static Game game;
@@ -379,7 +378,7 @@ public class Block223Controller implements Serializable {
 		if(!(user instanceof Admin)) {
 			error = "Admin privileges are required to move a block.";
 		}
-		if(!(user.getPassword().equals(admin.getPassword())) || (Admin) user != admin) {
+		if (!(user.getPassword().equals(admin.getPassword())) || user != admin) {
 			error += "Only the admin who created the game can move a block.";
 		}
 		if(error.length() > 0) {
@@ -438,19 +437,24 @@ public class Block223Controller implements Serializable {
     }
 	//Mairead
 	public static void saveGame() throws InvalidInputException {
-    	
     	String error = "";
-    	
        Block223 block223 = Block223Application.getBlock223();
        Block223Persistence.save(block223);
        Game game = Block223Application.getCurrentGame();
-  
-    	
         if(game == null) {
         	error+="A game must be selected to save it.";
-        
         throw new InvalidInputException(error);
         }
+		UserRole userRole = Block223Application.getCurrentUserRole();
+		if (userRole instanceof Player || userRole == null) {
+			error = "Admin privileges are required to save a game.";
+			throw new InvalidInputException(error);
+		}
+		if (game != null) {
+			if (game.getAdmin() != Block223Application.getCurrentUserRole()) {
+				throw new InvalidInputException("Only the admin who created the game can save it.");
+			}
+		}
 	}
 	
 	//Mairead
@@ -558,8 +562,8 @@ public class Block223Controller implements Serializable {
 		Block223Application.setCurrentPlayableGame(pgame);
 		//startGame(ui);
 	}
-	
-	public static void publishGame() throws InvalidInputException {
+
+    public static void publishGame() throws InvalidInputException {
 		String error = "";
 		Game game = Block223Application.getCurrentGame();
 		if(game == null) {
@@ -698,6 +702,13 @@ public class Block223Controller implements Serializable {
 	        	if(!game.isPublished()) {
 	        		if(Block223Application.getCurrentUserRole().equals(game.getAdmin())) {
 	        			//NOT sure about the numberOfBlocks() method.
+						if (game.isPublished()) {
+							break;
+						}
+
+						if (!userRole.equals(Block223Application.getCurrentGame().getAdmin())) {
+							break;
+						}
 	            TOGame toGame = new TOGame(game.getName(), game.numberOfLevels(), game.getNrBlocksPerLevel(),
 	                    game.getBall().getMinBallSpeedX(), game.getBall().getMinBallSpeedY(), game.getBall().getBallSpeedIncreaseFactor(),
 	                    game.getPaddle().getMaxPaddleLength(), game.getPaddle().getMinPaddleLength());
@@ -726,6 +737,11 @@ public class Block223Controller implements Serializable {
             error = "Only the admin who created the game can access its information.";
             throw new InvalidInputException(error);
         }
+		if (!userRole.equals(game.getAdmin())) {
+			error = "Only the admin who created the game can access its information.";
+			throw new InvalidInputException(error);
+		}
+        
         TOGame toGame = new TOGame(game.getName(), game.getLevels().size(), game.getNrBlocksPerLevel(),
                 game.getBall().getMinBallSpeedX(), game.getBall().getMinBallSpeedY(),
                 game.getBall().getBallSpeedIncreaseFactor(), game.getPaddle().getMaxPaddleLength(), game.getPaddle().getMinPaddleLength());
