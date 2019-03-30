@@ -542,7 +542,7 @@ public class Block223Controller implements Serializable {
 		String error = "";
 		Game game = Block223Application.getCurrentGame();
 		if(game==null) {
-			error = "A game must be selected to publish it.";
+			error = "A game must be selected to test it.";
 			throw new InvalidInputException(error);
 		}
 		UserRole userRole = Block223Application.getCurrentUserRole();
@@ -581,7 +581,7 @@ public class Block223Controller implements Serializable {
 			error = "Only the admin who created the game can publish it.";
         	throw new InvalidInputException(error);
         }
-		if(game.getNrBlocksPerLevel()<1) {
+		if(!game.hasBlocks()) {
 			error = "At least one block must be defined for a game to be published.";
 			throw new InvalidInputException(error);
 		}
