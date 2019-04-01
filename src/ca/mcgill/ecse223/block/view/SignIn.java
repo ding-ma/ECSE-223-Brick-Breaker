@@ -5,6 +5,8 @@ import java.util.*;
 
 
 import javax.swing.*;
+
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -21,17 +23,23 @@ import ca.mcgill.*;
 
 
 public class SignIn extends JFrame{
+	private String error = null;
+	private JLabel errorMessage;
 
 	private static final long serialVersionUID = -5307002073320579923L;
 
 
 
 	public void SignIn(){
+		errorMessage = new JLabel();
+		errorMessage.setForeground(Color.RED);
+		errorMessage.setBounds(0, 250, 400, 200);
 		
     	
         JFrame Fsignup = new JFrame();
     	JButton LoginButton = new JButton();
     	
+		Fsignup.add(errorMessage);
 
     	JLabel Username = new JLabel();
     	Username.setText("Username: ");
@@ -77,31 +85,33 @@ public class SignIn extends JFrame{
             	 String aPassword = textPassword.getText();
             	 String username = textUser.getText();
 
-            	try {
+            
+            	 try {
 					Block223Controller.login(username, aPassword);
 
 				} catch (InvalidInputException e1) {
+					error = "This user does not exist";
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					error += e1.getMessage();
+					errorRefresh();
+					
 				}
 
-                try {
-					refreshUserData();
-				} catch (InvalidInputException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-                
+                refreshUserData();
+              
+            
             }
+            
+            
         });
-    }
-    
-	public void refreshUserData() throws InvalidInputException {
+	}
+		public void refreshUserData(){
 		//UserMode refresh
 				TOUserMode gameMode = Block223Controller.getUserMode();
 				
 				if(gameMode.getMode() == TOUserMode.Mode.Play) {
-					System.out.println("Player Interface not yet created");
+					PlayGame PS = new PlayGame();
+							PS.PlayGameScreen();
 				}
 				
 				
@@ -117,9 +127,12 @@ public class SignIn extends JFrame{
 
 				}
 		
+			}
 		
-	
-}
+		 private void errorRefresh(){
+				// error
+	        	errorMessage.setText(error);
+			}
 
 
 		
