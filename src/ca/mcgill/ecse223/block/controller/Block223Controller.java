@@ -686,6 +686,7 @@ public class Block223Controller implements Serializable {
 	// ****************************
 	//George
 	  public static List<TOGame> getDesignableGames() throws InvalidInputException {
+		  
 	        String error;
 	        UserRole userRole = Block223Application.getCurrentUserRole();
 	        if (userRole instanceof Player || userRole == null) {

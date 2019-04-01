@@ -87,8 +87,6 @@ public class UpdateBlock {
 				}
 			}
 		});
-		
-
 
 		frame.setSize(450, 450);
 		frame.setLayout(null);
@@ -113,8 +111,8 @@ public class UpdateBlock {
 	private void refreshData() {
 		// error
 		errorMessage.setText(error);
-
 	}
+	
 	private void updateBlockButtonActionPerformed(java.awt.event.ActionEvent evt) throws InvalidInputException {
 		int id = BlockScreen.getid();
 		String SRed = redField.getText();
@@ -149,7 +147,6 @@ public class UpdateBlock {
         	refreshData();
         }
         if (error == null) {
-
             try {
                 Block223Controller.updateBlock(id, red, green, blue, points);
 
