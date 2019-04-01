@@ -754,18 +754,7 @@ public class PlayedGame implements Serializable
   // line 56 "../../../../../Block223States.ump"
    private boolean isOutOfBounds(){
 	   return isBallOutOfBounds();
-   /* double xI = getCurrentBallX();
-     double yI = getCurrentBallY();
-     double dx = getBallDirectionX();
-     double dy = getBallDirectionY();
-
-     double xF = xI+dx;
-     double yF = yI+dy;
-     
-    Rectangle rect = new Rectangle(0,Game.PLAY_AREA_SIDE, Game.PLAY_AREA_SIDE, (Ball.BALL_DIAMETER / 2));
-    
-    boolean outOfBounds = rect.intersectsLine(xI, yI, xF, yF);
-    return outOfBounds;*/
+   
   }
    
    private boolean isBallOutOfBounds() {
