@@ -753,7 +753,8 @@ public class PlayedGame implements Serializable
 
   // line 56 "../../../../../Block223States.ump"
    private boolean isOutOfBounds(){
-    double xI = getCurrentBallX();
+	   return isBallOutOfBounds();
+   /* double xI = getCurrentBallX();
      double yI = getCurrentBallY();
      double dx = getBallDirectionX();
      double dy = getBallDirectionY();
@@ -764,8 +765,14 @@ public class PlayedGame implements Serializable
     Rectangle rect = new Rectangle(0,Game.PLAY_AREA_SIDE, Game.PLAY_AREA_SIDE, (Ball.BALL_DIAMETER / 2));
     
     boolean outOfBounds = rect.intersectsLine(xI, yI, xF, yF);
-    return outOfBounds;
+    return outOfBounds;*/
   }
+   
+   private boolean isBallOutOfBounds() {
+	   double ballY = getCurrentBallY()+Ball.BALL_DIAMETER;
+	   double paddleTopY = getCurrentPaddleY(); 
+	   return(paddleTopY > ballY);
+   }
 
   // line 72 "../../../../../Block223States.ump"
    private boolean hitLastBlockAndLastLevel(){
@@ -902,7 +909,7 @@ public class PlayedGame implements Serializable
 
   // line 201 "../../../../../Block223States.ump"
    private void doOutOfBounds(){
-    setLives(lives-1);
+	   setLives(lives-1);
      resetCurrentBallX();
      resetCurrentBallY();
      resetBallDirectionX();
@@ -970,7 +977,7 @@ public class PlayedGame implements Serializable
        pg.setMostRecentEntry(hof);
      }
 
-   pg.delete();
+   delete();
   }
 
 
