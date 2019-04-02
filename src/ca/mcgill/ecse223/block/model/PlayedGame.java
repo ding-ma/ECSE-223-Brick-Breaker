@@ -758,9 +758,9 @@ public class PlayedGame implements Serializable
   }
    
    private boolean isBallOutOfBounds() {
-	   double ballY = getCurrentBallY()+Ball.BALL_DIAMETER;
-	   double paddleTopY = getCurrentPaddleY(); 
-	   return(paddleTopY > ballY);
+	   double ballY = getCurrentBallY()+(Ball.BALL_DIAMETER/2);
+	   double regionD =(Game.PLAY_AREA_SIDE-(Ball.BALL_DIAMETER/2)); 
+	   return(ballY >= regionD);
    }
 
   // line 72 "../../../../../Block223States.ump"
