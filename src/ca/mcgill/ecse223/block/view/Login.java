@@ -1,5 +1,6 @@
 package ca.mcgill.ecse223.block.view;
 
+import ca.mcgill.ecse223.block.application.Block223Application;
 import ca.mcgill.ecse223.block.controller.*;
 import javafx.scene.text.Font;
 
@@ -118,6 +119,7 @@ public class Login extends JFrame {
 	
 	private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {
 		error = "";
+		Block223Application.setCurrentUserRole(null);
 		String userName = userNameField.getText();
 		String adminPass = adminPasswordField.getText();
 		String playerPassword = playerPasswordField.getText();
@@ -134,9 +136,9 @@ public class Login extends JFrame {
 	
 	private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {
 		error = "";
+		Block223Application.setCurrentUserRole(null);
 		String userName = userNameField.getText();
 		String adminPass = adminPasswordField.getText();
-		String playerPassword = playerPasswordField.getText();
 		
 		try {
             
@@ -146,7 +148,7 @@ public class Login extends JFrame {
 			error = e1.getMessage();
 		}
         	refreshData();
-        	if (error == null) {
+        	if (error == "") {
         		GameScreen BS = new GameScreen();
 				BS.GameScreen();
 				}
