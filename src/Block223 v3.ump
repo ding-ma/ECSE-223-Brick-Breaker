@@ -25,14 +25,12 @@ class Block223 {
    }
    //end
     //Ding
-    public PlayedGame findPlayableGame(int id) {
-           for (PlayedGame game : Collections.unmodifiableList(playedGames)) {
-               if (game.getGame().equals(id)) {
-                   return game;
-               }
-           }
-           return null;
-       }
+     public PlayedGame findPlayableGame(int id){
+	    for (PlayedGame playedGame : playedGames) {
+				if (playedGame.getId() == id) return playedGame;
+			}
+	   return null;
+	  }
        //end
 }
 

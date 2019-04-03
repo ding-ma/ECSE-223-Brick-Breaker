@@ -107,6 +107,8 @@ public class UpdateBlock {
 		frame.add(blueValue);
 		frame.add(pointsValue);
 		frame.add(updateButton);
+		
+		
 	}
 	private void refreshData() {
 		// error

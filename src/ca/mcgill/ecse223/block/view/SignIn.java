@@ -23,6 +23,9 @@ import ca.mcgill.*;
 
 
 public class SignIn extends JFrame{
+	private JTextField textPassword;
+	private JTextField textUser;
+	
 	private String error = null;
 	private JLabel errorMessage;
 
@@ -33,7 +36,7 @@ public class SignIn extends JFrame{
 	public void SignIn(){
 		errorMessage = new JLabel();
 		errorMessage.setForeground(Color.RED);
-		errorMessage.setBounds(0, 250, 400, 200);
+		errorMessage.setBounds(75, 250, 400, 200);
 		
     	
         JFrame Fsignup = new JFrame();
@@ -57,8 +60,8 @@ public class SignIn extends JFrame{
         
         
         
-        JTextField textUser = new JTextField(20);
-        JTextField textPassword = new JTextField(20);
+         textUser = new JTextField(20);
+         textPassword = new JTextField(20);
 
         Fsignup.add(LoginButton);
         
@@ -77,33 +80,19 @@ public class SignIn extends JFrame{
         Fsignup.setSize(800,600);
         Fsignup.setLayout(null);
         Fsignup.setVisible(true);
-
         
-        LoginButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	 String aPassword = textPassword.getText();
-            	 String username = textUser.getText();
-
-            
-            	 try {
-					Block223Controller.login(username, aPassword);
-
-				} catch (InvalidInputException e1) {
-					error = "This user does not exist";
-					// TODO Auto-generated catch block
-					error += e1.getMessage();
+        LoginButton.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				try {
+					LoginActionPerformed(evt);
+				} catch (InvalidInputException e) {
+					error = e.getMessage();
 					errorRefresh();
-					
+					e.printStackTrace();
 				}
-
-                refreshUserData();
-              
-            
-            }
-            
-            
-        });
+			}
+		});
+        
 	}
 		public void refreshUserData(){
 		//UserMode refresh
@@ -133,7 +122,33 @@ public class SignIn extends JFrame{
 				// error
 	        	errorMessage.setText(error);
 			}
+		 
+		 private void LoginActionPerformed(java.awt.event.ActionEvent evt) throws InvalidInputException{
+	            
+	            	 String aPassword = textPassword.getText();
+	            	 String username = textUser.getText();
+	            	 
+					Block223Controller.login(username, aPassword);
+					if(Block223Application.getCurrentUserRole() == null) {
+						System.out.println("ok");
+						error = "This user does not exist";
+						errorRefresh();
+					}
+					if(error == null) {
+						try {
+							Block223Controller.login(username, aPassword);
+						}
+					 catch (InvalidInputException a){
+				             error =  a.getMessage();
+				             errorRefresh();
+					 } 
+					}
+					
+	                refreshUserData();
+	            }
+	        
 
+		 
 
 		
 		

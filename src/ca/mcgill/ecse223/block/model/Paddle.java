@@ -2,8 +2,8 @@
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
 package ca.mcgill.ecse223.block.model;
+
 import java.io.Serializable;
-import java.util.*;
 
 // line 101 "../../../../../Block223Persistence.ump"
 // line 237 "../../../../../Block223 v3.ump"
