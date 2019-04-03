@@ -136,15 +136,15 @@ public class AddBlock {
 		frame.add(errorMessage);
 
 		frame.setSize(450, 450);
-		frame.getContentPane().setBackground(Color.PINK);
+		frame.getContentPane().setBackground(Color.LIGHT_GRAY);
 		frame.setLayout(null);
 		frame.setVisible(true);
 
 
 		errorMessage = new JLabel();
 		errorMessage.setForeground(Color.RED);
-		errorMessage.setBounds(5, 200, 440, 200);
-
+		errorMessage.setBounds(0, 200, 200, 50);
+		
 		CreateButton.setBounds(120,200,200,50);
 		CreateButton.setText("Create Block");
 
@@ -221,13 +221,12 @@ public class AddBlock {
 		frame.add(errorMessage);
 
 		frame.setSize(450, 450);
-		frame.getContentPane().setBackground(Color.PINK);
+		frame.getContentPane().setBackground(Color.LIGHT_GRAY);
 		frame.setLayout(null);
 		frame.setVisible(true);
 	}
 
 	private void refreshData() {
-		// error
 		errorMessage.setText(error);
 	}
 }
