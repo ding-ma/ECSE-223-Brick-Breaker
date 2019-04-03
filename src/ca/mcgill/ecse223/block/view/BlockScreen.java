@@ -1,15 +1,14 @@
 package ca.mcgill.ecse223.block.view;
 
-import javax.swing.*;
+import ca.mcgill.ecse223.block.controller.Block223Controller;
+import ca.mcgill.ecse223.block.controller.InvalidInputException;
+import ca.mcgill.ecse223.block.controller.TOBlock;
 
-import java.awt.Color;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
-
-import ca.mcgill.ecse223.block.model.*;
-import ca.mcgill.ecse223.block.application.Block223Application;
-import ca.mcgill.ecse223.block.controller.*;
 
 public class BlockScreen {
 	
@@ -169,8 +168,8 @@ public class BlockScreen {
 			+ "Blue Value: " + block.getBlue()
 			+ "Points: " + block.getPoints());
 			index ++;
-		};
-		availableBlocksList.setSelectedIndex(-1);
+        }
+        availableBlocksList.setSelectedIndex(-1);
 	}
   public static int getid() {
 	  return BLOCKID;

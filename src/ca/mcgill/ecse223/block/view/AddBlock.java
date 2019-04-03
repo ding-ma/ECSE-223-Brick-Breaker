@@ -1,14 +1,14 @@
 package ca.mcgill.ecse223.block.view;
-import ca.mcgill.ecse223.block.controller.*;
+
+import ca.mcgill.ecse223.block.controller.Block223Controller;
+import ca.mcgill.ecse223.block.controller.InvalidInputException;
 
 import javax.swing.*;
-
-import java.awt.Color;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import ca.mcgill.ecse223.block.view.*;
 
 public class AddBlock {
 
@@ -81,7 +81,7 @@ public class AddBlock {
 				try {
 					Block223Controller.addBlock(red, green, blue, points);
 					BlockScreen blockScreen = new BlockScreen();
-					blockScreen.refreshData();
+                    BlockScreen.refreshData();
 					frame.dispose();
 				}
 				catch (InvalidInputException a){
@@ -166,7 +166,7 @@ public class AddBlock {
 				try {
 					Block223Controller.addBlock(red, green, blue, points);
 					BlockScreen blockScreen = new BlockScreen();
-					blockScreen.refreshData();
+                    BlockScreen.refreshData();
 					frame.dispose();
 				}
 				catch (InvalidInputException a){

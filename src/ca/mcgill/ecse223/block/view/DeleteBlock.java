@@ -1,11 +1,12 @@
 package ca.mcgill.ecse223.block.view;
 
+import ca.mcgill.ecse223.block.controller.Block223Controller;
+import ca.mcgill.ecse223.block.controller.InvalidInputException;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import ca.mcgill.ecse223.block.controller.*;
 
 public class DeleteBlock {
     private JLabel label = new JLabel();

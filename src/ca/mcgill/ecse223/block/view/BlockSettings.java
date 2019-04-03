@@ -1,8 +1,7 @@
 package ca.mcgill.ecse223.block.view;
 
 import javax.swing.*;
-
-import java.awt.Color;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

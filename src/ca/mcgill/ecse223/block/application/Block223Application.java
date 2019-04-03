@@ -1,8 +1,11 @@
 package ca.mcgill.ecse223.block.application;
 
-import ca.mcgill.ecse223.block.model.*;
-import ca.mcgill.ecse223.block.persistence.*;
-import ca.mcgill.ecse223.block.view.*;
+import ca.mcgill.ecse223.block.model.Block223;
+import ca.mcgill.ecse223.block.model.Game;
+import ca.mcgill.ecse223.block.model.PlayedGame;
+import ca.mcgill.ecse223.block.model.UserRole;
+import ca.mcgill.ecse223.block.persistence.Block223Persistence;
+import ca.mcgill.ecse223.block.view.Login;
 
 
 public class Block223Application {
