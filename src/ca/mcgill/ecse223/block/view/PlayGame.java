@@ -1,25 +1,20 @@
 package ca.mcgill.ecse223.block.view;
 
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.HashMap;
-
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-
 import ca.mcgill.ecse223.block.controller.Block223Controller;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import ca.mcgill.ecse223.block.controller.TOPlayableGame;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
 
 public class PlayGame {
 	private String error = null;
 	private HashMap<Integer,String> availableGames;
 	private JLabel errorMessage;
 	private JButton playGame ;
-	private JButton resumeGame;
 	private JButton restartGame;
 	private JComboBox <String> availableGamesList ;
 	private JComboBox <String> pausedGameList;
@@ -32,7 +27,6 @@ public class PlayGame {
 
  		errorMessage = new JLabel();
  		playGame = new JButton();
- 		resumeGame = new JButton();
  		restartGame = new JButton();
  		availableGamesList = new JComboBox<String>(new String[0]);
  		availableGamesLablel = new JLabel();
@@ -64,26 +58,25 @@ public class PlayGame {
 		} catch (InvalidInputException e) {
 			e.printStackTrace();
 		}
-		;
-    		
-    	    
-    		
-    		//first button:
+        //first button:
     	    playGame.setText("Play");
     	    playGame.setBounds(75, 80, 200, 50);
     	    playGame.addActionListener(new ActionListener() {
     	        @Override
     	        public void actionPerformed(ActionEvent e) {
-    	            System.out.println("ok");
+                    //load the game at the level that the player last played it at -> 1 if they never played it before
+                    PlayScreen PS = new PlayScreen();
+                    PS.PlayScreen();
 
     	        }
     	    });
-    	    
-    	    resumeGame.setText("Resume");
-    	    resumeGame.setBounds(150, 80, 200, 50);
-    	    playGame.addActionListener(new ActionListener() {
+
+        restartGame.setText("Restart");
+        restartGame.setBounds(150, 80, 200, 50);
+        restartGame.addActionListener(new ActionListener() {
     	        @Override
     	        public void actionPerformed(ActionEvent e) {
+                    //load the game at the level 1
     	            System.out.println("ok");
 
     	        }
@@ -108,11 +101,7 @@ public class PlayGame {
     		
     		
     	  }
-    private void refreshData() {
-		// error
-		errorMessage.setText(error);
-    }
 
 
-		}
+}
 	

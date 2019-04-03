@@ -1,6 +1,5 @@
 package ca.mcgill.ecse223.block.view;
 
-import ca.mcgill.ecse223.block.controller.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
