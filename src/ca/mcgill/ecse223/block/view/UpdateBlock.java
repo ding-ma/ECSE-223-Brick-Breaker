@@ -93,7 +93,7 @@ public class UpdateBlock {
 		frame.setSize(450, 450);
 		frame.setLayout(null);
 		frame.setVisible(true);
-		frame.getContentPane().setBackground(Color.PINK);
+		frame.getContentPane().setBackground(Color.LIGHT_GRAY);
 
 		frame.add(errorMessage);
 		
@@ -116,40 +116,28 @@ public class UpdateBlock {
 
 	}
 	private void updateBlockButtonActionPerformed(java.awt.event.ActionEvent evt) throws InvalidInputException {
+		error = "";
 		int id = BlockScreen.getid();
+		if (redField.getText().equals("") ||  blueField.getText().equals("")|| greenField.getText().equals("") || pointsField.getText().equals("")) {
+			error = "One or more of the fields are empty.";
+			refreshData();
+		}
+		if (error == null || error == "") {
 		String SRed = redField.getText();
         int red = Integer.parseInt(SRed);
 
-        if (SRed == null || red < 0 || red > 255) {
-        	error = "Red must be between 0 and 255. ";
-        	refreshData();
-        }
 
         String SBlue = blueField.getText();
         int blue = Integer.parseInt(SBlue);
         
-        if(SBlue == null || blue <0 || blue > 255) {
-        	error += "Blue must be between 0 and 255. ";
-        	refreshData();
-        }
 
         String SGreen = greenField.getText();
         int green = Integer.parseInt(SGreen);
-        
-        if(SGreen == null || green <0 || green > 255) {
-        	error += "Green must be between 0 and 255. ";
-        	refreshData();
-        }
+
 
         String SPoints = pointsField.getText();
         int points = Integer.parseInt(SPoints);
         
-        if(SGreen == null || green <0 || green > 255) {
-        	error += "Green must be between 0 and 255. ";
-        	refreshData();
-        }
-        if (error == null) {
-
             try {
                 Block223Controller.updateBlock(id, red, green, blue, points);
 
@@ -158,10 +146,12 @@ public class UpdateBlock {
               error =  a.getMessage();
               refreshData();
             } 
-        }
-        if (error == null) {
+        if (error == null || error == "") {
 		 frame.dispose();	
 		 BlockScreen.refreshData();
 		}
+  
+        }
+		}
 	}
-}
+

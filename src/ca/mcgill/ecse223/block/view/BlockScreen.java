@@ -12,7 +12,7 @@ import ca.mcgill.ecse223.block.application.Block223Application;
 import ca.mcgill.ecse223.block.controller.*;
 
 public class BlockScreen {
-	
+
 	private static int SELECTEDBLOCK;
 	private static int BLOCKID;
 
@@ -22,50 +22,51 @@ public class BlockScreen {
 	private static JButton createBlock;
 	private static JButton updateBlock;
 	private static JButton deleteBlock;
-	
+
 	private static JButton positionBlock;
 	private static JButton removeBlock;
-	private static JButton updateLocation;
-	
+	//private static JButton updateLocation;
+
 	private static JComboBox <String> availableBlocksList;
 	private static JLabel AavailableBlocksLablel;
 	private static JLabel blockScreen;
-
+	private JLabel createdBlocks;
+	private JFrame frame;
 
 	public void BlockScreen() {
-		JFrame frame = new JFrame();
-		
-
-
+		error = null;
+		frame = new JFrame();
+		createdBlocks = new JLabel();
 		errorMessage = new JLabel();
 		createBlock = new JButton();
 		updateBlock = new JButton();
 		deleteBlock = new JButton();
 		positionBlock = new JButton();
 		removeBlock = new JButton();
-		updateLocation = new JButton();
-		
+		//updateLocation = new JButton();
+
 		availableBlocksList = new JComboBox<String>(new String[0]);
 		AavailableBlocksLablel = new JLabel();
 		blockScreen = new JLabel();
 
-
-
 		errorMessage = new JLabel();
 		errorMessage.setForeground(Color.RED);
-		errorMessage.setBounds(0, 380, 200, 50);
+		errorMessage.setBounds(0, 200, 200, 50);
 
+		blockScreen.setBounds(10, 0, 300, 50);
+		blockScreen.setFont (blockScreen.getFont ().deriveFont (25.0f));
+		blockScreen.setForeground(Color.BLACK);
 		blockScreen.setText("Block screen");
-		blockScreen.setBounds(180, 0, 200, 50);
 
-		availableBlocksList.setBounds(125,350,200,50);
+		availableBlocksList.setBounds(200,50,200,50);
 
 		//first button:
 		createBlock.setText("Create a Block");
-		createBlock.setBounds(125, 50, 200, 50);
+		createBlock.setBounds(0, 50, 200, 50);
 		createBlock.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				error ="";
 				AddBlock addBlock = new AddBlock();
 				addBlock.AddBlock();
 
@@ -74,72 +75,58 @@ public class BlockScreen {
 
 		//second button: //TODO ERROR
 		updateBlock.setText("Update Block");
-		updateBlock.setBounds(125, 100, 200, 50);
+		updateBlock.setBounds(0, 100, 200, 50);
 		updateBlock.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				SELECTEDBLOCK = availableBlocksList.getSelectedIndex();
-				BLOCKID = availableBlocks.get(SELECTEDBLOCK);
-				if (SELECTEDBLOCK < 0)
-				error = "Block needs to be selected!";
-				try {
-					refreshData();
-				} catch (InvalidInputException e1) {
-					e1.printStackTrace();
-				}
-				if (error == null) {
-				UpdateBlock updateBlock = new UpdateBlock();
-				updateBlock.UpdateBlock();
-				}
-			}
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				updateBlockActionPerformed(evt);
+
+			}				
 		});
 
 		//third button:
 		deleteBlock.setText("Delete Block");
-		deleteBlock.setBounds(125, 150, 200, 50);
-		deleteBlock.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				DeleteBlock deleteBlock = new DeleteBlock();
-				deleteBlock.DeleteBlock();
-			}
+		deleteBlock.setBounds(200, 100, 200, 50);
+		deleteBlock.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				deleteBlockActionPerformed(evt);
+
+			}				
 		});
-			
+
 		//fourth button
 		//TODO ERROR
-		positionBlock.setText("Postition Block");
-		positionBlock.setBounds(125, 200, 200, 50);
+		positionBlock.setText("Level Settings");
+		positionBlock.setBounds(0, 150, 200, 50);
 		positionBlock.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			PositionBlock positionBlock = new PositionBlock();
-			positionBlock.PositionBlock();
-		}
-	});
-		
+			public void actionPerformed(ActionEvent e) {
+				PositionBlock positionBlock = new PositionBlock();
+				positionBlock.PositionBlock();
+			}
+		});
+
 		//fifth button
-		removeBlock.setText("Remove Block");
-		removeBlock.setBounds(125, 250, 200, 50);
+		removeBlock.setText("Back");
+		removeBlock.setBounds(200, 150, 200, 50);
 		removeBlock.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			RemoveBlock removeBlock = new RemoveBlock();
-			removeBlock.RemoveBlock();
-		}
-	});
-		
-		//sixth button
-		updateLocation.setText("Update Grid Position");
-		updateLocation.setBounds(125, 300, 200, 50);
-		updateLocation.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			UpdateLocation updateLocation = new UpdateLocation();
-			updateLocation.UpdateLocation();
-		}
-	});
-		
-		frame.setSize(450, 450);
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+			}
+		});
+//
+//		//sixth button
+//		updateLocation.setText("Update Grid Position");
+//		updateLocation.setBounds(125, 300, 200, 50);
+//		updateLocation.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				UpdateLocation updateLocation = new UpdateLocation();
+//				updateLocation.UpdateLocation();
+//			}
+//		});
+
+		frame.setSize(400, 300);
 		frame.setLayout(null);
 		frame.setVisible(true);
-		frame.getContentPane().setBackground(Color.PINK);
+		frame.getContentPane().setBackground(Color.LIGHT_GRAY);
 
 		frame.add(errorMessage);
 		frame.add(createBlock);
@@ -150,31 +137,64 @@ public class BlockScreen {
 		frame.add(blockScreen);
 		frame.add(positionBlock);
 		frame.add(removeBlock);
-		frame.add(updateLocation);
-
+		//frame.add(updateLocation);
+		refreshData();
 
 	}
-	public static void refreshData() throws InvalidInputException {
+	public static void refreshData() {
 		// error
 		errorMessage.setText(error);
-		
+
 		availableBlocks = new HashMap<Integer, Integer>();
 		availableBlocksList.removeAllItems();
 		Integer index = 0;
-		for (TOBlock block : Block223Controller.getBlocksOfCurrentDesignableGame()) {
-			availableBlocks.put(index, block.getId());
-			availableBlocksList.addItem("#" + block.getId()
-			+ "Red Value: " + block.getRed()
-			+ "Green Value: " + block.getGreen()
-			+ "Blue Value: " + block.getBlue()
-			+ "Points: " + block.getPoints());
-			index ++;
+		try {
+			for (TOBlock block : Block223Controller.getBlocksOfCurrentDesignableGame()) {
+				availableBlocks.put(index, block.getId());
+				availableBlocksList.addItem("ID: " + block.getId()
+				+ " Red Value: " + block.getRed()
+				+ " Green Value: " + block.getGreen()
+				+ " Blue Value: " + block.getBlue()
+				+ " Points: " + block.getPoints());
+				index ++;
+			}
+		} catch (InvalidInputException e) {
+			e.printStackTrace();
 		};
-		availableBlocksList.setSelectedIndex(-1);
 	}
-  public static int getid() {
-	  return BLOCKID;
-  }
+	public static int getid() {
+		return BLOCKID;
+	}
+	private void deleteBlockActionPerformed(java.awt.event.ActionEvent evt) {
+		error = "";
+		int selectedBlock = availableBlocksList.getSelectedIndex();
+		if (selectedBlock < 0)
+			error = "A Block needs to be selected for deletion!";
 
+
+		if (error.length() == 0) {
+			int aID = availableBlocks.get(selectedBlock);
+			try {
+				Block223Controller.deleteBlock(aID);
+			} catch (InvalidInputException e) {
+				error = e.getMessage();
+			}	
+
+		}
+		refreshData();
 	}
+	private void updateBlockActionPerformed(java.awt.event.ActionEvent evt) {
+		error = "";
+		int selectedBlock = availableBlocksList.getSelectedIndex();
+		if (selectedBlock < 0)
+			error = "A Block needs to be selected!";
+		refreshData();
+
+		if (error == "" || error == null) {
+			BLOCKID = availableBlocks.get(selectedBlock);
+			UpdateBlock updateBlock = new UpdateBlock();
+			updateBlock.UpdateBlock();
+		}
+	}
+}
 

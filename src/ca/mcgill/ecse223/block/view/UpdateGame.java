@@ -1,18 +1,243 @@
 package ca.mcgill.ecse223.block.view;
 
+import java.awt.Color;
+import java.util.HashMap;
+
 import javax.swing.*;
 
-public class UpdateGame {
-    public void UpdateGame(){
-        JFrame frame = new JFrame();
-        JLabel label = new JLabel();
-//TODO Anne-Julie
-        label.setText("UpdateGame");
-        label.setBounds(0,0,400,50);
-        frame.add(label);
+import ca.mcgill.ecse223.block.application.Block223Application;
+import ca.mcgill.ecse223.block.controller.Block223Controller;
+import ca.mcgill.ecse223.block.controller.InvalidInputException;
 
-        frame.setSize(300,400);
-        frame.setLayout(null);
-        frame.setVisible(true);
-    }
+public class UpdateGame {
+
+
+	private String error = null;
+	private JLabel errorMessage;
+
+	private JLabel title;
+
+	private JLabel name;
+	private JLabel nrLevels;
+	private JLabel nrBlocksPerLevel;
+	private JLabel minBallSpeedX;
+	private JLabel minBallSpeedY;
+	private JLabel ballSpeedIncreaseFactor;
+	private JLabel maxPaddleLength;
+	private JLabel minPaddleLength;
+
+	private JTextField nameField;
+	private JTextField nrLevelsField;
+	private JTextField nrBlocksPerLevelField;
+	private JTextField minBallSpeedXField;
+	private JTextField minBallSpeedYField;
+	private JTextField ballSpeedIncreaseFactorField;
+	private JTextField maxPaddleLengthField;
+	private JTextField minPaddleLengthField;
+
+	private JButton updateGame;
+
+	private JFrame frame;
+
+	public void UpdateGame(){
+		frame = new JFrame();
+		errorMessage = new JLabel();
+		updateGame = new JButton();
+		//////////////////////////////////////////////////////////////////
+		nrLevels = new JLabel();
+		name = new JLabel();
+		nrBlocksPerLevel = new JLabel();
+		minBallSpeedX = new JLabel();
+		minBallSpeedY = new JLabel();
+		ballSpeedIncreaseFactor = new JLabel();
+		maxPaddleLength = new JLabel();
+		minPaddleLength = new JLabel();
+		//////////////////////////////////////////////////////////////////
+		nrLevelsField = new JTextField();
+		nameField = new JTextField();
+		nrBlocksPerLevelField = new JTextField();
+		minBallSpeedXField = new JTextField();
+		minBallSpeedYField = new JTextField();
+		ballSpeedIncreaseFactorField = new JTextField();
+		maxPaddleLengthField = new JTextField();
+		minPaddleLengthField = new JTextField();
+		//////////////////////////////////////////////////////////////////
+
+		title = new JLabel();
+
+		title.setBounds(10, 0, 300, 50);
+		title.setFont (title.getFont ().deriveFont (25.0f));
+		title.setForeground(Color.BLACK);
+		title.setText("Update Game");
+		//////////////////////////////////////////////////////////////////
+		nrLevels = new JLabel();
+		
+		name.setText("Name: ");
+		name.setBounds(10, 50, 300, 50);
+		name.setFont (nrLevels.getFont ().deriveFont (15.0f));
+		name.setForeground(Color.BLACK);
+		
+		nrLevels.setText("Number of Levels: ");
+		nrLevels.setBounds(10, 90, 300, 50);
+		nrLevels.setFont (nrLevels.getFont ().deriveFont (15.0f));
+		nrLevels.setForeground(Color.BLACK);
+
+		nrBlocksPerLevel = new JLabel();
+		nrBlocksPerLevel.setText("Number of Blocks per Level: ");
+		nrBlocksPerLevel.setBounds(10, 130, 300, 50);
+		nrBlocksPerLevel.setFont (nrLevels.getFont ().deriveFont (15.0f));
+		nrBlocksPerLevel.setForeground(Color.BLACK);
+
+		minBallSpeedX = new JLabel();
+		minBallSpeedX.setText("Minimum Ball X Velocity: ");
+		minBallSpeedX.setBounds(10, 170, 300, 50);
+		minBallSpeedX.setFont (nrLevels.getFont ().deriveFont (15.0f));
+		minBallSpeedX.setForeground(Color.BLACK);
+
+		minBallSpeedY = new JLabel();
+		minBallSpeedY.setText("Minimum Ball Y Velocity: ");
+		minBallSpeedY.setBounds(10, 210, 300, 50);
+		minBallSpeedY.setFont (nrLevels.getFont ().deriveFont (15.0f));
+		minBallSpeedY.setForeground(Color.BLACK);
+
+		ballSpeedIncreaseFactor = new JLabel();
+		ballSpeedIncreaseFactor.setText("Ball Speed Increase Factor: ");
+		ballSpeedIncreaseFactor.setBounds(10, 250, 300, 50);
+		ballSpeedIncreaseFactor.setFont (nrLevels.getFont ().deriveFont (15.0f));
+		ballSpeedIncreaseFactor.setForeground(Color.BLACK);
+
+		maxPaddleLength = new JLabel();
+		maxPaddleLength.setText("Maximum Paddle Length: ");
+		maxPaddleLength.setBounds(10, 290, 300, 50);
+		maxPaddleLength.setFont (nrLevels.getFont ().deriveFont (15.0f));
+		maxPaddleLength.setForeground(Color.BLACK);
+
+		minPaddleLength = new JLabel();
+		minPaddleLength.setText("Minimum Paddle Length: ");
+		minPaddleLength.setBounds(10, 330, 300, 50);
+		minPaddleLength.setFont (nrLevels.getFont ().deriveFont (15.0f));
+		minPaddleLength.setForeground(Color.BLACK);
+
+		errorMessage.setForeground(Color.RED);
+		errorMessage.setBounds(0, 360, 400, 100);
+		//////////////////////////////////////////////////////////////////
+		nameField = new JTextField();
+		nameField.setBounds(215, 60, 100, 30);
+		
+		nrLevelsField = new JTextField();
+		nrLevelsField.setBounds(215, 100, 100, 30);
+
+		nrBlocksPerLevelField = new JTextField();
+		nrBlocksPerLevelField.setBounds(215, 140, 100, 30);
+
+		minBallSpeedXField = new JTextField();
+		minBallSpeedXField.setBounds(215, 180, 100, 30);
+
+		minBallSpeedYField = new JTextField();
+		minBallSpeedYField.setBounds(215, 220, 100, 30);
+
+		ballSpeedIncreaseFactorField = new JTextField();
+		ballSpeedIncreaseFactorField.setBounds(215, 260, 100, 30);
+
+		maxPaddleLengthField = new JTextField();
+		maxPaddleLengthField.setBounds(215, 300, 100, 30);
+
+		minPaddleLengthField = new JTextField();
+		minPaddleLengthField.setBounds(215, 340, 100, 30);
+		//////////////////////////////////////////////////////////////////
+		updateGame.setText("Update Game");
+		updateGame.setBounds(215, 380, 100, 50);
+		updateGame.addActionListener(new java.awt.event.ActionListener() {
+		public void actionPerformed(java.awt.event.ActionEvent evt) {
+			updateGameButtonActionPerformed(evt);
+			
+		}				
+    });
+    
+
+		//////////////////////////////////////////////////////////////////
+		frame.setSize(400, 500);
+		frame.setLayout(null);
+		frame.setVisible(true);
+		frame.getContentPane().setBackground(Color.LIGHT_GRAY);	    
+		errorMessage.setText(error);
+		frame.add(nrBlocksPerLevelField);
+		frame.add(nrLevels);
+		frame.add(nrLevelsField);
+		frame.add(title);
+		frame.add(nrBlocksPerLevel);
+		frame.add(minBallSpeedX);
+		frame.add(minBallSpeedXField);
+		frame.add(minBallSpeedY);
+		frame.add(minBallSpeedYField);
+		frame.add(ballSpeedIncreaseFactor);
+		frame.add(ballSpeedIncreaseFactorField);
+		frame.add(minPaddleLength);
+		frame.add(maxPaddleLength);
+		frame.add(maxPaddleLengthField);
+		frame.add(minPaddleLengthField);
+		frame.add(updateGame);
+		frame.add(errorMessage);
+		frame.add(name);
+		frame.add(nameField);
+	}
+	 private void refreshData() {
+			// error
+			errorMessage.setText(error);
+	 }
+	 private void updateGameButtonActionPerformed(java.awt.event.ActionEvent evt) {
+			error = "";
+			
+			String aName = nameField.getText();
+			
+			String nrLevels = nrLevelsField.getText();
+	       
+	        
+	        String nrBlocksPerLevel = nrBlocksPerLevelField.getText();
+	        
+	        
+	        String minBallSpeedX = minBallSpeedXField.getText();
+	        
+	        
+	        String minBallSpeedY = minBallSpeedYField.getText();
+	        
+	        
+	        String ballSpeedIncreaseFactor = ballSpeedIncreaseFactorField.getText();
+	        
+	        
+	        String minPaddleLength = minPaddleLengthField.getText();
+	       
+	        String maxPaddleLength = maxPaddleLengthField.getText();
+	        
+	        
+	        if (aName == null || nrLevels == null || nrBlocksPerLevel == null || minBallSpeedX == null || minBallSpeedY == null) {
+	        	error = "One or more of the boxes is empty";
+	        }
+	        
+	        if (error.length() == 0 || error == "") {
+	        	int anrLevelsd = Integer.parseInt(nrLevels);
+	        	int anrBlocksPerLevel = Integer.parseInt(nrBlocksPerLevel);
+	        	int aminBallSpeedX = Integer.parseInt(minBallSpeedX);
+	        	int aminBallSpeedY = Integer.parseInt(minBallSpeedY);
+	        	int aminPaddleLength = Integer.parseInt(minPaddleLength);
+	        	int amaxPaddleLength = Integer.parseInt(maxPaddleLength);
+	        	double aballSpeedIncreaseFactor = Double.parseDouble(ballSpeedIncreaseFactor);
+				try {
+				Block223Controller.updateGame(aName,anrLevelsd,anrBlocksPerLevel,aminBallSpeedX,aminBallSpeedY,aballSpeedIncreaseFactor,amaxPaddleLength,aminPaddleLength );
+				} catch (InvalidInputException e) {
+					error = e.getMessage();
+				}
+				
+	        }
+	        refreshData();
+	        
+	        GameScreen.refreshData();
+	        
+	        if (error.length() == 0 || error == "") {
+	        	frame.dispose();
+	        }
+	        
+	        
+	 }
+	 
 }

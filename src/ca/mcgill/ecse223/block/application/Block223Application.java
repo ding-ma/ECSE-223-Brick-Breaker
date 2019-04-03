@@ -22,7 +22,6 @@ public class Block223Application {
             }
         });
 	}
-
 	//Done
 	public static Block223 getBlock223() {
 		if (block223 == null) {
@@ -31,7 +30,6 @@ public class Block223Application {
 		}
  		return block223;
 	}
-
 	//TODO resetBlock223().
 
 	public static Block223 resetBlock223() {
@@ -60,9 +58,7 @@ public class Block223Application {
 		if (userRole == null) {
 			return null;
 		}
-		return userRole;
-
-		
+		return userRole;	
 	}
 	
 	public static void setCurrentPlayableGame(PlayedGame aGame){
