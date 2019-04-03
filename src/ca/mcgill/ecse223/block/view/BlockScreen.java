@@ -1,15 +1,14 @@
 package ca.mcgill.ecse223.block.view;
 
-import javax.swing.*;
+import ca.mcgill.ecse223.block.controller.Block223Controller;
+import ca.mcgill.ecse223.block.controller.InvalidInputException;
+import ca.mcgill.ecse223.block.controller.TOBlock;
 
-import java.awt.Color;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
-
-import ca.mcgill.ecse223.block.model.*;
-import ca.mcgill.ecse223.block.application.Block223Application;
-import ca.mcgill.ecse223.block.controller.*;
 
 public class BlockScreen {
 
@@ -148,6 +147,7 @@ public class BlockScreen {
 		availableBlocks = new HashMap<Integer, Integer>();
 		availableBlocksList.removeAllItems();
 		Integer index = 0;
+
 		try {
 			for (TOBlock block : Block223Controller.getBlocksOfCurrentDesignableGame()) {
 				availableBlocks.put(index, block.getId());

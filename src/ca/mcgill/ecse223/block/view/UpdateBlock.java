@@ -87,8 +87,6 @@ public class UpdateBlock {
 				}
 			}
 		});
-		
-
 
 		frame.setSize(450, 450);
 		frame.setLayout(null);
@@ -109,12 +107,14 @@ public class UpdateBlock {
 		frame.add(blueValue);
 		frame.add(pointsValue);
 		frame.add(updateButton);
+		
+		
 	}
 	private void refreshData() {
 		// error
 		errorMessage.setText(error);
-
 	}
+	
 	private void updateBlockButtonActionPerformed(java.awt.event.ActionEvent evt) throws InvalidInputException {
 		error = "";
 		int id = BlockScreen.getid();

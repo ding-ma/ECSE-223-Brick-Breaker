@@ -3,7 +3,6 @@
 
 package ca.mcgill.ecse223.block.model;
 
-import java.awt.*;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
@@ -342,7 +341,7 @@ public class PlayedGame implements Serializable
   /* Code from template attribute_GetDefaulted */
   public double getDefaultCurrentPaddleX()
   {
-    return (Game.PLAY_AREA_SIDE - currentPaddleLength) / 2;
+      return (Game.PLAY_AREA_SIDE - currentPaddleLength) / 2;
   }
 
   public double getCurrentPaddleY()
@@ -753,19 +752,17 @@ public class PlayedGame implements Serializable
 
   // line 56 "../../../../../Block223States.ump"
    private boolean isOutOfBounds(){
-    double xI = getCurrentBallX();
-     double yI = getCurrentBallY();
-     double dx = getBallDirectionX();
-     double dy = getBallDirectionY();
-
-     double xF = xI+dx;
-     double yF = yI+dy;
-     
-    Rectangle rect = new Rectangle(0,Game.PLAY_AREA_SIDE, Game.PLAY_AREA_SIDE, (Ball.BALL_DIAMETER / 2));
-    
-    boolean outOfBounds = rect.intersectsLine(xI, yI, xF, yF);
-    return outOfBounds;
+	   return isBallOutOfBounds();
+   
   }
+   
+   private boolean isBallOutOfBounds() {
+
+       double ballY = getCurrentBallY() + (Ball.BALL_DIAMETER / 2);
+       double regionD = (Game.PLAY_AREA_SIDE - (Ball.BALL_DIAMETER / 2));
+       return (ballY >= regionD);
+
+   }
 
   // line 72 "../../../../../Block223States.ump"
    private boolean hitLastBlockAndLastLevel(){
@@ -902,7 +899,7 @@ public class PlayedGame implements Serializable
 
   // line 201 "../../../../../Block223States.ump"
    private void doOutOfBounds(){
-    setLives(lives-1);
+	   setLives(lives-1);
      resetCurrentBallX();
      resetCurrentBallY();
      resetBallDirectionX();
@@ -970,7 +967,7 @@ public class PlayedGame implements Serializable
        pg.setMostRecentEntry(hof);
      }
 
-   pg.delete();
+   delete();
   }
 
 

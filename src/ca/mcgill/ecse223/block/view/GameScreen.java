@@ -249,7 +249,7 @@ public class GameScreen {
 	}
 		refreshData();
 	}
-	
+  
 	private void logoutActionPerformed(java.awt.event.ActionEvent evt) {
 		error = "";
 		Block223Controller.logout();
@@ -258,4 +258,4 @@ public class GameScreen {
 		
 	}
 }
-    	
+

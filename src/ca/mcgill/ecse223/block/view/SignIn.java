@@ -23,6 +23,7 @@ import ca.mcgill.*;
 
 
 public class SignIn extends JFrame{
+
 	
 	private String error = null;
 	private JLabel errorMessage;
@@ -56,6 +57,7 @@ public class SignIn extends JFrame{
  		
 		userNameField = new JTextField();
 		userNameField.setBounds(50, 80, 150, 30);
+
 		
 		
 		//Visible:

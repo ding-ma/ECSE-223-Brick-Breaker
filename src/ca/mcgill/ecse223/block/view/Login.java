@@ -1,8 +1,10 @@
 package ca.mcgill.ecse223.block.view;
 
+
 import ca.mcgill.ecse223.block.application.Block223Application;
 import ca.mcgill.ecse223.block.controller.*;
 import javafx.scene.text.Font;
+
 
 import javax.swing.*;
 
