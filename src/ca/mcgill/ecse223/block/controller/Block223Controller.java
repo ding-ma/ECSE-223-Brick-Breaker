@@ -564,7 +564,7 @@ public class Block223Controller implements Serializable {
 		PlayedGame pgame = new PlayedGame(username, game, block223);
 		pgame.setPlayer(null);
 		Block223Application.setCurrentPlayableGame(pgame);
-		//startGame(ui);
+		startGame(ui);
 	}
 
 	public static void publishGame() throws InvalidInputException {
