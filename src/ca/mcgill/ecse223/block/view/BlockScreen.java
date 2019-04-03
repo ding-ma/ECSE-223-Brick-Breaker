@@ -56,7 +56,7 @@ public class BlockScreen {
 		blockScreen.setBounds(10, 0, 300, 50);
 		blockScreen.setFont (blockScreen.getFont ().deriveFont (25.0f));
 		blockScreen.setForeground(Color.BLACK);
-		blockScreen.setText("Block screen");
+		blockScreen.setText("Block Screen");
 
 		availableBlocksList.setBounds(200,50,200,50);
 
