@@ -22,10 +22,12 @@ public class TOCurrentlyPlayedGame
   private int lives;
   private int currentLevel;
   private String playername;
+
     private double currentBallX;
     private double currentBallY;
     private double currentPaddleLength;
     private double currentPaddleX;
+
 
   //TOCurrentlyPlayedGame Associations
   private List<TOCurrentBlock> blocks;
@@ -35,6 +37,7 @@ public class TOCurrentlyPlayedGame
   //------------------------
 
     public TOCurrentlyPlayedGame(String aGamename, boolean aPaused, int aScore, int aLives, int aCurrentLevel, String aPlayername, double aCurrentBallX, double aCurrentBallY, double aCurrentPaddleLength, double aCurrentPaddleX)
+
   {
     gamename = aGamename;
     paused = aPaused;
@@ -102,6 +105,7 @@ public class TOCurrentlyPlayedGame
   }
 
     public boolean setCurrentBallX(double aCurrentBallX)
+
   {
     boolean wasSet = false;
     currentBallX = aCurrentBallX;
@@ -109,7 +113,9 @@ public class TOCurrentlyPlayedGame
     return wasSet;
   }
 
+
     public boolean setCurrentBallY(double aCurrentBallY)
+
   {
     boolean wasSet = false;
     currentBallY = aCurrentBallY;
@@ -118,6 +124,7 @@ public class TOCurrentlyPlayedGame
   }
 
     public boolean setCurrentPaddleLength(double aCurrentPaddleLength)
+
   {
     boolean wasSet = false;
     currentPaddleLength = aCurrentPaddleLength;
@@ -126,6 +133,7 @@ public class TOCurrentlyPlayedGame
   }
 
     public boolean setCurrentPaddleX(double aCurrentPaddleX)
+
   {
     boolean wasSet = false;
     currentPaddleX = aCurrentPaddleX;
@@ -166,22 +174,29 @@ public class TOCurrentlyPlayedGame
     return playername;
   }
 
+
     public double getCurrentBallX()
+
   {
     return currentBallX;
   }
 
+
     public double getCurrentBallY()
+
   {
     return currentBallY;
   }
 
     public double getCurrentPaddleLength()
+
   {
     return currentPaddleLength;
   }
 
+
     public double getCurrentPaddleX()
+
   {
     return currentPaddleX;
   }

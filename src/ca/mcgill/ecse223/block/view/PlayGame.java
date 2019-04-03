@@ -58,12 +58,15 @@ public class PlayGame {
 		} catch (InvalidInputException e) {
 			e.printStackTrace();
 		}
+
         //first button:
+
     	    playGame.setText("Play");
     	    playGame.setBounds(75, 80, 200, 50);
     	    playGame.addActionListener(new ActionListener() {
     	        @Override
     	        public void actionPerformed(ActionEvent e) {
+
                     //load the game at the level that the player last played it at -> 1 if they never played it before
                     PlayScreen PS = new PlayScreen();
                     PS.PlayScreen();
@@ -77,6 +80,7 @@ public class PlayGame {
     	        @Override
     	        public void actionPerformed(ActionEvent e) {
                     //load the game at the level 1
+
     	            System.out.println("ok");
 
     	        }
@@ -101,6 +105,8 @@ public class PlayGame {
     		
     		
     	  }
+
+
 
 
 }
