@@ -1,21 +1,15 @@
 package ca.mcgill.ecse223.block.view;
 
 
-import java.util.*; 
+import ca.mcgill.ecse223.block.application.Block223Application;
+import ca.mcgill.ecse223.block.controller.Block223Controller;
+import ca.mcgill.ecse223.block.controller.InvalidInputException;
+import ca.mcgill.ecse223.block.model.Block223;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import ca.mcgill.ecse223.block.controller.*;
-import ca.mcgill.ecse223.block.model.Block223;
-import ca.mcgill.ecse223.block.model.User;
-import ca.mcgill.ecse223.block.model.UserRole;
-import ca.mcgill.ecse223.block.application.*;
-import ca.mcgill.*;
-import ca.mcgill.ecse223.block.persistence.Block223Persistence;
+import java.util.HashMap;
 
 public class SignUp extends JFrame{
 	

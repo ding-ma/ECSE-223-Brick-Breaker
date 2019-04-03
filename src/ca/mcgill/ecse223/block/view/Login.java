@@ -1,8 +1,10 @@
 package ca.mcgill.ecse223.block.view;
 
+
 import ca.mcgill.ecse223.block.application.Block223Application;
 import ca.mcgill.ecse223.block.controller.*;
 import javafx.scene.text.Font;
+
 
 import javax.swing.*;
 
@@ -139,7 +141,6 @@ public class Login extends JFrame {
 		Block223Application.setCurrentUserRole(null);
 		String userName = userNameField.getText();
 		String adminPass = adminPasswordField.getText();
-
 		try {
             
             Block223Controller.login(userName, adminPass);

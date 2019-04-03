@@ -2,8 +2,11 @@
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
 package ca.mcgill.ecse223.block.model;
+
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * the reinitialize methods need to be added
@@ -618,13 +621,11 @@ public class Block223 implements Serializable
    */
   // line 29 "../../../../../Block223 v3.ump"
    public PlayedGame findPlayableGame(int id){
-    for (PlayedGame game : Collections.unmodifiableList(playedGames)) {
-               if (game.getGame().equals(id)) {
-                   return game;
-               }
-           }
-           return null;
-  }
+     for (PlayedGame playedGame : playedGames) {
+       if (playedGame.getId() == id) return playedGame;
+     }
+     return null;
+   }
   
   //------------------------
   // DEVELOPER CODE - PROVIDED AS-IS
