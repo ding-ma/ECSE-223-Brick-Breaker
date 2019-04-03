@@ -139,6 +139,10 @@ public class Login extends JFrame {
 		Block223Application.setCurrentUserRole(null);
 		String userName = userNameField.getText();
 		String adminPass = adminPasswordField.getText();
+<<<<<<< HEAD
+=======
+		
+>>>>>>> 2633323654bdb54a7d88bb1f04954558db482d66
 		try {
             
             Block223Controller.login(userName, adminPass);
