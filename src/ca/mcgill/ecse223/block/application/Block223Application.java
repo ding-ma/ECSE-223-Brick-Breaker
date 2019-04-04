@@ -10,7 +10,7 @@ import ca.mcgill.ecse223.block.view.Login;
 
 public class Block223Application {
 	
-	public static Block223 block223;
+	private static Block223 block223;
 	private static Game game;
 	private static UserRole userRole;
 	private static PlayedGame currentPlayableGame;
