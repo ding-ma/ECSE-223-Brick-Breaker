@@ -72,7 +72,6 @@ public class PlayGame {
 					//load the game at the level that the player last played it at -> 1 if they never played it before
 					PlayScreen PS = new PlayScreen();
 					PS.PlayScreen();
-
     	        }
     	    });
     	    

@@ -225,7 +225,7 @@ public class Block223Controller implements Serializable {
             block.setBlue(blue);
             block.setPoints(points);
             //TODO PERSISTENCE DOESNT WORK
-            //   Block223Persistence.save(Block223Application.getBlock223());
+            Block223Persistence.save(Block223Application.getBlock223());
             Block223Controller.getBlocksOfCurrentDesignableGame();
         } catch (RuntimeException e) {
             error = e.getMessage();
@@ -262,6 +262,7 @@ public class Block223Controller implements Serializable {
     }
 	public static void updateBlock(int id, int red, int green, int blue, int points) throws InvalidInputException {
 		Game game = Block223Application.getCurrentGame();
+		Block223 block223 = Block223Application.getBlock223();
 		String error = "";
 		UserRole userRole = Block223Application.getCurrentUserRole();
 		if (game==null) {
@@ -301,7 +302,7 @@ public class Block223Controller implements Serializable {
 			block.setGreen(green);
 			block.setBlue(blue);
 			block.setPoints(points);
-			//Block223Persistence.save(block223);
+			Block223Persistence.save(block223);
 		} catch (RuntimeException e) {
 			error = e.getMessage();
 			throw new InvalidInputException(error);
@@ -656,8 +657,8 @@ public class Block223Controller implements Serializable {
         if (game.getPlayStatus() == PlayStatus.GameOver) {
             Block223Application.setCurrentPlayableGame(null);
         } else if (game.getPlayer() != null) {
-            Block223 block = Block223Application.getBlock223();
-            Block223Persistence.save(block);
+            Block223 block223 = Block223Application.getBlock223();
+            Block223Persistence.save(block223);
         }
     }
 
