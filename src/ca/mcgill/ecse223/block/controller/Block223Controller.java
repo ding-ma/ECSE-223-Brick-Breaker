@@ -265,6 +265,7 @@ public class Block223Controller implements Serializable {
 	}
 	public static void updateBlock(int id, int red, int green, int blue, int points) throws InvalidInputException {
 		Game game = Block223Application.getCurrentGame();
+		Block223 block223 = Block223Application.getBlock223();
 		String error = "";
 		UserRole userRole = Block223Application.getCurrentUserRole();
 		if (game==null) {
@@ -304,7 +305,7 @@ public class Block223Controller implements Serializable {
 			block.setGreen(green);
 			block.setBlue(blue);
 			block.setPoints(points);
-			//Block223Persistence.save(block223);
+			Block223Persistence.save(block223);
 		} catch (RuntimeException e) {
 			error = e.getMessage();
 			throw new InvalidInputException(error);
@@ -535,6 +536,8 @@ public class Block223Controller implements Serializable {
 			error += "The username and password do not match.";
 			throw new InvalidInputException(error);
 		}
+//		Block223Application.setCurrentGame(null);
+//		Block223Application.block223 = Block223Persistence.load();
 	}
 	//Mairead
 	public static void logout() {
@@ -564,7 +567,7 @@ public class Block223Controller implements Serializable {
 		PlayedGame pgame = new PlayedGame(username, game, block223);
 		pgame.setPlayer(null);
 		Block223Application.setCurrentPlayableGame(pgame);
-		//startGame(ui);
+		startGame(ui);
 	}
 
 	public static void publishGame() throws InvalidInputException {
@@ -699,34 +702,31 @@ public class Block223Controller implements Serializable {
 	// Query methods
 	// ****************************
 	//George
+
 	public static List<TOGame> getDesignableGames() throws InvalidInputException {
-
-		String error;
-		UserRole userRole = Block223Application.getCurrentUserRole();
-		if (userRole instanceof Player || userRole == null) {
+		String error = "";
+		UserRole admin = Block223Application.getCurrentUserRole();
+		if(!(admin instanceof Admin)) {
 			error = "Admin privileges are required to access game information.";
-			throw new InvalidInputException(error);
 		}
-		ArrayList<TOGame> games = new ArrayList<TOGame>();
-		for (Game game : Block223Application.getBlock223().getGames()) {
-			if (!game.isPublished()) {
-				if (Block223Application.getCurrentUserRole().equals(game.getAdmin())) {
-					//NOT sure about the numberOfBlocks() method.
-					if (game.isPublished()) {
-						break;
-					}
+		if(error.length() > 0) {
+			throw new InvalidInputException(error.trim());
+		}
+		Block223 block223 = Block223Application.getBlock223();
 
-					if (!userRole.equals(Block223Application.getCurrentGame().getAdmin())) {
-						break;
-					}
-					TOGame toGame = new TOGame(game.getName(), game.numberOfLevels(), game.getNrBlocksPerLevel(),
-							game.getBall().getMinBallSpeedX(), game.getBall().getMinBallSpeedY(), game.getBall().getBallSpeedIncreaseFactor(),
-							game.getPaddle().getMaxPaddleLength(), game.getPaddle().getMinPaddleLength());
-					games.add(toGame);
-				}
+		List<TOGame> result = new ArrayList<TOGame>();
+
+		List<Game> games = block223.getGames();
+
+		for(Game game : games) {
+			Admin gameAdmin = game.getAdmin();
+			if(gameAdmin.equals(admin) && !game.isPublished()){
+				TOGame to = new TOGame(game.getName(), game.getLevels().size(), game.getNrBlocksPerLevel(), game.getBall().getMinBallSpeedX(), 
+						game.getBall().getMinBallSpeedY(), game.getBall().getBallSpeedIncreaseFactor(), game.getPaddle().getMaxPaddleLength(), game.getPaddle().getMinPaddleLength());
+				result.add(to);
 			}
 		}
-		return games;
+		return result;
 	}
 
 	//Ding

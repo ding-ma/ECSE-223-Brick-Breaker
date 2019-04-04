@@ -41,8 +41,10 @@ public class SignIn extends JFrame{
     	
         JFrame Fsignup = new JFrame();
     	JButton LoginButton = new JButton();
+    	JButton Logout = new JButton();
     	
 		Fsignup.add(errorMessage);
+		Fsignup.add(Logout);
 
     	JLabel Username = new JLabel();
     	Username.setText("Username: ");
@@ -57,6 +59,8 @@ public class SignIn extends JFrame{
 
         LoginButton.setBounds(250, 400, 200, 50);
         LoginButton.setText("Log In");
+        
+        Logout.setBounds(250, 600, 200, 50);
         
         
         
@@ -93,14 +97,26 @@ public class SignIn extends JFrame{
 			}
 		});
         
+        LoginButton.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				try {
+					LoginActionPerformed(evt);
+				} catch (InvalidInputException e) {
+					error = e.getMessage();
+					errorRefresh();
+					e.printStackTrace();
+				}
+			}
+		});
+        
 	}
 		public void refreshUserData(){
 		//UserMode refresh
 				TOUserMode gameMode = Block223Controller.getUserMode();
 				
 				if(gameMode.getMode() == TOUserMode.Mode.Play) {
-					PlayGame PS = new PlayGame();
-							PS.PlayGameScreen();
+					PlayScreen PS = new PlayScreen();
+							PS.genUI();
 				}
 				
 				
@@ -146,6 +162,12 @@ public class SignIn extends JFrame{
 					
 	                refreshUserData();
 	            }
+		 private void LogoutActionPerformed(java.awt.event.ActionEvent evt) throws InvalidInputException{
+	            
+        	Block223Controller.logout();
+			
+            refreshUserData();
+        }
 	        
 
 		 
