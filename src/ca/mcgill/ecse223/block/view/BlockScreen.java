@@ -55,7 +55,7 @@ public class BlockScreen {
 		blockScreen.setBounds(10, 0, 300, 50);
 		blockScreen.setFont (blockScreen.getFont ().deriveFont (25.0f));
 		blockScreen.setForeground(Color.BLACK);
-		blockScreen.setText("Block screen");
+		blockScreen.setText("Block Screen");
 
 		availableBlocksList.setBounds(200,50,200,50);
 
@@ -97,9 +97,8 @@ public class BlockScreen {
 		positionBlock.setText("Level Settings");
 		positionBlock.setBounds(0, 150, 200, 50);
 		positionBlock.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				PositionBlock positionBlock = new PositionBlock();
-				positionBlock.PositionBlock();
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				levelActionPerformed(evt);
 			}
 		});
 
@@ -111,16 +110,16 @@ public class BlockScreen {
 				frame.dispose();
 			}
 		});
-//
-//		//sixth button
-//		updateLocation.setText("Update Grid Position");
-//		updateLocation.setBounds(125, 300, 200, 50);
-//		updateLocation.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				UpdateLocation updateLocation = new UpdateLocation();
-//				updateLocation.UpdateLocation();
-//			}
-//		});
+		//
+		//		//sixth button
+		//		updateLocation.setText("Update Grid Position");
+		//		updateLocation.setBounds(125, 300, 200, 50);
+		//		updateLocation.addActionListener(new ActionListener() {
+		//			public void actionPerformed(ActionEvent e) {
+		//				UpdateLocation updateLocation = new UpdateLocation();
+		//				updateLocation.UpdateLocation();
+		//			}
+		//		});
 
 		frame.setSize(400, 300);
 		frame.setLayout(null);
@@ -143,7 +142,6 @@ public class BlockScreen {
 	public static void refreshData() {
 		// error
 		errorMessage.setText(error);
-
 		availableBlocks = new HashMap<Integer, Integer>();
 		availableBlocksList.removeAllItems();
 		Integer index = 0;
@@ -196,5 +194,17 @@ public class BlockScreen {
 			updateBlock.UpdateBlock();
 		}
 	}
-}
+	private void levelActionPerformed(java.awt.event.ActionEvent evt) {
+		error = "";
+		int selectedBlock = availableBlocksList.getSelectedIndex();
+		if (selectedBlock < 0)
+			error = "A Block needs to be selected!";
+		refreshData();
 
+		if (error == "" || error == null) {
+			BLOCKID = availableBlocks.get(selectedBlock);
+			PositionBlock positionBlock = new PositionBlock();
+			positionBlock.PositionBlock();
+		}
+	}
+}

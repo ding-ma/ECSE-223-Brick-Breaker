@@ -44,7 +44,8 @@ public class UpdateBlock {
 		
 		updateBlockLabel = new JLabel();
 		updateBlockLabel.setText("Update Block");
-		updateBlockLabel.setBounds(180, 0, 200, 50);
+		updateBlockLabel.setFont (updateBlockLabel.getFont ().deriveFont (25.0f));
+		updateBlockLabel.setBounds(10, 0, 300, 50);
  		
 		redField = new JTextField();
 		redField.setBounds(50, 80, 150, 30);
