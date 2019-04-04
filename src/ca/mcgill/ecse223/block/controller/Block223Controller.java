@@ -187,83 +187,6 @@ public class Block223Controller implements Serializable {
 	}
 
 	public static void addBlock(int red, int green, int blue, int points) throws InvalidInputException {
-<<<<<<< HEAD
-        Game game = Block223Application.getCurrentGame();
-        String error = "";
-
-        UserRole userRole = Block223Application.getCurrentUserRole();
-        if (game == null) {
-            error += "A game must be selected to add a block.";
-        } else if (!userRole.equals(Block223Application.getCurrentGame().getAdmin())) {
-            error += "Only the admin who created the game can add a block.";
-        }
-        if (userRole instanceof Player) {
-            error += "Admin privileges are required to add a block.";
-        }
-        if (red < 0 || red > 255) {
-            error += "Red must be between 0 and 255.";
-        }
-        if (green < 0 || green > 255) {
-            error += "Green must be between 0 and 255.";
-        }
-        if (blue < 0 || blue > 255) {
-            error += "Blue must be between 0 and 255.";
-        }
-        if (points < 0 || points > 1000) {
-            error += "Points must be between 1 and 1000.";
-        }
-        if (game != null) {
-            for (Block block : game.getBlocks()) {
-                if (red == block.getRed() && green == block.getGreen() && blue == block.getBlue()) {
-                    error += "A block with the same color already exists for the game.";
-                }
-            }
-        }
-        if (error.length() > 0)
-            throw new InvalidInputException(error.trim());
-        try {
-            Block block = new Block(red, green, blue, points, game);
-            block.setRed(red);
-            block.setGreen(green);
-            block.setBlue(blue);
-            block.setPoints(points);
-            //TODO PERSISTENCE DOESNT WORK
-            Block223Persistence.save(Block223Application.getBlock223());
-            Block223Controller.getBlocksOfCurrentDesignableGame();
-        } catch (RuntimeException e) {
-            error = e.getMessage();
-            throw new InvalidInputException(error);
-        }
-    }
-     public static void deleteBlock(int id) throws InvalidInputException {
-        Game game = Block223Application.getCurrentGame();
-        String error = "";
-        UserRole userRole = Block223Application.getCurrentUserRole();
-        if (game == null) {
-            error += "A game must be selected to delete a block.";
-            throw new InvalidInputException(error);
-        }
-        if (userRole instanceof Player) {
-            error += "Admin privileges are required to delete a block.";
-            throw new InvalidInputException(error);
-        }
-        if (Block223Application.getCurrentGame().findBlock(id) == null) {
-            error += "There was an exception while deleting a non-existing block.";
-        }
-        if (!userRole.equals(Block223Application.getCurrentGame().getAdmin())) {
-            error += "Only the admin who created the game can delete a block.";
-            throw new InvalidInputException(error);
-        } else if (Block223Application.getCurrentGame().findBlock(id) != null) {
-            try {
-                Block223Application.getCurrentGame().findBlock(id).delete();
-            } catch (RuntimeException e) {
-                if (error.length() > 0)
-                    throw new InvalidInputException(error.trim());
-            }
-        }
-
-    }
-=======
 		Game game = Block223Application.getCurrentGame();
 		String error = "";
 
@@ -340,7 +263,6 @@ public class Block223Controller implements Serializable {
 		}
 
 	}
->>>>>>> 9dd58906cd0123b0d2ffe1cf02b85d7533a6c63d
 	public static void updateBlock(int id, int red, int green, int blue, int points) throws InvalidInputException {
 		Game game = Block223Application.getCurrentGame();
 		Block223 block223 = Block223Application.getBlock223();
@@ -672,101 +594,6 @@ public class Block223Controller implements Serializable {
 		}
 		game.setPublished(true);
 	}
-<<<<<<< HEAD
-//Ding
-    public static void selectPlayableGame(String name, int id) throws InvalidInputException {
-        String error = "";
-        UserRole userRole = Block223Application.getCurrentUserRole();
-        if (userRole instanceof Admin) {
-            throw new InvalidInputException("Player privileges are required to play a game.");
-        }
-        //the same findGame as iteration 2
-        Game game = Block223Application.getBlock223().findGame(name);
-        Block223 block223 = Block223Application.getBlock223();
-        PlayedGame pgame;
-        if (game != null) {
-            Player player = (Player) Block223Application.getCurrentUserRole();
-            String username = User.findUsername(player);
-
-            PlayedGame result = new PlayedGame(username, game, block223);
-            pgame = result;
-            pgame.setPlayer(player);
-        } else {
-            pgame = block223.findPlayableGame(id);
-        }
-        //TODO doesnt work
-        if ((game == null) && (pgame == null)) {
-            throw new InvalidInputException("The game does not exist.");
-        }
-        if ((game == null) && (userRole != pgame.getPlayer()))
-            throw new InvalidInputException("Only the player that started a game can continue the game.");
-        Block223Application.setCurrentPlayableGame(pgame);
-    }
-
-    //Ding
-    public static void startGame(Block223PlayModeInterface ui) throws InvalidInputException {
-        String error = "";
-        UserRole userRole = Block223Application.getCurrentUserRole();
-        if (userRole == null) {
-            throw new InvalidInputException("Player privileges are required to play a game.");
-        }
-        if ((Block223Application.getCurrentPlayableGame() == null)) {
-            throw new InvalidInputException("A game must be selected to play it.");
-        }
-        if ((userRole instanceof Admin) && (Block223Application.getCurrentPlayableGame().getPlayer() != null)) {
-            throw new InvalidInputException("Player privileges are required to play a game.");
-        }
-        if ((userRole instanceof Admin) && (Block223Application.getCurrentUserRole() != Block223Application.getCurrentGame().getAdmin())) {//Check for the admin of the function
-            throw new InvalidInputException("Only the admin of a game can test the game.");
-        }
-        if ((userRole instanceof Player) && (Block223Application.getCurrentPlayableGame().getPlayer() == null)) {
-            throw new InvalidInputException("Admin privileges are required to test a game.");
-        }
-        PlayedGame game = Block223Application.getCurrentPlayableGame();
-        game.play();
-        ui.takeInputs();
-        if (game.getPlayStatus() == PlayStatus.Moving) {
-            String userInputs = ui.takeInputs();
-            Block223Controller.updatePaddlePosition(userInputs);
-            game.move();
-            if (userInputs.contains("")) {
-                game.pause();
-            }
-            try {
-                Thread.sleep((long) game.getWaitTime());
-            } catch (InterruptedException ex) {
-                Thread.currentThread().interrupt();
-            }
-            ui.refresh();
-        }
-        if (game.getPlayStatus() == PlayStatus.GameOver) {
-            Block223Application.setCurrentPlayableGame(null);
-        } else if (game.getPlayer() != null) {
-            Block223 block223 = Block223Application.getBlock223();
-            Block223Persistence.save(block223);
-        }
-    }
-
-    //Ding
-    public static void updatePaddlePosition(String direction) {
-        PlayedGame pgame = Block223Application.getCurrentPlayableGame();
-        double currentPaddleLength = pgame.getCurrentPaddleLength();
-        double currentPaddleX = pgame.getCurrentPaddleX();
-        if (direction.equals("l")) {
-            if (currentPaddleX - currentPaddleLength == 0) pgame.setCurrentPaddleX(currentPaddleX);
-            else pgame.setCurrentPaddleX(--currentPaddleX);
-        }
-        if (direction.equals("r")) {
-            if (currentPaddleX == 390) pgame.setCurrentPaddleX(currentPaddleX);
-            else pgame.setCurrentPaddleX(++currentPaddleX);
-        }
-        if (direction.equals(" ")) {
-            pgame.pause();
-
-        }
-
-    }
-=======
 
 	//Ding
 	public static void selectPlayableGame(String name, int id) throws InvalidInputException {
@@ -870,7 +697,6 @@ public class Block223Controller implements Serializable {
 		if (Game.PLAY_AREA_SIDE - currentPaddleLength > currentPaddleX)
 			pgame.setCurrentPaddleX(pgame.getCurrentPaddleX() + right);
 	}
->>>>>>> 9dd58906cd0123b0d2ffe1cf02b85d7533a6c63d
 
 	// ****************************
 	// Query methods
