@@ -66,11 +66,9 @@ public class PlayGame {
     	    playGame.addActionListener(new ActionListener() {
     	        @Override
     	        public void actionPerformed(ActionEvent e) {
-
-                    //load the game at the level that the player last played it at -> 1 if they never played it before
-                    PlayScreen PS = new PlayScreen();
-                    PS.PlayScreen();
-
+					//load the game at the level that the player last played it at -> 1 if they never played it before
+					PlayScreen PS = new PlayScreen();
+					PS.PlayScreen();
     	        }
     	    });
 

@@ -119,6 +119,30 @@ public class Login extends JFrame {
 
 	}
 	
+	public void refreshUserData(){
+		//UserMode refresh
+				TOUserMode gameMode = Block223Controller.getUserMode();
+				
+				if(gameMode.getMode() == TOUserMode.Mode.Play) {
+					PlayScreen PS = new PlayScreen();
+							PS.genUI();
+				}
+				
+				
+				if(gameMode.getMode() == TOUserMode.Mode.Design) {
+					GameScreen BS = new GameScreen();
+					BS.GameScreen();
+				}
+			
+				
+				if(gameMode.getMode() == TOUserMode.Mode.None) {
+					System.out.println("error");
+
+				}
+		
+			}
+		
+	
 	private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {
 		error = "";
 		Block223Application.setCurrentUserRole(null);
@@ -137,21 +161,61 @@ public class Login extends JFrame {
         }
 	
 	private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {
-		error = "";
-		Block223Application.setCurrentUserRole(null);
-		String userName = userNameField.getText();
-		String adminPass = adminPasswordField.getText();
-		try {
-            
-            Block223Controller.login(userName, adminPass);
-		}
-		catch (InvalidInputException e1) {
-			error = e1.getMessage();
-		}
-        	refreshData();
-        	if (error == "") {
-        		GameScreen BS = new GameScreen();
-				BS.GameScreen();
-				}
-        	}
+        error = "";
+        Block223Application.setCurrentUserRole(null);
+        String userName = userNameField.getText();
+        String playerPass = playerPasswordField.getText();
+        String adminPass = adminPasswordField.getText();
+        //TODO fix admin login
+        //means its player
+        if (adminPass.equals("")) {
+
+           try {
+                Block223Controller.login(userName, playerPass);
+            } catch (InvalidInputException e1) {
+                error = e1.getMessage();
+            }
+            refreshData();
+            if (error.equals("")) {
+            	refreshUserData();
+                /*PlayScreen playScreen = new PlayScreen();
+                playScreen.genUI()*/;
+            }
         }
+        //means its admin
+        if(playerPass.equals("")){
+            try {
+                Block223Controller.login(userName, adminPass);
+            }
+            catch (InvalidInputException e1) {
+                error = e1.getMessage();
+            }
+            refreshData();
+            if (error.equals(null)) {
+            	refreshUserData();
+                
+            }
+            else{
+                try {
+                	error+="Player Cannot Login as Admin.";
+                    throw new InvalidInputException("Player Cannot Login as Admin");
+                    
+                } catch (InvalidInputException e) {
+                    e.printStackTrace();
+                }
+                refreshData();
+            }
+        }
+        else{
+            try {
+            	error+="Please only enter 1 password when logging in.";
+                throw new InvalidInputException("Only enter 1 password");
+            } catch (InvalidInputException e) {
+                e.printStackTrace();
+            }
+            refreshData();
+        }
+    }
+	
+
+ }
