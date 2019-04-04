@@ -119,7 +119,7 @@ public class UpdateGame {
 		minPaddleLength.setForeground(Color.BLACK);
 
 		errorMessage.setForeground(Color.RED);
-		errorMessage.setBounds(0, 360, 400, 100);
+		errorMessage.setBounds(0, 390, 400, 100);
 		//////////////////////////////////////////////////////////////////
 		nameField = new JTextField();
 		nameField.setBounds(215, 60, 100, 30);

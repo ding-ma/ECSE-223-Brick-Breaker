@@ -535,6 +535,8 @@ public class Block223Controller implements Serializable {
 			error += "The username and password do not match.";
 			throw new InvalidInputException(error);
 		}
+		Block223Application.setCurrentGame(null);
+		Block223Application.block223 = Block223Persistence.load();
 	}
 	//Mairead
 	public static void logout() {
