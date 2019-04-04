@@ -1,14 +1,14 @@
 package ca.mcgill.ecse223.block.view;
-import ca.mcgill.ecse223.block.controller.*;
+
+import ca.mcgill.ecse223.block.controller.Block223Controller;
+import ca.mcgill.ecse223.block.controller.InvalidInputException;
 
 import javax.swing.*;
-
-import java.awt.Color;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import ca.mcgill.ecse223.block.view.*;
 
 public class AddBlock {
 
@@ -28,10 +28,12 @@ public class AddBlock {
 	private JLabel addBlock;
 
 	public void AddBlock() {
-
+		
 		addBlock = new JLabel();
+		addBlock.setBounds(10, 0, 300, 50);
+		addBlock.setFont (addBlock.getFont ().deriveFont (25.0f));
+		addBlock.setForeground(Color.BLACK);
 		addBlock.setText("Create Block");
-		addBlock.setBounds(180, 0, 200, 50);
 		frame.add(addBlock);
 
 		redValue = new JLabel();
@@ -58,7 +60,7 @@ public class AddBlock {
 		errorMessage = new JLabel();
 		errorMessage = new JLabel();
 		errorMessage.setForeground(Color.RED);
-		errorMessage.setBounds(5, 200, 440, 200);
+		errorMessage.setBounds(5, 250, 440, 200);
 
 		CreateButton.setBounds(120,200,200,50);
 		CreateButton.setText("Create Block");
@@ -81,7 +83,7 @@ public class AddBlock {
 				try {
 					Block223Controller.addBlock(red, green, blue, points);
 					BlockScreen blockScreen = new BlockScreen();
-					blockScreen.refreshData();
+                    BlockScreen.refreshData();
 					frame.dispose();
 				}
 				catch (InvalidInputException a){
@@ -136,15 +138,15 @@ public class AddBlock {
 		frame.add(errorMessage);
 
 		frame.setSize(450, 450);
-		frame.getContentPane().setBackground(Color.PINK);
+		frame.getContentPane().setBackground(Color.LIGHT_GRAY);
 		frame.setLayout(null);
 		frame.setVisible(true);
 
 
 		errorMessage = new JLabel();
 		errorMessage.setForeground(Color.RED);
-		errorMessage.setBounds(5, 200, 440, 200);
-
+		errorMessage.setBounds(0, 200, 200, 50);
+		
 		CreateButton.setBounds(120,200,200,50);
 		CreateButton.setText("Create Block");
 
@@ -166,7 +168,7 @@ public class AddBlock {
 				try {
 					Block223Controller.addBlock(red, green, blue, points);
 					BlockScreen blockScreen = new BlockScreen();
-					blockScreen.refreshData();
+                    BlockScreen.refreshData();
 					frame.dispose();
 				}
 				catch (InvalidInputException a){
@@ -221,13 +223,12 @@ public class AddBlock {
 		frame.add(errorMessage);
 
 		frame.setSize(450, 450);
-		frame.getContentPane().setBackground(Color.PINK);
+		frame.getContentPane().setBackground(Color.LIGHT_GRAY);
 		frame.setLayout(null);
 		frame.setVisible(true);
 	}
 
 	private void refreshData() {
-		// error
 		errorMessage.setText(error);
 	}
 }

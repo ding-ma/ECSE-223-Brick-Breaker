@@ -1,20 +1,10 @@
 package ca.mcgill.ecse223.block.view;
 
-import java.awt.Color;
+import ca.mcgill.ecse223.block.controller.Block223Controller;
+import ca.mcgill.ecse223.block.controller.InvalidInputException;
 
 import javax.swing.*;
-
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.HashMap;
-
-import ca.mcgill.ecse223.block.*;
-import ca.mcgill.ecse223.block.application.Block223Application;
-import ca.mcgill.ecse223.block.controller.*;
 
 
 

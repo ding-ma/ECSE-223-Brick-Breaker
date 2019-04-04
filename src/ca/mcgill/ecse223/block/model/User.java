@@ -288,7 +288,7 @@ public class User implements Serializable
 		List<UserRole> roles = value.getRoles();
       		for(UserRole role : roles) {
       			if(role==currentuserrole) {
-      				return value.getUsername().toString();
+                    return value.getUsername();
       		}
       	}
 	}
