@@ -22,7 +22,7 @@ public class PlayGame {
 	private JLabel gameScreen ;
 	private JLabel selectGame;
 
-    public void PlayGameScreen() {
+    public void PlayGame() {
     	 JFrame frame = new JFrame();
 
  		errorMessage = new JLabel();
@@ -68,7 +68,7 @@ public class PlayGame {
     	        public void actionPerformed(ActionEvent e) {
 					//load the game at the level that the player last played it at -> 1 if they never played it before
 					PlayScreen PS = new PlayScreen();
-					PS.PlayScreen();
+					PS.genUI();
     	        }
     	    });
 

@@ -1,17 +1,19 @@
 package ca.mcgill.ecse223.block.controller;
 
 import ca.mcgill.ecse223.block.application.Block223Application;
+
 import ca.mcgill.ecse223.block.controller.TOUserMode.Mode;
 import ca.mcgill.ecse223.block.model.*;
 import ca.mcgill.ecse223.block.model.PlayedGame.PlayStatus;
 import ca.mcgill.ecse223.block.persistence.Block223Persistence;
 import ca.mcgill.ecse223.block.view.Block223PlayModeInterface;
+import ca.mcgill.ecse223.block.view.PlayScreen;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Block223Controller implements Serializable {
+public class Block223Controller extends PlayScreen implements Serializable {
 	private static Game game;
 
 	// ****************************
@@ -626,9 +628,12 @@ public class Block223Controller implements Serializable {
 
 	//Ding
 	public static void startGame(Block223PlayModeInterface ui) throws InvalidInputException {
+		
 		String error = "";
+
 		UserRole userRole = Block223Application.getCurrentUserRole();
 		if (userRole == null) {
+			
 			throw new InvalidInputException("Player privileges are required to play a game.");
 		}
 		if ((Block223Application.getCurrentPlayableGame() == null)) {
@@ -643,15 +648,20 @@ public class Block223Controller implements Serializable {
 		if ((userRole instanceof Player) && (Block223Application.getCurrentPlayableGame().getPlayer() == null)) {
 			throw new InvalidInputException("Admin privileges are required to test a game.");
 		}
+		System.out.println("play");
+
 		PlayedGame game = Block223Application.getCurrentPlayableGame();
 		game.play();
-		ui.takeInputs();
+		String userInputs = ui.takeInputs();
+		System.out.println("ok1");
+
 		while (game.getPlayStatus() == PlayStatus.Moving) {
-			String userInputs = ui.takeInputs();
+			System.out.println("play");
 			updatePaddlePosition(userInputs);
 			game.move();
 			if (userInputs.contains(" ")) {
 				game.pause();
+				System.out.println("pause");
 			}
 			game.getWaitTime();
 
@@ -663,8 +673,8 @@ public class Block223Controller implements Serializable {
 			Block223 block223 = Block223Application.getBlock223();
 			Block223Persistence.save(block223);
 		}
+	
 	}
-
 	//Ding
 	public static void updatePaddlePosition(String userinputs) {
 		PlayedGame pgame = Block223Application.getCurrentPlayableGame();

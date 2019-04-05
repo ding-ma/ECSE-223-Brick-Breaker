@@ -1,11 +1,11 @@
-package ca.mcgill.ecse223.block.playmode.example.view;
+package ca.mcgill.ecse223.block.view;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import ca.mcgill.ecse223.block.playmode.example.controller.InvalidInputException;
+import ca.mcgill.ecse223.block.controller.InvalidInputException;
 
-public class Block223PlayModeExampleListener implements KeyListener {
+public class Block223PlayListener implements KeyListener {
 
 	/**
 	 * 'String input from keyboard - marked as volatile since it is shared by two
@@ -17,12 +17,12 @@ public class Block223PlayModeExampleListener implements KeyListener {
 	public synchronized void keyPressed(KeyEvent e) {
 		try {
 			keyInputs(e);
-		} catch (InvalidInputException e1) {
+		} catch (ca.mcgill.ecse223.block.controller.InvalidInputException e1) {
 			System.out.print(e1);
 		}
 	}
 
-	private synchronized String keyInputs(KeyEvent e) throws InvalidInputException {
+	private synchronized String keyInputs(KeyEvent e) throws ca.mcgill.ecse223.block.controller.InvalidInputException {
 		int location = e.getKeyCode();
 		if (location == KeyEvent.VK_LEFT) {
 			keyString += "l";
