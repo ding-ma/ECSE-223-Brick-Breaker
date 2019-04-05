@@ -2,14 +2,11 @@
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
 package ca.mcgill.ecse223.block.model;
-
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 // line 37 "../../../../../Block223Persistence.ump"
-// line 90 "../../../../../Block223 v3.ump"
+// line 88 "../../../../../Block223 v3.ump"
 public class Admin extends UserRole implements Serializable
 {
 

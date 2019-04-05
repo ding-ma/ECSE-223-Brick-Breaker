@@ -2,10 +2,7 @@
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
 package ca.mcgill.ecse223.block.controller;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 // line 32 "../../../../../Block223TransferObjectsPlayMode.ump"
 public class TOHallOfFame
