@@ -149,8 +149,7 @@ public class BlockScreen {
 		try {
 			for (TOBlock block : Block223Controller.getBlocksOfCurrentDesignableGame()) {
 				availableBlocks.put(index, block.getId());
-				availableBlocksList.addItem("ID: " + block.getId()
-				+ " Red Value: " + block.getRed()
+				availableBlocksList.addItem(" Red Value: " + block.getRed()
 				+ " Green Value: " + block.getGreen()
 				+ " Blue Value: " + block.getBlue()
 				+ " Points: " + block.getPoints());
@@ -158,7 +157,7 @@ public class BlockScreen {
 			}
 		} catch (InvalidInputException e) {
 			e.printStackTrace();
-		};
+		}
 	}
 	public static int getid() {
 		return BLOCKID;
