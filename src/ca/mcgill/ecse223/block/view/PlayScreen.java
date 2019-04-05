@@ -40,11 +40,12 @@ import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import ca.mcgill.ecse223.block.controller.TOGame;
 import ca.mcgill.ecse223.block.controller.TOHallOfFameEntry;
 
+//VIEW
 public class PlayScreen extends JFrame implements Block223PlayModeInterface {
 	private static final long serialVersionUID = -613534727974834342L;
 	JTextArea gameArea;
-	Block223PlayModeExampleListener bp;
-	JFrame frame = new JFrame();
+	Block223PlayListener bp;
+	//JFrame frame = new JFrame();
 	private HashMap<Integer,Integer> hof;
 	private JList <String> hofList ;
 	
@@ -54,70 +55,75 @@ public class PlayScreen extends JFrame implements Block223PlayModeInterface {
 	}
 		
 	public void genUI() {
-	   frame.setSize(700, 500);
+	   /*frame.setSize(700, 500);
 	   frame.setLayout(null);
-	   frame.setVisible(true);
+	   frame.setVisible(true);*/
 
 	   //frame.setContentPane(new PlayScreen());
 	   
-	   JPanel p = new JPanel();
+	   /*JPanel p = new JPanel();
 	   p.setBounds(500, 0, 200, 500);
-	   p.setBackground(Color.LIGHT_GRAY);
-	   
-	   JPanel padd = new JPanel();
-	   padd.setBounds(175, 380, 20, 10);
-	   padd.setBackground(Color.RED);
-	   
-	   JPanel t = new JPanel();
-	   t.setBounds(0,0,500,50);
-	   frame.add(t);
-	   JLabel title = new JLabel("Block 223!");
-	   title.setFont(new Font("Verdana",1,20));
-	   t.add(title);
-	   t.setBorder(new LineBorder(Color.BLACK)); // make it easy to see
+	   p.setBackground(Color.LIGHT_GRAY);*/
 	   
 	   
-	  /*
-	    String[] data = {"one", "two", "three", "four"};
-        JList<String> myList = new JList<String>(data);
-        myList.setSize(200,500);
-        myList.setLocation(500, 0);*/
-       
+	   
+	  // t.setBorder(new LineBorder(Color.BLACK)); // make it easy to see
+	    
         //get
-        frame.setVisible(true);
+	   this.setTitle("Block223 PlayMode Example");
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        /*frame.setVisible(true);
+        
         
         
         //add list to panel 
         //p.add(myList); 
    
         frame.add(p);
-        frame.add(padd);
+        frame.add(padd);*/
        
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		
 		this.addComponentsToPane();
-        
+        this.pack();
+        this.setVisible(true);
 	}
 
 
 private void addComponentsToPane() {
 
 	JButton button = new JButton("Start Game");
+	JPanel padd = new JPanel();
+	   padd.setBounds(175, 380, 20, 10);
+	   padd.setBackground(Color.RED);
+	   
+	   JPanel t = new JPanel();
+	   t.setBounds(0,0,500,50);
+	   		
+	   JLabel title = new JLabel("Block 223!");
+	   title.setFont(new Font("Verdana",1,20));
+	   t.add(title);
 
 	gameArea = new JTextArea();
-	gameArea.setEditable(false);
+	
 	JScrollPane scrollPane = new JScrollPane(gameArea);
 	scrollPane.setPreferredSize(new Dimension(375, 125));
 
 	getContentPane().add(scrollPane, BorderLayout.CENTER);
 	getContentPane().add(button, BorderLayout.PAGE_END);
+	getContentPane().add(padd);
+	getContentPane().add(t);
+	
+	Dimension dimension = new Dimension(390,390);
+	gameArea.setPreferredSize(dimension);
+	
+
 
 	button.addActionListener(new java.awt.event.ActionListener() {
 		public void actionPerformed(java.awt.event.ActionEvent evt) {
 			button.setVisible(false);
 			// initiating a thread to start listening to keyboard inputs
-			bp = new Block223PlayModeExampleListener();
+			bp = new Block223PlayListener();
 			Runnable r1 = new Runnable() {
 				@Override
 				public void run() {
@@ -140,6 +146,8 @@ private void addComponentsToPane() {
 				public void run() {
 					try {
 						Block223Controller.startGame(PlayScreen.this);
+						System.out.println("ok");
+						
 						button.setVisible(true);
 					} catch (InvalidInputException e) {
 					}
@@ -250,4 +258,12 @@ Action leftAction = new AbstractAction(){
     
     drawPanel.setLocation(xLocation--, yLocation);s
 */
+
+
+
+	  /*
+	    String[] data = {"one", "two", "three", "four"};
+     JList<String> myList = new JList<String>(data);
+     myList.setSize(200,500);
+     myList.setLocation(500, 0);*/
  

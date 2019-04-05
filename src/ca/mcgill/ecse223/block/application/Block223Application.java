@@ -1,10 +1,12 @@
 package ca.mcgill.ecse223.block.application;
 
 import ca.mcgill.ecse223.block.model.Block223;
+
 import ca.mcgill.ecse223.block.model.Game;
 import ca.mcgill.ecse223.block.model.PlayedGame;
 import ca.mcgill.ecse223.block.model.UserRole;
 import ca.mcgill.ecse223.block.persistence.Block223Persistence;
+import ca.mcgill.ecse223.block.view.PlayScreen;
 import ca.mcgill.ecse223.block.view.Login;
 
 
@@ -18,12 +20,17 @@ public class Block223Application {
 	
 	public static void main(String[] args) {
 		// start UI
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                Login login = new Login();
-                login.login();
-            }
-        });
+
+
+			javax.swing.SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+					Login login = new Login();
+	                login.login();
+					
+				}
+			});
+		
+       
 	}
 	//Done
 	public static Block223 getBlock223() {
