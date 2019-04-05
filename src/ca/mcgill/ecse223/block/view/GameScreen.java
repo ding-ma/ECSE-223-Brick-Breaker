@@ -1,20 +1,15 @@
 package ca.mcgill.ecse223.block.view;
 
+import ca.mcgill.ecse223.block.controller.Block223Controller;
+import ca.mcgill.ecse223.block.controller.InvalidInputException;
+import ca.mcgill.ecse223.block.controller.TOGame;
+
 import javax.swing.*;
-
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.HashMap;
-
-import ca.mcgill.ecse223.block.*;
-import ca.mcgill.ecse223.block.application.Block223Application;
-import ca.mcgill.ecse223.block.controller.*;
-import ca.mcgill.ecse223.block.model.Block223;
-import ca.mcgill.ecse223.block.model.Game;
 
 
 
@@ -77,7 +72,12 @@ public class GameScreen {
 
 		gameNameTextField = new JTextField();
 		gameNameTextField.setBounds(100, 60, 100, 30);
-
+		gameNameTextField.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				gameNameTextField.setText("");
+			}
+		});
 
 		availableGames = new HashMap<Integer, String>();
 		availableGamesList.removeAllItems();
@@ -91,7 +91,6 @@ public class GameScreen {
 		} catch (InvalidInputException e) {
 			e.printStackTrace();
 		}
-		;
 
 		//first button:
 		createGame.setText("Create a Game");
@@ -177,7 +176,6 @@ public class GameScreen {
 		} catch (InvalidInputException e) {
 			e.printStackTrace();
 		}
-		;
 	}
 
 
@@ -202,7 +200,7 @@ public class GameScreen {
 		int selectedGame = availableGamesList.getSelectedIndex();
 		if (selectedGame < 0) 
 			error = "A game needs to be selected before!";
-		String name = (String) availableGames.get(selectedGame);
+		String name = availableGames.get(selectedGame);
 		if (error.length() == 0) {
 			try {
 				Block223Controller.selectGame(name);
@@ -222,7 +220,7 @@ public class GameScreen {
 		int selectedGame = availableGamesList.getSelectedIndex();
 		if (selectedGame < 0) 
 			error = "A game needs to be selected before!";
-		String name = (String) availableGames.get(selectedGame);
+		String name = availableGames.get(selectedGame);
 		if (error.length() == 0) {
 			try {
 				Block223Controller.selectGame(name);
@@ -242,7 +240,7 @@ public class GameScreen {
 		int selectedGame = availableGamesList.getSelectedIndex();
 		if (selectedGame < 0)
 			error = "A game needs to be selected for deletion!";
-		String name = (String) availableGames.get(selectedGame);
+		String name = availableGames.get(selectedGame);
 		if (error.length() == 0) {
 			try {
 				Block223Controller.deleteGame(name);

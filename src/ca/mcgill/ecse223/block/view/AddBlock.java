@@ -13,6 +13,7 @@ import java.awt.event.MouseEvent;
 public class AddBlock {
 	
 
+
 	private String error = null;
 	private JLabel errorMessage;
 
@@ -32,7 +33,7 @@ public class AddBlock {
 
 
 	public void AddBlock() {
-		
+
 		addBlock = new JLabel();
 		addBlock.setBounds(10, 0, 300, 50);
 		addBlock.setFont (addBlock.getFont ().deriveFont (25.0f));
@@ -61,8 +62,8 @@ public class AddBlock {
 		frame.add(blueValue);
 		frame.add(pointsValue);
 		frame.add(previewBlock);
-		
-		
+
+
 
 		errorMessage = new JLabel();
 		errorMessage = new JLabel();
@@ -84,6 +85,18 @@ public class AddBlock {
 		
 		
 
+		previewBlock.setBounds(120, 250, 200, 50);
+		previewBlock.setText("Preview Block");
+
+		previewBlock.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				previewBlockButtonActionPerformed(evt);
+			}
+		});
+
+
+
+
 		CreateButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -102,7 +115,7 @@ public class AddBlock {
 				try {
 					Block223Controller.addBlock(red, green, blue, points);
 					BlockScreen blockScreen = new BlockScreen();
-                    BlockScreen.refreshData();
+					BlockScreen.refreshData();
 					frame.dispose();
 				}
 				catch (InvalidInputException a){
@@ -160,40 +173,38 @@ public class AddBlock {
 		frame.getContentPane().setBackground(Color.LIGHT_GRAY);
 		frame.setLayout(null);
 		frame.setVisible(true);
-		
 		CreateButton.setBounds(120,200,200,50);
 		CreateButton.setText("Create Block");
 
 		CreateButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (RedValue.getText().equals("") ||  BlueValue.getText().equals("")|| GreenValue.getText().equals("") || PointValue.getText().equals("")) {
+				if (RedValue.getText().equals("") || BlueValue.getText().equals("") || GreenValue.getText().equals("") || PointValue.getText().equals("")) {
 					error = "One or more of the fields are empty.";
 					refreshData();
-				}else {
-				String SRed = RedValue.getText();
-				int red = Integer.parseInt(SRed);
+				} else {
+					String SRed = RedValue.getText();
+					int red = Integer.parseInt(SRed);
 
-				String SBlue = BlueValue.getText();
-				int blue = Integer.parseInt(SBlue);
+					String SBlue = BlueValue.getText();
+					int blue = Integer.parseInt(SBlue);
 
-				String SGreen = GreenValue.getText();
-				int green = Integer.parseInt(SGreen);
+					String SGreen = GreenValue.getText();
+					int green = Integer.parseInt(SGreen);
 
-				String SPoints = PointValue.getText();
-				int points = Integer.parseInt(SPoints);
+					String SPoints = PointValue.getText();
+					int points = Integer.parseInt(SPoints);
 
-				try {
-					Block223Controller.addBlock(red, green, blue, points);
-					BlockScreen blockScreen = new BlockScreen();
-                    BlockScreen.refreshData();
-					frame.dispose();
+					try {
+						Block223Controller.addBlock(red, green, blue, points);
+						BlockScreen blockScreen = new BlockScreen();
+						BlockScreen.refreshData();
+						frame.dispose();
+					} catch (InvalidInputException a) {
+						error = a.getMessage();
+					}
+					refreshData();
 				}
-				catch (InvalidInputException a){
-					error =  a.getMessage();
-				}
-				refreshData();
-			}
 			}
 
 		});
@@ -240,47 +251,46 @@ public class AddBlock {
 		frame.add(PointValue);
 		frame.add(errorMessage);
 		frame.add(rectangle);
-		
-		
-	
+
+
+
 
 		frame.setSize(450, 450);
 		frame.getContentPane().setBackground(Color.LIGHT_GRAY);
 		frame.setLayout(null);
 		frame.setVisible(true);
-		
-		
-		
-		
+
+
 	}
+
 	private void previewBlockButtonActionPerformed(java.awt.event.ActionEvent evt) {
-		if (RedValue.getText().equals("") ||  BlueValue.getText().equals("")|| GreenValue.getText().equals("") ) {
+		if (RedValue.getText().equals("") || BlueValue.getText().equals("") || GreenValue.getText().equals("")) {
 			error = "One or more of the fields are empty.";
-			refreshData();}
-		else {
-		String SRed = RedValue.getText();
-		int red = Integer.parseInt(SRed);
+			refreshData();
+		} else {
+			String SRed = RedValue.getText();
+			int red = Integer.parseInt(SRed);
 
-		String SBlue = BlueValue.getText();
-		int blue = Integer.parseInt(SBlue);
+			String SBlue = BlueValue.getText();
+			int blue = Integer.parseInt(SBlue);
 
-		String SGreen = GreenValue.getText();
-		int green = Integer.parseInt(SGreen);
-		
-		String SPoints = PointValue.getText();
-		
-		rectangle.setBounds(200, 320, 100, 100);
-		rectangle.setBackground( new Color(red,green,blue) );
-		rectangle.setSize(42, 40);
-		frame.add(rectangle);
-		refreshData();
+			String SGreen = GreenValue.getText();
+			int green = Integer.parseInt(SGreen);
+
+			String SPoints = PointValue.getText();
+
+			rectangle.setBounds(200, 320, 100, 100);
+			rectangle.setBackground(new Color(red, green, blue));
+			rectangle.setSize(42, 40);
+			frame.add(rectangle);
+			refreshData();
 		}
-		
-	
+
+
 	}
 	private void refreshData() {
 		errorMessage.setText(error);
 		frame.add(rectangle);
 	}
-	
+
 }

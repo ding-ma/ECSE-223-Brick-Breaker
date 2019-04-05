@@ -1,19 +1,17 @@
 package ca.mcgill.ecse223.block.controller;
 
 import ca.mcgill.ecse223.block.application.Block223Application;
-
 import ca.mcgill.ecse223.block.controller.TOUserMode.Mode;
 import ca.mcgill.ecse223.block.model.*;
 import ca.mcgill.ecse223.block.model.PlayedGame.PlayStatus;
 import ca.mcgill.ecse223.block.persistence.Block223Persistence;
 import ca.mcgill.ecse223.block.view.Block223PlayModeInterface;
-import ca.mcgill.ecse223.block.view.PlayScreen;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Block223Controller extends PlayScreen implements Serializable {
+public class Block223Controller implements Serializable {
 	private static Game game;
 
 	// ****************************
@@ -228,8 +226,7 @@ public class Block223Controller extends PlayScreen implements Serializable {
 			block.setGreen(green);
 			block.setBlue(blue);
 			block.setPoints(points);
-			//TODO PERSISTENCE DOESNT WORK
-			//   Block223Persistence.save(Block223Application.getBlock223());
+            Block223Persistence.save(Block223Application.getBlock223());
 			Block223Controller.getBlocksOfCurrentDesignableGame();
 		} catch (RuntimeException e) {
 			error = e.getMessage();
@@ -267,7 +264,6 @@ public class Block223Controller extends PlayScreen implements Serializable {
 	}
 	public static void updateBlock(int id, int red, int green, int blue, int points) throws InvalidInputException {
 		Game game = Block223Application.getCurrentGame();
-		Block223 block223 = Block223Application.getBlock223();
 		String error = "";
 		UserRole userRole = Block223Application.getCurrentUserRole();
 		if (game==null) {
@@ -307,7 +303,7 @@ public class Block223Controller extends PlayScreen implements Serializable {
 			block.setGreen(green);
 			block.setBlue(blue);
 			block.setPoints(points);
-			Block223Persistence.save(block223);
+			//Block223Persistence.save(block223);
 		} catch (RuntimeException e) {
 			error = e.getMessage();
 			throw new InvalidInputException(error);
@@ -628,12 +624,9 @@ public class Block223Controller extends PlayScreen implements Serializable {
 
 	//Ding
 	public static void startGame(Block223PlayModeInterface ui) throws InvalidInputException {
-		
 		String error = "";
-
 		UserRole userRole = Block223Application.getCurrentUserRole();
 		if (userRole == null) {
-			
 			throw new InvalidInputException("Player privileges are required to play a game.");
 		}
 		if ((Block223Application.getCurrentPlayableGame() == null)) {
@@ -648,20 +641,15 @@ public class Block223Controller extends PlayScreen implements Serializable {
 		if ((userRole instanceof Player) && (Block223Application.getCurrentPlayableGame().getPlayer() == null)) {
 			throw new InvalidInputException("Admin privileges are required to test a game.");
 		}
-		System.out.println("play");
-
 		PlayedGame game = Block223Application.getCurrentPlayableGame();
 		game.play();
-		String userInputs = ui.takeInputs();
-		System.out.println("ok1");
-
+		ui.takeInputs();
 		while (game.getPlayStatus() == PlayStatus.Moving) {
-			System.out.println("play");
+			String userInputs = ui.takeInputs();
 			updatePaddlePosition(userInputs);
 			game.move();
 			if (userInputs.contains(" ")) {
 				game.pause();
-				System.out.println("pause");
 			}
 			game.getWaitTime();
 
@@ -673,8 +661,8 @@ public class Block223Controller extends PlayScreen implements Serializable {
 			Block223 block223 = Block223Application.getBlock223();
 			Block223Persistence.save(block223);
 		}
-	
 	}
+
 	//Ding
 	public static void updatePaddlePosition(String userinputs) {
 		PlayedGame pgame = Block223Application.getCurrentPlayableGame();
