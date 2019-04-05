@@ -155,8 +155,8 @@ public class Login extends JFrame {
 		TOUserMode gameMode = Block223Controller.getUserMode();
 
 		if (gameMode.getMode() == TOUserMode.Mode.Play) {
-//			PlayGame PS = new PlayGame();
-//			PS.PlayGame();
+            PlayGame PS = new PlayGame();
+            PS.PlayGameScreen();
 		}
 
 
@@ -216,7 +216,8 @@ public class Login extends JFrame {
 				}
 				refreshData();
 			}
-		} else {
+        }
+        if ((playerPass.equals("") && adminPass.equals(""))) {
 			try {
 				error += "Please only enter 1 password when logging in.";
 				throw new InvalidInputException("Only enter 1 password");
