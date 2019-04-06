@@ -196,7 +196,7 @@ public class Login extends JFrame {
 			}
 		}
 		//means its admin
-		if (playerPass.equals("")) {
+		else if (playerPass.equals("")) {
 			try {
 				Block223Controller.login(userName, adminPass);
 			} catch (InvalidInputException e1) {
@@ -216,8 +216,7 @@ public class Login extends JFrame {
 				}
 				refreshData();
 			}
-        }
-        if ((playerPass.equals("") && adminPass.equals(""))) {
+        } else {
 			try {
 				error += "Please only enter 1 password when logging in.";
 				throw new InvalidInputException("Only enter 1 password");
