@@ -226,8 +226,7 @@ public class Block223Controller implements Serializable {
 			block.setGreen(green);
 			block.setBlue(blue);
 			block.setPoints(points);
-			//TODO PERSISTENCE DOESNT WORK
-			//   Block223Persistence.save(Block223Application.getBlock223());
+            Block223Persistence.save(Block223Application.getBlock223());
 			Block223Controller.getBlocksOfCurrentDesignableGame();
 		} catch (RuntimeException e) {
 			error = e.getMessage();
