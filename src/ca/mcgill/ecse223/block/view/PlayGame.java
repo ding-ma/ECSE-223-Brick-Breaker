@@ -28,7 +28,7 @@ public class PlayGame {
  		errorMessage = new JLabel();
  		playGame = new JButton();
  		restartGame = new JButton();
- 		availableGamesList = new JComboBox<String>(new String[0]);
+		availableGamesList = new JComboBox<String>();
  		availableGamesLablel = new JLabel();
  		gameScreen = new JLabel();
  		selectGame = new JLabel();
