@@ -195,18 +195,18 @@ public class Login extends JFrame {
             	refreshUserData();
                 
             }
-            else{
-                try {
-                	error+="Player Cannot Login as Admin.";
-                    throw new InvalidInputException("Player Cannot Login as Admin");
-                    
-                } catch (InvalidInputException e) {
-                    e.printStackTrace();
-                }
-                refreshData();
-            }
+//            else{
+//                try {
+//                	error+="Player Cannot Login as Admin.";
+//                    throw new InvalidInputException("Player Cannot Login as Admin");
+//                    
+//                } catch (InvalidInputException e) {
+//                    e.printStackTrace();
+//                }
+//                refreshData();
+//            }
         }
-       /* else{
+       else{
             try {
             	error+="Please only enter 1 password when logging in.";
                 throw new InvalidInputException("Only enter 1 password");
@@ -214,7 +214,7 @@ public class Login extends JFrame {
                 e.printStackTrace();
             }
             refreshData();
-        }*/
+        }
     }
 	
 
