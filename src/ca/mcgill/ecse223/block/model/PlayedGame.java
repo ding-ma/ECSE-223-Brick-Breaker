@@ -823,21 +823,18 @@ public class PlayedGame implements Serializable
     
     for(int i = 0 ; i < numberOfBlocks() - 1 ; i++){
     
-    	 PlayedBlockAssignment block = getBlock(i);
+    	PlayedBlockAssignment block = getBlock(i);
     	 
-    	 BouncePoint bp = calculateBouncePointBlock(block);
+    	BouncePoint bp = calculateBouncePointBlock(block);
     	 
-    	 bounce = getBounce();
+    	bounce = getBounce();
     	 
-    	 if(bp != null && bounce != null){
-    	 	Boolean closer = isCloser(bp, bounce);
+    	Boolean closer = isCloser(bp, bounce);
     	 
-    	 	if(closer){
-    	 	
-    	 		setBounce(bp);
-    	 	
-    		}
-    		return true;
+    	if(closer){
+    	 	setBounce(bp);
+    	 	bp.setHitBlock(block);
+    	 	return true;
     	}
     }
     return false;
