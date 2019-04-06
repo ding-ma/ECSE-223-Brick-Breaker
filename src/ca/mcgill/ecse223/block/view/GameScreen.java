@@ -260,7 +260,7 @@ public class GameScreen {
 		refreshData();
 		if (error.length() == 0 || error == "") {
 			UpdateGame BS = new UpdateGame();
-			BS.UpdateGame();		
+			BS.UpdateGame(name);		
 		}
 	}
 	private void deleteGameActionPerformed(java.awt.event.ActionEvent evt) {
@@ -285,7 +285,7 @@ public class GameScreen {
 		error = "";
 		int selectedGame = availableGamesList.getSelectedIndex();
 		if (selectedGame < 0)
-			error = "A game needs to be selected for publication!";
+			error = "A game needs to be selected for testing!";
 		String name = (String) availableGames.get(selectedGame);
 		//instantiate ui
 		if (error.length() == 0) {
