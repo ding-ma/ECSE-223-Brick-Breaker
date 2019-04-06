@@ -115,24 +115,31 @@ public class SetGameSettings {
 		//////////////////////////////////////////////////////////////////
 		nrLevelsField = new JTextField();
 		nrLevelsField.setBounds(215, 60, 100, 30);
+		nrLevelsField.setText("1");
 
 		nrBlocksPerLevelField = new JTextField();
 		nrBlocksPerLevelField.setBounds(215, 100, 100, 30);
+		nrBlocksPerLevelField.setText("1");
 
 		minBallSpeedXField = new JTextField();
 		minBallSpeedXField.setBounds(215, 140, 100, 30);
+		minBallSpeedXField.setText("1");
 
 		minBallSpeedYField = new JTextField();
 		minBallSpeedYField.setBounds(215, 180, 100, 30);
+		minBallSpeedYField.setText("1");
 
 		ballSpeedIncreaseFactorField = new JTextField();
 		ballSpeedIncreaseFactorField.setBounds(215, 220, 100, 30);
+		ballSpeedIncreaseFactorField.setText("1");
 
 		maxPaddleLengthField = new JTextField();
 		maxPaddleLengthField.setBounds(215, 260, 100, 30);
+		maxPaddleLengthField.setText("10");
 
 		minPaddleLengthField = new JTextField();
 		minPaddleLengthField.setBounds(215, 300, 100, 30);
+		minPaddleLengthField.setText("10");
 		//////////////////////////////////////////////////////////////////
 		updateGame.setText("Set Settings");
 		updateGame.setBounds(215, 380, 100, 50);

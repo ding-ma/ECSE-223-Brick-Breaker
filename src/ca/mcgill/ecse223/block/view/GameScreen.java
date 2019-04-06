@@ -211,6 +211,7 @@ public class GameScreen {
 		} else {
 			try {
 				Block223Controller.createGame(name);
+				Block223Controller.selectGame(name);
 			} catch (InvalidInputException e) {
 				error = e.getMessage();
 			}
