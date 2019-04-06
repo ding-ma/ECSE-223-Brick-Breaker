@@ -184,6 +184,7 @@ public class Block223Controller implements Serializable {
 		}
 		setGameDetails(nrLevels, nrBlocksPerLevel, minBallSpeedX, minBallSpeedY,
 				ballSpeedIncreaseFactor, maxPaddleLength, minPaddleLength);
+		Block223Persistence.save(block223);
 	}
 
 	public static void addBlock(int red, int green, int blue, int points) throws InvalidInputException {
@@ -303,7 +304,7 @@ public class Block223Controller implements Serializable {
 			block.setGreen(green);
 			block.setBlue(blue);
 			block.setPoints(points);
-			//Block223Persistence.save(block223);
+			Block223Persistence.save(Block223Application.getBlock223());
 		} catch (RuntimeException e) {
 			error = e.getMessage();
 			throw new InvalidInputException(error);
@@ -356,7 +357,7 @@ public class Block223Controller implements Serializable {
 			aLevel = Block223Application.getCurrentGame().getLevel(level - 1);
 			BlockAssignment blockAssignment = new BlockAssignment(gridHorizontalPosition, gridVerticalPosition, aLevel,
 					aBlock, Block223Application.getCurrentGame());
-			//	Block223Persistence.save(block223);
+			Block223Persistence.save(Block223Application.getBlock223());
 		} catch (RuntimeException e) {
 			error = e.getMessage();
 			throw new InvalidInputException(e.getMessage());
@@ -408,6 +409,7 @@ public class Block223Controller implements Serializable {
 		}catch(RuntimeException e) {
 			throw new InvalidInputException(e.getMessage());
 		}
+		Block223Persistence.save(Block223Application.getBlock223());
 	}
 
 	//Mert
@@ -436,7 +438,7 @@ public class Block223Controller implements Serializable {
 		if (position != null) {
 			position.delete();
 		}
-		//Block223Persistence.save(Block223Application.getBlock223());
+		Block223Persistence.save(Block223Application.getBlock223());
 	}
 	//Mairead
 	public static void saveGame() throws InvalidInputException {
