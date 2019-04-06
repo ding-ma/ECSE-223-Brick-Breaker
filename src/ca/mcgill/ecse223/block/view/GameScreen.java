@@ -1,5 +1,6 @@
 package ca.mcgill.ecse223.block.view;
 
+import ca.mcgill.ecse223.block.application.Block223Application;
 import ca.mcgill.ecse223.block.controller.Block223Controller;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import ca.mcgill.ecse223.block.controller.TOGame;
@@ -211,6 +212,7 @@ public class GameScreen {
 		} else {
 			try {
 				Block223Controller.createGame(name);
+				Block223Controller.selectGame(name);
 			} catch (InvalidInputException e) {
 				error = e.getMessage();
 			}
