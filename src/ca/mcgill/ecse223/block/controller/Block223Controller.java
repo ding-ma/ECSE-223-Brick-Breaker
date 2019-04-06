@@ -37,7 +37,7 @@ public class Block223Controller implements Serializable {
 			throw new InvalidInputException(error);
 		}
 		Game game = new Game(name, 1, (Admin) admin, 1, 1, 1, 10, 10, block223);
-		Block223Application.setCurrentGame(game);
+		//Block223Application.setCurrentGame(game);
 		block223.addGame(game);
 		Block223Persistence.save(block223);
 	}
@@ -170,16 +170,17 @@ public class Block223Controller implements Serializable {
 			error = "Only the admin who created the game can define its game settings.";
 			throw new InvalidInputException(error);
 		}
-		error = checkGameNameIsUnique(name, block223);
-		if (error != null) {
-			throw new InvalidInputException(error);
-		}
+		
+		if(name==null || name.isEmpty() || name.equals(""))
+			throw new InvalidInputException("The name of a game must be specified.");
+		
 		String currentName = game.getName();
-		if (currentName != name) {
-			if (name == null || name.equals("")) {
-				error = "The name of a game must be specified.";
-				throw new InvalidInputException(error);
-			}
+		if (!currentName.equals(name)) {
+            for (Game aGame : Block223Application.getBlock223().getGames()) {
+                if (aGame.getName().equals(name)) {
+                    throw new InvalidInputException("The name of a game must be unique.");
+                }
+            }
 			game.setName(name);
 		}
 		setGameDetails(nrLevels, nrBlocksPerLevel, minBallSpeedX, minBallSpeedY,
