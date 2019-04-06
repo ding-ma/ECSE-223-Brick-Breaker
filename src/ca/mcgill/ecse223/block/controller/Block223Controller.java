@@ -593,6 +593,7 @@ public class Block223Controller implements Serializable {
 			throw new InvalidInputException(error);
 		}
 		game.setPublished(true);
+        Block223Persistence.save(Block223Application.getBlock223());
 	}
 
 	//Ding
