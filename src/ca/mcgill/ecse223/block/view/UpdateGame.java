@@ -36,13 +36,15 @@ public class UpdateGame {
 	private JTextField minPaddleLengthField;
 
 	private JButton updateGame;
+	private JButton backButton;
 
 	private JFrame frame;
 
-	public void UpdateGame(){
+	public void UpdateGame(String currentName){
 		frame = new JFrame();
 		errorMessage = new JLabel();
 		updateGame = new JButton();
+		backButton = new JButton();
 		//////////////////////////////////////////////////////////////////
 		nrLevels = new JLabel();
 		name = new JLabel();
@@ -123,27 +125,35 @@ public class UpdateGame {
 		//////////////////////////////////////////////////////////////////
 		nameField = new JTextField();
 		nameField.setBounds(215, 60, 100, 30);
+		nameField.setText(currentName);
 		
 		nrLevelsField = new JTextField();
 		nrLevelsField.setBounds(215, 100, 100, 30);
+		nrLevelsField.setText("1");
 
 		nrBlocksPerLevelField = new JTextField();
 		nrBlocksPerLevelField.setBounds(215, 140, 100, 30);
+		nrBlocksPerLevelField.setText("1");
 
 		minBallSpeedXField = new JTextField();
 		minBallSpeedXField.setBounds(215, 180, 100, 30);
+		minBallSpeedXField.setText("1");
 
 		minBallSpeedYField = new JTextField();
 		minBallSpeedYField.setBounds(215, 220, 100, 30);
+		minBallSpeedYField.setText("1");
 
 		ballSpeedIncreaseFactorField = new JTextField();
 		ballSpeedIncreaseFactorField.setBounds(215, 260, 100, 30);
+		ballSpeedIncreaseFactorField.setText("1");
 
 		maxPaddleLengthField = new JTextField();
 		maxPaddleLengthField.setBounds(215, 300, 100, 30);
+		maxPaddleLengthField.setText("10");
 
 		minPaddleLengthField = new JTextField();
 		minPaddleLengthField.setBounds(215, 340, 100, 30);
+		minPaddleLengthField.setText("10");
 		//////////////////////////////////////////////////////////////////
 		updateGame.setText("Update Game");
 		updateGame.setBounds(215, 380, 100, 50);
@@ -152,7 +162,15 @@ public class UpdateGame {
 			updateGameButtonActionPerformed(evt);
 			
 		}				
-    });
+		});
+		
+		backButton.setText("Back");
+		backButton.setBounds(115, 380, 100, 50);
+		backButton.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent e) {
+				frame.dispose();
+			}
+		});
     
 
 		//////////////////////////////////////////////////////////////////
@@ -180,6 +198,7 @@ public class UpdateGame {
 		frame.add(errorMessage);
 		frame.add(name);
 		frame.add(nameField);
+		frame.add(backButton);
 	}
 	 private void refreshData() {
 			// error
@@ -226,6 +245,7 @@ public class UpdateGame {
 				Block223Controller.updateGame(aName,anrLevelsd,anrBlocksPerLevel,aminBallSpeedX,aminBallSpeedY,aballSpeedIncreaseFactor,amaxPaddleLength,aminPaddleLength );
 				} catch (InvalidInputException e) {
 					error = e.getMessage();
+					refreshData();
 				}
 				
 	        }
