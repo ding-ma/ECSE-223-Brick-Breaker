@@ -157,6 +157,7 @@ public class Login extends JFrame {
 		if (gameMode.getMode() == TOUserMode.Mode.Play) {
             PlayGame PS = new PlayGame();
             PS.PlayGameScreen();
+
 		}
 
 
