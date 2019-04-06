@@ -22,13 +22,13 @@ public class PlayGame {
 	private JLabel gameScreen ;
 	private JLabel selectGame;
 
-    public void PlayGame() {
+    public void PlayGameScreen() {
     	 JFrame frame = new JFrame();
 
  		errorMessage = new JLabel();
  		playGame = new JButton();
  		restartGame = new JButton();
- 		availableGamesList = new JComboBox<String>(new String[0]);
+		availableGamesList = new JComboBox<String>();
  		availableGamesLablel = new JLabel();
  		gameScreen = new JLabel();
  		selectGame = new JLabel();
@@ -66,9 +66,11 @@ public class PlayGame {
     	    playGame.addActionListener(new ActionListener() {
     	        @Override
     	        public void actionPerformed(ActionEvent e) {
-					//load the game at the level that the player last played it at -> 1 if they never played it before
-					PlayScreen PS = new PlayScreen();
-					PS.genUI();
+
+                    //load the game at the level that the player last played it at -> 1 if they never played it before
+                    PlayScreen PS = new PlayScreen();
+                    PS.PlayScreen();
+
     	        }
     	    });
 

@@ -7,7 +7,7 @@ import java.util.*;
 
 // line 49 "../../../../../Block223Persistence.ump"
 // line 6 "../../../../../Block223PlayMode.ump"
-// line 96 "../../../../../Block223 v3.ump"
+// line 98 "../../../../../Block223 v3.ump"
 public class Game implements Serializable
 {
 
@@ -59,7 +59,7 @@ public class Game implements Serializable
 
   public Game(String aName, int aNrBlocksPerLevel, Admin aAdmin, Ball aBall, Paddle aPaddle, Block223 aBlock223)
   {
-    // line 126 "../../../../../Block223 v3.ump"
+    // line 128 "../../../../../Block223 v3.ump"
     if(aNrBlocksPerLevel <= 0){
                    throw new RuntimeException("The number of blocks per level must be greater than zero.");
                 }
@@ -72,7 +72,7 @@ public class Game implements Serializable
         public int compare(HallOfFameEntry arg0, HallOfFameEntry arg1)
         {
           return ((Integer)arg0.getScore()).compareTo(
-                 ((Integer)arg1.getScore()));
+                  arg1.getScore());
         }
       };
     if (!setName(aName))
@@ -108,7 +108,7 @@ public class Game implements Serializable
 
   public Game(String aName, int aNrBlocksPerLevel, Admin aAdmin, int aMinBallSpeedXForBall, int aMinBallSpeedYForBall, double aBallSpeedIncreaseFactorForBall, int aMaxPaddleLengthForPaddle, int aMinPaddleLengthForPaddle, Block223 aBlock223)
   {
-    // line 126 "../../../../../Block223 v3.ump"
+    // line 128 "../../../../../Block223 v3.ump"
     if(aNrBlocksPerLevel <= 0){
                    throw new RuntimeException("The number of blocks per level must be greater than zero.");
                 }
@@ -122,7 +122,7 @@ public class Game implements Serializable
         public int compare(HallOfFameEntry arg0, HallOfFameEntry arg1)
         {
           return ((Integer)arg0.getScore()).compareTo(
-                 ((Integer)arg1.getScore()));
+                  arg1.getScore());
         }
       };
     boolean didAddAdmin = setAdmin(aAdmin);
@@ -175,7 +175,7 @@ public class Game implements Serializable
   public boolean setNrBlocksPerLevel(int aNrBlocksPerLevel)
   {
     boolean wasSet = false;
-    // line 126 "../../../../../Block223 v3.ump"
+    // line 128 "../../../../../Block223 v3.ump"
     if(aNrBlocksPerLevel <= 0){
                    throw new RuntimeException("The number of blocks per level must be greater than zero.");
                 }
@@ -896,7 +896,7 @@ public class Game implements Serializable
   /**
    * George
    */
-  // line 113 "../../../../../Block223 v3.ump"
+  // line 115 "../../../../../Block223 v3.ump"
    public Block findBlock(int id){
     List<Block> blocks = this.getBlocks();
    for(Block block : blocks){
@@ -913,7 +913,7 @@ public class Game implements Serializable
    * end
    * Ding
    */
-  // line 133 "../../../../../Block223 v3.ump"
+  // line 135 "../../../../../Block223 v3.ump"
    public Block getRandomBlock(){
     Random random = new Random();
           List<Block> assignments = getBlocks();

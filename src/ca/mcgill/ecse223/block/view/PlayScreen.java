@@ -1,269 +1,99 @@
 package ca.mcgill.ecse223.block.view;
 
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.Color;
+import ca.mcgill.ecse223.block.controller.InvalidInputException;
 
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.LayoutManager;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.*;
+import javax.swing.border.LineBorder;
+import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.HashMap;
 
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.ActionMap;
-import javax.swing.DefaultListModel;
-import javax.swing.InputMap;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JDesktopPane;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.KeyStroke;
-import javax.swing.SwingUtilities;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
+public class PlayScreen extends JPanel {
+    JFrame frame = new JFrame();
+    //TODO change to game variables
+    int paddleLength = 100;
+    int paddleXPosition = 10;
+    int paddleYPosition = 360;
+    private HashMap<Integer, Integer> hof;
+    private JPanel paddle = new JPanel();
+    private volatile String userinputs = "";
 
-import ca.mcgill.ecse223.block.controller.Block223Controller;
-import ca.mcgill.ecse223.block.controller.InvalidInputException;
-import ca.mcgill.ecse223.block.controller.TOGame;
-import ca.mcgill.ecse223.block.controller.TOHallOfFameEntry;
-
-//VIEW
-public class PlayScreen extends JFrame implements Block223PlayModeInterface {
-	private static final long serialVersionUID = -613534727974834342L;
-	JTextArea gameArea;
-	Block223PlayListener bp;
-	//JFrame frame = new JFrame();
-	private HashMap<Integer,Integer> hof;
-	private JList <String> hofList ;
-	
-	public PlayScreen() {
-		
-		genUI();
-	}
-		
-	public void genUI() {
-	   /*frame.setSize(700, 500);
-	   frame.setLayout(null);
-	   frame.setVisible(true);*/
-
-	   //frame.setContentPane(new PlayScreen());
-	   
-	   /*JPanel p = new JPanel();
-	   p.setBounds(500, 0, 200, 500);
-	   p.setBackground(Color.LIGHT_GRAY);*/
-	   
-	   
-	   
-	  // t.setBorder(new LineBorder(Color.BLACK)); // make it easy to see
-	    
-        //get
-	   this.setTitle("Block223 PlayMode Example");
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        /*frame.setVisible(true);
-        
-        
-        
-        //add list to panel 
-        //p.add(myList); 
-   
-        frame.add(p);
-        frame.add(padd);*/
-       
-		
-		
-		this.addComponentsToPane();
-        this.pack();
-        this.setVisible(true);
-	}
-
-
-private void addComponentsToPane() {
-
-	JButton button = new JButton("Start Game");
-	JPanel padd = new JPanel();
-	   padd.setBounds(175, 380, 20, 10);
-	   padd.setBackground(Color.RED);
-	   
-	   JPanel t = new JPanel();
-	   t.setBounds(0,0,500,50);
-	   		
-	   JLabel title = new JLabel("Block 223!");
-	   title.setFont(new Font("Verdana",1,20));
-	   t.add(title);
-
-	gameArea = new JTextArea();
-	
-	JScrollPane scrollPane = new JScrollPane(gameArea);
-	scrollPane.setPreferredSize(new Dimension(375, 125));
-
-	getContentPane().add(scrollPane, BorderLayout.CENTER);
-	getContentPane().add(button, BorderLayout.PAGE_END);
-	getContentPane().add(padd);
-	getContentPane().add(t);
-	
-	Dimension dimension = new Dimension(390,390);
-	gameArea.setPreferredSize(dimension);
-	
-
-
-	button.addActionListener(new java.awt.event.ActionListener() {
-		public void actionPerformed(java.awt.event.ActionEvent evt) {
-			button.setVisible(false);
-			// initiating a thread to start listening to keyboard inputs
-			bp = new Block223PlayListener();
-			Runnable r1 = new Runnable() {
-				@Override
-				public void run() {
-					// in the actual game, add keyListener to the game window
-					gameArea.addKeyListener(bp);
-				}
-			};
-			Thread t1 = new Thread(r1);
-			t1.start();
-			// to be on the safe side use join to start executing thread t1 before executing
-			// the next thread
-			try {
-				t1.join();
-			} catch (InterruptedException e1) {
-			}
-
-			// initiating a thread to start the game loop
-			Runnable r2 = new Runnable() {
-				@Override
-				public void run() {
-					try {
-						Block223Controller.startGame(PlayScreen.this);
-						System.out.println("ok");
-						
-						button.setVisible(true);
-					} catch (InvalidInputException e) {
-					}
-				}
-			};
-			Thread t2 = new Thread(r2);
-			t2.start();
-		}
-	});
-}
-
-
-@Override
-public String takeInputs() {
-	if (bp == null) {
-		return "";
-	}
-	return bp.takeInputs();
-}
-
-
-@Override
-public void refresh() {
-	System.out.println("UI is refreshing now...");
-
-	// TODO Auto-generated method stub
-	
-}
-}
-
-
-/*public class Main extends JFrame {
-    //frame settings
-    int height =390;
-    int width = 390;
-    //paddle settings
-    int xLength =100;
-    int pHeight = 10;
-    //paddle location
-    int xLocation = 0;
-    int yLocation = height-30;
-    DrawPanel drawPanel = new DrawPanel();
-
-    //constructor
-    public Main(){
-        //actions to move its position
-        Action rightAction = new AbstractAction(){
-            public void actionPerformed(ActionEvent e) {
-                if (xLocation<width-xLength)
-                    //1px at the time
-                    xLocation ++;
-                //updates the paddle
-                drawPanel.repaint();
-            }
-        };
-        Action leftAction = new AbstractAction(){
-            public void actionPerformed(ActionEvent e) {
-                if(xLocation>0)
-                    //updating one pixel at the time
-                    xLocation --;
-                drawPanel.repaint();
-            }
-        };
-        InputMap inputMap = drawPanel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW);
-        ActionMap actionMap = drawPanel.getActionMap();
-
-        inputMap.put(KeyStroke.getKeyStroke("RIGHT"), "rightAction");
-        actionMap.put("rightAction", rightAction);
-        inputMap.put(KeyStroke.getKeyStroke("LEFT"), "leftAction");
-        actionMap.put("leftAction", leftAction);
-        add(drawPanel);
-
-        pack();
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        setVisible(true);
-    }
-    //creates paddle object
-    private class DrawPanel extends JPanel {
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            g.setColor(Color.GRAY);
-            g.fillRect(0, 0, getWidth(), getHeight());
-            g.setColor(Color.black);
-            g.fillRect(xLocation, yLocation, xLength, pHeight);
-        }
-        public Dimension getPreferredSize() {
-            return new Dimension(width, height);
+    public synchronized void keyPressed(KeyEvent e) {
+        try {
+            keyInputs(e);
+        } catch (InvalidInputException e1) {
+            System.out.print(e1);
         }
     }
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable(){
-            public void run(){
-                new Main();
+
+    private synchronized String keyInputs(KeyEvent e) throws InvalidInputException {
+        int location = e.getKeyCode();
+        if (location == KeyEvent.VK_LEFT) {
+            userinputs += "l";
+        } else if (location == KeyEvent.VK_RIGHT) {
+            userinputs += "r";
+        } else if (location == KeyEvent.VK_SPACE) {
+            userinputs += " ";
+        } else {
+        }
+        return userinputs;
+    }
+
+    public void PlayScreen() {
+        frame.setSize(700, 500);
+        frame.setLayout(null);
+        frame.setVisible(true);
+        JPanel p = new JPanel();
+        p.setBounds(500, 0, 200, 500);
+        p.setBackground(Color.LIGHT_GRAY);
+        paddle.setBackground(Color.black);
+        paddle.setBounds(paddleXPosition, paddleYPosition, paddleLength, 10);
+        paddle.setVisible(true);
+        paddle.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent e) {
+                int key = e.getKeyCode();
+                if (key == KeyEvent.VK_LEFT) {
+                    paddleXPosition = paddleXPosition - 10;
+                    paddle.repaint();
+                }
+                if (key == KeyEvent.VK_RIGHT) {
+                    paddleXPosition = paddleXPosition + 10;
+                    paddle.repaint();
+                }
             }
         });
+        //TODO start game method
+        // Block223Controller.updatePaddlePosition(userinputs);
+
+        frame.add(paddle);
+
+        //hall of fame
+        JPanel t = new JPanel();
+        t.setBounds(0, 0, 500, 50);
+        frame.add(t);
+        JLabel title = new JLabel("Block 223!");
+        title.setFont(new Font("Verdana", 1, 20));
+        t.add(title);
+        t.setBorder(new LineBorder(Color.BLACK)); // make it easy to see
+        String[] data = {"one", "two", "three", "four"};
+        JList<String> myList = new JList<String>(data);
+        myList.setSize(200, 500);
+        myList.setLocation(500, 0);
+
+        //get
+        frame.setVisible(true);
+
+
+        //add list to panel 
+        p.add(myList);
+
+        frame.add(p);
     }
+
+
+    //display hall of fame
+
+
 }
-Action rightAction = new AbstractAction(){
-    public void actionPerformed(ActionEvent e) {
-        
-    }
-};
-Action leftAction = new AbstractAction(){
-    public void actionPerformed(ActionEvent e) {
-        
-    }};
-    
-    drawPanel.setLocation(xLocation--, yLocation);s
-*/
-
-
-
-	  /*
-	    String[] data = {"one", "two", "three", "four"};
-     JList<String> myList = new JList<String>(data);
-     myList.setSize(200,500);
-     myList.setLocation(500, 0);*/
  

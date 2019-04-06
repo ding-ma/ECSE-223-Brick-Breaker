@@ -2,15 +2,18 @@
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
 package ca.mcgill.ecse223.block.model;
+
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * random attribute not needed anymore
  * Each level is filled up with random blocks just before playing the level to reach the nrBlocksPerLevel defined in Game
  */
 // line 83 "../../../../../Block223Persistence.ump"
-// line 179 "../../../../../Block223 v3.ump"
+// line 181 "../../../../../Block223 v3.ump"
 public class Level implements Serializable
 {
 
@@ -197,7 +200,7 @@ public class Level implements Serializable
   /**
    * Mert
    */
-  // line 183 "../../../../../Block223 v3.ump"
+  // line 185 "../../../../../Block223 v3.ump"
    public BlockAssignment findBlockAssignment(int aGridHorizontalPosition, int aGridVerticalPosition){
     BlockAssignment foundAssignment = null;
 		for(BlockAssignment position: getBlockAssignments()) {

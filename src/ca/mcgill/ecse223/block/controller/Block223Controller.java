@@ -1,19 +1,17 @@
 package ca.mcgill.ecse223.block.controller;
 
 import ca.mcgill.ecse223.block.application.Block223Application;
-
 import ca.mcgill.ecse223.block.controller.TOUserMode.Mode;
 import ca.mcgill.ecse223.block.model.*;
 import ca.mcgill.ecse223.block.model.PlayedGame.PlayStatus;
 import ca.mcgill.ecse223.block.persistence.Block223Persistence;
 import ca.mcgill.ecse223.block.view.Block223PlayModeInterface;
-import ca.mcgill.ecse223.block.view.PlayScreen;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Block223Controller extends PlayScreen implements Serializable {
+public class Block223Controller implements Serializable {
 	private static Game game;
 
 	// ****************************
@@ -39,7 +37,7 @@ public class Block223Controller extends PlayScreen implements Serializable {
 			throw new InvalidInputException(error);
 		}
 		Game game = new Game(name, 1, (Admin) admin, 1, 1, 1, 10, 10, block223);
-		Block223Application.setCurrentGame(game);
+		//Block223Application.setCurrentGame(game);
 		block223.addGame(game);
 		Block223Persistence.save(block223);
 	}
@@ -172,20 +170,22 @@ public class Block223Controller extends PlayScreen implements Serializable {
 			error = "Only the admin who created the game can define its game settings.";
 			throw new InvalidInputException(error);
 		}
-		error = checkGameNameIsUnique(name, block223);
-		if (error != null) {
-			throw new InvalidInputException(error);
-		}
+		
+		if(name==null || name.isEmpty() || name.equals(""))
+			throw new InvalidInputException("The name of a game must be specified.");
+		
 		String currentName = game.getName();
-		if (currentName != name) {
-			if (name == null || name.equals("")) {
-				error = "The name of a game must be specified.";
-				throw new InvalidInputException(error);
-			}
+		if (!currentName.equals(name)) {
+            for (Game aGame : Block223Application.getBlock223().getGames()) {
+                if (aGame.getName().equals(name)) {
+                    throw new InvalidInputException("The name of a game must be unique.");
+                }
+            }
 			game.setName(name);
 		}
 		setGameDetails(nrLevels, nrBlocksPerLevel, minBallSpeedX, minBallSpeedY,
 				ballSpeedIncreaseFactor, maxPaddleLength, minPaddleLength);
+        Block223Persistence.save(block223);
 	}
 
 	public static void addBlock(int red, int green, int blue, int points) throws InvalidInputException {
@@ -228,8 +228,7 @@ public class Block223Controller extends PlayScreen implements Serializable {
 			block.setGreen(green);
 			block.setBlue(blue);
 			block.setPoints(points);
-			//TODO PERSISTENCE DOESNT WORK
-			//   Block223Persistence.save(Block223Application.getBlock223());
+            Block223Persistence.save(Block223Application.getBlock223());
 			Block223Controller.getBlocksOfCurrentDesignableGame();
 		} catch (RuntimeException e) {
 			error = e.getMessage();
@@ -267,7 +266,6 @@ public class Block223Controller extends PlayScreen implements Serializable {
 	}
 	public static void updateBlock(int id, int red, int green, int blue, int points) throws InvalidInputException {
 		Game game = Block223Application.getCurrentGame();
-		Block223 block223 = Block223Application.getBlock223();
 		String error = "";
 		UserRole userRole = Block223Application.getCurrentUserRole();
 		if (game==null) {
@@ -297,7 +295,7 @@ public class Block223Controller extends PlayScreen implements Serializable {
 						throw new InvalidInputException(error);
 					}
 				}
-			}		
+            }
 		}
 		if (error.length() > 0)
 			throw new InvalidInputException(error.trim());
@@ -307,7 +305,7 @@ public class Block223Controller extends PlayScreen implements Serializable {
 			block.setGreen(green);
 			block.setBlue(blue);
 			block.setPoints(points);
-			Block223Persistence.save(block223);
+            Block223Persistence.save(Block223Application.getBlock223());
 		} catch (RuntimeException e) {
 			error = e.getMessage();
 			throw new InvalidInputException(error);
@@ -360,7 +358,7 @@ public class Block223Controller extends PlayScreen implements Serializable {
 			aLevel = Block223Application.getCurrentGame().getLevel(level - 1);
 			BlockAssignment blockAssignment = new BlockAssignment(gridHorizontalPosition, gridVerticalPosition, aLevel,
 					aBlock, Block223Application.getCurrentGame());
-			//	Block223Persistence.save(block223);
+            Block223Persistence.save(block223);
 		} catch (RuntimeException e) {
 			error = e.getMessage();
 			throw new InvalidInputException(e.getMessage());
@@ -370,49 +368,47 @@ public class Block223Controller extends PlayScreen implements Serializable {
 	//Mert
 	public static void moveBlock(int level, int oldGridHorizontalPosition, int oldGridVerticalPosition,
 			int newGridHorizontalPosition, int newGridVerticalPosition) throws InvalidInputException {
-		String error = "";
-		UserRole user = Block223Application.getCurrentUserRole();
-		Game currentGame = Block223Application.getCurrentGame();
-		Level currentLevel;
-
-		if(currentGame == null) {
-			error += "A game must be selected to move a block.";
-		}
-		if(error.length() > 0) {
-			throw new InvalidInputException(error.trim());
-		}
-		Admin admin = Block223Application.getCurrentGame().getAdmin();
-		if(!(user instanceof Admin)) {
-			error = "Admin privileges are required to move a block.";
-		}
-		if (!(user.getPassword().equals(admin.getPassword())) || user != admin) {
-			error += "Only the admin who created the game can move a block.";
-		}
-		if(error.length() > 0) {
-			throw new InvalidInputException(error.trim());
-		}
-		try {
-			currentLevel = currentGame.getLevel(level-1);
-		} catch(IndexOutOfBoundsException e) {
-			throw new InvalidInputException("Level "+level+" does not exist for the game.");
-		} 
-		try {
-			BlockAssignment assignment = currentLevel.findBlockAssignment(oldGridHorizontalPosition, 
-					oldGridVerticalPosition);
-			if(assignment == null) {
-				throw new InvalidInputException("A block does not exist at location "+ oldGridHorizontalPosition
-						+ "/" + oldGridVerticalPosition+ ".");
+				UserRole userole =Block223Application.getCurrentUserRole();
+				Game game = Block223Application.getCurrentGame();
+				Block223 block223 = Block223Application.getBlock223();
+				if (!(userole instanceof Admin)) {
+					throw new InvalidInputException("Admin privileges are required to move a block.");
+				}
+				if (game==null) {
+					throw new InvalidInputException("A game must be selected to move a block.");
+				}
+				if (userole != game.getAdmin()) {
+					throw new InvalidInputException("Only the admin who created the game can move a block.");
+				}
+				if (game.getPublished()){
+					throw new InvalidInputException("A published game cannot be edited.");
+				}
+				Level aLevel;
+				try {
+					aLevel = game.getLevel(level - 1);
+				}
+				catch (IndexOutOfBoundsException e) {
+					throw new InvalidInputException("Level " + level + " does not exist for the game.");
+				}
+				List<BlockAssignment> blockAssignments = game.getBlockAssignments();
+				for (BlockAssignment blockAssignment: blockAssignments) {
+					if (blockAssignment.getGridHorizontalPosition() == newGridHorizontalPosition && blockAssignment.getGridVerticalPosition() == newGridVerticalPosition) {
+						throw new InvalidInputException("A block already exists at location " + newGridHorizontalPosition + "/" + newGridVerticalPosition + ".");
+					}
+				}
+				BlockAssignment blockAssignment = aLevel.findBlockAssignment(oldGridHorizontalPosition, oldGridVerticalPosition);
+				if (blockAssignment == null) {
+					throw new InvalidInputException("A block does not exist at location " + oldGridHorizontalPosition + "/" + oldGridVerticalPosition + ".");
+				}
+				blockAssignment.setGridHorizontalPosition(newGridHorizontalPosition);
+				Block223Persistence.save(block223);
+				if((blockAssignment.getGridHorizontalPosition() <=0) || (blockAssignment.getGridHorizontalPosition() >= 16) )
+					throw new InvalidInputException("The horizontal position must be between 1 and 15.");	       
+				blockAssignment.setGridVerticalPosition(newGridVerticalPosition);
+				Block223Persistence.save(block223);
+				if(blockAssignment.getGridVerticalPosition() <=0 || blockAssignment.getGridVerticalPosition() > 15 )
+					throw new InvalidInputException("The vertical position must be between 1 and 15.");
 			}
-			if(currentLevel.findBlockAssignment(newGridHorizontalPosition, newGridVerticalPosition) != null) {
-				throw new InvalidInputException("A block already exists at location "+ newGridHorizontalPosition
-						+ "/" + newGridVerticalPosition+ ".");
-			}
-			assignment.setGridHorizontalPosition(newGridHorizontalPosition);
-			assignment.setGridVerticalPosition(newGridVerticalPosition);		
-		}catch(RuntimeException e) {
-			throw new InvalidInputException(e.getMessage());
-		}
-	}
 
 	//Mert
 	public static void removeBlock(int level, int gridHorizontalPosition, int gridVerticalPosition)
@@ -595,6 +591,7 @@ public class Block223Controller extends PlayScreen implements Serializable {
 			throw new InvalidInputException(error);
 		}
 		game.setPublished(true);
+        Block223Persistence.save(Block223Application.getBlock223());
 	}
 
 	//Ding
@@ -628,12 +625,9 @@ public class Block223Controller extends PlayScreen implements Serializable {
 
 	//Ding
 	public static void startGame(Block223PlayModeInterface ui) throws InvalidInputException {
-		
 		String error = "";
-
 		UserRole userRole = Block223Application.getCurrentUserRole();
 		if (userRole == null) {
-			
 			throw new InvalidInputException("Player privileges are required to play a game.");
 		}
 		if ((Block223Application.getCurrentPlayableGame() == null)) {
@@ -648,20 +642,15 @@ public class Block223Controller extends PlayScreen implements Serializable {
 		if ((userRole instanceof Player) && (Block223Application.getCurrentPlayableGame().getPlayer() == null)) {
 			throw new InvalidInputException("Admin privileges are required to test a game.");
 		}
-		System.out.println("play");
-
 		PlayedGame game = Block223Application.getCurrentPlayableGame();
 		game.play();
-		String userInputs = ui.takeInputs();
-		System.out.println("ok1");
-
+		ui.takeInputs();
 		while (game.getPlayStatus() == PlayStatus.Moving) {
-			System.out.println("play");
+			String userInputs = ui.takeInputs();
 			updatePaddlePosition(userInputs);
 			game.move();
 			if (userInputs.contains(" ")) {
 				game.pause();
-				System.out.println("pause");
 			}
 			game.getWaitTime();
 
@@ -673,8 +662,8 @@ public class Block223Controller extends PlayScreen implements Serializable {
 			Block223 block223 = Block223Application.getBlock223();
 			Block223Persistence.save(block223);
 		}
-	
 	}
+
 	//Ding
 	public static void updatePaddlePosition(String userinputs) {
 		PlayedGame pgame = Block223Application.getCurrentPlayableGame();

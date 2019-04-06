@@ -1,10 +1,4 @@
 class PlayedGame {
-	import java.awt.geom.*;
-	import java.io.Serializable;
-	import java.util.*;
-	import java.util.concurrent.ThreadLocalRandom;
-	
-	import ca.mcgill.ecse223.block.model.BouncePoint.BounceDirection;
 
   // State Machine
   
@@ -55,7 +49,7 @@ class PlayedGame {
         return true;
       }
   }
-  return false;
+  else return false;
   }
   
 private boolean isOutOfBounds(){
@@ -483,10 +477,16 @@ private boolean isOutOfBounds(){
 		}
 
 		//intersectionA
-		if (interA && yNext > yCurrent) {
-			BouncePoint bp = new BouncePoint(xCurrent, yCurrent, BounceDirection.Flip_Y);
-			bp.setHitBlock(block);
-			return bp;
+		if (interA) {
+			Line2D.Double BlockBounds = new Line2D.Double(block.getX(),
+					block.getY() - radius,
+					block.getX() + Block.SIZE,
+					block.getY() - radius);
+
+			Line2D.Double ballPath = new Line2D.Double (xCurrent, yCurrent, xNext, yNext);
+
+			bP = new BouncePoint(getIntersection(BlockBounds,ballPath).getX(),getIntersection(BlockBounds,ballPath).getY(), BouncePoint.BounceDirection.FLIP_Y);
+			return bP;
 		}
 
 		//intersectionB

@@ -2,11 +2,11 @@
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
 package ca.mcgill.ecse223.block.model;
+
 import java.io.Serializable;
-import java.util.*;
 
 // line 95 "../../../../../Block223Persistence.ump"
-// line 215 "../../../../../Block223 v3.ump"
+// line 217 "../../../../../Block223 v3.ump"
 public class Ball implements Serializable
 {
 
@@ -34,12 +34,12 @@ public class Ball implements Serializable
 
   public Ball(int aMinBallSpeedX, int aMinBallSpeedY, double aBallSpeedIncreaseFactor, Game aGame)
   {
-    // line 223 "../../../../../Block223 v3.ump"
+    // line 225 "../../../../../Block223 v3.ump"
     if(aMinBallSpeedX <= 0 && aMinBallSpeedY <= 0){
     			throw new RuntimeException ("The minimum speed of the ball must be greater than zero.");
     		}
     // END OF UMPLE BEFORE INJECTION
-    // line 229 "../../../../../Block223 v3.ump"
+    // line 231 "../../../../../Block223 v3.ump"
     if(aBallSpeedIncreaseFactor <= 0){
     			throw new RuntimeException ("The speed increase factor of the ball must be greater than zero.");
     		}
@@ -56,12 +56,12 @@ public class Ball implements Serializable
 
   public Ball(int aMinBallSpeedX, int aMinBallSpeedY, double aBallSpeedIncreaseFactor, String aNameForGame, int aNrBlocksPerLevelForGame, Admin aAdminForGame, Paddle aPaddleForGame, Block223 aBlock223ForGame)
   {
-    // line 223 "../../../../../Block223 v3.ump"
+    // line 225 "../../../../../Block223 v3.ump"
     if(aMinBallSpeedX <= 0 && aMinBallSpeedY <= 0){
     			throw new RuntimeException ("The minimum speed of the ball must be greater than zero.");
     		}
     // END OF UMPLE BEFORE INJECTION
-    // line 229 "../../../../../Block223 v3.ump"
+    // line 231 "../../../../../Block223 v3.ump"
     if(aBallSpeedIncreaseFactor <= 0){
     			throw new RuntimeException ("The speed increase factor of the ball must be greater than zero.");
     		}
@@ -95,7 +95,7 @@ public class Ball implements Serializable
   public boolean setBallSpeedIncreaseFactor(double aBallSpeedIncreaseFactor)
   {
     boolean wasSet = false;
-    // line 229 "../../../../../Block223 v3.ump"
+    // line 231 "../../../../../Block223 v3.ump"
     if(aBallSpeedIncreaseFactor <= 0){
     			throw new RuntimeException ("The speed increase factor of the ball must be greater than zero.");
     		}

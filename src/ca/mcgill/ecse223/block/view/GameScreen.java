@@ -1,20 +1,15 @@
 package ca.mcgill.ecse223.block.view;
 
+import ca.mcgill.ecse223.block.controller.Block223Controller;
+import ca.mcgill.ecse223.block.controller.InvalidInputException;
+import ca.mcgill.ecse223.block.controller.TOGame;
+
 import javax.swing.*;
-
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.HashMap;
-
-import ca.mcgill.ecse223.block.*;
-import ca.mcgill.ecse223.block.application.Block223Application;
-import ca.mcgill.ecse223.block.controller.*;
-import ca.mcgill.ecse223.block.model.Block223;
-import ca.mcgill.ecse223.block.model.Game;
 
 
 
@@ -27,6 +22,8 @@ public class GameScreen {
 	private JButton createGame ;
 	private JButton settingsBlock ;
 	private JButton deleteGame ;
+	private JButton testGame ;
+	private JButton publishGame ;
 	private static JComboBox <String> availableGamesList ;
 	private JLabel availableGamesLablel ;
 	private JLabel gameScreen ;
@@ -45,6 +42,8 @@ public class GameScreen {
 		settingsBlock = new JButton();
 		updateaGame = new JButton();
 		deleteGame = new JButton();
+		testGame = new JButton();
+		publishGame = new JButton();
 		availableGamesList = new JComboBox<String>(new String[0]);
 		availableGamesLablel = new JLabel();
 		gameScreen = new JLabel();
@@ -77,7 +76,12 @@ public class GameScreen {
 
 		gameNameTextField = new JTextField();
 		gameNameTextField.setBounds(100, 60, 100, 30);
-
+		gameNameTextField.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				gameNameTextField.setText("");
+			}
+		});
 
 		availableGames = new HashMap<Integer, String>();
 		availableGamesList.removeAllItems();
@@ -91,7 +95,6 @@ public class GameScreen {
 		} catch (InvalidInputException e) {
 			e.printStackTrace();
 		}
-		;
 
 		//first button:
 		createGame.setText("Create a Game");
@@ -121,6 +124,24 @@ public class GameScreen {
 
 				}				
 			});
+		//fourth button
+		testGame.setText("Test a Game");
+			testGame.setBounds(0, 200, 120, 50);
+			testGame.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent evt) {
+					testGameActionPerformed(evt);
+				}
+			});
+
+		//fifth button
+			publishGame.setText("Publish a Game");
+			publishGame.setBounds(120, 200, 120, 50);
+			publishGame.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent evt) {
+					publishGameActionPerformed(evt);
+				}
+			});
+
 
 			logout.setText("logout");
 			logout.setBounds(240, 200, 120, 50);
@@ -151,6 +172,8 @@ public class GameScreen {
 			frame.add(createGame);
 			frame.add(settingsBlock);
 			frame.add(deleteGame);
+			frame.add(publishGame);
+			frame.add(testGame);
 			frame.add(availableGamesList);
 			frame.add(availableGamesLablel);
 			frame.add(gameScreen);
@@ -177,17 +200,20 @@ public class GameScreen {
 		} catch (InvalidInputException e) {
 			e.printStackTrace();
 		}
-		;
 	}
 
 
 	private void createGameButtonActionPerformed(java.awt.event.ActionEvent evt) {
 		error = "";
 		String name = gameNameTextField.getText();
-		try {
-			Block223Controller.createGame(name);
-		} catch (InvalidInputException e) {
-			error = e.getMessage();
+		if (name.equals("")) {
+			error = "Game Name Cannot be empty";
+		} else {
+			try {
+				Block223Controller.createGame(name);
+			} catch (InvalidInputException e) {
+				error = e.getMessage();
+			}
 		}
 
 		// update visuals
@@ -202,7 +228,7 @@ public class GameScreen {
 		int selectedGame = availableGamesList.getSelectedIndex();
 		if (selectedGame < 0) 
 			error = "A game needs to be selected before!";
-		String name = (String) availableGames.get(selectedGame);
+		String name = availableGames.get(selectedGame);
 		if (error.length() == 0) {
 			try {
 				Block223Controller.selectGame(name);
@@ -222,7 +248,7 @@ public class GameScreen {
 		int selectedGame = availableGamesList.getSelectedIndex();
 		if (selectedGame < 0) 
 			error = "A game needs to be selected before!";
-		String name = (String) availableGames.get(selectedGame);
+		String name = availableGames.get(selectedGame);
 		if (error.length() == 0) {
 			try {
 				Block223Controller.selectGame(name);
@@ -234,7 +260,7 @@ public class GameScreen {
 		refreshData();
 		if (error.length() == 0 || error == "") {
 			UpdateGame BS = new UpdateGame();
-			BS.UpdateGame();		
+			BS.UpdateGame(name);		
 		}
 	}
 	private void deleteGameActionPerformed(java.awt.event.ActionEvent evt) {
@@ -242,16 +268,61 @@ public class GameScreen {
 		int selectedGame = availableGamesList.getSelectedIndex();
 		if (selectedGame < 0)
 			error = "A game needs to be selected for deletion!";
-		String name = (String) availableGames.get(selectedGame);
+		String name = availableGames.get(selectedGame);
 		if (error.length() == 0) {
 			try {
 				Block223Controller.deleteGame(name);
+
 			} catch (InvalidInputException e) {
 				error = e.getMessage();
 			}	
 
 		}
 		refreshData();
+		
+	}
+	private void testGameActionPerformed(java.awt.event.ActionEvent evt) {
+		error = "";
+		int selectedGame = availableGamesList.getSelectedIndex();
+		if (selectedGame < 0)
+			error = "A game needs to be selected for testing!";
+		String name = (String) availableGames.get(selectedGame);
+		//instantiate ui
+		if (error.length() == 0) {
+			try {
+				Block223Controller.selectGame(name);
+
+			} catch (InvalidInputException e) {
+				error = e.getMessage();
+			}	
+
+		}
+		
+		if (error.length() == 0 || error == "") {
+			PlayScreen PG = new PlayScreen();
+			//PG.PlayScreen();	//specific game	
+		}
+		refreshData();
+	}
+
+	private void publishGameActionPerformed(java.awt.event.ActionEvent evt) {
+		error = "";
+		int selectedGame = availableGamesList.getSelectedIndex();
+		if (selectedGame < 0)
+			error = "A game needs to be selected for publication!";
+		String name = (String) availableGames.get(selectedGame);
+		if (error.length() == 0) {
+			try {
+				Block223Controller.selectGame(name);
+				Block223Controller.publishGame();
+
+			} catch (InvalidInputException e) {
+				error = e.getMessage();
+			}	
+
+		}
+		refreshData();
+		
 	}
 
 	private void logoutActionPerformed(java.awt.event.ActionEvent evt) {
