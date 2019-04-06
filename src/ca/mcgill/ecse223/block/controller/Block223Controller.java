@@ -6,6 +6,7 @@ import ca.mcgill.ecse223.block.model.*;
 import ca.mcgill.ecse223.block.model.PlayedGame.PlayStatus;
 import ca.mcgill.ecse223.block.persistence.Block223Persistence;
 import ca.mcgill.ecse223.block.view.Block223PlayModeInterface;
+import ca.mcgill.ecse223.block.view.PaddleUI;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.List;
 
 public class Block223Controller implements Serializable {
 	private static Game game;
+	static PaddleUI paddle = new PaddleUI();
 
 	// ****************************
 	// Modifier methods
@@ -624,8 +626,10 @@ public class Block223Controller implements Serializable {
 
 	//Ding
 	public static void startGame(Block223PlayModeInterface ui) throws InvalidInputException {
+
 		String error = "";
 		UserRole userRole = Block223Application.getCurrentUserRole();
+
 		if (userRole == null) {
 			throw new InvalidInputException("Player privileges are required to play a game.");
 		}
@@ -641,7 +645,13 @@ public class Block223Controller implements Serializable {
 		if ((userRole instanceof Player) && (Block223Application.getCurrentPlayableGame().getPlayer() == null)) {
 			throw new InvalidInputException("Admin privileges are required to test a game.");
 		}
+		System.out.println("ok");
+
 		PlayedGame game = Block223Application.getCurrentPlayableGame();
+		
+		/*double defaultPaddlePosition = game.getDefaultCurrentPaddleX();
+		paddle.paddleW = game.getCurrentPaddleLength()*/
+
 		game.play();
 		ui.takeInputs();
 		while (game.getPlayStatus() == PlayStatus.Moving) {
@@ -683,6 +693,7 @@ public class Block223Controller implements Serializable {
 
 	private static void Left(PlayedGame pgame) {
 		double left = PlayedGame.PADDLE_MOVE_LEFT;
+		paddle.addVelocity(left, 0);
 		double currentPaddleX = pgame.getCurrentPaddleX();
 		if (currentPaddleX > 0)
 			pgame.setCurrentPaddleX(pgame.getCurrentPaddleX() + left);
