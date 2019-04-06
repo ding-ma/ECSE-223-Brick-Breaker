@@ -1,89 +1,99 @@
 package ca.mcgill.ecse223.block.view;
 
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.LayoutManager;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import ca.mcgill.ecse223.block.controller.InvalidInputException;
+
+import javax.swing.*;
+import javax.swing.border.LineBorder;
+import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.HashMap;
 
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JDesktopPane;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-
-import ca.mcgill.ecse223.block.controller.Block223Controller;
-import ca.mcgill.ecse223.block.controller.InvalidInputException;
-import ca.mcgill.ecse223.block.controller.TOGame;
-import ca.mcgill.ecse223.block.controller.TOHallOfFameEntry;
-
 public class PlayScreen extends JPanel {
-	JFrame frame = new JFrame();
-	private HashMap<Integer,Integer> hof;
-	private JList <String> hofList ;
+    JFrame frame = new JFrame();
+    //TODO change to game variables
+    int paddleLength = 100;
+    int paddleXPosition = 10;
+    int paddleYPosition = 360;
+    private HashMap<Integer, Integer> hof;
+    private JPanel paddle = new JPanel();
+    private volatile String userinputs = "";
 
-	
-	public void PlayScreen() {
-	
-	   frame.setSize(700, 500);
-	   frame.setLayout(null);
-	   frame.setVisible(true);
+    public synchronized void keyPressed(KeyEvent e) {
+        try {
+            keyInputs(e);
+        } catch (InvalidInputException e1) {
+            System.out.print(e1);
+        }
+    }
 
-	   //frame.setContentPane(new PlayScreen());
-	   
-	   JPanel p = new JPanel();
-	   p.setBounds(500, 0, 200, 500);
-	   p.setBackground(Color.LIGHT_GRAY);
-	   
-	   JPanel t = new JPanel();
-	   t.setBounds(0,0,500,50);
-	   frame.add(t);
-	   JLabel title = new JLabel("Block 223!");
-	   title.setFont(new Font("Verdana",1,20));
-	   t.add(title);
-	   t.setBorder(new LineBorder(Color.BLACK)); // make it easy to see
-	   
-	  
-	    String[] data = {"one", "two", "three", "four"};
+    private synchronized String keyInputs(KeyEvent e) throws InvalidInputException {
+        int location = e.getKeyCode();
+        if (location == KeyEvent.VK_LEFT) {
+            userinputs += "l";
+        } else if (location == KeyEvent.VK_RIGHT) {
+            userinputs += "r";
+        } else if (location == KeyEvent.VK_SPACE) {
+            userinputs += " ";
+        } else {
+        }
+        return userinputs;
+    }
+
+    public void PlayScreen() {
+        frame.setSize(700, 500);
+        frame.setLayout(null);
+        frame.setVisible(true);
+        JPanel p = new JPanel();
+        p.setBounds(500, 0, 200, 500);
+        p.setBackground(Color.LIGHT_GRAY);
+        paddle.setBackground(Color.black);
+        paddle.setBounds(paddleXPosition, paddleYPosition, paddleLength, 10);
+        paddle.setVisible(true);
+        paddle.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent e) {
+                int key = e.getKeyCode();
+                if (key == KeyEvent.VK_LEFT) {
+                    paddleXPosition = paddleXPosition - 10;
+                    paddle.repaint();
+                }
+                if (key == KeyEvent.VK_RIGHT) {
+                    paddleXPosition = paddleXPosition + 10;
+                    paddle.repaint();
+                }
+            }
+        });
+        //TODO start game method
+        // Block223Controller.updatePaddlePosition(userinputs);
+
+        frame.add(paddle);
+
+        //hall of fame
+        JPanel t = new JPanel();
+        t.setBounds(0, 0, 500, 50);
+        frame.add(t);
+        JLabel title = new JLabel("Block 223!");
+        title.setFont(new Font("Verdana", 1, 20));
+        t.add(title);
+        t.setBorder(new LineBorder(Color.BLACK)); // make it easy to see
+        String[] data = {"one", "two", "three", "four"};
         JList<String> myList = new JList<String>(data);
-        myList.setSize(200,500);
+        myList.setSize(200, 500);
         myList.setLocation(500, 0);
-       
+
         //get
         frame.setVisible(true);
-        
-        
-        //add list to panel 
-        p.add(myList); 
-   
-        frame.add(p);
-	}
-	  
-	
 
-	    
-	    
-	    
-	    
-	    //display hall of fame
-	    
-	    
-	    
-    
+
+        //add list to panel 
+        p.add(myList);
+
+        frame.add(p);
+    }
+
+
+    //display hall of fame
+
+
 }
  

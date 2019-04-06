@@ -206,10 +206,14 @@ public class GameScreen {
 	private void createGameButtonActionPerformed(java.awt.event.ActionEvent evt) {
 		error = "";
 		String name = gameNameTextField.getText();
-		try {
-			Block223Controller.createGame(name);
-		} catch (InvalidInputException e) {
-			error = e.getMessage();
+		if (name.equals("")) {
+			error = "Game Name Cannot be empty";
+		} else {
+			try {
+				Block223Controller.createGame(name);
+			} catch (InvalidInputException e) {
+				error = e.getMessage();
+			}
 		}
 
 		// update visuals
