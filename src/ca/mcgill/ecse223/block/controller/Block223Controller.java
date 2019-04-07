@@ -565,7 +565,7 @@ public class Block223Controller implements Serializable {
 		PlayedGame pgame = new PlayedGame(username, game, block223);
 		pgame.setPlayer(null);
 		Block223Application.setCurrentPlayableGame(pgame);
-		startGame(ui);
+		//startGame(ui);
 	}
 
 	public static void publishGame() throws InvalidInputException {
@@ -665,22 +665,63 @@ public class Block223Controller implements Serializable {
 	}
 
 	//Ding
-	public static void updatePaddlePosition(String userinputs) {
-		PlayedGame pgame = Block223Application.getCurrentPlayableGame();
-		double currentPaddleLength = pgame.getCurrentPaddleLength();
-		double currentPaddleX = pgame.getCurrentPaddleX();
-		for (int i = 0; i < userinputs.length(); i++) {
-			if (userinputs.charAt(i) == 'l') {
-				Left(pgame);
+	private static void updatePaddlePosition(String userInputs) {
+
+
+		PlayedGame game = Block223Application.getCurrentPlayableGame();
+		String strArray[] = userInputs.split("");
+
+		for (String s : strArray)
+		{
+			//current paddle x position
+			double curPaddleX = Block223Application.getCurrentPlayableGame().getCurrentPaddleX();
+
+			//paddle length for constraint
+			double curPaddleLength = Block223Application.getCurrentPlayableGame().getCurrentPaddleLength();
+
+			if (s.equals("l"))				
+			{
+				if(curPaddleX > 0){
+					if(curPaddleX + PlayedGame.PADDLE_MOVE_LEFT > 0) {
+						game.setCurrentPaddleX(game.getCurrentPaddleX() + PlayedGame.PADDLE_MOVE_LEFT);
+					}else {
+						game.setCurrentPaddleX(0);
+					}
+				}
 			}
-			if (userinputs.charAt(i) == 'r') {
-				Right(pgame);
+			else if (s.equals("r"))
+			{
+
+				if(curPaddleX < Game.PLAY_AREA_SIDE-curPaddleLength) {
+					if(curPaddleX + PlayedGame.PADDLE_MOVE_RIGHT < Game.PLAY_AREA_SIDE-curPaddleLength) {
+						game.setCurrentPaddleX(game.getCurrentPaddleX() + PlayedGame.PADDLE_MOVE_RIGHT);
+					}else {
+						game.setCurrentPaddleX(Game.PLAY_AREA_SIDE-curPaddleLength);
+					}
+				}
 			}
-			if (userinputs.charAt(i) == ' ') {
+			else if (s.equals(" "))
+			{
 				break;
 			}
 		}
 	}
+//	public static void updatePaddlePosition(String userinputs) {
+//		PlayedGame pgame = Block223Application.getCurrentPlayableGame();
+//		double currentPaddleLength = pgame.getCurrentPaddleLength();
+//		double currentPaddleX = pgame.getCurrentPaddleX();
+//		for (int i = 0; i < userinputs.length(); i++) {
+//			if (userinputs.charAt(i) == 'l') {
+//				Left(pgame);
+//			}
+//			if (userinputs.charAt(i) == 'r') {
+//				Right(pgame);
+//			}
+//			if (userinputs.charAt(i) == ' ') {
+//				break;
+//			}
+//		}
+//	}
 
 	private static void Left(PlayedGame pgame) {
 		double left = PlayedGame.PADDLE_MOVE_LEFT;

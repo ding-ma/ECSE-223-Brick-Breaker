@@ -1,15 +1,21 @@
 package ca.mcgill.ecse223.block.view;
 
+import ca.mcgill.ecse223.block.application.Block223Application;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
+import ca.mcgill.ecse223.block.model.PlayedBlockAssignment;
+import ca.mcgill.ecse223.block.model.PlayedGame;
+import ca.mcgill.ecse223.block.model.Block;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
+import java.util.List;
 
-public class PlayScreen extends JPanel {
+public class PlayScreen extends JPanel implements Block223PlayModeInterface {
     JFrame frame = new JFrame();
     //TODO change to game variables
     int paddleLength = 100;
@@ -89,11 +95,34 @@ public class PlayScreen extends JPanel {
         p.add(myList);
 
         frame.add(p);
+        refresh();
     }
 
+	@Override
+	public String takeInputs() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    //display hall of fame
+	@Override
+	public void refresh() {
+		
+		//GEORGE!!!!!!!
+		List <PlayedBlockAssignment> playedBlocks = Block223Application.getCurrentPlayableGame().getBlocks();
+		for(int i=0; i < playedBlocks.size() ; i++) {
+			PlayedBlockAssignment block_assignment = playedBlocks.get(i);
+			int x = block_assignment.getX();
+			int y = block_assignment.getY();
+			Block og_block = block_assignment.getBlock();
+			Color block_color = new Color(og_block.getRed(), og_block.getGreen(), og_block.getBlue());
+			JPanel jblock = new JPanel();
+			jblock.setBounds(x, y, Block.SIZE, Block.SIZE);
+			jblock.setBackground(block_color);
+			jblock.setSize(Block.SIZE, Block.SIZE);
+			frame.add(jblock);			
+	}
 
-
+		
+}
 }
  

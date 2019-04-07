@@ -287,11 +287,13 @@ public class GameScreen {
 		int selectedGame = availableGamesList.getSelectedIndex();
 		if (selectedGame < 0)
 			error = "A game needs to be selected for testing!";
-		String name = (String) availableGames.get(selectedGame);
+		PlayScreen testGame = new PlayScreen();
+		//String name = (String) availableGames.get(selectedGame);
 		//instantiate ui
-		if (error.length() == 0) {
+		if (error.length() == 0|| error =="") {
 			try {
-				Block223Controller.selectGame(name);
+				Block223Controller.testGame(testGame);
+				testGame.PlayScreen();
 
 			} catch (InvalidInputException e) {
 				error = e.getMessage();
@@ -299,10 +301,6 @@ public class GameScreen {
 
 		}
 		
-		if (error.length() == 0 || error == "") {
-			PlayScreen PG = new PlayScreen();
-			//PG.PlayScreen();	//specific game	
-		}
 		refreshData();
 	}
 
