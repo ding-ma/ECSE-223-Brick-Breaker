@@ -10,6 +10,7 @@ import ca.mcgill.ecse223.block.view.Block223PlayModeInterface;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class Block223Controller implements Serializable {
 	private static Game game;
@@ -645,7 +646,7 @@ public class Block223Controller implements Serializable {
 		PlayedGame game = Block223Application.getCurrentPlayableGame();
 		game.play();
 		try {
-			Thread.sleep(10);
+            Thread.sleep(1);
 		} catch (InterruptedException ex) {
 			Thread.currentThread().interrupt();
 		}
@@ -657,7 +658,12 @@ public class Block223Controller implements Serializable {
 			if (userInputs.contains(" ")) {
 				game.pause();
 			}
-			game.getWaitTime();
+            try {
+                //TimeUnit.MILLISECONDS.sleep((long) game.getWaitTime()); // waitTime
+                TimeUnit.MILLISECONDS.sleep(20);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
 			ui.refresh();
 		}
@@ -674,8 +680,6 @@ public class Block223Controller implements Serializable {
 		PlayedGame pgame = Block223Application.getCurrentPlayableGame();
 		double currentPaddleLength = pgame.getCurrentPaddleLength();
 		double currentPaddleX = pgame.getCurrentPaddleX();
-		System.out.println(currentPaddleLength);
-		System.out.println(currentPaddleX);
 		for (int i = 0; i < userinputs.length(); i++) {
 			//System.out.println(userinputs.charAt(i));
 			if (userinputs.charAt(i) == 'l') {

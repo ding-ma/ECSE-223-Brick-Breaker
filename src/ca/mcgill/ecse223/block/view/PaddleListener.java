@@ -1,12 +1,11 @@
 package ca.mcgill.ecse223.block.view;
 
-import ca.mcgill.ecse223.block.controller.Block223Controller;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class PaddleListener implements KeyListener, Block223PlayModeInterface {
+public class PaddleListener implements KeyListener {
 
     /**
      * 'String input from keyboard - marked as volatile since it is shared by two
@@ -35,8 +34,6 @@ public class PaddleListener implements KeyListener, Block223PlayModeInterface {
             // ignore all other keyString
         }
         //   System.out.println(keyString);
-        //TODO pass these to the playscreen
-        Block223Controller.updatePaddlePosition(keyString);
         return keyString;
     }
 
@@ -50,10 +47,6 @@ public class PaddleListener implements KeyListener, Block223PlayModeInterface {
         return passString;
     }
 
-    @Override
-    public void refresh() {
-
-    }
 
     @Override
     public void keyReleased(KeyEvent e) {

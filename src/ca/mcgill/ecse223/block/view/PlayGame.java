@@ -70,8 +70,8 @@ public class PlayGame {
 				try {
 					Block223Controller.selectPlayableGame(name, -1);
 					//load the game at the level that the player last played it at -> 1 if they never played it before
-					PlayScreen PS = new PlayScreen();
-					PS.PlayScreen();
+					PlayScreen playMode = new PlayScreen();
+					playMode.PlayScreen();
 				} catch (InvalidInputException e1) {
 					e1.printStackTrace();
 				}
