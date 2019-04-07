@@ -7,19 +7,19 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 
-public class PlayScreen implements Block223PlayModeInterface {
+public class PlayScreen extends JFrame implements Block223PlayModeInterface {
     JFrame frame = new JFrame();
     //TODO change to game variables
-    int paddleLength = 100;
+    int paddleLength = 5;
     int paddleXPosition = 10;
     int paddleYPosition = 360;
     private HashMap<Integer, Integer> hof;
     private JPanel paddle = new JPanel();
-    //private volatile String userinputs = "";
     private JButton startGame;
     private PaddleListener bp;
 
     public void PlayScreen() {
+        frame.setFocusable(true);
         paddle.setFocusable(false);
         paddle.setBounds(paddleXPosition, paddleYPosition, paddleLength, 10);
         startGame = new JButton();
@@ -108,10 +108,5 @@ public class PlayScreen implements Block223PlayModeInterface {
         frame.revalidate();
         frame.repaint();
     }
-
-
-    //display hall of fame
-
-
 }
  

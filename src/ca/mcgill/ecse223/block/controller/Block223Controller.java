@@ -674,7 +674,10 @@ public class Block223Controller implements Serializable {
 		PlayedGame pgame = Block223Application.getCurrentPlayableGame();
 		double currentPaddleLength = pgame.getCurrentPaddleLength();
 		double currentPaddleX = pgame.getCurrentPaddleX();
+		System.out.println(currentPaddleLength);
+		System.out.println(currentPaddleX);
 		for (int i = 0; i < userinputs.length(); i++) {
+			//System.out.println(userinputs.charAt(i));
 			if (userinputs.charAt(i) == 'l') {
 				Left(pgame);
 			}
@@ -692,7 +695,8 @@ public class Block223Controller implements Serializable {
 		double currentPaddleX = pgame.getCurrentPaddleX();
 		if (currentPaddleX > 0)
 			pgame.setCurrentPaddleX(pgame.getCurrentPaddleX() + left);
-		System.out.println("left");
+
+		//System.out.println("left");
 	}
 
 	private static void Right(PlayedGame pgame) {
@@ -701,7 +705,7 @@ public class Block223Controller implements Serializable {
 		double currentPaddleLength = pgame.getCurrentPaddleLength();
 		if (Game.PLAY_AREA_SIDE - currentPaddleLength > currentPaddleX)
 			pgame.setCurrentPaddleX(pgame.getCurrentPaddleX() + right);
-		System.out.println("right");
+		//System.out.println("right");
 	}
 
 	// ****************************

@@ -85,8 +85,6 @@ public class PlayGame {
 			public void actionPerformed(ActionEvent e) {
 				//load the game at the level 1
 
-				System.out.println("ok");
-
 			}
 		});
 
