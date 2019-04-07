@@ -1086,74 +1086,48 @@ public class PlayedGame implements Serializable
    */
   // line 380 "../../../../../Block223States.ump"
    private BouncePoint calculateBouncePointWall(){
-    int radius = Ball.BALL_DIAMETER/2;
-		BouncePoint bP = null;
-
-		//ball coords
-		double xCurrent = this.getCurrentBallX();
-		double yCurrent = this.getCurrentBallY();
-		double xNext = xCurrent + this.getBallDirectionX();
-		double yNext = yCurrent + this.getBallDirectionY();
-
-		//sides rectangles
-		Rectangle2D.Double rectA = new Rectangle2D.Double(0, 0, radius, Game.PLAY_AREA_SIDE);
-		Rectangle2D.Double rectB = new Rectangle2D.Double(0, 0, Game.PLAY_AREA_SIDE, radius);
-		Rectangle2D.Double rectC = new Rectangle2D.Double(Game.PLAY_AREA_SIDE - radius, 0, radius, Game.PLAY_AREA_SIDE);
-
-		boolean interA = rectA.intersectsLine(xCurrent, yCurrent, xNext, yNext);
-		boolean interB = rectB.intersectsLine(xCurrent, yCurrent, xNext, yNext);
-		boolean interC = rectC.intersectsLine(xCurrent, yCurrent, xNext, yNext);
-
-		if (!interA && !interB && !interC ) {
-			return null;
-		}
-
-		if (interA && !interB ) {
-			Line2D.Double wallBounds = new Line2D.Double(radius,
-					0,
-					radius,
-					Game.PLAY_AREA_SIDE);
-
-			Line2D.Double ballPath = new Line2D.Double (xCurrent, yCurrent, xNext, yNext);
-
-			bP = new BouncePoint(getIntersection(wallBounds,ballPath).getX(),getIntersection(wallBounds,ballPath).getY(), BouncePoint.BounceDirection.FLIP_X);
-			return bP;
-		}
-
-		if (interA && interB ) {
-
-			bP = new BouncePoint(radius, radius, BouncePoint.BounceDirection.FLIP_BOTH);
-			return bP;
-		}
-
-		if (interC && interB ) {
-
-			bP = new BouncePoint(Game.PLAY_AREA_SIDE - radius, radius, BouncePoint.BounceDirection.FLIP_BOTH);
-			return bP;
-		}
-		//intersectionB
-		if (interB && !interA && !interC) {
-			Line2D.Double wallBounds = new Line2D.Double(0, 
-					radius,
-					Game.PLAY_AREA_SIDE,
-					radius);
-
-			Line2D.Double ballPath = new Line2D.Double (xCurrent, yCurrent, xNext, yNext);
-			bP = new BouncePoint(getIntersection(wallBounds,ballPath).getX(),getIntersection(wallBounds,ballPath).getY(), BouncePoint.BounceDirection.FLIP_Y);
-			return bP;
-		}
-		//intersectionC
-		if (interC && !interB) {
-			Line2D.Double wallBounds = new Line2D.Double(Block.SIZE - radius, 
-					0,
-					Block.SIZE - radius,
-					Block.SIZE);
-
-			Line2D.Double ballPath = new Line2D.Double (xCurrent, yCurrent, xNext, yNext);
-			bP = new BouncePoint(getIntersection(wallBounds,ballPath).getX(),getIntersection(wallBounds,ballPath).getY(), BouncePoint.BounceDirection.FLIP_X);
-			return bP;
-		}
-		return bP;
+	   double x1 = currentBallX;
+	   double y1 = currentBallY;
+	   double x2 = x1+ballDirectionX;
+	   double y2 = y1+ballDirectionY;
+	   Line2D ballPath = new Line2D.Double(x1,y1,x2,y2);
+	   double r = Ball.BALL_DIAMETER/2;
+	   double side = Game.PLAY_AREA_SIDE;
+	   Point2D closestPoint = null;
+	   BouncePoint.BounceDirection bd = null;
+	   double closestDist = Double.MAX_VALUE;
+	   Line2D a = new Line2D.Double(r,r,r,side-r);
+	   Line2D b = new Line2D.Double(r,r,side-r,r);
+	   Line2D c = new Line2D.Double(side-r,r,side-r,side-r);
+	   
+	   if(ballPath.intersectsLine(a) || ballPath.intersectsLine(b) || ballPath.intersectsLine(c)){
+		   //System.out.println("Intersect with the walls");
+		   for (Line2D line : new Line2D[] {a,b,c}) {
+			   Point2D intersectionPoint = getIntersectionPoint(line, ballPath);
+			   //System.out.println(" Intersect Point:"+ intersectionPoint);
+			   if (intersectionPoint != null && intersectionPoint.distance(x1, y1) < closestDist) {
+				   closestDist = getIntersectionPoint(line, ballPath).distance(x1, y1);
+				   closestPoint = getIntersectionPoint(line, ballPath);
+				   //System.out.println("Closest Point:" + closestPoint);
+				   //System.out.println("Closest distance" + closestDist);
+				   if(closestDist==0) return null;
+				   if (closestPoint.getY()==r && r<closestPoint.getX() && closestPoint.getX()<side-r) {
+					   //System.out.println("PING PING");
+					   bd = BouncePoint.BounceDirection.FLIP_Y;
+				   }if((closestPoint.getX()==r || closestPoint.getX()==(side-r)) && r<closestPoint.getY() && closestPoint.getY()<(side-r)) {
+					   //System.out.println("DING DING");
+					   bd = BouncePoint.BounceDirection.FLIP_X;
+				   }if((closestPoint.getX()==r && closestPoint.getY()==r) || (closestPoint.getX()==(side-r) && closestPoint.getY()==r)) {
+					   //System.out.println("RING RING");
+					   bd = BouncePoint.BounceDirection.FLIP_BOTH;
+				   }
+			   }
+			   
+		   }
+		   if (bd == null) return null;
+			return new BouncePoint(closestPoint.getX(), closestPoint.getY(), bd);
+	   }
+	   return null;
   }
 
 
@@ -1416,6 +1390,29 @@ private Double slope(Line2D a) {
 		return (Double) null;
 	}
 }
-  
-  
+
+private Point2D getIntersectionPoint(Line2D a, Line2D b){
+    if (a.intersectsLine(b) && slope(a) != slope(b)) {
+			double x1 = a.getX1();
+			double x2 = b.getX1();
+			double y1 = a.getY1();
+			double y2 = b.getY1();
+			Double m1 = slope(a);
+			Double m2 = slope(b);
+			double x,y;
+			if (m1 == null) {
+				x = a.getX1();
+				y = m2*(x-x2) + y2;
+			} else if (m2 == null) {
+				x = b.getX1(); 
+				y = m1*(x-x1) + y1;
+			} else {
+				x  = (m1*x1 - y1 + y2-m2*x2)/(m1-m2);
+				y =  m1*(x-x1) + y1;
+			}
+		    return new Point2D.Double(x,y);
+		} else {
+			return null;
+		}
+  }  
 }
