@@ -858,38 +858,56 @@ public class PlayedGame implements Serializable
    * Actions
    */
   // line 162 "../../../../../Block223States.ump"
-   private void doSetup(){
-    resetCurrentBallX();
-                              resetCurrentBallY();
-                              resetCurrentBallX();
-                              resetCurrentBallY();
-                              resetCurrentPaddleX();
-                              getGame();
-                              Level assignment = game.getLevel(currentLevel - 1);
-                              List<BlockAssignment> assignments = assignment.getBlockAssignments();
-                              for (BlockAssignment a : assignments) {
-                                PlayedBlockAssignment pblock = new PlayedBlockAssignment(Game.WALL_PADDING + (Block.SIZE +
-                                        Game.COLUMNS_PADDING) * (a.getGridHorizontalPosition() - 1), Game.WALL_PADDING + (Block.SIZE + Game.ROW_PADDING) *
-                                        (a.getGridVerticalPosition() - 1), a.getBlock(), this);
-                              }
-
-                              while (numberOfBlocks() < game.getNrBlocksPerLevel()) {
-                                int x = ThreadLocalRandom.current().nextInt(1, 15);
-                                int y = ThreadLocalRandom.current().nextInt(1, 15);
-
-
-
-                                for (BlockAssignment ablockAssignment : assignments) {
-                                  if (ablockAssignment.getGridHorizontalPosition() == x && ablockAssignment.getGridVerticalPosition() == y) {
-                                    x=x++;
-                                    y=y++;
-                                  }
-                                  if (ablockAssignment.getGridHorizontalPosition() != x && ablockAssignment.getGridVerticalPosition() != y){
-                                    PlayedBlockAssignment pblock = new PlayedBlockAssignment(x, y, game.getRandomBlock(), this);
-                                  }
-                                }
-                              }
-  }
+  private void doSetup(){
+	   resetCurrentBallX(); 
+	   resetCurrentBallY();
+	   resetBallDirectionX();
+	   resetBallDirectionY(); 
+	   resetCurrentPaddleX(); 
+	   getGame();
+	  
+	   Game game = Block223Application.getCurrentGame();
+	   Level level = game.getLevel(currentLevel - 1);
+	   List<BlockAssignment> assignments = level.getBlockAssignments();
+	   for(BlockAssignment ass : assignments) {
+		   PlayedBlockAssignment playedBlock = new PlayedBlockAssignment(
+				   Game.WALL_PADDING+(Block.SIZE+Game.COLUMNS_PADDING)*(ass.getGridHorizontalPosition()-1),
+				   Game.WALL_PADDING+(Block.SIZE+Game.ROW_PADDING)*(ass.getGridVerticalPosition()-1),
+				   ass.getBlock(),
+				   this
+				   );
+	   }  
+	   if(assignments.size()==0) {
+		   int a = ThreadLocalRandom.current().nextInt(1,15);
+		   int b = ThreadLocalRandom.current().nextInt(1,15);
+		   for(int x=0 ; x<a; x++) {
+			   for(int y=0; y<b; y++) {
+				   BlockAssignment ba = new BlockAssignment(x, y, level, game.getRandomBlock(), game);
+				   level.addBlockAssignment(ba);
+			   }
+		   }
+	   }
+	   while(numberOfBlocks() < game.getNrBlocksPerLevel()) {
+		   int a = ThreadLocalRandom.current().nextInt(1,15);
+		   int b = ThreadLocalRandom.current().nextInt(1,15);
+		   for(BlockAssignment ablockAssignment : assignments) {
+			   if(ablockAssignment.getGridVerticalPosition()==a && ablockAssignment.getGridHorizontalPosition()==b) {
+				   if(ablockAssignment.getGridVerticalPosition()==15 && ablockAssignment.getGridHorizontalPosition()==15) {
+					   a=0;
+					   b=1;
+				   }
+				   if(ablockAssignment.getGridHorizontalPosition()==15) {
+					   a=1;
+					   b=b+1;
+				   }else {
+					   a=a+1;
+				   }
+			   }else{
+			    	 PlayedBlockAssignment playedBlock = new PlayedBlockAssignment(a, b, game.getRandomBlock(), this);
+			   }
+		   }
+	   }
+ }
 
   // line 195 "../../../../../Block223States.ump"
    private void doHitPaddleOrWall(){
