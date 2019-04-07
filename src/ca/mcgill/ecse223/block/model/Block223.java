@@ -607,7 +607,7 @@ public class Block223 implements Serializable
     List<Game> games = this.getGames();
    for(Game game : games){
    String gameName = game.getName();
-   if(name == gameName){
+   if(name.equals(gameName)){
    return game;
    }
    }
