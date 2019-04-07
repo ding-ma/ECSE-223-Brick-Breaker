@@ -6,7 +6,6 @@ import ca.mcgill.ecse223.block.model.*;
 import ca.mcgill.ecse223.block.model.PlayedGame.PlayStatus;
 import ca.mcgill.ecse223.block.persistence.Block223Persistence;
 import ca.mcgill.ecse223.block.view.Block223PlayModeInterface;
-import ca.mcgill.ecse223.block.view.PaddleUI;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,7 +13,6 @@ import java.util.List;
 
 public class Block223Controller implements Serializable {
 	private static Game game;
-	static PaddleUI paddle = new PaddleUI();
 
 	// ****************************
 	// Modifier methods
@@ -571,6 +569,7 @@ public class Block223Controller implements Serializable {
 	}
 
 	public static void publishGame() throws InvalidInputException {
+		Block223 block223 = Block223Application.getBlock223();
 		String error = "";
 		Game game = Block223Application.getCurrentGame();
 		if(game == null) {
@@ -593,6 +592,8 @@ public class Block223Controller implements Serializable {
 			throw new InvalidInputException(error);
 		}
 		game.setPublished(true);
+		Block223Persistence.save(block223);
+		
 	}
 
 	//Ding
@@ -645,7 +646,6 @@ public class Block223Controller implements Serializable {
 		if ((userRole instanceof Player) && (Block223Application.getCurrentPlayableGame().getPlayer() == null)) {
 			throw new InvalidInputException("Admin privileges are required to test a game.");
 		}
-		System.out.println("ok");
 
 		PlayedGame game = Block223Application.getCurrentPlayableGame();
 		
@@ -675,23 +675,46 @@ public class Block223Controller implements Serializable {
 
 	//Ding
 	public static void updatePaddlePosition(String userinputs) {
-		PlayedGame pgame = Block223Application.getCurrentPlayableGame();
-		double currentPaddleLength = pgame.getCurrentPaddleLength();
-		double currentPaddleX = pgame.getCurrentPaddleX();
-		for (int i = 0; i < userinputs.length(); i++) {
-			if (userinputs.charAt(i) == 'l') {
-				Left(pgame);
+		PlayedGame game = Block223Application.getCurrentPlayableGame();
+		String strArray[] = userinputs.split("");
+
+		for (String s : strArray)
+		{
+			//current paddle x position
+			double curPaddleX = Block223Application.getCurrentPlayableGame().getCurrentPaddleX();
+
+			//paddle length for constraint
+			double curPaddleLength = Block223Application.getCurrentPlayableGame().getCurrentPaddleLength();
+
+			if (s.equals("l"))				
+			{
+				if(curPaddleX > 0){
+					if(curPaddleX + PlayedGame.PADDLE_MOVE_LEFT > 0) {
+						game.setCurrentPaddleX(game.getCurrentPaddleX() + PlayedGame.PADDLE_MOVE_LEFT);
+					}else {
+						game.setCurrentPaddleX(0);
+					}
+				}
 			}
-			if (userinputs.charAt(i) == 'r') {
-				Right(pgame);
+			else if (s.equals("r"))
+			{
+
+				if(curPaddleX < Game.PLAY_AREA_SIDE-curPaddleLength) {
+					if(curPaddleX + PlayedGame.PADDLE_MOVE_RIGHT < Game.PLAY_AREA_SIDE-curPaddleLength) {
+						game.setCurrentPaddleX(game.getCurrentPaddleX() + PlayedGame.PADDLE_MOVE_RIGHT);
+					}else {
+						game.setCurrentPaddleX(Game.PLAY_AREA_SIDE-curPaddleLength);
+					}
+				}
 			}
-			if (userinputs.charAt(i) == ' ') {
+			else if (s.equals(" "))
+			{
 				break;
 			}
 		}
 	}
 
-	private static void Left(PlayedGame pgame) {
+	/*private static void Left(PlayedGame pgame) {
 		double left = PlayedGame.PADDLE_MOVE_LEFT;
 		paddle.addVelocity(left, 0);
 		double currentPaddleX = pgame.getCurrentPaddleX();
@@ -701,11 +724,12 @@ public class Block223Controller implements Serializable {
 
 	private static void Right(PlayedGame pgame) {
 		double right = PlayedGame.PADDLE_MOVE_RIGHT;
+		paddle.addVelocity(right, 0);
 		double currentPaddleX = pgame.getCurrentPaddleX();
 		double currentPaddleLength = pgame.getCurrentPaddleLength();
 		if (Game.PLAY_AREA_SIDE - currentPaddleLength > currentPaddleX)
 			pgame.setCurrentPaddleX(pgame.getCurrentPaddleX() + right);
-	}
+	}*/
 
 	// ****************************
 	// Query methods
@@ -864,6 +888,7 @@ public class Block223Controller implements Serializable {
 	// play mode
 	//Ding
 	public static List<TOPlayableGame> getPlayableGames() throws InvalidInputException {
+
 		String error;
 		UserRole userRole = Block223Application.getCurrentUserRole();
 		if (userRole instanceof Admin) {
@@ -875,10 +900,13 @@ public class Block223Controller implements Serializable {
 		List<Game> games = block223.getGames();
 		for (Game agame : games) {
 			if (agame.isPublished()) {
+				
+
 				TOPlayableGame to = new TOPlayableGame(agame.getName(), -1, 0);
 				result.add(to);
 			}
 		}
+
 		List<PlayedGame> played = player.getPlayedGames();
 		for (PlayedGame agame : played) {
 			TOPlayableGame to = new TOPlayableGame(agame.getGame().getName(), agame.getId(), agame.getCurrentLevel());

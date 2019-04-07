@@ -2,6 +2,7 @@ package ca.mcgill.ecse223.block.view;
 
 import ca.mcgill.ecse223.block.controller.Block223Controller;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
+import ca.mcgill.ecse223.block.controller.TOGame;
 import ca.mcgill.ecse223.block.controller.TOPlayableGame;
 
 import javax.swing.*;
@@ -12,18 +13,19 @@ import java.util.HashMap;
 
 public class PlayGame {
 	private String error = null;
-	private HashMap<Integer,String> availableGames;
+	private static HashMap<Integer,String> availableGames;
 	private JLabel errorMessage;
 	private JButton playGame ;
 	private JButton restartGame;
-	private JComboBox <String> availableGamesList ;
+	private static JComboBox <String> availableGamesList ;
 	private JComboBox <String> pausedGameList;
 	private JLabel availableGamesLablel ;
 	private JLabel gameScreen ;
 	private JLabel selectGame;
-
+	private JFrame frame;
+	
     public void PlayGameScreen() {
-    	 JFrame frame = new JFrame();
+    	 frame = new JFrame();
 
  		errorMessage = new JLabel();
  		playGame = new JButton();
@@ -48,16 +50,19 @@ public class PlayGame {
     		
     	    availableGames = new HashMap<Integer, String>();
     	    availableGamesList.removeAllItems();
+    	    /*availableGames.put(0, "trial");
+    	    availableGamesList.addItem("trial");*/
     		Integer index = 0;
 		try {
 			for (TOPlayableGame game : Block223Controller.getPlayableGames()) {
 				availableGames.put(index, game.getName());
-				availableGamesList.addItem("name" + game.getName());
+				availableGamesList.addItem("" + game.getName());
 				index ++;
 			}
 		} catch (InvalidInputException e) {
 			e.printStackTrace();
 		}
+		
 
         //first button:
 
@@ -66,10 +71,25 @@ public class PlayGame {
     	    playGame.addActionListener(new ActionListener() {
     	        @Override
     	        public void actionPerformed(ActionEvent e) {
+    	        	int selectedGame = availableGamesList.getSelectedIndex();
+    	    		if (selectedGame < 0) {
+    	    			System.out.println("A game needs to be selected for publication!");
+    	        }
+                    new PlayScreen();
+
+    	      
+    	        	String name = (String) availableGames.get(selectedGame);
+    	    		try {
+						Block223Controller.selectPlayableGame(name, selectedGame);
+
+					} catch (InvalidInputException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
 
                     //load the game at the level that the player last played it at -> 1 if they never played it before
-                    PlayScreen PS = new PlayScreen();
-                    PS.PlayScreen();
+                    //PS.PlayScreen();
 
     	        }
     	    });

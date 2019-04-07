@@ -17,7 +17,7 @@ public class PlayListener implements KeyListener{
 		 int paddleXPosition = 10;
 		 int paddleYPosition = 360;
 		 
-		 private PaddleUI paddle = new PaddleUI();
+		 private PlayUI paddle = new PlayUI();
 		 PlayScreen ps = new PlayScreen();
 
 		@Override
@@ -31,7 +31,6 @@ public class PlayListener implements KeyListener{
 
 		private synchronized String keyInputs(KeyEvent e) throws InvalidInputException {
 			int location = e.getKeyCode();
-			PaddleUI paddle = ps.getPaddle();
 			if (location == KeyEvent.VK_LEFT) {
 				keyString += "l";
 				
