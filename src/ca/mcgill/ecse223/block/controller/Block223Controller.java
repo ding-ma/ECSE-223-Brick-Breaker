@@ -10,6 +10,7 @@ import ca.mcgill.ecse223.block.view.Block223PlayModeInterface;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class Block223Controller implements Serializable {
 	private static Game game;
@@ -645,17 +646,36 @@ public class Block223Controller implements Serializable {
 		PlayedGame game = Block223Application.getCurrentPlayableGame();
 		game.play();
 		ui.takeInputs();
-		while (game.getPlayStatus() == PlayStatus.Moving) {
+		while (game.getPlayStatus() == PlayStatus.Moving) { 
 			String userInputs = ui.takeInputs();
+
 			updatePaddlePosition(userInputs);
 			game.move();
-			if (userInputs.contains(" ")) {
+
+			if (userInputs.contains(" ")) { // userInputs.contains("") && game.getPlayStatus() == PlayStatus.Paused
 				game.pause();
 			}
-			game.getWaitTime();
 
-			ui.refresh();
+			try {
+				//TimeUnit.MILLISECONDS.sleep((long) game.getWaitTime()); // waitTime
+				TimeUnit.MILLISECONDS.sleep(25);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+			ui.refresh(); 
 		}
+//		while (game.getPlayStatus() == PlayStatus.Moving) {
+//			String userInputs = ui.takeInputs();
+//			updatePaddlePosition(userInputs);
+//			game.move();
+//			if (userInputs.contains(" ")) {
+//				game.pause();
+//			}
+//			game.getWaitTime();
+//
+//			ui.refresh();
+//		}
 		if (game.getPlayStatus() == PlayStatus.GameOver) {
 			Block223Application.setCurrentPlayableGame(null);
 		} else if (game.getPlayer() != null) {
