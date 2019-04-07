@@ -1368,6 +1368,7 @@ public class PlayedGame implements Serializable
 		if(bp.hasHitBlock()) {
 			bounce.setHitBlock(null);
 		}
+		setBounce(null);
   }
 
 
