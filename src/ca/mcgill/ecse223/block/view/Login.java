@@ -193,6 +193,48 @@ public class Login extends JFrame {
 			if (error.equals("")) {
 				refreshUserData();
                 /*PlayScreen playScreen = new PlayScreen();
+<<<<<<< HEAD
+                playScreen.genUI()*/;
+            }
+        }
+        //means its admin
+        if(playerPass.equals("")){
+            try {
+                Block223Controller.login(userName, adminPass);
+            }
+            catch (InvalidInputException e1) {
+                error = e1.getMessage();
+            }
+            refreshData();
+            if (error.equals("")) {
+            	refreshUserData();
+                
+            }
+//            else{
+//                try {
+//                	error+="Player Cannot Login as Admin.";
+//                    throw new InvalidInputException("Player Cannot Login as Admin");
+//                    
+//                } catch (InvalidInputException e) {
+//                    e.printStackTrace();
+//                }
+//                refreshData();
+//            }
+        }
+       else{
+            try {
+            	error+="Please only enter 1 password when logging in.";
+                throw new InvalidInputException("Only enter 1 password");
+            } catch (InvalidInputException e) {
+                e.printStackTrace();
+            }
+            refreshData();
+        }
+    }
+	
+
+ }
+=======
                 playScreen.genUI()*/
 			}
 		}
@@ -228,3 +270,4 @@ public class Login extends JFrame {
 		}
 	}
 }
+>>>>>>> a24b13ec92c88b2775267b4895c09ab3dfcafeb9
