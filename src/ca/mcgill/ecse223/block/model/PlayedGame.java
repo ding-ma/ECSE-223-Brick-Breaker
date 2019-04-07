@@ -1220,13 +1220,13 @@ public class PlayedGame implements Serializable
 			   }
 		   }//we now have the closest intersect point! So how do we flip?
 		   
-		   if(closestPoint.getX()==ballPath.getX2() && closestPoint.getY()==ballPath.getY2()) {
+		   if(closestPoint.getX()>ballPath.getX2() && closestPoint.getY()>ballPath.getY2()) {
 			   //If the bouncepoint is exactly the endpoint of the ball's trajectory
 			   //ABORT: DO NOT BOUNCE
 			   return null;
 		   }
 		   
-		   if(closestPoint.getX()<aBlock.getX()) {//BP left of block origin corner
+		   if(closestPoint.getX()<=aBlock.getX()) {//BP left of block origin corner
 			   if(ballDirectionX<=0) {//traveling from right
 				   //FLIP_Y
 				   BouncePoint finalBP = new BouncePoint(closestPoint.getX(),closestPoint.getY(),BouncePoint.BounceDirection.FLIP_Y);
@@ -1372,11 +1372,11 @@ public class PlayedGame implements Serializable
 
   private List<Point2D> getIntersectionPoints(Line2D a, double x, double y, double r){
 	  List<Point2D> list = new ArrayList<Point2D>();
-	  double m = slope(a);
+	  Double m = slope(a);
 	  double x1 = a.getX1();
 	  double y1 = a.getY1();
 	  
-	  if(m == (Double)null) {
+	  if(m == null) {
 		  List<Double> yValues = new ArrayList<Double>();
 		  double radicand = r*r - (x1-x)*(x1-x);
 		  if(radicand >= 0) {
@@ -1409,7 +1409,7 @@ public class PlayedGame implements Serializable
 	
   }
 
-private double slope(Line2D a) {
+private Double slope(Line2D a) {
 	if (Math.abs(a.getX1() - a.getX2()) > 0.0001) {
 		return (a.getY1() - a.getY2())/(a.getX1() - a.getX2());
 	} else {
