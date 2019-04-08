@@ -10,6 +10,7 @@ import ca.mcgill.ecse223.block.view.Block223PlayModeInterface;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class Block223Controller implements Serializable {
 	private static Game game;
@@ -160,6 +161,9 @@ public class Block223Controller implements Serializable {
 		if (userRole instanceof Player || userRole == null) {
 			error = "Admin privileges are required to define game settings.";
 			throw new InvalidInputException(error);
+		}
+		if (minBallSpeedX <= 0 || minBallSpeedY <= 0) {
+			throw new InvalidInputException ("The minimum speed of the ball must be greater than zero.");
 		}
 		Game game = Block223Application.getCurrentGame();
 		if (game == null) {
@@ -436,7 +440,7 @@ public class Block223Controller implements Serializable {
 		if (position != null) {
 			position.delete();
 		}
-		//Block223Persistence.save(Block223Application.getBlock223());
+		Block223Persistence.save(Block223Application.getBlock223());
 	}
 	//Mairead
 	public static void saveGame() throws InvalidInputException {
@@ -565,7 +569,7 @@ public class Block223Controller implements Serializable {
 		PlayedGame pgame = new PlayedGame(username, game, block223);
 		pgame.setPlayer(null);
 		Block223Application.setCurrentPlayableGame(pgame);
-		startGame(ui);
+		//startGame(ui);
 	}
 
 	public static void publishGame() throws InvalidInputException {
@@ -645,17 +649,25 @@ public class Block223Controller implements Serializable {
 		PlayedGame game = Block223Application.getCurrentPlayableGame();
 		game.play();
 		ui.takeInputs();
-		while (game.getPlayStatus() == PlayStatus.Moving) {
+		while (game.getPlayStatus() == PlayStatus.Moving) { 
 			String userInputs = ui.takeInputs();
+
 			updatePaddlePosition(userInputs);
 			game.move();
-			if (userInputs.contains(" ")) {
+
+			if (userInputs.contains(" ")) { 
 				game.pause();
 			}
-			game.getWaitTime();
 
-			ui.refresh();
+			try {
+				TimeUnit.MILLISECONDS.sleep(25);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+			ui.refresh(); 
 		}
+
 		if (game.getPlayStatus() == PlayStatus.GameOver) {
 			Block223Application.setCurrentPlayableGame(null);
 		} else if (game.getPlayer() != null) {
@@ -665,18 +677,43 @@ public class Block223Controller implements Serializable {
 	}
 
 	//Ding
-	public static void updatePaddlePosition(String userinputs) {
-		PlayedGame pgame = Block223Application.getCurrentPlayableGame();
-		double currentPaddleLength = pgame.getCurrentPaddleLength();
-		double currentPaddleX = pgame.getCurrentPaddleX();
-		for (int i = 0; i < userinputs.length(); i++) {
-			if (userinputs.charAt(i) == 'l') {
-				Left(pgame);
+	private static void updatePaddlePosition(String userInputs) {
+
+
+		PlayedGame game = Block223Application.getCurrentPlayableGame();
+		String strArray[] = userInputs.split("");
+
+		for (String s : strArray)
+		{
+			//current paddle x position
+			double curPaddleX = Block223Application.getCurrentPlayableGame().getCurrentPaddleX();
+
+			//paddle length for constraint
+			double curPaddleLength = Block223Application.getCurrentPlayableGame().getCurrentPaddleLength();
+
+			if (s.equals("l"))				
+			{
+				if(curPaddleX > 0){
+					if(curPaddleX + PlayedGame.PADDLE_MOVE_LEFT > 0) {
+						game.setCurrentPaddleX(game.getCurrentPaddleX() + PlayedGame.PADDLE_MOVE_LEFT);
+					}else {
+						game.setCurrentPaddleX(0);
+					}
+				}
 			}
-			if (userinputs.charAt(i) == 'r') {
-				Right(pgame);
+			else if (s.equals("r"))
+			{
+
+				if(curPaddleX < Game.PLAY_AREA_SIDE-curPaddleLength) {
+					if(curPaddleX + PlayedGame.PADDLE_MOVE_RIGHT < Game.PLAY_AREA_SIDE-curPaddleLength) {
+						game.setCurrentPaddleX(game.getCurrentPaddleX() + PlayedGame.PADDLE_MOVE_RIGHT);
+					}else {
+						game.setCurrentPaddleX(Game.PLAY_AREA_SIDE-curPaddleLength);
+					}
+				}
 			}
-			if (userinputs.charAt(i) == ' ') {
+			else if (s.equals(" "))
+			{
 				break;
 			}
 		}
@@ -914,8 +951,11 @@ public class Block223Controller implements Serializable {
 		return result;
 
 	}
-
+	
+	
+//Mert - fixed by Mairead
 	public static TOHallOfFame getHallOfFame(int start, int end) throws InvalidInputException {
+<<<<<<< HEAD
 		String ErrorMessage;
 		TOHallOfFame result;
 		UserRole currentUserRole = Block223Application.getCurrentUserRole();
@@ -955,10 +995,38 @@ public class Block223Controller implements Serializable {
 			}
 		}catch(NullPointerException e) {
 			throw new InvalidInputException(e.getMessage());
+=======
+		String error = "";
+		UserRole userRole = Block223Application.getCurrentUserRole();
+		if(!(userRole instanceof Player)) {
+			error = "Player privileges are required to access a game's hall of fame.";
+			throw new InvalidInputException(error.trim());
+		}
+		PlayedGame pgame = Block223Application.getCurrentPlayableGame();
+		if(pgame == null) {
+			error = "A game must be selected to view its hall of fame.";
+			throw new InvalidInputException(error.trim());
+		}
+		Game game = pgame.getGame();
+		TOHallOfFame result = new TOHallOfFame(game.getName());
+
+		if(start < 1) {
+			start = 1;
+		}
+		if(end > game.numberOfHallOfFameEntries()) {
+			end = game.numberOfHallOfFameEntries();
+		}
+		start = game.numberOfHallOfFameEntries() - start;
+		end = game.numberOfHallOfFameEntries() - end;
+
+		for(int i = start; i >= end; i--) {
+			new TOHallOfFameEntry(i + 1, game.getHallOfFameEntry(i).getPlayername(), game. getHallOfFameEntry(i).getScore(), result);
+>>>>>>> 6b7c9fc86334abe162e9b97a46f77a108dfec699
 		}
 		return result;
 	}
 
+<<<<<<< HEAD
 
 	public static TOHallOfFame getHallOfFameWithMostRecentEntry(int numberOfEntries) throws InvalidInputException {
 		String ErrorMessage;
@@ -1010,4 +1078,38 @@ public class Block223Controller implements Serializable {
 		}
 		return result;
 	}
+=======
+//Mert - Fixed by Mairead
+	public static TOHallOfFame getHallOfFameWithMostRecentEntry(int numberOfEntries) throws InvalidInputException {
+		String error = "";
+		UserRole userRole = Block223Application.getCurrentUserRole();
+		if(!(userRole instanceof Player)) {
+			error = "Player privileges are required to access a game's hall of fame.";
+			throw new InvalidInputException(error.trim());
+		}
+		PlayedGame pgame = Block223Application.getCurrentPlayableGame();
+		if(pgame == null) {
+			error = "A game must be selected to view its hall of fame.";
+			throw new InvalidInputException(error.trim());
+		}
+		Game game = pgame.getGame();
+		//add
+		TOHallOfFame result = new TOHallOfFame(game.getName());
+		HallOfFameEntry recent = game.getMostRecentEntry();
+		int indexR = game.indexOfHallOfFameEntry(recent);
+		int start = indexR + numberOfEntries/2;
+		if(start > game.numberOfHallOfFameEntries() - 1) {
+			start = game.numberOfHallOfFameEntries() - 1;
+		}
+		int end = start - numberOfEntries + 1;
+		if(end < 0) {
+			end = 0;
+		}
+		for(int i = start; i >= end; i--) {
+			new TOHallOfFameEntry(i + 1, game.getHallOfFameEntry(i).getPlayername(), game. getHallOfFameEntry(i).getScore(), result);
+		}
+		return result;
+	}
+
+>>>>>>> 6b7c9fc86334abe162e9b97a46f77a108dfec699
 }

@@ -11,6 +11,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class AddBlock {
+	
 
 
 	private String error = null;
@@ -71,6 +72,18 @@ public class AddBlock {
 
 		CreateButton.setBounds(120,200,200,50);
 		CreateButton.setText("Create Block");
+		
+		previewBlock.setBounds(120,250,200,50);
+		previewBlock.setText("Preview Block");
+
+		previewBlock.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				previewBlockButtonActionPerformed(evt);
+			}
+		});
+
+		
+		
 
 		previewBlock.setBounds(120, 250, 200, 50);
 		previewBlock.setText("Preview Block");
@@ -160,7 +173,6 @@ public class AddBlock {
 		frame.getContentPane().setBackground(Color.LIGHT_GRAY);
 		frame.setLayout(null);
 		frame.setVisible(true);
-
 		CreateButton.setBounds(120,200,200,50);
 		CreateButton.setText("Create Block");
 

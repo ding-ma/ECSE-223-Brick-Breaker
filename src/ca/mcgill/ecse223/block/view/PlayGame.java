@@ -1,8 +1,11 @@
 package ca.mcgill.ecse223.block.view;
 
+import ca.mcgill.ecse223.block.application.Block223Application;
 import ca.mcgill.ecse223.block.controller.Block223Controller;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import ca.mcgill.ecse223.block.controller.TOPlayableGame;
+import ca.mcgill.ecse223.block.model.PlayedGame;
+import ca.mcgill.ecse223.block.model.Player;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +18,6 @@ public class PlayGame {
 	private HashMap<Integer,String> availableGames;
 	private JLabel errorMessage;
 	private JButton playGame ;
-	private JButton restartGame;
 	private JComboBox <String> availableGamesList ;
 	private JComboBox <String> pausedGameList;
 	private JLabel availableGamesLablel ;
@@ -27,16 +29,15 @@ public class PlayGame {
 
  		errorMessage = new JLabel();
  		playGame = new JButton();
- 		restartGame = new JButton();
 		availableGamesList = new JComboBox<String>();
  		availableGamesLablel = new JLabel();
  		gameScreen = new JLabel();
  		selectGame = new JLabel();
 
  		gameScreen.setText("Welcome to Block223!");
- 		gameScreen.setBounds(170, 0, 200, 50);
+ 		gameScreen.setBounds(160, 0, 200, 50);
  		selectGame.setText("Select Game from menu below and press play to begin!");
- 		selectGame.setBounds(50, 40, 400, 400);
+ 		selectGame.setBounds(60, 50, 390, 20);
 
  		availableGamesList.setBounds(125,150,200,50);
     	    
@@ -45,46 +46,60 @@ public class PlayGame {
     		errorMessage.setForeground(Color.RED);
     		errorMessage.setBounds(125, 250, 200, 200);
     		
-    		
+    		Player player = (Player) Block223Application.getCurrentUserRole();
     	    availableGames = new HashMap<Integer, String>();
     	    availableGamesList.removeAllItems();
     		Integer index = 0;
 		try {
 			for (TOPlayableGame game : Block223Controller.getPlayableGames()) {
 				availableGames.put(index, game.getName());
-				availableGamesList.addItem("name" + game.getName());
+				availableGamesList.addItem(game.getName());
 				index ++;
+			}
+			for (PlayedGame pGame : player.getPlayedGames()) {
+				availableGamesList.removeItem(pGame.getGame().getName());
 			}
 		} catch (InvalidInputException e) {
 			e.printStackTrace();
 		}
 
+		
         //first button:
 
     	    playGame.setText("Play");
-    	    playGame.setBounds(75, 80, 200, 50);
+    	    playGame.setBounds(100, 200, 200, 50);
     	    playGame.addActionListener(new ActionListener() {
     	        @Override
     	        public void actionPerformed(ActionEvent e) {
-
+    	        	GameScreen.testFlag = false;
+    	        	String name = (String) availableGamesList.getSelectedItem();
                     //load the game at the level that the player last played it at -> 1 if they never played it before
-                    PlayScreen PS = new PlayScreen();
-                    PS.PlayScreen();
+    	        	try {
+						Block223Controller.selectPlayableGame(name, -1);
+						frame.dispose();
+						 PlayScreen PS = new PlayScreen();
+		                    PS.PlayScreen();
+					} catch (InvalidInputException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+                   
 
     	        }
     	    });
 
-        restartGame.setText("Restart");
-        restartGame.setBounds(150, 80, 200, 50);
-        restartGame.addActionListener(new ActionListener() {
-    	        @Override
-    	        public void actionPerformed(ActionEvent e) {
-                    //load the game at the level 1
-
-    	            System.out.println("ok");
-
-    	        }
-    	    });
+        
+        //logout
+        JButton logout = new JButton();
+		logout.setBounds(100,300,200,50);
+		logout.setText("Logout");
+		
+		logout.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				Block223Controller.logout();
+				frame.dispose();
+			}
+		});
     	    
     	   
 				
@@ -101,6 +116,7 @@ public class PlayGame {
     		frame.add(availableGamesLablel);
     		frame.add(gameScreen);
     		frame.add(selectGame);
+    		frame.add(logout);
     		
     		
     		

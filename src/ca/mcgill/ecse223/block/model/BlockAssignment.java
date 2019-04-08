@@ -28,14 +28,16 @@ public class BlockAssignment implements Serializable
 
   public BlockAssignment(int aGridHorizontalPosition, int aGridVerticalPosition, Level aLevel, Block aBlock, Game aGame)
   {
-    // line 204 "../../../../../Block223 v3.ump"
-    int maxNumberHorizontalBlocks = (390 - 2 * 5) / Block.SIZE;
+     // line 204 "../../../../../Block223 v3.ump"
+    int maxNumberHorizontalBlocks = 15;
+            //(390 - 2 * 5) / Block.SIZE;
           if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > maxNumberHorizontalBlocks){
           throw new RuntimeException("The horizontal position must be between 1 and " + maxNumberHorizontalBlocks +".");
           }
     // END OF UMPLE BEFORE INJECTION
     // line 210 "../../../../../Block223 v3.ump"
-    int maxNumberVerticalBlocks = (390 - 2 * 3) / Block.SIZE;
+    int maxNumberVerticalBlocks = 15;
+            //(390 - 2 * 3) / Block.SIZE;
           if (aGridVerticalPosition <= 0 || aGridVerticalPosition > maxNumberVerticalBlocks){
           throw new RuntimeException("The vertical position must be between 1 and " + maxNumberVerticalBlocks +".");
           }
