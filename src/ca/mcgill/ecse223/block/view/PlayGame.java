@@ -21,34 +21,46 @@ public class PlayGame {
 	private JLabel availableGamesLablel ;
 	private JLabel gameScreen ;
 	private JLabel selectGame;
-
-    public void PlayGameScreen() {
-    	 JFrame frame = new JFrame();
-
- 		errorMessage = new JLabel();
- 		playGame = new JButton();
- 		restartGame = new JButton();
+	private JButton logout;
+	public void PlayGameScreen() {
+		JFrame frame = new JFrame();
+		logout = new JButton();
+		logout.setText("Logout");
+		logout.setBounds(0,0,75,20);
+		logout.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Block223Controller.logout();
+				frame.dispose();
+			}
+		});
+		logout.setVisible(true);
+		frame.add(logout);
+		
+		errorMessage = new JLabel();
+		playGame = new JButton();
+		restartGame = new JButton();
 		availableGamesList = new JComboBox<String>();
- 		availableGamesLablel = new JLabel();
- 		gameScreen = new JLabel();
- 		selectGame = new JLabel();
-
- 		gameScreen.setText("Welcome to Block223!");
- 		gameScreen.setBounds(170, 0, 200, 50);
- 		selectGame.setText("Select Game from menu below and press play to begin!");
- 		selectGame.setBounds(50, 40, 400, 400);
-
- 		availableGamesList.setBounds(125,150,200,50);
-    	    
- 
-    	    errorMessage = new JLabel();
-    		errorMessage.setForeground(Color.RED);
-    		errorMessage.setBounds(125, 250, 200, 200);
-    		
-    		
-    	    availableGames = new HashMap<Integer, String>();
-    	    availableGamesList.removeAllItems();
-    		Integer index = 0;
+		availableGamesLablel = new JLabel();
+		gameScreen = new JLabel();
+		selectGame = new JLabel();
+		
+		gameScreen.setText("Welcome to Block223!");
+		gameScreen.setBounds(170, 0, 200, 50);
+		selectGame.setText("Select Game from menu below and press play to begin!");
+		selectGame.setBounds(50, 40, 400, 400);
+		
+		availableGamesList.setBounds(125,150,200,50);
+		
+		
+		errorMessage = new JLabel();
+		errorMessage.setForeground(Color.RED);
+		errorMessage.setBounds(125, 250, 200, 200);
+		
+		
+		availableGames = new HashMap<Integer, String>();
+		availableGamesList.removeAllItems();
+		Integer index = 0;
 		try {
 			for (TOPlayableGame game : Block223Controller.getPlayableGames()) {
 				availableGames.put(index, game.getName());
@@ -58,64 +70,60 @@ public class PlayGame {
 		} catch (InvalidInputException e) {
 			e.printStackTrace();
 		}
-
-        //first button:
-
-    	    playGame.setText("Play");
-    	    playGame.setBounds(75, 80, 200, 50);
-    	    playGame.addActionListener(new ActionListener() {
-    	        @Override
-    	        
-    	        public void actionPerformed(ActionEvent e) {
-    	        	String name = (String) availableGamesList.getSelectedItem();
-                    //load the game at the level that the player last played it at -> 1 if they never played it before
-    	        	try {
-						Block223Controller.selectPlayableGame(name, -1);
-						 PlayScreen PS = new PlayScreen();
-		                    PS.PlayScreen();
-					} catch (InvalidInputException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-                   
-
-    	        }
-    	    });
-
-        restartGame.setText("Restart");
-        restartGame.setBounds(150, 80, 200, 50);
-        restartGame.addActionListener(new ActionListener() {
-    	        @Override
-    	        public void actionPerformed(ActionEvent e) {
-                    //load the game at the level 1
-
-    	            System.out.println("ok");
-
-    	        }
-    	    });
-    	    
-    	   
+		
+		//first button:
+		
+		playGame.setText("Play");
+		playGame.setBounds(75, 80, 200, 50);
+		playGame.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
 				
-    		frame.setSize(450, 450);
-    	    frame.setLayout(null);
-    	    frame.setVisible(true);
-    	    
-    	    errorMessage.setText(error);
-    		
-    		frame.add(errorMessage);
-    		frame.add(playGame);
-    		
-    		frame.add(availableGamesList);
-    		frame.add(availableGamesLablel);
-    		frame.add(gameScreen);
-    		frame.add(selectGame);
-    		
-    		
-    		
-    	  }
-
-
-
-
-}
+				String name = (String) availableGamesList.getSelectedItem();
+				try {
+					Block223Controller.selectPlayableGame(name, -1);
+					//load the game at the level that the player last played it at -> 1 if they never played it before
+					PlayScreen playMode = new PlayScreen();
+					playMode.PlayScreen();
+				} catch (InvalidInputException e1) {
+					e1.printStackTrace();
+				}
+				
+			}
+		});
+		
+		restartGame.setText("Restart");
+		restartGame.setBounds(150, 80, 200, 50);
+		restartGame.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//load the game at the level 1
+				
+				System.out.println("ok");
+				
+			}
+		});
+		
+		frame.setSize(450, 450);
+		frame.setLayout(null);
+		frame.setVisible(true);
+		
+		errorMessage.setText(error);
+		
+		frame.add(errorMessage);
+		frame.add(playGame);
+		
+		frame.add(availableGamesList);
+		frame.add(availableGamesLablel);
+		frame.add(gameScreen);
+		frame.add(selectGame);
+		
+		
+		
+		
+	}
 	
+	
+	
+	
+}
