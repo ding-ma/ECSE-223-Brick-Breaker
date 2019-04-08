@@ -1,13 +1,18 @@
 package ca.mcgill.ecse223.block.view;
 
 import ca.mcgill.ecse223.block.application.Block223Application;
+
 import ca.mcgill.ecse223.block.controller.Block223Controller;
+import ca.mcgill.ecse223.block.controller.TOHallOfFame;
+import ca.mcgill.ecse223.block.controller.TOHallOfFameEntry;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import ca.mcgill.ecse223.block.model.PlayedBlockAssignment;
 import ca.mcgill.ecse223.block.model.PlayedGame;
 import ca.mcgill.ecse223.block.model.PlayedGame.PlayStatus;
 import javafx.scene.shape.Circle;
+
 import ca.mcgill.ecse223.block.model.Block;
+import ca.mcgill.ecse223.block.model.HallOfFameEntry;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -34,24 +39,26 @@ public class PlayScreen extends JFrame implements Block223PlayModeInterface {
 	JTextArea pauseArea;
 	StartPauseListener sp;
 
+	public JTable hof_list;
 	public JLabel game_lives;
 	public JLabel game_level;
 	public JLabel game_score;
 	public JLabel game_over;
 
 	JTextArea gameArea;
-
+	JPanel hofPanel;
+	
 	private PlayObjects object = new PlayObjects();
 	private PlayModeListener bp;
 	public JButton startButton;
 
 	public void PlayScreen() {
-
 		setVisible(true);
 		setSize(390,390);
 		createAndShowGUI();
 	}
 	
+	//general screen
 	private void createAndShowGUI() {
 		this.setTitle("Play");
 		this.addComponentsToPane();
@@ -59,6 +66,7 @@ public class PlayScreen extends JFrame implements Block223PlayModeInterface {
 		this.setBackground(Color.RED);
 		this.pack();
 		this.setVisible(true);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
 	@Override
@@ -71,44 +79,104 @@ public class PlayScreen extends JFrame implements Block223PlayModeInterface {
 
 	@Override
 	public void refresh() {
+		if(Block223Application.getCurrentPlayableGame()!= null) {
+			if(Block223Application.getCurrentPlayableGame().getPlayStatus() == PlayStatus.Moving) {
+			List<HallOfFameEntry> entries = Block223Application.getCurrentPlayableGame().getGame().getHallOfFameEntries();
+			ArrayList<HallOfFameEntry> entry = new ArrayList<HallOfFameEntry>();
+			//List<HallOfFameEntry> entries =  Block223Application.getCurrentGame().getHallOfFameEntries();
+			for (HallOfFameEntry h : entries) {
+				entry.add(h);
+			}
+			sortEntries(entry);
+			for(int i = 0; i < entry.size(); i++) {
+				hof_list.setValueAt(entry.get(i).getPlayername(), i, 0);
+				hof_list.setValueAt(entry.get(i).getScore(), i, 1);
+			}	
+			}
+		}
+		//info on the side
 		if (Block223Application.getCurrentPlayableGame() != null) {
 			game_level.setText("Level: " + Block223Application.getCurrentPlayableGame().getCurrentLevel());
 			game_score.setText("Score: " +  Block223Application.getCurrentPlayableGame().getScore());
 			game_lives.setText("Lives Remaining: " + Block223Application.getCurrentPlayableGame().getLives());
-
-			if(Block223Application.getCurrentPlayableGame().getLives() != 0 && Block223Application.getCurrentPlayableGame().getPlayStatus() == PlayStatus.GameOver) {
-				game_over.setText("YOU WON");
-				game_over.setForeground(Color.GREEN);
-				startButton.setVisible(false);
-				startButton.setEnabled(false);
+			
+			if(Block223Application.getCurrentPlayableGame().getPlayStatus() == PlayStatus.Paused) {
+				startButton.setVisible(true);
 
 			}
+			
+			
+			//if player wins game - Mairead
+			if(Block223Application.getCurrentPlayableGame().getLives() != 0 && Block223Application.getCurrentPlayableGame().getPlayStatus() == PlayStatus.GameOver) {
+				this.dispose();		
+				if(GameScreen.testFlag == true) {
+					System.out.println("testing");
+					
+				}
+				else {
+				GameOver gs = new GameOver();
+				gs.GameOverWon();
+				}
+			}
+			//if player loses game - George
 			if (Block223Application.getCurrentPlayableGame().getLives() == 0) {
-				System.out.println("DONE");
-
-				game_over.setText("GAME OVER");
-				startButton.setVisible(false);
-				startButton.setEnabled(false);
-			} else {
+				this.dispose();
+				if(GameScreen.testFlag == true) {
+					System.out.println("testing");
+				}
+				else {
+				GameOver gs = new GameOver();
+				gs.GameOverLost();}
+			} 
+			//if player passes to the next level
+			if(Block223Application.getCurrentPlayableGame().getLives() != 0 && Block223Application.getCurrentPlayableGame().getPlayStatus() == PlayStatus.Ready) {
+				this.dispose();
+				System.out.println(Block223Application.getCurrentPlayableGame().getCurrentLevel());
+				//object.repaint();
+				PlayScreen ps = new PlayScreen();
+				ps.PlayScreen();
+			}
+			else {
 				object.repaint();
 			}
 
 		}
 	}
 	private void addComponentsToPane() {
+		
+		//hall of fame
+		hof_list = new JTable(31, 2);
+		hof_list.setBackground(Color.lightGray);
+		hof_list.setGridColor(Color.black);
+		JScrollPane table_pane = new JScrollPane(hof_list);
+		hof_list.setRowHeight(20);
+		hof_list.setEnabled(false);
+		hof_list.getColumnModel().getColumn(0).setHeaderValue("NAME");
+		hof_list.getColumnModel().getColumn(1).setHeaderValue("SCORE");
+		hofPanel = new JPanel();
+		hofPanel.setLayout(new BorderLayout());
+		hofPanel.setBackground(Color.LIGHT_GRAY);
+		hofPanel.setPreferredSize(new Dimension(300, 500));
+		hofPanel.setBorder(new EmptyBorder(10, 20, 10, 20));
+		hofPanel.setEnabled(false);
+		JLabel hof_text = new JLabel("Hall Of Fame: ");
+		hof_text.setFont(new Font("Verdana", 1, 15));
+		hofPanel.add(hof_text, BorderLayout.PAGE_START);
+		hofPanel.add(table_pane, BorderLayout.CENTER);
+
 
 		// Game area key listener
 		JPanel gameArea_panel = new JPanel();
 		gameArea_panel.setLayout(new BorderLayout());
 		gameArea_panel.setPreferredSize(new Dimension(FRAME_WIDTH, 100));
 
-		// Top bar
+		//Game set up - George
 		JPanel top_bar = new JPanel();
 		top_bar.setLayout(new BorderLayout());
 		top_bar.setPreferredSize(new Dimension(FRAME_WIDTH, 100));
 		top_bar.setBackground(Color.LIGHT_GRAY);
 		top_bar.setBorder(new EmptyBorder(10, 10, 10, 10));
-		JLabel welcome_text = new JLabel("WLECOME TO BLOCK223!");
+		JLabel welcome_text = new JLabel("WELCOME TO BLOCK223!");
 		game_over = new JLabel("");
 		game_over.setForeground(Color.red);
 		game_over.setFont(new Font("Verdana",1, 25));
@@ -129,7 +197,7 @@ public class PlayScreen extends JFrame implements Block223PlayModeInterface {
 		playingArea.setBackground(Color.GREEN);
 		playingArea.setPreferredSize(new Dimension(390, 390));
 
-		// Information Bar
+		// Information about the game so far - George and Ding
 		int font_size = 15;
 		PlayedGame curr_game = Block223Application.getCurrentPlayableGame();
 		JPanel information = new JPanel();
@@ -157,15 +225,15 @@ public class PlayScreen extends JFrame implements Block223PlayModeInterface {
 		information.add(information_panel, BorderLayout.CENTER);
 		information.add(back_btn, BorderLayout.PAGE_END);
 
-		// Bottom bar
-		JPanel bottom_bar = new JPanel();
-		bottom_bar.setPreferredSize(new Dimension(FRAME_WIDTH, 0));
-		bottom_bar.setBackground(Color.BLUE);
+		//scrollpane
+		JPanel bottom = new JPanel();
+		bottom.setPreferredSize(new Dimension(FRAME_WIDTH, 0));
+		bottom.setBackground(Color.BLUE);
 		gameArea = new JTextArea();
 		gameArea.setEditable(false);
 		JScrollPane scrollPane = new JScrollPane(object);
 		scrollPane.setPreferredSize(new Dimension(FRAME_WIDTH, 100));
-		bottom_bar.add(scrollPane);
+		bottom.add(scrollPane);
 
 		// Get Blocks Area
 		object = new PlayObjects();
@@ -177,16 +245,19 @@ public class PlayScreen extends JFrame implements Block223PlayModeInterface {
 		pauseArea = new JTextArea();
 		pauseArea.setEditable(false);
 		JScrollPane scrollPane2 = new JScrollPane(pauseArea);
-		bottom_bar.add(scrollPane2);
+		bottom.add(scrollPane2);
 
 		this.getContentPane().add(top_bar, BorderLayout.PAGE_START);
 		this.getContentPane().add(information, BorderLayout.CENTER);
 		this.getContentPane().add(playingArea, BorderLayout.WEST);
-		//this.getContentPane().add(hofArea, BorderLayout.EAST);
-		this.getContentPane().add(bottom_bar, BorderLayout.SOUTH);
+		//checks if game is tester or actually being played - Mairead
+		if(GameScreen.testFlag == false) {
+		this.getContentPane().add(hofPanel, BorderLayout.EAST);
+		}
+		this.getContentPane().add(bottom, BorderLayout.SOUTH);
 
 
-
+//Mairead
 		startButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				startButton.setVisible(false);
@@ -218,10 +289,10 @@ public class PlayScreen extends JFrame implements Block223PlayModeInterface {
 					@Override
 					public void run() {
 						try {
-
+							//Mairead (fix)
 							Block223Controller.startGame(PlayScreen.this);
-
 								pauseArea.requestFocus();
+								//Block223Application.getCurrentPlayableGame().pause();
 						} catch (InvalidInputException e) {
 						}
 					}
@@ -231,6 +302,7 @@ public class PlayScreen extends JFrame implements Block223PlayModeInterface {
 			}
 		});
 	}
+	//Mairead
 	private class StartPauseListener implements KeyListener {
 
 		@Override
@@ -240,7 +312,7 @@ public class PlayScreen extends JFrame implements Block223PlayModeInterface {
 		@Override
 		public void keyPressed(KeyEvent e) {
 			// TODO Auto-generated method stub
-			int code = e.getKeyCode();
+			/*int code = e.getKeyCode();
 			if(code == KeyEvent.VK_SPACE) {
 				Runnable r = new Runnable() {
 					@Override
@@ -248,8 +320,8 @@ public class PlayScreen extends JFrame implements Block223PlayModeInterface {
 						try {
 							gameArea.requestFocus();
 							Block223Controller.startGame(PlayScreen.this);
-							pauseArea.requestFocus();
-							System.out.println("run method");
+							System.out.println("pause space");
+							
 						} catch (InvalidInputException x) {
 						}
 
@@ -258,7 +330,7 @@ public class PlayScreen extends JFrame implements Block223PlayModeInterface {
 				};
 				Thread t = new Thread(r);
 				t.start();		
-			}	
+			}*/	
 		}
 
 		@Override
@@ -268,13 +340,44 @@ public class PlayScreen extends JFrame implements Block223PlayModeInterface {
 		}
 
 	}
+//Mairead - updated
 	public void backBtnActionPerformed(java.awt.event.ActionEvent evt) {
 		if(Block223Application.getCurrentPlayableGame() != null) {
 			Block223Application.getCurrentPlayableGame().pause();
+			this.dispose();
+			PlayGame pg = new PlayGame();
+					pg.PlayGameScreen();
 		}
 		if(Block223Application.getCurrentPlayableGame() == null) {
 		this.dispose();
 		}
+	}
+//Mairead
+	public void update(List<HallOfFameEntry> entry, int a, int b) {
+		HallOfFameEntry temp = entry.get(a);
+		HallOfFameEntry temp2 = entry.get(b);
+
+		entry.set(b, temp);
+		entry.set(a, temp2);
+	}
+//Mairead
+	public void sortEntries(List<HallOfFameEntry> entry) {
+		boolean complete = false;        
+		while (complete == false){
+			complete = true;     
+			for (int i = 0; i < entry.size()-1; i++) {
+				if (entry.get(i).getScore() < entry.get(i+1).getScore()) {
+					update(entry, i, i+1);
+					complete = false;  
+				}
+			}
+		}
+	}
+
+	@Override
+	public void endGame(int nrOfLives, TOHallOfFameEntry hof) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 

@@ -26,11 +26,10 @@ public class PlayObjects extends JPanel {
 	private List<Rectangle2D> blocks = new ArrayList<Rectangle2D>();
 	private Ellipse2D ball;
 	private Rectangle2D paddle;
-	private final int BLOCK_WIDTH = 20; // width of block
-	private final int BLOCK_HEIGHT = 20; // height of block
-	private final int BALL_DIAMETER = 10; // diameter of ball
-//	private final double CUR_PADDLE_WIDTH = Block223Application.getCurrentPlayableGame().getCurrentPaddleLength(); // paddle length
-	private final int PADDLE_HEIGHT = 5; // paddle height
+	private final int BLOCK_WIDTH = Block.SIZE; 
+	private final int BLOCK_HEIGHT = Block.SIZE;
+	private final int BALL_DIAMETER = 10; 
+	private final int PADDLE_HEIGHT = 5; 
 	
 	public PlayObjects() {
 		super();
@@ -48,7 +47,6 @@ public class PlayObjects extends JPanel {
 		
 		Graphics2D g2d = (Graphics2D) g.create();
 		
-		// Show the Blocks
 		List<PlayedBlockAssignment> block_list = Block223Application.getCurrentPlayableGame().getBlocks();
 		
 		for(int i=0; i < block_list.size(); i++) {
@@ -58,16 +56,13 @@ public class PlayObjects extends JPanel {
 			Block og_block = block_assignment.getBlock();
 			Color block_color = new Color(og_block.getRed(), og_block.getGreen(), og_block.getBlue());
 			Rectangle2D block = new Rectangle2D.Double(x, y, BLOCK_WIDTH, BLOCK_HEIGHT);
-//				
-//			Rectangle2D block = new Rectangle2D.Double(50, 50, 20, 20);
+				
+
 			g2d.setColor(block_color);
-//			g2d.setColor(Color.BLACK);
 			g2d.fill(block);
-//			g2d.setColor(Color.BLACK);
 			g2d.draw(block);
 	
-	}
-		
+	}	
 		// Paddle
 		Double paddleX = Block223Application.getCurrentPlayableGame().getCurrentPaddleX();
 		Double paddleY = Block223Application.getCurrentPlayableGame().getCurrentPaddleY();
@@ -76,10 +71,10 @@ public class PlayObjects extends JPanel {
 		g2d.setColor(Color.BLUE);		
 		g2d.draw(paddle);
 
-//		// Ball
+		// Ball
 		double ball_x = (this.getWidth()/2) - - (BALL_DIAMETER/2);
 		double ball_y = (this.getHeight()/2) - - (BALL_DIAMETER/2);
-//		
+		
 		try {
 			ball_x = Block223Application.getCurrentPlayableGame().getCurrentBallX();
 			ball_y = Block223Application.getCurrentPlayableGame().getCurrentBallY();
@@ -93,19 +88,17 @@ public class PlayObjects extends JPanel {
 		g2d.fill(ball);
 		g2d.setColor(Color.BLACK);
 		g2d.draw(ball);
-		
-		
-		
+				
 	}
 	
 	//public void setBlocks()
 	
 	@Override
 	public void paintComponent(Graphics g) {
-//		if (!(Block223Application.getCurrentPlayableGame() == null)) {
+		if (!(Block223Application.getCurrentPlayableGame() == null)) {
 			super.paintComponent(g);
 			doDrawing(g);
 		}
-//	}
+	}
 
 }
