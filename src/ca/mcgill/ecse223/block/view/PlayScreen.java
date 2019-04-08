@@ -28,46 +28,35 @@ public class PlayScreen extends JFrame implements Block223PlayModeInterface {
 	private final int FRAME_HEIGHT = 1000;
 	private final int PLAY_AREA_WIDTH = 390;
 	private final int PLAY_AREA_HEIGHT = 390;
-	//	public PlayObjects playObjects;
 	Graphics g;
 
-	//	public PlayScreen() {
-	//		createAndShowGUI();
-	//	}
-	public JLabel game_over;
+
 	JTextArea pauseArea;
 	StartPauseListener sp;
 
 	public JLabel game_lives;
 	public JLabel game_level;
 	public JLabel game_score;
-	//	public JLabel game_multiplier;
+	public JLabel game_over;
 
 	JTextArea gameArea;
-	private JFrame frame = new JFrame();
+
 	private PlayObjects object = new PlayObjects();
 	private PlayModeListener bp;
 	public JButton startButton;
 
 	public void PlayScreen() {
 
-		//	add(object);
 		setVisible(true);
 		setSize(390,390);
 		createAndShowGUI();
 	}
 	
 	private void createAndShowGUI() {
-		// Create and set up the window.
-		this.setTitle("Block223 Play Mode");
+		this.setTitle("Play");
 		this.addComponentsToPane();
 		this.setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
 		this.setBackground(Color.RED);
-	
-		//	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		// Add components to window pane
-		// Display the window.
 		this.pack();
 		this.setVisible(true);
 	}
@@ -88,7 +77,7 @@ public class PlayScreen extends JFrame implements Block223PlayModeInterface {
 			game_lives.setText("Lives Remaining: " + Block223Application.getCurrentPlayableGame().getLives());
 
 			if(Block223Application.getCurrentPlayableGame().getLives() != 0 && Block223Application.getCurrentPlayableGame().getPlayStatus() == PlayStatus.GameOver) {
-				game_over.setText("GAME WON");
+				game_over.setText("YOU WON");
 				game_over.setForeground(Color.GREEN);
 				startButton.setVisible(false);
 				startButton.setEnabled(false);
@@ -280,7 +269,12 @@ public class PlayScreen extends JFrame implements Block223PlayModeInterface {
 
 	}
 	public void backBtnActionPerformed(java.awt.event.ActionEvent evt) {
+		if(Block223Application.getCurrentPlayableGame() != null) {
+			Block223Application.getCurrentPlayableGame().pause();
+		}
+		if(Block223Application.getCurrentPlayableGame() == null) {
 		this.dispose();
+		}
 	}
 }
 

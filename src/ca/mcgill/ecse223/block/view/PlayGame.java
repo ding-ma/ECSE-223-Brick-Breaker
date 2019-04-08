@@ -52,7 +52,7 @@ public class PlayGame {
 		try {
 			for (TOPlayableGame game : Block223Controller.getPlayableGames()) {
 				availableGames.put(index, game.getName());
-				availableGamesList.addItem("name" + game.getName());
+				availableGamesList.addItem(game.getName());
 				index ++;
 			}
 		} catch (InvalidInputException e) {
@@ -65,11 +65,19 @@ public class PlayGame {
     	    playGame.setBounds(75, 80, 200, 50);
     	    playGame.addActionListener(new ActionListener() {
     	        @Override
+    	        
     	        public void actionPerformed(ActionEvent e) {
-
+    	        	String name = (String) availableGamesList.getSelectedItem();
                     //load the game at the level that the player last played it at -> 1 if they never played it before
-                    PlayScreen PS = new PlayScreen();
-                    PS.PlayScreen();
+    	        	try {
+						Block223Controller.selectPlayableGame(name, -1);
+						 PlayScreen PS = new PlayScreen();
+		                    PS.PlayScreen();
+					} catch (InvalidInputException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+                   
 
     	        }
     	    });
