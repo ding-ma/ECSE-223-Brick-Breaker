@@ -652,12 +652,11 @@ public class Block223Controller implements Serializable {
 			updatePaddlePosition(userInputs);
 			game.move();
 
-			if (userInputs.contains(" ")) { // userInputs.contains("") && game.getPlayStatus() == PlayStatus.Paused
+			if (userInputs.contains(" ")) { 
 				game.pause();
 			}
 
 			try {
-				//TimeUnit.MILLISECONDS.sleep((long) game.getWaitTime()); // waitTime
 				TimeUnit.MILLISECONDS.sleep(25);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -665,17 +664,7 @@ public class Block223Controller implements Serializable {
 			
 			ui.refresh(); 
 		}
-//		while (game.getPlayStatus() == PlayStatus.Moving) {
-//			String userInputs = ui.takeInputs();
-//			updatePaddlePosition(userInputs);
-//			game.move();
-//			if (userInputs.contains(" ")) {
-//				game.pause();
-//			}
-//			game.getWaitTime();
-//
-//			ui.refresh();
-//		}
+
 		if (game.getPlayStatus() == PlayStatus.GameOver) {
 			Block223Application.setCurrentPlayableGame(null);
 		} else if (game.getPlayer() != null) {
@@ -726,22 +715,6 @@ public class Block223Controller implements Serializable {
 			}
 		}
 	}
-//	public static void updatePaddlePosition(String userinputs) {
-//		PlayedGame pgame = Block223Application.getCurrentPlayableGame();
-//		double currentPaddleLength = pgame.getCurrentPaddleLength();
-//		double currentPaddleX = pgame.getCurrentPaddleX();
-//		for (int i = 0; i < userinputs.length(); i++) {
-//			if (userinputs.charAt(i) == 'l') {
-//				Left(pgame);
-//			}
-//			if (userinputs.charAt(i) == 'r') {
-//				Right(pgame);
-//			}
-//			if (userinputs.charAt(i) == ' ') {
-//				break;
-//			}
-//		}
-//	}
 
 	private static void Left(PlayedGame pgame) {
 		double left = PlayedGame.PADDLE_MOVE_LEFT;
