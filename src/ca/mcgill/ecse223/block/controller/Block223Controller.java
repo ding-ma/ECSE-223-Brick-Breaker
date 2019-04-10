@@ -162,7 +162,7 @@ public class Block223Controller implements Serializable {
 			error = "Admin privileges are required to define game settings.";
 			throw new InvalidInputException(error);
 		}
-		if (minBallSpeedX <= 0 || minBallSpeedY <= 0) {
+		if (minBallSpeedX <= 0 && minBallSpeedY <= 0) {
 			throw new InvalidInputException ("The minimum speed of the ball must be greater than zero.");
 		}
 		Game game = Block223Application.getCurrentGame();
